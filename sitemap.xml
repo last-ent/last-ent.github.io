@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2019-08-12T18:23:00Z</lastmod>
+  <lastmod>2019-08-12T19:11:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
@@ -15,7 +15,7 @@
  </url>
  <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2019-08-12T18:45:00Z</lastmod>
+  <lastmod>2019-08-12T19:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
@@ -40,6 +40,14 @@
  <url>
   <loc>https://last-ent.com/listings/</loc>
   <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/pages/about/</loc>
+  <lastmod>2019-08-12T19:14:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/about/</loc>
+  <lastmod>2019-08-12T19:08:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/cats-effects-io/</loc>
