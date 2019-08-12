@@ -7,11 +7,11 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
   <loc>https://last-ent.com/categories/musings.xml</loc>
-  <lastmod>2019-08-12T18:30:00Z</lastmod>
+  <lastmod>2019-08-12T18:48:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/programming.xml</loc>
-  <lastmod>2019-08-12T18:45:00Z</lastmod>
+  <lastmod>2019-08-12T18:48:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/scala.xml</loc>
@@ -23,10 +23,10 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/rss.xml</loc>
-  <lastmod>2019-08-12T18:45:00Z</lastmod>
+  <lastmod>2019-08-12T18:48:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/sitemap.xml</loc>
-  <lastmod>2019-08-12T18:45:00Z</lastmod>
+  <lastmod>2019-08-12T18:48:00Z</lastmod>
  </sitemap>
 </sitemapindex>
