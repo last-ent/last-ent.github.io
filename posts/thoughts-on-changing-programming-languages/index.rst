@@ -1,7 +1,7 @@
 .. title: Thoughts on changing programming languages
 .. slug: thoughts-on-changing-programming-languages
 .. date: 2019-08-12 20:21:48 UTC+02:00
-.. tags: 
+.. tags: programming, musings
 .. category: 
 .. link: 
 .. description: 
