@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Mon, 12 Aug 2019 18:23:52 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Thoughts on changing programming languages</title><link>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;In general people like to say that one should not be bound to any particular language
+and instead should be able to switch languages as and when required. However it is also
+common to see that programmers, especially those with many years of experience, loathe
+this concept.&lt;/p&gt;
+&lt;p&gt;We tend to dismiss this by saying that they are set in their ways and that they are being stubborn
+&amp;amp; don't want to make the effort. However that might not be true in all cases, what a younger developer
+tends to not understand is that a veteran developer has spent an insurmountable amount of time understanding
+and mastering their craft. They have gained command over their tools of trade that allows them to bend the world
+to their will. Indeed it is a frightening thought to ask someone to abandon their previous knowledge and start from
+the beginning because they will always be conscious of the vast disparity between their skills of the old and the
+skill level they have now.&lt;/p&gt;
+&lt;p&gt;To a developer who still hasn't learned more than a few techniques, this is of little consequence.
+However, this becomes a very painful handicap for those who lose a lot by making such a transition.&lt;/p&gt;
+&lt;p&gt;~ 5th May, 1:25AM&lt;/p&gt;&lt;/div&gt;</description><guid>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</guid><pubDate>Mon, 12 Aug 2019 18:21:48 GMT</pubDate></item></channel></rss>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+ <url>
+  <loc>https://last-ent.com/</loc>
+  <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/2019/</loc>
+  <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/archive.html</loc>
+  <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/categories/</loc>
+  <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/galleries/</loc>
+  <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/listings/</loc>
+  <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</loc>
+  <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+</urlset>

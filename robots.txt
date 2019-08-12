@@ -1,0 +1,4 @@
+Sitemap: https://last-ent.com/sitemapindex.xml
+
+User-Agent: *
+Host: last-ent.com
