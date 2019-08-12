@@ -11,7 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://last-ent.com/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/companies-devs-want-different-things/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/cats-effects-io/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -67,7 +67,23 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/companies-devs-want-different-things/" class="u-url">Companies &amp; Devs want different things</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/cats-effects-io/" class="u-url">Cats Effect's IO</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Ent
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/cats-effects-io/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-08-12T20:44:38+02:00" itemprop="datePublished" title="2019-08-12 20:44">2019-08-12 20:44</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<p>Cats Effect's Fibers/IOs run on a thread pool created over VM. They are essentially Green Threads that are created over the thread pool. Unlike async frameworks, IO.flatmaps does not include _asynchronous boundary. This means that essentially all of nested flatmaps are run within a single fiber. IO has mechanism to introduce asynchronous boundary but this has to be done manually by the developer via IO.shift. Operations such as race, parMapN or parTraverse inherently introduce asynchronous boundary.</p>
+<p>~ 14th May, 22:11</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/companies-devs-want-different-things/" class="u-url">Companies &amp; Devs want different things</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Ent

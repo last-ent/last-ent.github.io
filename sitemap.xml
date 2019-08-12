@@ -15,11 +15,11 @@
  </url>
  <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2019-08-12T18:30:00Z</lastmod>
+  <lastmod>2019-08-12T18:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
-  <lastmod>2019-08-12T18:30:00Z</lastmod>
+  <lastmod>2019-08-12T18:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/musings/</loc>
@@ -30,12 +30,20 @@
   <lastmod>2019-08-12T18:30:00Z</lastmod>
  </url>
  <url>
+  <loc>https://last-ent.com/categories/scala/</loc>
+  <lastmod>2019-08-12T18:45:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://last-ent.com/galleries/</loc>
   <lastmod>2019-08-12T18:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/listings/</loc>
   <lastmod>2019-08-12T18:23:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/cats-effects-io/</loc>
+  <lastmod>2019-08-12T18:45:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/companies-devs-want-different-things/</loc>
