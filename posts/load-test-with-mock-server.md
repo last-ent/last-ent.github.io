@@ -64,3 +64,27 @@
 6. 	There is one administrator
 7. 	**Transport cost is zero**
 8. 	The network is homogeneous
+
+
+
+# SLIDES
+
+As Black Friday approaches we all start having the same set of thoughts.
+
+```markdown
+# Thoughts in our head
+
+1. How is our system going to perform?
+2. How much load can it handle?
+3. How many pods do we need?
+4. Did we configure our system correctly?
+```
+
+These are all important questions and if you don't have data from the past year or worse yet, you have a new service - These are scary thoughts.
+
+I am sure you already know this but this means that you need to Load Test your system.
+
+``` markdown
+# Idea way to Load Test
+```
+
