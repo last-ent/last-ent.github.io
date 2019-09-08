@@ -1,0 +1,20 @@
+actor Customer
+
+node sl as "Shopping List"
+node note as "Update Shopping List"
+node sc as "Shopping Catalog"
+
+node order as "Order Items"
+
+node notfound as "Items not in catalog"
+node sb as "Shopping Basket"
+
+Customer -> sl
+
+sl -> sc: "[Item Name, Quantity]"
+sc --> sb: "[Item Name, Option[Item Id]]"
+sb --> notfound: "[Item Name, Quantity]"
+sb --> order: "[Item Id, Quantity]"
+order --> note: "[Item Id, Quantity, Confirmation]"
+notfound --> note: "[Item Name, Quantity]"
+note -> Customer: "[Item Name, Quantity, Confirmation]"
