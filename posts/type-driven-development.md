@@ -98,6 +98,7 @@ Let's use the example of online shopping with Type Driven Development to get a d
 # Case Study: Online Shopping 
 
 Imagine that we have to build a service that:
+
 * Takes `Shopping List`
 * Checks for available items
 * Orders available items
@@ -225,7 +226,7 @@ We have defined the behaviour of our dependencies and also define how the overal
 * **Monad** for our purpose is a Higher Kinded Type that has `flatMap` implemented for use.
 * **Functor** is another Higher Kinded Type that has `map` implemented.
 
-Since we are dealing with `F[_]` in our code, we will need to quality it as a `Monad` for `flatMap` to work.
+Since we are dealing with `F[_]` in our code, we will need to qualify it as a `Monad` for `flatMap` to work.
 
 Let's see if we can now compose our dependencies to return `List[ItemConfirmation]`
 
@@ -261,7 +262,9 @@ If we try to compile the code, we get following error.
 [error]         orderedItems <- orderItems(catalog)
 [error]                                    ^
 ```
-What does this tell us? It tells us that we need function/behaviour with following signature `List[CatalogItem] => List[ShopOrderItem]`. Let's look at what happens if we define such a function.
+What does this tell us? It tells us that we need function/behaviour with following signature `List[CatalogItem] => List[ShopOrderItem]`.
+
+Let's look at what happens if we define such a function.
 
 ```scala
  package sandbox
