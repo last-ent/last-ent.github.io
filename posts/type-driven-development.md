@@ -2,12 +2,11 @@
 .. title: Type Driven Development
 .. slug: type-driven-development
 .. date: 2019-09-08 16:11:55 UTC+02:00
-.. tags: 
+.. tags: software design, type driven development, functional programming, programming, scala
 .. category: 
 .. link: 
-.. description: 
+.. description: Type Driven Development: Formal specification using Type System. Define your code behaviour using types and let the compiler guide you to a verified system.
 .. type: text
-.. status: draft
 -->
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
@@ -26,7 +25,7 @@
     - [Step 1: Edge Behaviour: `List[ShoppingListItem] => F[List[ItemConfirmation]]`](#step-1-edge-behaviour-listshoppinglistitem--flistitemconfirmation)
     - [Step 2: Dependencies](#step-2-dependencies)
     - [Step3: Deriving Proof](#step3-deriving-proof)
-        - [Explanation: Monad, Functor & Higher Kinded Types](#explanation-monad-functor--higher-kinded-types)
+        - [Concepts: Monad, Functor & Higher Kinded Types](#concepts-monad-functor--higher-kinded-types)
         - [`ItemConfirmation` transformers](#itemconfirmation-transformers)
         - [Transformers to return complete `List[ItemConfirmation]`](#transformers-to-return-complete-listitemconfirmation)
         - [`toItemConfirmation` transformer](#toitemconfirmation-transformer)
@@ -35,15 +34,17 @@
 
 <!-- markdown-toc end -->
 # Introduction
-We use a Kanban/Agile mix methodology in our projects and we came across on an interesting problem when implementing a new feature. Rather than trying to explain it in vague terms, I am going to start with a story.
+In our project workflow, we break down features to implement into tickets and developers pick them off one by one; Pretty standard & typical Agile/Kanban workflow. However while working on a feature recently, we came across on an interesting problem where our standard workflow didn't work out. Rather than trying to explain it in vague terms, I am going to start with a story.
 
 ## TLDR
 In case you don't want to dive in just yet, here is the idea we will cover in this post.
 
 > Think about the behaviour of your program in terms of data types & functions signatures. Next step is to `prove` or `derive` a function that composes all of the types & signatures to implement the feature. Then carry on to implement each of the individual functions with the guarantee that all functions will compose together.
 
+Now onto the story.
+
 # The Square Jigsaw Table
-Master Carpenter was asked to create a square table which was made of four big square blocks that connect together like a jigsaw puzzle. Four colours were to be used - Red, Green, Yellow & Teal.
+A Master Carpenter was asked to create a square table which was made of four big square blocks that connect together like a jigsaw puzzle. Four colours were to be used - Red, Green, Yellow & Teal.
 
 ![Four coloured blocks of jigsaw](/images/orig.jpg)
 
@@ -53,14 +54,14 @@ The master carpenter had to go out of town and so he distributed the task among 
 * Each of you - `A`, `B`, `C` and, `D`, needs to build a square 
 * One side should have semicircle slot approximately 10% radius
 * The adjacent side should have a peg to fit the slot
-* It should have one of four colours - Red, Green, Yellow & Teal
+* It should have one of four colours - Red, Green, Yellow or Teal
 * If they don't perfectly fit at the end, I will finish the work once I am back
 * Since each of you will be working on your own, keep everyone updated of your progress
 
 During his journey, the craftsman was kept up to date by all of his apprentices. Their updates had the same gist.
-> The work is coming along great. I had to make some slight modifications but it is nothing major, it should be a quick fix once you are back.
+> I am progressing well with crafting the block. I had to make some slight modifications but it should be a quick fix once you are back.
 
-On his return, the craftsman asked the four apprentices to give him the blocks so he could start working on completing the table. But when they presented him with the four blocks, he realized that they had a big problem. Turns out that while each of the apprentices followed his instructions to the letter, none had thought about how they would fit together.
+On his return when apprentices presented master carpenter with the four blocks, he realized that they had a big problem. Turns out that while each of the apprentices followed his instructions, none had thought about how they would fit together and had made not-so-minor modifications.
 
 ![A block with 2x size, a lock with peg at top & a block with smaller hole](/images/apprentice-blocks.jpg)
 
@@ -71,27 +72,27 @@ I am sure that everyone has faced this problem at some point in their career. Fe
 
 ## Specification & Proof
 
-One way to avoid this issue is by defining behaviour of the final product with **just enough** information that everyone can work on their own with confidence. If we take the example of our four blocks, we can specify the behaviour and components using the block colours, pegs & holes of the four blocks and how they will connect. Here is what the apprentices were given to work with.
+One way to avoid this issue is by defining behaviour of the final product with **just enough** information that everyone can work on their own with confidence. If we take the example of our four blocks, we can specify the behaviour of components using the block colours, pegs & holes of the four blocks and how they will connect. Here is what the apprentices were given to work with.
 
 ![Pegs & holes of the four blocks is defined along with how they are connected. Rest of the block is missing.](/images/glue-code.jpg)
 
 Now each of the apprentices can use the block's skeleton to create his/her own block as (s)he knows the size, colour and position of peg & hole.
 
 # Type Driven Development
-We can achieve similar results with greater flexibility using Types & interfaces. Before we look at "How?" let's first define it.
+We can achieve similar results with greater flexibility using domain model types & interfaces/function types. Before we look at "How?" let's first formally define it.
 
 > Type Driven Development lets you define the behaviour in terms of:
 
 > * Components (Function Types)
 
-> * Domain models (Data Types).
+> * Domain models (Data Types)
 
-Once these specifications are in place, everyone can branch out to implement their individual tasks.
+Once these specifications are in place, everyone can branch out and implement their individual tasks.
 
 ## What does this mean?
-In essence we want to "prove" our design and rest assured that after we have started implementing the tickets, the components will work as expected and this can be done by way of types. If you use statically typed programming languages this should be relatively straightforward to achieve.
+In essence we want to "prove" our design and rest assured that after we have completed implementing the tickets, the components will work as expected and because the types compose. If you use statically typed programming languages this should be relatively straightforward to achieve.
 
-Good news is that we don't need to use a formal specification system like TLA+ or Coq but use plain old types and/or interfaces. An important point to keep in mind is that this is not a document but living code!
+Good news is that we don't need to use a formal specification tools like TLA+ or Coq but use plain old types and/or interfaces.
 
 Let's use the example of online shopping with Type Driven Development to get a deep understanding of how it can be done.
 
@@ -99,23 +100,27 @@ Let's use the example of online shopping with Type Driven Development to get a d
 
 Imagine that we have to build a service that:
 
-* Takes `Shopping List`
+* Takes a shopping list
 * Checks for available items
 * Orders available items
-* Returns consolidated list of ordered items and not found items
+* Returns consolidated list of
+    * Ordered items 
+    * Items not found and hence not ordered
 
-While this sounds straightforward and simple, defining all of this via program and ensuring it works well is not so easy.
+This sounds straightforward and simple but defining all of this via program and ensuring it works well is never straightforward.
 
-To start off with, here's a flow diagram that shows the above steps along with some of the hidden tasks also illustrated.
+To start off with, here's a flow diagram that shows the above four steps along with some of the interim steps.
 
 ![Shopping process](/images/shopping.png)
 
+Note that we use *cloud* to represent external dependencies.
+
 # Code Demo
 
-Note: In order to make the code properly compose, we will be making use Scala's `Cats` library. I will try to explain how some of the FP concepts make sense in our context. For example, we will be using `Monad` & `Functor` to begin with.
+I will be using Scala's `Cats` library for the code demo as it allows us to use some of the concepts we need to compose our types.
 
 ## Step 0: Structure
-We start with four `object`s with predefined purpose as explained by the comments
+We start with four `object`s with predefined purpose as explained in the comments
 
 ```scala
 package sandbox
@@ -135,10 +140,10 @@ object Specification {}
 ```
 
 ## Step 1: Edge Behaviour: `List[ShoppingListItem] => F[List[ItemConfirmation]]`
-Based on the flow diagram, if we think from Customer's perspective we know that:
+Based on the flow diagram, if we think from customer's perspective we know that:
 
 * Customer has a `shopping list` which consists of a `list` of `items` & `quantity` to buy.
-* Upon ordering, Customer will have a `list` which `confirms` if the `items` & `quantity` requested were bought.
+* Upon ordering, customer will have a `list` which `confirms` if the `items` & `quantity` requested were bought.
 
 We can represent in code with following domain models & functions.
 
@@ -178,10 +183,14 @@ We also have two external dependencies
 * If `ItemName` exists but does not have `ItemId`, it will return `(ItemName, None)`
 * If `ItemName` does not exist in the system, it will not be returned by the system
 
+This behaviour will be encapsulated by the function type `QueryCatalog`.
+
 ***Shop*** is used to order items that can be found in the system. It behaves as follows:
 
 * For given `ItemId` & `Quantity`, it will return those details along with `Confirmation`
 * `Confirmation` denotes whether the quantity of item was successfully ordered or not
+
+This behaviour is encapsulated by the function type `OrderItems`.
 
 All this can be represented in the code as follows.
 
@@ -191,8 +200,6 @@ package sandbox
 import scala.annotation.StaticAnnotation
 
 import DataTypes._
-
-case class Note(message: String) extends StaticAnnotation
 
 object DataTypes {
   // ...
@@ -208,6 +215,8 @@ object DataTypes {
   )
 }
 
+case class Note(message: String) extends StaticAnnotation
+
 object Dependencies {
   @Note("List[CatalogInfo] <= List[ShoppingListItem]")
   type QueryCatalog[F[_]] = List[ShoppingListItem] => F[List[CatalogItem]]
@@ -220,13 +229,13 @@ object Dependencies {
 
 We have defined the behaviour of our dependencies and also define how the overall system should behave from Customer's perspective.
 
-### Explanation: Monad, Functor & Higher Kinded Types
+### Concepts: Monad, Functor & Higher Kinded Types
 
 * **F[_]** is Higher Kinded Type. That is, it is any type which has a "hole" which can contain another type. Common examples are `Option[Int]`, `List[String]` etc.
 * **Monad** for our purpose is a Higher Kinded Type that has `flatMap` implemented for use.
 * **Functor** is another Higher Kinded Type that has `map` implemented.
 
-Since we are dealing with `F[_]` in our code, we will need to qualify it as a `Monad` for `flatMap` to work.
+We are defining our external dependencies via `F[_]` because they are IO operations over the network. Furthermore, we will to qualify `F[_]` as a `Monad` because we need to wait upon the IO operation to be completed and then work with the computed value, this is done by way of `flatMap`.
 
 Let's see if we can now compose our dependencies to return `List[ItemConfirmation]`
 
@@ -262,9 +271,9 @@ If we try to compile the code, we get following error.
 [error]         orderedItems <- orderItems(catalog)
 [error]                                    ^
 ```
-What does this tell us? It tells us that we need function/behaviour with following signature `List[CatalogItem] => List[ShopOrderItem]`.
+The compiler is telling us that we need to define function/behaviour with following signature `List[CatalogItem] => List[ShopOrderItem]`.
 
-Let's look at what happens if we define such a function.
+Let us define such a function type, use it within our `proof` as `toShopOrder`, transform `catalog` to `shopItems` and then recompile our code.
 
 ```scala
  package sandbox
@@ -304,10 +313,10 @@ If we try to compile above code we get
 
 Now we know two things:
 
-* We need to define the transformation function `ShopConfirmation => ItemConfirmation`
-* We need another transformation function, `ShoppingListItem => ItemConfirmation`. As we already noted that that `List[CatalogItem] <= List[ShoppingListItem]`, this means that in case we have any unavailable items, we have to create `ItemConfirmation` from `ShoppingListItem`.
+* We need to define the transformation function `shopToItemConfirmation: ShopConfirmation => ItemConfirmation`
+* We need another transformation function, `itemToItemConfirmation: ShoppingListItem => ItemConfirmation`. This is needed because we can have items not available in **catalog**.
 
-*Minor update*: We need to properly define the behaviour/flow `(List[ShoppingListItem], List[CatalogItem]) => List[ShopOrderItem]` because `CatalogItem` does not have all the information to be converted to `ShopOrderItem` so we will also need `ShoppingListItem` for complete conversion.
+*Minor update*: We need to redefine the behaviour/flow `toShopOrder` as `(List[ShoppingListItem], List[CatalogItem]) => List[ShopOrderItem]` because `CatalogItem` does not have all the information to be converted to `ShopOrderItem` so we will also need `ShoppingListItem` for complete conversion.
 
 
 ```scala
@@ -358,7 +367,7 @@ case class ItemConfirmation(
 )
 ```
 
-Based on these four domain models, following is one such solution which requires two main functions:
+Based on these four domain models, following is one such solution which defines two function types:
 
 ```scala
 case class Pairs(items: ShoppingListItem, confirmations: Option[ShopConfirmation])
@@ -424,13 +433,26 @@ object Specification {
 
 # Conclusion
 
+Now if we look at complete specification, we can tell that following functions/types need to be defined.
+```scala
+
+val toShopOrder: (List[ShoppingListItem], List[CatalogItem]) => List[ShopOrderItem] = ???
+
+val shopToItemConfirmation: (ItemName, ShopConfirmation) => ItemConfirmation = ???
+
+val itemToItemConfirmation: ShoppingListItem => ItemConfirmation = ???
+
+val getPairs: (List[CatalogItem], List[ShoppingListItem], List[ShopConfirmation]) => List[Pair] = ???
+
+```
+
 I found this style of defining types & "proving" the design to be quite beneficial for clarity of thought. And as I kept introducing types it was easier to see how the code would flow and whenever I felt something was unclear, I could start adding more details and thus get rid of nasty surprises at the earliest.
 
-As I kept working on this, I came across the concept of **Dependent Types** and that is indeed something I intend to dig into. It would be interesting to see where the two concepts intersect and where they are geometrically opposed.
+While experimenting with this style, I came across the concept of **Dependent Types**. It would be interesting to see where the two concepts intersect and where they are geometrically opposed.
 
 ## Complete Source Code
 
-For the sake of completeness, I am providing the complete code of everything I have described in this blog post in one single section.
+For the sake of completeness, I will also provide the complete code of everything I have described in this blog post in one single section.
 
 ```scala
 package sandbox
