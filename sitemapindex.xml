@@ -6,23 +6,35 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://last-ent.com/categories/functional-programming.xml</loc>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://last-ent.com/categories/musings.xml</loc>
   <lastmod>2019-08-13T07:43:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/programming.xml</loc>
-  <lastmod>2019-08-13T07:43:00Z</lastmod>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/scala.xml</loc>
-  <lastmod>2019-08-13T07:41:00Z</lastmod>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://last-ent.com/categories/software-design.xml</loc>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://last-ent.com/categories/type-driven-development.xml</loc>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/rss.xml</loc>
-  <lastmod>2019-08-13T07:43:00Z</lastmod>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/sitemap.xml</loc>
-  <lastmod>2019-08-29T19:14:00Z</lastmod>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
  </sitemap>
 </sitemapindex>

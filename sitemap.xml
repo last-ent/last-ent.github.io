@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2019-08-13T07:41:00Z</lastmod>
+  <lastmod>2019-09-08T17:17:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
@@ -15,11 +15,15 @@
  </url>
  <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2019-08-29T19:14:00Z</lastmod>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
-  <lastmod>2019-08-13T07:41:00Z</lastmod>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/categories/functional-programming/</loc>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/musings/</loc>
@@ -32,6 +36,14 @@
  <url>
   <loc>https://last-ent.com/categories/scala/</loc>
   <lastmod>2019-08-13T07:41:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/categories/software-design/</loc>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/categories/type-driven-development/</loc>
+  <lastmod>2019-09-10T08:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/about/</loc>
@@ -52,5 +64,9 @@
  <url>
   <loc>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</loc>
   <lastmod>2019-08-13T07:41:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/type-driven-development/</loc>
+  <lastmod>2019-09-10T07:41:00Z</lastmod>
  </url>
 </urlset>

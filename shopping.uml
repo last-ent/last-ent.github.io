@@ -1,20 +1,21 @@
 actor Customer
 
-node sl as "Shopping List"
-node note as "Update Shopping List"
-node sc as "Shopping Catalog"
+node system as "Online Shopping Service" {
+  node sl as "Shopping List"
+  node confirm as "Item Confirmation(s)"
+  cloud sc as "Item Catalog"
+  cloud order as "Items to Order"
+  node notfound as "Items not in Catalog"
+  node sb as "Shopping Cart"
+}
 
-node order as "Order Items"
-
-node notfound as "Items not in catalog"
-node sb as "Shopping Basket"
-
-Customer -> sl
+Customer -> sl: "[Item Name, Quantity]"
 
 sl -> sc: "[Item Name, Quantity]"
 sc --> sb: "[Item Name, Option[Item Id]]"
 sb --> notfound: "[Item Name, Quantity]"
 sb --> order: "[Item Id, Quantity]"
-order --> note: "[Item Id, Quantity, Confirmation]"
-notfound --> note: "[Item Name, Quantity]"
-note -> Customer: "[Item Name, Quantity, Confirmation]"
+order --> confirm: "[Item Id, Quantity, Confirmation]"
+notfound --> confirm: "[Item Name, Quantity]"
+confirm -> Customer: "[Item Name, Quantity, Confirmation]"
+
