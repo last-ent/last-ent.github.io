@@ -1,5 +1,161 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about programming)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/programming.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Tue, 10 Sep 2019 09:00:22 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Type Driven Development</title><link>https://last-ent.com/posts/type-driven-development/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc --&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about programming)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/programming.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2019 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 15 Sep 2019 11:10:47 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Elements of Coding Style</title><link>https://last-ent.com/posts/elements-of-coding-style/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc --&gt;
+
+&lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#rules-of-software-engineering"&gt;Rules of Software Engineering&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#elements-of-coding-style"&gt;Elements of Coding Style&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#human-readable-code"&gt;Human Readable Code&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#functional-naming"&gt;Functional Naming&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#think-in-terms-of-functionality-not-types"&gt;Think in terms of functionality, not types&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#write-in-terms-of-verbs-not-instructions"&gt;Write in terms of verbs, not instructions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#dont-leak-implementation-in-names"&gt;Don't leak implementation in names&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#signal-to-noise-ratio"&gt;Signal to Noise ratio&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#readable-code"&gt;Readable Code&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#keep-the-code-concise"&gt;Keep the code concise&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#word-agglutination-doesnt-help-with-code-readability"&gt;Word agglutination doesn't help with code readability&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#readable-code-is-debuggable-code"&gt;Readable code is debuggable code&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#think-enterprise-write-simple"&gt;Think Enterprise, Write Simple&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#use-function-type-for-simple-cases"&gt;Use Function Type for simple cases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#use-traits-when"&gt;Use traits when&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#multiple-functionsmethods-logically-make-sense-to-be-grouped-together-standard-use-case"&gt;Multiple functions/methods logically make sense to be grouped together (standard use case)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#single-function-call-might-require-data-that-shouldnt-be-visible-to-caller"&gt;Single function call might require data that shouldn't be visible to caller&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#think-in-terms-of-what--why-not-how"&gt;Think in terms of What &amp;amp; Why, not How&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#thats-not-how-people-speak"&gt;That's not how people speak&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- markdown-toc end --&gt;
+
+&lt;h2&gt;Rules of Software Engineering&lt;/h2&gt;
+&lt;p&gt;There are three important rules in Software Engineering.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Rule 1: Easy to understand&lt;/strong&gt;. Anyone should be able to pick up the code and start working on it.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rule 2: Easy to debug&lt;/strong&gt;. If the code breaks, it should be easy to quickly investigate &amp;amp; identify where is the issue.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rule 3: Shipping is the most important feature&lt;/strong&gt;. No matter how correct or elegant your code is, if you can't ship working code on time then why bother?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Having said that, &lt;code&gt;Rule 3&lt;/code&gt; should rarely be in opposition to &lt;code&gt;Rule 1 &amp;amp; 2&lt;/code&gt;. If you have to veto &lt;code&gt;Rule 1 &amp;amp; 2&lt;/code&gt; to ship your feature, then something's horribly wrong in your code &amp;amp; process. Complexity in code is a given and it is an engineer's responsibility to figure out how best to contain the damage and stop it from affecting the rest of the system.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Less elegant yet easy to understand &amp;amp; easier to debug should be the minimum expectation from all code shipped.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;Elements of Coding Style&lt;/h2&gt;
+&lt;p&gt;I think all good code has following &lt;code&gt;Elements&lt;/code&gt;. These &lt;code&gt;elements&lt;/code&gt; are not unique to any single programming language or paradigm, they are universal to how humans think and make sense of abstractions.&lt;/p&gt;
+&lt;h3&gt;Human Readable Code&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A computer language is not just a way of getting a computer to perform operations [...] programs must be written for people to read, and only incidentally for machines to execute.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;~ Structure &amp;amp; Interpretation of Programming Languages&lt;/em&gt;&lt;/p&gt;
+&lt;h4&gt;Functional Naming&lt;/h4&gt;
+&lt;h5&gt;Think in terms of functionality, not types&lt;/h5&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;CatalogMappingService&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;getMappingFor&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cId&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;CatalogId&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ProductId&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CatalogMappingServiceImpl&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="nc"&gt;CatalogMappingService&lt;/span&gt; &lt;span class="o"&gt;{...}&lt;/span&gt;
+
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;catalogMappingService&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;CatalogMappingService&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;
+    &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nc"&gt;CatalogMappingServiceImpl&lt;/span&gt;&lt;span class="o"&gt;()&lt;/span&gt;
+
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;productId&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ProductId&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;catalogMappingService&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getMappingFor&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;catalogId&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;// vs&lt;/span&gt;
+
+
+&lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;Catalog&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cId&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;CatalogId&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;ProductId&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CatalogService&lt;/span&gt; &lt;span class="k"&gt;extends&lt;/span&gt; &lt;span class="nc"&gt;Catalog&lt;/span&gt; &lt;span class="o"&gt;{...}&lt;/span&gt;
+
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;catalog&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Catalog&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;productId&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;productId&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;catalog&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;catalogId&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h5&gt;Write in terms of verbs, not instructions&lt;/h5&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;porfolioIdsByTraderId&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;trader&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getId&lt;/span&gt;&lt;span class="o"&gt;())&lt;/span&gt;
+    &lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;containsKey&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;portfolio&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;getId&lt;/span&gt;&lt;span class="o"&gt;()))&lt;/span&gt; &lt;span class="o"&gt;{...}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// vs&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;trader&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;canView&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;portfolio&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt; &lt;span class="o"&gt;{...}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h5&gt;Don't leak implementation in names&lt;/h5&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;catalogIdToProductIdMap&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;CatalogId&lt;/span&gt;, &lt;span class="kt"&gt;ProductId&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+
+&lt;span class="c1"&gt;// vs&lt;/span&gt;
+
+&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;catalog&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Map&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;CatalogId&lt;/span&gt;, &lt;span class="kt"&gt;ProductId&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Signal to Noise ratio&lt;/h3&gt;
+&lt;p&gt;&lt;img alt="Signal to Noise Ratio: Word Length vs. Understandability of Code" src="https://last-ent.com/images/snr.png"&gt;&lt;/p&gt;
+&lt;h4&gt;Readable Code&lt;/h4&gt;
+&lt;h5&gt;Keep the code concise&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;To be or not to be, that is the question.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;vs.&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Continuing of existence or cessation of existence, those are the scenarios.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5&gt;Word agglutination doesn't help with code readability&lt;/h5&gt;
+&lt;h5&gt;Readable code is debuggable code&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;People will be using the words you choose in their conversation for the next 20 years. [...] Unfortunately, many people get all format [...]. Just calling it what it is isn't enough.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;~Kent Beck&lt;/em&gt;&lt;/p&gt;
+&lt;h4&gt;Think Enterprise, Write Simple&lt;/h4&gt;
+&lt;h5&gt;Use Function Type for simple cases&lt;/h5&gt;
+&lt;h5&gt;Use traits when&lt;/h5&gt;
+&lt;h6&gt;Multiple functions/methods logically make sense to be grouped together (standard use case)&lt;/h6&gt;
+&lt;h6&gt;Single function call might require data that shouldn't be visible to caller&lt;/h6&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;trait&lt;/span&gt; &lt;span class="nc"&gt;Catalog&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;CatalogId&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;CatalogId&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Option&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;CatalogPrice&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;CatalogClient&lt;/span&gt; &lt;span class="n"&gt;implements&lt;/span&gt; &lt;span class="nc"&gt;Catalog&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;CatalogId&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;CatalogId&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="kt"&gt;Option&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;CatalogPrice&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// vs&lt;/span&gt;
+
+&lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="nc"&gt;Catalog&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;QueryCatalog&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;CatalogId&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;CatalogId&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nc"&gt;Option&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;CatalogPrice&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+
+  &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;query&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;QueryCatalog&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h5&gt;Think in terms of What &amp;amp; Why, not How&lt;/h5&gt;
+&lt;h5&gt;That's not how people speak&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Can you explain how your Online Shopping API works?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You send your shopping list to Shopping List API, which calls Item Catalog Service to retrieve list of available items which have Item Id. The items are then sorted into list of items with Item Ids &amp;amp; a list of items without Item Ids. Order is placed via API call to Shop Service with Items having Item Ids. Once the shop returns a response, list of order confirmations from shop is merged with list of items without Item Ids. The complete list is then sent back to the user.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;vs.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;You send your shopping list to our API, it checks with catalog for available items. Order is placed to our shop with the items which were found in the system. Finally the complete list of items ordered in shop and items not found in shop are returned to user with proper status message.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/blockquote&gt;&lt;/div&gt;</description><category>enterprise software development</category><category>musings</category><category>programming</category><category>software engineering</category><guid>https://last-ent.com/posts/elements-of-coding-style/</guid><pubDate>Sun, 15 Sep 2019 09:04:43 GMT</pubDate></item><item><title>Type Driven Development</title><link>https://last-ent.com/posts/type-driven-development/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc --&gt;
 
 &lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;

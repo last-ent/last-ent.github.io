@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Enterprise Software Development is known to be verbose and very formal. Everyone has come to accept this style as (un)necessary evil. However there really isn't any reason for this to be the case. In this post, I list some basic principles, that if followed even in enterprise, can simplify and lead to a simple style that is easier to work with and thus improve reliability &amp; throughput of code.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elements of Coding Style | Last Ent's Thoughts</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://last-ent.com/posts/elements-of-coding-style/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Ent">
+<link rel="prev" href="../type-driven-development/" title="Type Driven Development" type="text/html">
+<meta property="og:site_name" content="Last Ent's Thoughts">
+<meta property="og:title" content="Elements of Coding Style">
+<meta property="og:url" content="https://last-ent.com/posts/elements-of-coding-style/">
+<meta property="og:description" content="Enterprise Software Development is known to be verbose and very formal. Everyone has come to accept this style as (un)necessary evil. However there really isn't any reason for this to be the case. In ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-09-15T11:04:43+02:00">
+<meta property="article:tag" content="enterprise software development">
+<meta property="article:tag" content="musings">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="software engineering">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://last-ent.com/">
+
+            <span id="blog-title">Last Ent's Thoughts</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../pages/learning-targets" class="nav-link">Learning Targets</a>
+            </li>
+<li class="nav-item dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archives</a>
+            <div class="dropdown-menu">
+                    <a href="../../archive.html" class="dropdown-item">Archive</a>
+                    <a href="../../categories/" class="dropdown-item">Tags</a>
+            </div>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about" class="nav-link">About</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Elements of Coding Style</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Ent
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-15T11:04:43+02:00" itemprop="datePublished" title="2019-09-15 11:04">2019-09-15 11:04</time></a>
+            </p>
+            
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+
+<p><strong>Table of Contents</strong></p>
+<ul>
+<li><a href="#rules-of-software-engineering">Rules of Software Engineering</a></li>
+<li>
+<a href="#elements-of-coding-style">Elements of Coding Style</a><ul>
+<li>
+<a href="#human-readable-code">Human Readable Code</a><ul>
+<li>
+<a href="#functional-naming">Functional Naming</a><ul>
+<li><a href="#think-in-terms-of-functionality-not-types">Think in terms of functionality, not types</a></li>
+<li><a href="#write-in-terms-of-verbs-not-instructions">Write in terms of verbs, not instructions</a></li>
+<li><a href="#dont-leak-implementation-in-names">Don't leak implementation in names</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="#signal-to-noise-ratio">Signal to Noise ratio</a><ul>
+<li>
+<a href="#readable-code">Readable Code</a><ul>
+<li><a href="#keep-the-code-concise">Keep the code concise</a></li>
+<li><a href="#word-agglutination-doesnt-help-with-code-readability">Word agglutination doesn't help with code readability</a></li>
+<li><a href="#readable-code-is-debuggable-code">Readable code is debuggable code</a></li>
+</ul>
+</li>
+<li>
+<a href="#think-enterprise-write-simple">Think Enterprise, Write Simple</a><ul>
+<li><a href="#use-function-type-for-simple-cases">Use Function Type for simple cases</a></li>
+<li>
+<a href="#use-traits-when">Use traits when</a><ul>
+<li><a href="#multiple-functionsmethods-logically-make-sense-to-be-grouped-together-standard-use-case">Multiple functions/methods logically make sense to be grouped together (standard use case)</a></li>
+<li><a href="#single-function-call-might-require-data-that-shouldnt-be-visible-to-caller">Single function call might require data that shouldn't be visible to caller</a></li>
+</ul>
+</li>
+<li><a href="#think-in-terms-of-what--why-not-how">Think in terms of What &amp; Why, not How</a></li>
+<li><a href="#thats-not-how-people-speak">That's not how people speak</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- markdown-toc end --><h2>Rules of Software Engineering</h2>
+<p>There are three important rules in Software Engineering.</p>
+<ul>
+<li>
+<strong>Rule 1: Easy to understand</strong>. Anyone should be able to pick up the code and start working on it.</li>
+<li>
+<strong>Rule 2: Easy to debug</strong>. If the code breaks, it should be easy to quickly investigate &amp; identify where is the issue.</li>
+<li>
+<strong>Rule 3: Shipping is the most important feature</strong>. No matter how correct or elegant your code is, if you can't ship working code on time then why bother?</li>
+</ul>
+<p>Having said that, <code>Rule 3</code> should rarely be in opposition to <code>Rule 1 &amp; 2</code>. If you have to veto <code>Rule 1 &amp; 2</code> to ship your feature, then something's horribly wrong in your code &amp; process. Complexity in code is a given and it is an engineer's responsibility to figure out how best to contain the damage and stop it from affecting the rest of the system.</p>
+<blockquote>
+<p>Less elegant yet easy to understand &amp; easier to debug should be the minimum expectation from all code shipped.</p>
+</blockquote>
+<h2>Elements of Coding Style</h2>
+<p>I think all good code has following <code>Elements</code>. These <code>elements</code> are not unique to any single programming language or paradigm, they are universal to how humans think and make sense of abstractions.</p>
+<h3>Human Readable Code</h3>
+<blockquote>
+<p>A computer language is not just a way of getting a computer to perform operations [...] programs must be written for people to read, and only incidentally for machines to execute.</p>
+</blockquote>
+<p><em>~ Structure &amp; Interpretation of Programming Languages</em></p>
+<h4>Functional Naming</h4>
+<h5>Think in terms of functionality, not types</h5>
+<pre class="code literal-block"><span></span><span class="k">trait</span> <span class="nc">CatalogMappingService</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">getMappingFor</span><span class="o">(</span><span class="n">cId</span><span class="k">:</span> <span class="kt">CatalogId</span><span class="o">)</span><span class="k">:</span> <span class="kt">ProductId</span>
+<span class="o">}</span>
+
+<span class="k">class</span> <span class="nc">CatalogMappingServiceImpl</span> <span class="k">extends</span> <span class="nc">CatalogMappingService</span> <span class="o">{...}</span>
+
+<span class="k">val</span> <span class="n">catalogMappingService</span><span class="k">:</span> <span class="kt">CatalogMappingService</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="nc">CatalogMappingServiceImpl</span><span class="o">()</span>
+
+<span class="k">val</span> <span class="n">productId</span><span class="k">:</span> <span class="kt">ProductId</span> <span class="o">=</span> <span class="n">catalogMappingService</span><span class="o">.</span><span class="n">getMappingFor</span><span class="o">(</span><span class="n">catalogId</span><span class="o">)</span>
+
+<span class="c1">// vs</span>
+
+
+<span class="k">trait</span> <span class="nc">Catalog</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">get</span><span class="o">(</span><span class="n">cId</span><span class="k">:</span> <span class="kt">CatalogId</span><span class="o">)</span><span class="k">:</span> <span class="kt">ProductId</span>
+<span class="o">}</span>
+
+<span class="k">class</span> <span class="nc">CatalogService</span> <span class="k">extends</span> <span class="nc">Catalog</span> <span class="o">{...}</span>
+
+<span class="k">val</span> <span class="n">catalog</span><span class="k">:</span> <span class="kt">Catalog</span> <span class="o">=</span> <span class="o">???</span>
+
+<span class="k">val</span> <span class="n">productId</span><span class="k">:</span> <span class="kt">productId</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">catalogId</span><span class="o">)</span>
+</pre>
+
+
+<h5>Write in terms of verbs, not instructions</h5>
+<pre class="code literal-block"><span></span><span class="k">if</span><span class="o">(</span><span class="n">porfolioIdsByTraderId</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">trader</span><span class="o">.</span><span class="n">getId</span><span class="o">())</span>
+    <span class="o">.</span><span class="n">containsKey</span><span class="o">(</span><span class="n">portfolio</span><span class="o">.</span><span class="n">getId</span><span class="o">()))</span> <span class="o">{...}</span>
+
+<span class="c1">// vs</span>
+
+<span class="k">if</span><span class="o">(</span><span class="n">trader</span><span class="o">.</span><span class="n">canView</span><span class="o">(</span><span class="n">portfolio</span><span class="o">))</span> <span class="o">{...}</span>
+</pre>
+
+
+<h5>Don't leak implementation in names</h5>
+<pre class="code literal-block"><span></span><span class="k">val</span> <span class="n">catalogIdToProductIdMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">CatalogId</span>, <span class="kt">ProductId</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+<span class="c1">// vs</span>
+
+<span class="k">val</span> <span class="n">catalog</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">CatalogId</span>, <span class="kt">ProductId</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+</pre>
+
+
+<h3>Signal to Noise ratio</h3>
+<p><img alt="Signal to Noise Ratio: Word Length vs. Understandability of Code" src="../../images/snr.png"></p>
+<h4>Readable Code</h4>
+<h5>Keep the code concise</h5>
+<blockquote>
+<p>To be or not to be, that is the question.</p>
+</blockquote>
+<p><strong>vs.</strong></p>
+<blockquote>
+<p>Continuing of existence or cessation of existence, those are the scenarios.</p>
+</blockquote>
+<h5>Word agglutination doesn't help with code readability</h5>
+<h5>Readable code is debuggable code</h5>
+<blockquote>
+<p>People will be using the words you choose in their conversation for the next 20 years. [...] Unfortunately, many people get all format [...]. Just calling it what it is isn't enough.</p>
+</blockquote>
+<p><em>~Kent Beck</em></p>
+<h4>Think Enterprise, Write Simple</h4>
+<h5>Use Function Type for simple cases</h5>
+<h5>Use traits when</h5>
+<h6>Multiple functions/methods logically make sense to be grouped together (standard use case)</h6>
+<h6>Single function call might require data that shouldn't be visible to caller</h6>
+<pre class="code literal-block"><span></span><span class="k">trait</span> <span class="nc">Catalog</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">query</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">CatalogId</span><span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">CatalogId</span><span class="o">,</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">CatalogPrice</span><span class="o">])</span>
+<span class="o">}</span>
+
+<span class="k">class</span> <span class="nc">CatalogClient</span> <span class="n">implements</span> <span class="nc">Catalog</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">query</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">CatalogId</span><span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">CatalogId</span><span class="o">,</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">CatalogPrice</span><span class="o">])</span> <span class="k">=</span> <span class="o">???</span>
+<span class="o">}</span>
+
+<span class="c1">// vs</span>
+
+<span class="k">object</span> <span class="nc">Catalog</span> <span class="o">{</span>
+  <span class="k">type</span> <span class="kt">QueryCatalog</span> <span class="o">=</span> <span class="nc">CatalogId</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="nc">CatalogId</span><span class="o">,</span> <span class="nc">Option</span><span class="o">[</span><span class="kt">CatalogPrice</span><span class="o">])</span>
+
+  <span class="k">val</span> <span class="n">query</span><span class="k">:</span> <span class="kt">QueryCatalog</span> <span class="o">=</span> <span class="o">???</span>
+<span class="o">}</span>
+</pre>
+
+
+<h5>Think in terms of What &amp; Why, not How</h5>
+<h5>That's not how people speak</h5>
+<blockquote>
+<p>Can you explain how your Online Shopping API works?</p>
+<blockquote>
+<p>You send your shopping list to Shopping List API, which calls Item Catalog Service to retrieve list of available items which have Item Id. The items are then sorted into list of items with Item Ids &amp; a list of items without Item Ids. Order is placed via API call to Shop Service with Items having Item Ids. Once the shop returns a response, list of order confirmations from shop is merged with list of items without Item Ids. The complete list is then sent back to the user.</p>
+</blockquote>
+<p>vs.</p>
+<blockquote>
+<p>You send your shopping list to our API, it checks with catalog for available items. Order is placed to our shop with the items which were found in the system. Finally the complete list of items ordered in shop and items not found in shop are returned to user with proper status message.</p>
+</blockquote>
+</blockquote>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/enterprise-software-development/" rel="tag">enterprise software development</a></li>
+            <li><a class="tag p-category" href="../../categories/musings/" rel="tag">musings</a></li>
+            <li><a class="tag p-category" href="../../categories/programming/" rel="tag">programming</a></li>
+            <li><a class="tag p-category" href="../../categories/software-engineering/" rel="tag">software engineering</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../type-driven-development/" rel="prev" title="Type Driven Development">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2019         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-148031816-1');
+</script>
+</body>
+</html>

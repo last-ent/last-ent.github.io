@@ -11,7 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://last-ent.com/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/type-driven-development/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/elements-of-coding-style/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -71,7 +71,186 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/type-driven-development/" class="u-url">Type Driven Development</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/elements-of-coding-style/" class="u-url">Elements of Coding Style</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Ent
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/elements-of-coding-style/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-15T11:04:43+02:00" itemprop="datePublished" title="2019-09-15 11:04">2019-09-15 11:04</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+
+<p><strong>Table of Contents</strong></p>
+<ul>
+<li><a href="posts/elements-of-coding-style/#rules-of-software-engineering">Rules of Software Engineering</a></li>
+<li>
+<a href="posts/elements-of-coding-style/#elements-of-coding-style">Elements of Coding Style</a><ul>
+<li>
+<a href="posts/elements-of-coding-style/#human-readable-code">Human Readable Code</a><ul>
+<li>
+<a href="posts/elements-of-coding-style/#functional-naming">Functional Naming</a><ul>
+<li><a href="posts/elements-of-coding-style/#think-in-terms-of-functionality-not-types">Think in terms of functionality, not types</a></li>
+<li><a href="posts/elements-of-coding-style/#write-in-terms-of-verbs-not-instructions">Write in terms of verbs, not instructions</a></li>
+<li><a href="posts/elements-of-coding-style/#dont-leak-implementation-in-names">Don't leak implementation in names</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<a href="posts/elements-of-coding-style/#signal-to-noise-ratio">Signal to Noise ratio</a><ul>
+<li>
+<a href="posts/elements-of-coding-style/#readable-code">Readable Code</a><ul>
+<li><a href="posts/elements-of-coding-style/#keep-the-code-concise">Keep the code concise</a></li>
+<li><a href="posts/elements-of-coding-style/#word-agglutination-doesnt-help-with-code-readability">Word agglutination doesn't help with code readability</a></li>
+<li><a href="posts/elements-of-coding-style/#readable-code-is-debuggable-code">Readable code is debuggable code</a></li>
+</ul>
+</li>
+<li>
+<a href="posts/elements-of-coding-style/#think-enterprise-write-simple">Think Enterprise, Write Simple</a><ul>
+<li><a href="posts/elements-of-coding-style/#use-function-type-for-simple-cases">Use Function Type for simple cases</a></li>
+<li>
+<a href="posts/elements-of-coding-style/#use-traits-when">Use traits when</a><ul>
+<li><a href="posts/elements-of-coding-style/#multiple-functionsmethods-logically-make-sense-to-be-grouped-together-standard-use-case">Multiple functions/methods logically make sense to be grouped together (standard use case)</a></li>
+<li><a href="posts/elements-of-coding-style/#single-function-call-might-require-data-that-shouldnt-be-visible-to-caller">Single function call might require data that shouldn't be visible to caller</a></li>
+</ul>
+</li>
+<li><a href="posts/elements-of-coding-style/#think-in-terms-of-what--why-not-how">Think in terms of What &amp; Why, not How</a></li>
+<li><a href="posts/elements-of-coding-style/#thats-not-how-people-speak">That's not how people speak</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- markdown-toc end --><h2>Rules of Software Engineering</h2>
+<p>There are three important rules in Software Engineering.</p>
+<ul>
+<li>
+<strong>Rule 1: Easy to understand</strong>. Anyone should be able to pick up the code and start working on it.</li>
+<li>
+<strong>Rule 2: Easy to debug</strong>. If the code breaks, it should be easy to quickly investigate &amp; identify where is the issue.</li>
+<li>
+<strong>Rule 3: Shipping is the most important feature</strong>. No matter how correct or elegant your code is, if you can't ship working code on time then why bother?</li>
+</ul>
+<p>Having said that, <code>Rule 3</code> should rarely be in opposition to <code>Rule 1 &amp; 2</code>. If you have to veto <code>Rule 1 &amp; 2</code> to ship your feature, then something's horribly wrong in your code &amp; process. Complexity in code is a given and it is an engineer's responsibility to figure out how best to contain the damage and stop it from affecting the rest of the system.</p>
+<blockquote>
+<p>Less elegant yet easy to understand &amp; easier to debug should be the minimum expectation from all code shipped.</p>
+</blockquote>
+<h2>Elements of Coding Style</h2>
+<p>I think all good code has following <code>Elements</code>. These <code>elements</code> are not unique to any single programming language or paradigm, they are universal to how humans think and make sense of abstractions.</p>
+<h3>Human Readable Code</h3>
+<blockquote>
+<p>A computer language is not just a way of getting a computer to perform operations [...] programs must be written for people to read, and only incidentally for machines to execute.</p>
+</blockquote>
+<p><em>~ Structure &amp; Interpretation of Programming Languages</em></p>
+<h4>Functional Naming</h4>
+<h5>Think in terms of functionality, not types</h5>
+<pre class="code literal-block"><span></span><span class="k">trait</span> <span class="nc">CatalogMappingService</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">getMappingFor</span><span class="o">(</span><span class="n">cId</span><span class="k">:</span> <span class="kt">CatalogId</span><span class="o">)</span><span class="k">:</span> <span class="kt">ProductId</span>
+<span class="o">}</span>
+
+<span class="k">class</span> <span class="nc">CatalogMappingServiceImpl</span> <span class="k">extends</span> <span class="nc">CatalogMappingService</span> <span class="o">{...}</span>
+
+<span class="k">val</span> <span class="n">catalogMappingService</span><span class="k">:</span> <span class="kt">CatalogMappingService</span> <span class="o">=</span>
+    <span class="k">new</span> <span class="nc">CatalogMappingServiceImpl</span><span class="o">()</span>
+
+<span class="k">val</span> <span class="n">productId</span><span class="k">:</span> <span class="kt">ProductId</span> <span class="o">=</span> <span class="n">catalogMappingService</span><span class="o">.</span><span class="n">getMappingFor</span><span class="o">(</span><span class="n">catalogId</span><span class="o">)</span>
+
+<span class="c1">// vs</span>
+
+
+<span class="k">trait</span> <span class="nc">Catalog</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">get</span><span class="o">(</span><span class="n">cId</span><span class="k">:</span> <span class="kt">CatalogId</span><span class="o">)</span><span class="k">:</span> <span class="kt">ProductId</span>
+<span class="o">}</span>
+
+<span class="k">class</span> <span class="nc">CatalogService</span> <span class="k">extends</span> <span class="nc">Catalog</span> <span class="o">{...}</span>
+
+<span class="k">val</span> <span class="n">catalog</span><span class="k">:</span> <span class="kt">Catalog</span> <span class="o">=</span> <span class="o">???</span>
+
+<span class="k">val</span> <span class="n">productId</span><span class="k">:</span> <span class="kt">productId</span> <span class="o">=</span> <span class="n">catalog</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">catalogId</span><span class="o">)</span>
+</pre>
+
+
+<h5>Write in terms of verbs, not instructions</h5>
+<pre class="code literal-block"><span></span><span class="k">if</span><span class="o">(</span><span class="n">porfolioIdsByTraderId</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">trader</span><span class="o">.</span><span class="n">getId</span><span class="o">())</span>
+    <span class="o">.</span><span class="n">containsKey</span><span class="o">(</span><span class="n">portfolio</span><span class="o">.</span><span class="n">getId</span><span class="o">()))</span> <span class="o">{...}</span>
+
+<span class="c1">// vs</span>
+
+<span class="k">if</span><span class="o">(</span><span class="n">trader</span><span class="o">.</span><span class="n">canView</span><span class="o">(</span><span class="n">portfolio</span><span class="o">))</span> <span class="o">{...}</span>
+</pre>
+
+
+<h5>Don't leak implementation in names</h5>
+<pre class="code literal-block"><span></span><span class="k">val</span> <span class="n">catalogIdToProductIdMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">CatalogId</span>, <span class="kt">ProductId</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+<span class="c1">// vs</span>
+
+<span class="k">val</span> <span class="n">catalog</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">CatalogId</span>, <span class="kt">ProductId</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+</pre>
+
+
+<h3>Signal to Noise ratio</h3>
+<p><img alt="Signal to Noise Ratio: Word Length vs. Understandability of Code" src="images/snr.png"></p>
+<h4>Readable Code</h4>
+<h5>Keep the code concise</h5>
+<blockquote>
+<p>To be or not to be, that is the question.</p>
+</blockquote>
+<p><strong>vs.</strong></p>
+<blockquote>
+<p>Continuing of existence or cessation of existence, those are the scenarios.</p>
+</blockquote>
+<h5>Word agglutination doesn't help with code readability</h5>
+<h5>Readable code is debuggable code</h5>
+<blockquote>
+<p>People will be using the words you choose in their conversation for the next 20 years. [...] Unfortunately, many people get all format [...]. Just calling it what it is isn't enough.</p>
+</blockquote>
+<p><em>~Kent Beck</em></p>
+<h4>Think Enterprise, Write Simple</h4>
+<h5>Use Function Type for simple cases</h5>
+<h5>Use traits when</h5>
+<h6>Multiple functions/methods logically make sense to be grouped together (standard use case)</h6>
+<h6>Single function call might require data that shouldn't be visible to caller</h6>
+<pre class="code literal-block"><span></span><span class="k">trait</span> <span class="nc">Catalog</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">query</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">CatalogId</span><span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">CatalogId</span><span class="o">,</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">CatalogPrice</span><span class="o">])</span>
+<span class="o">}</span>
+
+<span class="k">class</span> <span class="nc">CatalogClient</span> <span class="n">implements</span> <span class="nc">Catalog</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="n">query</span><span class="o">(</span><span class="n">id</span><span class="k">:</span> <span class="kt">CatalogId</span><span class="o">)</span><span class="k">:</span> <span class="o">(</span><span class="kt">CatalogId</span><span class="o">,</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">CatalogPrice</span><span class="o">])</span> <span class="k">=</span> <span class="o">???</span>
+<span class="o">}</span>
+
+<span class="c1">// vs</span>
+
+<span class="k">object</span> <span class="nc">Catalog</span> <span class="o">{</span>
+  <span class="k">type</span> <span class="kt">QueryCatalog</span> <span class="o">=</span> <span class="nc">CatalogId</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="nc">CatalogId</span><span class="o">,</span> <span class="nc">Option</span><span class="o">[</span><span class="kt">CatalogPrice</span><span class="o">])</span>
+
+  <span class="k">val</span> <span class="n">query</span><span class="k">:</span> <span class="kt">QueryCatalog</span> <span class="o">=</span> <span class="o">???</span>
+<span class="o">}</span>
+</pre>
+
+
+<h5>Think in terms of What &amp; Why, not How</h5>
+<h5>That's not how people speak</h5>
+<blockquote>
+<p>Can you explain how your Online Shopping API works?</p>
+<blockquote>
+<p>You send your shopping list to Shopping List API, which calls Item Catalog Service to retrieve list of available items which have Item Id. The items are then sorted into list of items with Item Ids &amp; a list of items without Item Ids. Order is placed via API call to Shop Service with Items having Item Ids. Once the shop returns a response, list of order confirmations from shop is merged with list of items without Item Ids. The complete list is then sent back to the user.</p>
+</blockquote>
+<p>vs.</p>
+<blockquote>
+<p>You send your shopping list to our API, it checks with catalog for available items. Order is placed to our shop with the items which were found in the system. Finally the complete list of items ordered in shop and items not found in shop are returned to user with proper status message.</p>
+</blockquote>
+</blockquote>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/type-driven-development/" class="u-url">Type Driven Development</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Ent
