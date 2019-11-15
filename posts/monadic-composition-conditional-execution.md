@@ -36,8 +36,8 @@ We have been using FP/Scala in our team for quite a while now and as is to be ex
 
 # Challenge
 
-> If all steps need to be executed and the return type is the final step, using `for comprehension` or `chaining flatmaps` works well. 
-> 
+> If all steps need to be executed and the return type is the final step, using `for comprehension` or `chaining flatmaps` works well.
+>
 > What can we do to ensure some steps are executed conditionally while other steps are executed regardless of intermediate steps?
 
 ## Conventions
@@ -63,7 +63,7 @@ However we now need to log state at different points of code execution. Some sta
 
 ### `EitherT`
 
-> In our case, `Either` doesn't work since most of our code is of the form, `A => F[B]`, `B => F[C]` & `C => F[D]`. Enter `EitherT`! Functions need to be transformed to `A => EitherT[F, E, B]`, `B => EitherT[F, E, C]` & `C => EitherT[F, E, D]`. 
+> In our case, `Either` doesn't work since most of our code is of the form, `A => F[B]`, `B => F[C]` & `C => F[D]`. Enter `EitherT`! Functions need to be transformed to `A => EitherT[F, E, B]`, `B => EitherT[F, E, C]` & `C => EitherT[F, E, D]`.
 
 Let's use an example.
 
@@ -102,12 +102,13 @@ class Donatron[F[_]: Effect]() {
       .map(_ => donations)
 }
 ```
+
 ### Additional Information
 
-* As long as the system doesn't throw `RuntimeException`, we should log the data & return response as a standardized string
-* The system should log
-    * Response returned
-    * Accepted donations, if call to another system was successful
+- As long as the system doesn't throw `RuntimeException`, we should log the data & return response as a standardized string
+- The system should log
+  - Response returned
+  - Accepted donations, if call to another system was successful
 
 ### Faulty Composition
 
@@ -132,20 +133,21 @@ The code details can be found here - [Donatron(branch: faulty-composition) :: Do
 
 Based on the specification, we can define following tests [Donatron(branch: faulty-composition) :: DonatronSpec.scala](https://github.com/last-ent/donatron/blob/faulty-composition/src/test/scala/donatron/DonatronSpec.scala)
 
-* `Response message when Request has valid ints between 10 & 10k`
-* `Response message when Request has few invalid ints`
-* `Response message when Request has few valid ints less than 10`
-* `NoValidInts message when Request has no valid ints`
-* `NoValuesAboveMinimum message when Request only has valid ints less than 10`
-* `Exception when Request has valid ints greater than 10k`
+- `Response message when Request has valid ints between 10 & 10k`
+- `Response message when Request has few invalid ints`
+- `Response message when Request has few valid ints less than 10`
+- `NoValidInts message when Request has no valid ints`
+- `NoValuesAboveMinimum message when Request only has valid ints less than 10`
+- `Exception when Request has valid ints greater than 10k`
 
 We can test the correctness of our implementation by running these tests. If they are run right now, two test cases will fail:
 
-* `NoValuesAboveMinimum message when Request only has valid ints less than 10`
-* `NoValidInts message when Request has no valid ints`
+- `NoValuesAboveMinimum message when Request only has valid ints less than 10`
+- `NoValidInts message when Request has no valid ints`
 
 ## Monadic Composition with `EitherT`
 
+The goal of this exercise is to modify the existing code so that all the existing tests pass.
 
 ### Understanding `trait RawData`
 
