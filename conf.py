@@ -5,7 +5,6 @@ import time
 # !! This is the configuration of Nikola. !! #
 # !!  You should edit it to your liking.  !! #
 
-
 # ! Some settings can be different in different languages.
 # ! A comment stating (translatable) is used to denote those.
 # ! There are two ways to specify a translatable setting:
@@ -13,7 +12,6 @@ import time
 # ! (b) BLOG_TITLE = {"en": "My Blog", "es": "Mi Blog"}
 # ! Option (a) is used when you don't want that setting translated.
 # ! Option (b) is used for settings that are different in different languages.
-
 
 # Data about this site
 BLOG_AUTHOR = "Ent"  # (translatable)
@@ -137,20 +135,16 @@ TRANSLATIONS_PATTERN = '{path}.{lang}.{ext}'
 #          else they won’t be highlighted when active.
 
 NAVIGATION_LINKS = {
-    DEFAULT_LANG: (
-        ("/pages/learning-targets", "Learning Targets"),
-        ((("/archive.html", "Archive"),
-          ("/categories/", "Tags"),), "Archives"),
-        ("/pages/about", "About")
-    ),
+    DEFAULT_LANG: (("/pages/learning-targets", "Learning Targets"), ((
+        ("/archive.html", "Archive"),
+        ("/categories/", "Tags"),
+    ), "Archives"), ("/pages/about", "About")),
 }
 
 # Alternative navigation links. Works the same way NAVIGATION_LINKS does,
 # although themes may not always support them. (translatable)
 # (Bootstrap 4: right-side of navbar, Bootblog 4: right side of title)
-NAVIGATION_ALT_LINKS = {
-    DEFAULT_LANG: {}
-}
+NAVIGATION_ALT_LINKS = {DEFAULT_LANG: {}}
 
 # Name of the theme to use.
 THEME = "bootblog4"
@@ -230,7 +224,6 @@ PAGES = (
     ("pages/*.html", "pages", "page.tmpl"),
 )
 
-
 # Below this point, everything is optional
 
 # Post's dates are considered in UTC by default, if you want to use
@@ -291,16 +284,16 @@ TIMEZONE = "Europe/Berlin"
 COMPILERS = {
     "rest": ('.rst', '.txt'),
     "markdown": ('.md', '.mdown', '.markdown'),
-    "textile": ('.textile',),
-    "txt2tags": ('.t2t',),
-    "bbcode": ('.bb',),
-    "wiki": ('.wiki',),
-    "ipynb": ('.ipynb',),
+    "textile": ('.textile', ),
+    "txt2tags": ('.t2t', ),
+    "bbcode": ('.bb', ),
+    "wiki": ('.wiki', ),
+    "ipynb": ('.ipynb', ),
     "html": ('.html', '.htm'),
     # PHP files are rendered the usual way (i.e. with the full templates).
     # The resulting files have .php extensions, making it possible to run
     # them without reconfiguring your server to recognize them.
-    "php": ('.php',),
+    "php": ('.php', ),
     # Pandoc detects the input from the source filename
     # but is disabled by default as it would conflict
     # with many of the others.
@@ -526,7 +519,6 @@ ENABLE_AUTHOR_PAGES = True
 #    },
 # }
 
-
 # If you do not want to display an author publicly, you can mark it as hidden.
 # The author will not be displayed on the author list page and posts.
 # Tag pages will still be generated.
@@ -539,9 +531,7 @@ HIDDEN_AUTHORS = ['Guest']
 
 # Optional HTML that displayed on “main” blog index.html files.
 # May be used for a greeting. (translatable)
-FRONT_INDEX_HEADER = {
-    DEFAULT_LANG: ''
-}
+FRONT_INDEX_HEADER = {DEFAULT_LANG: ''}
 
 # Create per-month archives instead of per-year
 # CREATE_MONTHLY_ARCHIVE = False
@@ -943,15 +933,12 @@ CONTENT_FOOTER = 'Contents &copy; {date}         <a href="https://github.com/las
 #          do not need formatting)
 # (translatable)
 CONTENT_FOOTER_FORMATS = {
-    DEFAULT_LANG: (
-        (),
-        {
-            "email": BLOG_EMAIL,
-            "author": BLOG_AUTHOR,
-            "date": time.gmtime().tm_year,
-            "license": LICENSE
-        }
-    )
+    DEFAULT_LANG: ((), {
+        "email": BLOG_EMAIL,
+        "author": BLOG_AUTHOR,
+        "date": time.gmtime().tm_year,
+        "license": LICENSE
+    })
 }
 
 # A simple copyright tag for inclusion in RSS feeds that works just
@@ -1072,12 +1059,14 @@ DEPLOY_DRAFTS = False
 #       with the MarkdownExtension class and should not be added here.
 # Defaults are markdown.extensions.(fenced_code|codehilite|extra)
 # markdown.extensions.meta is required for Markdown metadata.
-MARKDOWN_EXTENSIONS = ['markdown.extensions.fenced_code', 'markdown.extensions.codehilite', 'markdown.extensions.extra']
+MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.fenced_code', 'markdown.extensions.codehilite',
+    'markdown.extensions.extra'
+]
 
 # Options to be passed to markdown extensions (See https://python-markdown.github.io/reference/)
 # Default is {} (no config at all)
 # MARKDOWN_EXTENSION_CONFIGS = {}
-
 
 # Extra options to pass to the pandoc command.
 # by default, it's empty, is a list of strings, for example
@@ -1204,17 +1193,17 @@ SHOW_SOURCELINK = False
 # in the default template (base.tmpl).
 # (translatable)
 # BODY_END = ""
-# BODY_END = """
-# <!-- Global site tag (gtag.js) - Google Analytics -->
-# <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
-# <script>
-#   window.dataLayer = window.dataLayer || [];
-#   function gtag(){dataLayer.push(arguments);}
-#   gtag('js', new Date());
+BODY_END = """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-#   gtag('config', 'UA-148031816-1');
-# </script>
-# """
+  gtag('config', 'UA-148031816-1');
+</script>
+"""
 
 # The possibility to extract metadata from the filename by using a
 # regular expression.
