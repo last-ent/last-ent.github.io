@@ -2,10 +2,10 @@
 .. title: Elegance of Monadic Composition
 .. slug: elegance-of-monadic-composition
 .. date: 2019-11-02 04:19:08 UTC+01:00
-.. tags:
+.. tags: software design, type driven development, functional programming, programming, scala
 .. category:
 .. link:
-.. description:
+.. description: A tutorial to understand and learn about what composition means in Functional Programming and we can use it to write more elegant code.
 .. type: text
 -->
 
