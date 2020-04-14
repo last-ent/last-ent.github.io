@@ -11,7 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
 <link rel="canonical" href="https://last-ent.com/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/elegance-of-monadic-composition/" type="text/html">
+<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="prefetch" href="posts/introduction-to-adts/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -71,7 +71,145 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/elegance-of-monadic-composition/" class="u-url">Elegance of Monadic Composition</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/introduction-to-adts/" class="u-url">Introduction to ADTs (Algebraic Data Types)</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Ent
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/introduction-to-adts/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-04-14T00:31:05+02:00" itemprop="datePublished" title="2020-04-14 00:31">2020-04-14 00:31</time></a>
+            </p>
+                </div>
+            </header><div class="e-content entry-content">
+                    <div>
+<blockquote>
+<p>Algebraic Data Types (or ADTs) model the flow a program (or a system) in terms of data &amp; functions that describe the complete behaviour and states the data can go through.</p>
+</blockquote>
+<p>Let's take an example to grok the concept better.</p>
+<h2>Example: Area of a rectangle</h2>
+<blockquote>
+<p>Calculate the area of a rectangle from a list of positive integers</p>
+</blockquote>
+<p>Here's a possible algorithm:</p>
+<ul>
+<li>Take a list of integers (positive &amp; negative)</li>
+<li>Filter for positive integers ie., remove negative integers</li>
+<li>Create pairs from the filtered list</li>
+<li>Apply equation for area of rectangle</li>
+</ul>
+<h4>Types without ADTs</h4>
+<p>Base functions:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">allIntegers</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">positiveIntegers</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairs</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">pairs</span><span class="o">.</span><span class="n">map</span><span class="o">({</span> <span class="k">case</span> <span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span> <span class="o">})</span>
+</pre>
+
+
+<p>We can express our program in terms of these functions:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">program</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="o">)</span>
+
+    <span class="k">val</span> <span class="n">pairsOfPositiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="o">)</span>
+
+    <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairsOfPositiveIntegers</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Elegant alternative</span>
+
+<span class="k">def</span> <span class="n">elegantProgram</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+    <span class="n">toAreaList</span> <span class="k">_</span> <span class="n">compose</span> <span class="n">toPairs</span> <span class="n">compose</span> <span class="n">filterPositives</span> <span class="n">apply</span> <span class="n">allIntegers</span>
+</pre>
+
+
+<p>That's awesome but it is not so straightforward to make sense of how or what data is flowing through where in the program:</p>
+<pre class="code literal-block"><span></span><span class="k">type</span> <span class="kt">program</span> <span class="o">=</span> 
+    <span class="o">(</span><span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=&gt;</span>               <span class="c1">// filterPositives</span>
+        <span class="o">(</span><span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)])</span> <span class="k">=&gt;</span>    <span class="c1">// toPairs </span>
+            <span class="o">(</span><span class="nc">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>   <span class="c1">// toAreaList</span>
+</pre>
+
+
+<h4>Types with ADTs</h4>
+<p>That is a crazy amount of <code>List</code>s, <code>Int</code>s and <code>List of Int</code>s to follow around. What makes it worse is that we have no idea about what the data types signify, for example - How does <code>List[Int]</code> used in <code>filterPositives</code> input differ from the one used by <code>toPairs</code>?</p>
+<p>We can model our system better using ADTs. But first, let's start by visualizing our problem:</p>
+<p><img alt="ADT Flow" src="images/adt-flow.png"></p>
+<p>The diagram nicely helps break down the program into functions, data stages &amp; data types.</p>
+<h5>Functions</h5>
+<ul>
+<li><code>filterPositives</code></li>
+<li><code>toPairs</code></li>
+<li><code>toAreaList</code></li>
+</ul>
+<h5>Stages of Data:</h5>
+<ul>
+<li><code>All Integers</code></li>
+<li><code>Posiives</code></li>
+<li><code>Positive Pairs</code></li>
+<li><code>Areas</code></li>
+</ul>
+<h4>Data Types</h4>
+<ul>
+<li>
+<code>ℤ</code> (<em>Remember that <code>ℤ</code> in mathematics is used to denote the set of all integers</em>)</li>
+<li><code>ℤ+</code></li>
+<li><code>(ℤ+, ℤ+)</code></li>
+</ul>
+<p>In previous example, we had functions &amp; types of data being passed around but nothing to describe the stages of data.</p>
+<p>This is where ADTs comes in.</p>
+<blockquote>
+<p>ADTs are a set of data classes (<code>case class</code>es in Scala) that encapsulate our primitive types into domain specific descriptive types.</p>
+</blockquote>
+<p>Let's start by describing stages of our data:</p>
+<pre class="code literal-block"><span></span><span class="k">case</span> <span class="k">class</span> <span class="nc">AllIntegers</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Positives</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Areas</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
+</pre>
+
+
+<p>Now our functions change to:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Positives</span> <span class="o">=</span> <span class="nc">Positives</span><span class="o">(</span><span class="n">allIntegers</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">Positives</span><span class="o">)</span><span class="k">:</span> <span class="kt">PositivePairs</span> <span class="o">=</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">)))</span>
+
+<span class="k">def</span> <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairs</span><span class="k">:</span> <span class="kt">PositivePairs</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="nc">Areas</span><span class="o">(</span><span class="n">pairs</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">map</span><span class="o">({</span> <span class="k">case</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span> <span class="o">}))</span>
+</pre>
+
+
+<p>The data flow changes to:</p>
+<pre class="code literal-block"><span></span><span class="k">type</span> <span class="kt">program</span> <span class="o">=</span> 
+    <span class="nc">AllIntegers</span> <span class="k">=&gt;</span>
+        <span class="nc">Positives</span> <span class="k">=&gt;</span>     <span class="c1">// filterPositives</span>
+        <span class="nc">PositivePairs</span> <span class="k">=&gt;</span> <span class="c1">// toPairs</span>
+        <span class="nc">Areas</span>            <span class="c1">// toAreaList</span>
+</pre>
+
+
+<p>The program can be written as</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">elegantProgram</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="c1">// Note the types used for input &amp; output</span>
+    <span class="n">toAreaList</span> <span class="k">_</span> <span class="n">compose</span> <span class="n">toPairs</span> <span class="n">compose</span> <span class="n">filterPositives</span> <span class="n">apply</span> <span class="n">allIntegers</span>
+</pre>
+
+
+<p>An important thing to appreciate here is that using ADTs now makes it harder to make mistakes with function composition. For example, when we were using primitive types, we could've easily written following code which would compile and run:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">programPrimitiveTypes</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">allIntegers</span>
+</pre>
+
+
+<p>However with ADTs, we have the compiler on our side ensuring the program is typesafe and correct.</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">programADTs</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="n">allIntegers</span> <span class="c1">// Compiler error!</span>
+</pre>
+
+
+<h3>Conclusion</h3>
+<p>I hope this sheds some light on the value of ADTs and why they are useful.</p>
+<p>There is a lot more to ADTs but I will cover it in a separate post using the context of a web application.</p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/elegance-of-monadic-composition/" class="u-url">Elegance of Monadic Composition</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Ent

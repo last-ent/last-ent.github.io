@@ -7,15 +7,19 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-04-14T10:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
   <lastmod>2020-01-19T10:11:00Z</lastmod>
  </url>
  <url>
+  <loc>https://last-ent.com/2020/</loc>
+  <lastmod>2020-04-14T10:39:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-04-14T20:34:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
@@ -80,6 +84,10 @@
  <url>
   <loc>https://last-ent.com/posts/elements-of-coding-style/</loc>
   <lastmod>2020-01-19T10:11:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/introduction-to-adts/</loc>
+  <lastmod>2020-04-14T10:39:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</loc>

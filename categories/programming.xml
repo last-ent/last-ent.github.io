@@ -1,5 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about programming)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/programming.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 19 Jan 2020 10:14:57 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Elegance of Monadic Composition</title><link>https://last-ent.com/posts/elegance-of-monadic-composition/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Functional programming has many interesting concepts but it can be hard to find practical applications for it in everyday work. In this post, I will explain how Monadic Composition can be used write elegant and easy to understand code.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about programming)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/programming.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Tue, 14 Apr 2020 20:42:56 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introduction to ADTs (Algebraic Data Types)</title><link>https://last-ent.com/posts/introduction-to-adts/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;blockquote&gt;
+&lt;p&gt;Algebraic Data Types (or ADTs) model the flow a program (or a system) in terms of data &amp;amp; functions that describe the complete behaviour and states the data can go through.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Let's take an example to grok the concept better.&lt;/p&gt;
+&lt;h2&gt;Example: Area of a rectangle&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Calculate the area of a rectangle from a list of positive integers&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Here's a possible algorithm:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Take a list of integers (positive &amp;amp; negative)&lt;/li&gt;
+&lt;li&gt;Filter for positive integers ie., remove negative integers&lt;/li&gt;
+&lt;li&gt;Create pairs from the filtered list&lt;/li&gt;
+&lt;li&gt;Apply equation for area of rectangle&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Types without ADTs&lt;/h4&gt;
+&lt;p&gt;Base functions:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;filterPositives&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;_&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;toPairs&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;positiveIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[(&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;, &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;positiveIntegers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;toAreaList&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pairs&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[(&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;, &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pairs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="o"&gt;({&lt;/span&gt; &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;})&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;We can express our program in terms of these functions:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;program&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;positiveIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;filterPositives&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+    &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;pairsOfPositiveIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[(&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;, &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;toPairs&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;positiveIntegers&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;toAreaList&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pairsOfPositiveIntegers&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Elegant alternative&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;elegantProgram&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt;
+    &lt;span class="n"&gt;toAreaList&lt;/span&gt; &lt;span class="k"&gt;_&lt;/span&gt; &lt;span class="n"&gt;compose&lt;/span&gt; &lt;span class="n"&gt;toPairs&lt;/span&gt; &lt;span class="n"&gt;compose&lt;/span&gt; &lt;span class="n"&gt;filterPositives&lt;/span&gt; &lt;span class="n"&gt;apply&lt;/span&gt; &lt;span class="n"&gt;allIntegers&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;That's awesome but it is not so straightforward to make sense of how or what data is flowing through where in the program:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;program&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 
+    &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt;               &lt;span class="c1"&gt;// filterPositives&lt;/span&gt;
+        &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[(&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;, &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)])&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt;    &lt;span class="c1"&gt;// toPairs &lt;/span&gt;
+            &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[(&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;, &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)]&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;   &lt;span class="c1"&gt;// toAreaList&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h4&gt;Types with ADTs&lt;/h4&gt;
+&lt;p&gt;That is a crazy amount of &lt;code&gt;List&lt;/code&gt;s, &lt;code&gt;Int&lt;/code&gt;s and &lt;code&gt;List of Int&lt;/code&gt;s to follow around. What makes it worse is that we have no idea about what the data types signify, for example - How does &lt;code&gt;List[Int]&lt;/code&gt; used in &lt;code&gt;filterPositives&lt;/code&gt; input differ from the one used by &lt;code&gt;toPairs&lt;/code&gt;?&lt;/p&gt;
+&lt;p&gt;We can model our system better using ADTs. But first, let's start by visualizing our problem:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="ADT Flow" src="https://last-ent.com/images/adt-flow.png"&gt;&lt;/p&gt;
+&lt;p&gt;The diagram nicely helps break down the program into functions, data stages &amp;amp; data types.&lt;/p&gt;
+&lt;h5&gt;Functions&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;filterPositives&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;toPairs&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;toAreaList&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h5&gt;Stages of Data:&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;All Integers&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Posiives&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Positive Pairs&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Areas&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Data Types&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ℤ&lt;/code&gt; (&lt;em&gt;Remember that &lt;code&gt;ℤ&lt;/code&gt; in mathematics is used to denote the set of all integers&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ℤ+&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;(ℤ+, ℤ+)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In previous example, we had functions &amp;amp; types of data being passed around but nothing to describe the stages of data.&lt;/p&gt;
+&lt;p&gt;This is where ADTs comes in.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ADTs are a set of data classes (&lt;code&gt;case class&lt;/code&gt;es in Scala) that encapsulate our primitive types into domain specific descriptive types.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Let's start by describing stages of our data:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;AllIntegers&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Positives&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;PositivePairs&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[(&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;, &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)])&lt;/span&gt;
+&lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Areas&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;Now our functions change to:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;filterPositives&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AllIntegers&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Positives&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;Positives&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;_&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;))&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;toPairs&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;positiveIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Positives&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;PositivePairs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;PositivePairs&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;positiveIntegers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;)))&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;toAreaList&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pairs&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;PositivePairs&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Areas&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nc"&gt;Areas&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pairs&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;map&lt;/span&gt;&lt;span class="o"&gt;({&lt;/span&gt; &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="nc"&gt;PositivePairs&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;}))&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;The data flow changes to:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;program&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; 
+    &lt;span class="nc"&gt;AllIntegers&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt;
+        &lt;span class="nc"&gt;Positives&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt;     &lt;span class="c1"&gt;// filterPositives&lt;/span&gt;
+        &lt;span class="nc"&gt;PositivePairs&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="c1"&gt;// toPairs&lt;/span&gt;
+        &lt;span class="nc"&gt;Areas&lt;/span&gt;            &lt;span class="c1"&gt;// toAreaList&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;The program can be written as&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;elegantProgram&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AllIntegers&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Areas&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="c1"&gt;// Note the types used for input &amp;amp; output&lt;/span&gt;
+    &lt;span class="n"&gt;toAreaList&lt;/span&gt; &lt;span class="k"&gt;_&lt;/span&gt; &lt;span class="n"&gt;compose&lt;/span&gt; &lt;span class="n"&gt;toPairs&lt;/span&gt; &lt;span class="n"&gt;compose&lt;/span&gt; &lt;span class="n"&gt;filterPositives&lt;/span&gt; &lt;span class="n"&gt;apply&lt;/span&gt; &lt;span class="n"&gt;allIntegers&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;An important thing to appreciate here is that using ADTs now makes it harder to make mistakes with function composition. For example, when we were using primitive types, we could've easily written following code which would compile and run:&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;programPrimitiveTypes&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;allIntegers&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;p&gt;However with ADTs, we have the compiler on our side ensuring the program is typesafe and correct.&lt;/p&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;programADTs&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;AllIntegers&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Areas&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;allIntegers&lt;/span&gt; &lt;span class="c1"&gt;// Compiler error!&lt;/span&gt;
+&lt;/pre&gt;
+
+
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;I hope this sheds some light on the value of ADTs and why they are useful.&lt;/p&gt;
+&lt;p&gt;There is a lot more to ADTs but I will cover it in a separate post using the context of a web application.&lt;/p&gt;&lt;/div&gt;</description><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><category>type driven development</category><guid>https://last-ent.com/posts/introduction-to-adts/</guid><pubDate>Mon, 13 Apr 2020 22:31:05 GMT</pubDate></item><item><title>Elegance of Monadic Composition</title><link>https://last-ent.com/posts/elegance-of-monadic-composition/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Functional programming has many interesting concepts but it can be hard to find practical applications for it in everyday work. In this post, I will explain how Monadic Composition can be used write elegant and easy to understand code.&lt;/p&gt;
 &lt;p&gt;Consider an API &lt;code&gt;Donatron&lt;/code&gt; that accepts donations. The API's algorithm is as follows:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Accepts donations as list of strings&lt;/li&gt;

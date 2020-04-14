@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Introduction to Algebraic Data Types. A detailed beginner friendly tutorial on why and how to use ADTs.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to ADTs (Algebraic Data Types) | Last Ent's Thoughts</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://last-ent.com/posts/introduction-to-adts/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Ent">
+<link rel="prev" href="../elegance-of-monadic-composition/" title="Elegance of Monadic Composition" type="text/html">
+<meta property="og:site_name" content="Last Ent's Thoughts">
+<meta property="og:title" content="Introduction to ADTs (Algebraic Data Types)">
+<meta property="og:url" content="https://last-ent.com/posts/introduction-to-adts/">
+<meta property="og:description" content="Introduction to Algebraic Data Types. A detailed beginner friendly tutorial on why and how to use ADTs.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-04-14T00:31:05+02:00">
+<meta property="article:tag" content="functional programming">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="software design">
+<meta property="article:tag" content="type driven development">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://last-ent.com/">
+
+            <span id="blog-title">Last Ent's Thoughts</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../pages/learning-targets" class="nav-link">Learning Targets</a>
+            </li>
+<li class="nav-item dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archives</a>
+            <div class="dropdown-menu">
+                    <a href="../../archive.html" class="dropdown-item">Archive</a>
+                    <a href="../../categories/" class="dropdown-item">Tags</a>
+            </div>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about" class="nav-link">About</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Introduction to ADTs (Algebraic Data Types)</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                    Ent
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-04-14T00:31:05+02:00" itemprop="datePublished" title="2020-04-14 00:31">2020-04-14 00:31</time></a>
+            </p>
+            
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<blockquote>
+<p>Algebraic Data Types (or ADTs) model the flow a program (or a system) in terms of data &amp; functions that describe the complete behaviour and states the data can go through.</p>
+</blockquote>
+<p>Let's take an example to grok the concept better.</p>
+<h2>Example: Area of a rectangle</h2>
+<blockquote>
+<p>Calculate the area of a rectangle from a list of positive integers</p>
+</blockquote>
+<p>Here's a possible algorithm:</p>
+<ul>
+<li>Take a list of integers (positive &amp; negative)</li>
+<li>Filter for positive integers ie., remove negative integers</li>
+<li>Create pairs from the filtered list</li>
+<li>Apply equation for area of rectangle</li>
+</ul>
+<h4>Types without ADTs</h4>
+<p>Base functions:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">allIntegers</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">positiveIntegers</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairs</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">pairs</span><span class="o">.</span><span class="n">map</span><span class="o">({</span> <span class="k">case</span> <span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span> <span class="o">})</span>
+</pre>
+
+
+<p>We can express our program in terms of these functions:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">program</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="o">)</span>
+
+    <span class="k">val</span> <span class="n">pairsOfPositiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="o">)</span>
+
+    <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairsOfPositiveIntegers</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="c1">// Elegant alternative</span>
+
+<span class="k">def</span> <span class="n">elegantProgram</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
+    <span class="n">toAreaList</span> <span class="k">_</span> <span class="n">compose</span> <span class="n">toPairs</span> <span class="n">compose</span> <span class="n">filterPositives</span> <span class="n">apply</span> <span class="n">allIntegers</span>
+</pre>
+
+
+<p>That's awesome but it is not so straightforward to make sense of how or what data is flowing through where in the program:</p>
+<pre class="code literal-block"><span></span><span class="k">type</span> <span class="kt">program</span> <span class="o">=</span> 
+    <span class="o">(</span><span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=&gt;</span>               <span class="c1">// filterPositives</span>
+        <span class="o">(</span><span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)])</span> <span class="k">=&gt;</span>    <span class="c1">// toPairs </span>
+            <span class="o">(</span><span class="nc">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>   <span class="c1">// toAreaList</span>
+</pre>
+
+
+<h4>Types with ADTs</h4>
+<p>That is a crazy amount of <code>List</code>s, <code>Int</code>s and <code>List of Int</code>s to follow around. What makes it worse is that we have no idea about what the data types signify, for example - How does <code>List[Int]</code> used in <code>filterPositives</code> input differ from the one used by <code>toPairs</code>?</p>
+<p>We can model our system better using ADTs. But first, let's start by visualizing our problem:</p>
+<p><img alt="ADT Flow" src="../../images/adt-flow.png"></p>
+<p>The diagram nicely helps break down the program into functions, data stages &amp; data types.</p>
+<h5>Functions</h5>
+<ul>
+<li><code>filterPositives</code></li>
+<li><code>toPairs</code></li>
+<li><code>toAreaList</code></li>
+</ul>
+<h5>Stages of Data:</h5>
+<ul>
+<li><code>All Integers</code></li>
+<li><code>Posiives</code></li>
+<li><code>Positive Pairs</code></li>
+<li><code>Areas</code></li>
+</ul>
+<h4>Data Types</h4>
+<ul>
+<li>
+<code>ℤ</code> (<em>Remember that <code>ℤ</code> in mathematics is used to denote the set of all integers</em>)</li>
+<li><code>ℤ+</code></li>
+<li><code>(ℤ+, ℤ+)</code></li>
+</ul>
+<p>In previous example, we had functions &amp; types of data being passed around but nothing to describe the stages of data.</p>
+<p>This is where ADTs comes in.</p>
+<blockquote>
+<p>ADTs are a set of data classes (<code>case class</code>es in Scala) that encapsulate our primitive types into domain specific descriptive types.</p>
+</blockquote>
+<p>Let's start by describing stages of our data:</p>
+<pre class="code literal-block"><span></span><span class="k">case</span> <span class="k">class</span> <span class="nc">AllIntegers</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Positives</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span>, <span class="kt">Int</span><span class="o">)])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Areas</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
+</pre>
+
+
+<p>Now our functions change to:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Positives</span> <span class="o">=</span> <span class="nc">Positives</span><span class="o">(</span><span class="n">allIntegers</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">))</span>
+
+<span class="k">def</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">Positives</span><span class="o">)</span><span class="k">:</span> <span class="kt">PositivePairs</span> <span class="o">=</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">)))</span>
+
+<span class="k">def</span> <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairs</span><span class="k">:</span> <span class="kt">PositivePairs</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="nc">Areas</span><span class="o">(</span><span class="n">pairs</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">map</span><span class="o">({</span> <span class="k">case</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span> <span class="o">}))</span>
+</pre>
+
+
+<p>The data flow changes to:</p>
+<pre class="code literal-block"><span></span><span class="k">type</span> <span class="kt">program</span> <span class="o">=</span> 
+    <span class="nc">AllIntegers</span> <span class="k">=&gt;</span>
+        <span class="nc">Positives</span> <span class="k">=&gt;</span>     <span class="c1">// filterPositives</span>
+        <span class="nc">PositivePairs</span> <span class="k">=&gt;</span> <span class="c1">// toPairs</span>
+        <span class="nc">Areas</span>            <span class="c1">// toAreaList</span>
+</pre>
+
+
+<p>The program can be written as</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">elegantProgram</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="c1">// Note the types used for input &amp; output</span>
+    <span class="n">toAreaList</span> <span class="k">_</span> <span class="n">compose</span> <span class="n">toPairs</span> <span class="n">compose</span> <span class="n">filterPositives</span> <span class="n">apply</span> <span class="n">allIntegers</span>
+</pre>
+
+
+<p>An important thing to appreciate here is that using ADTs now makes it harder to make mistakes with function composition. For example, when we were using primitive types, we could've easily written following code which would compile and run:</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">programPrimitiveTypes</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">allIntegers</span>
+</pre>
+
+
+<p>However with ADTs, we have the compiler on our side ensuring the program is typesafe and correct.</p>
+<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">programADTs</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="n">allIntegers</span> <span class="c1">// Compiler error!</span>
+</pre>
+
+
+<h3>Conclusion</h3>
+<p>I hope this sheds some light on the value of ADTs and why they are useful.</p>
+<p>There is a lot more to ADTs but I will cover it in a separate post using the context of a web application.</p>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/functional-programming/" rel="tag">functional programming</a></li>
+            <li><a class="tag p-category" href="../../categories/programming/" rel="tag">programming</a></li>
+            <li><a class="tag p-category" href="../../categories/scala/" rel="tag">scala</a></li>
+            <li><a class="tag p-category" href="../../categories/software-design/" rel="tag">software design</a></li>
+            <li><a class="tag p-category" href="../../categories/type-driven-development/" rel="tag">type driven development</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../elegance-of-monadic-composition/" rel="prev" title="Elegance of Monadic Composition">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-148031816-1');
+</script>
+</body>
+</html>
