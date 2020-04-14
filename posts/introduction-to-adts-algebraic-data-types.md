@@ -2,10 +2,10 @@
 .. title: Introduction to ADTs (Algebraic Data Types)
 .. slug: introduction-to-adts
 .. date: 2020-04-14 00:31:05 UTC+02:00
-.. tags: 
+.. tags: software design, type driven development, functional programming, programming, scala
 .. category: 
 .. link: 
-.. description: 
+.. description: Introduction to Algebraic Data Types. A detailed beginner friendly post on why and how to use ADTs.
 .. type: text
 -->
 
@@ -34,8 +34,6 @@ def filterPositives(allIntegers: List[Int]): List[Int] = allIntegers.filter(_ > 
 def toPairs(positiveIntegers: List[Int]): List[(Int, Int)] =
     positiveIntegers.map(i => (i, i))
 
-def toArea(l: Int, b: Int): Int
-
 def toAreaList(pairs: List[(Int, Int)]): List[Int] = pairs.map({ case (l: Int, b: Int) => l * b })
 ```
 
@@ -62,9 +60,9 @@ That's awesome but if we look at data types, it's a bit harder to follow:
 ```scala
 
 type program = 
-    (List[Int] => List[Int]) =>              // filterPositives
-        (List[Int] => List[(Int, Int)]) =>   // toPairs 
-            (List(Int, Int)] => List[Int])   // toAreaList
+    (List[Int] => List[Int]) =>               // filterPositives
+        (List[Int] => List[(Int, Int)]) =>    // toPairs 
+            (List[(Int, Int)] => List[Int])   // toAreaList
 
 ```
 
@@ -74,10 +72,7 @@ That's a crazy amount of `List`s, `Int`s and `List of Int`s to follow around.
 
 Is there a better way to abstract it? What if we used diagrams?
 
-```diagram
-
-All Integers: {Z}    =(filterPositives)>  Positives:  {Z+}    =(toPairs)>  Positive Pairs:  {(Z+, Z+)}    =(toAreaList)>  Areas:  {(Z+)}
-```
+![ADT Flow](/images/adt-flow.png)
 
 I think this is a very nice way to look at problem domain. The diagram shows the functions used for transformation:
 
@@ -137,10 +132,10 @@ The program can be written as
 
 ```scala
 
-def elegantProgram(allIntegers: AllIntegers): Areas =
+def elegantProgram(allIntegers: AllIntegers): Areas = // Note the types used for input & output
     toAreaList _ compose toPairs compose filterPositives apply allIntegers
 
-````
+```
 
 An important thing to appreciate here is that using ADTs now makes it harder to make mistakes with function composition. For example, when we were using primitive types, we could've easily written following code which would compile and run
 
@@ -150,8 +145,6 @@ def programPrimitiveTypes(allIntegers: List[Int]): List[Int] = allIntegers
 def programADTs(allIntegers: AllIntegers): Areas = allIntegers // Compiler error!
 ```
 
-However with ADTs, we have the compiler on our side ensuring the program is "typesafe" and "correct".
+However with ADTs, we have the compiler on our side ensuring the program is typesafe and correct.
 
-I hope this has convinced you of the value ADTs can bring to the game.
-
-## Example: Web Application
+I hope this shows you of the value of ADTs and what they bring to the game.
