@@ -9,9 +9,9 @@
 .. type: text
 -->
 
-> Algebraic Data Types (or ADTs) model the flow a program (or a system) in terms of data & functions that describe the complete behaviour and states the system can go through.
+> Algebraic Data Types (or ADTs) model the flow a program (or a system) in terms of data & functions that describe the complete behaviour and states the data can go through.
 
-Let's go through an example to grok the concept better.
+Let's take an example to grok the concept better.
 
 # Example: Area of a rectangle
 
@@ -55,7 +55,7 @@ def elegantProgram(allIntegers: List[Int]): List[Int] =
 
 ```
 
-That's awesome but it is not so straightforward to make sense of how or which data is flowing through where in the program:
+That's awesome but it is not so straightforward to make sense of how or what data is flowing through where in the program:
 
 ```scala
 
@@ -74,7 +74,7 @@ We can model our system better using ADTs. But first, let's start by visualizing
 
 ![ADT Flow](/images/adt-flow.png)
 
-The diagrams nicely helps break down the program into functions, data stages & data types.
+The diagram nicely helps break down the program into functions, data stages & data types.
 
 #### Functions
 
@@ -112,7 +112,7 @@ case class Areas(values: List[Int])
 
 ```
 
-Now our function signatures change to:
+Now our functions change to:
 
 ```scala
 def filterPositives(allIntegers: AllIntegers): Positives = Positives(allIntegers.values.filter(_ > 0))
@@ -159,4 +159,4 @@ def programADTs(allIntegers: AllIntegers): Areas = allIntegers // Compiler error
 
 I hope this sheds some light on the value of ADTs and why they are useful.
 
-There is a lot more to ADTs  but I will cover it in a separate post using the context of a web application.
+There is a lot more to ADTs but I will cover it in a separate post using the context of a web application.
