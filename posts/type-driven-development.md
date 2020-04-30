@@ -13,24 +13,24 @@
 **Table of Contents**
 
 - [Introduction](#introduction)
-    - [TLDR](#tldr)
+  - [TLDR](#tldr)
 - [The Square Jigsaw Table](#the-square-jigsaw-table)
-    - [Why did this happen?](#why-did-this-happen)
-    - [Specification & Proof](#specification--proof)
+  - [Why did this happen?](#why-did-this-happen)
+  - [Specification & Proof](#specification--proof)
 - [Type Driven Development](#type-driven-development)
-    - [What does this mean?](#what-does-this-mean)
+  - [What does this mean?](#what-does-this-mean)
 - [Case Study: Online Shopping](#case-study-online-shopping)
 - [Code Demo](#code-demo)
-    - [Step 0: Structure](#step-0-structure)
-    - [Step 1: Edge Behaviour: `List[ShoppingListItem] => F[List[ItemConfirmation]]`](#step-1-edge-behaviour-listshoppinglistitem--flistitemconfirmation)
-    - [Step 2: Dependencies](#step-2-dependencies)
-    - [Step3: Deriving Proof](#step3-deriving-proof)
-        - [Concepts: Monad, Functor & Higher Kinded Types](#concepts-monad-functor--higher-kinded-types)
-        - [`ItemConfirmation` transformers](#itemconfirmation-transformers)
-        - [Transformers to return complete `List[ItemConfirmation]`](#transformers-to-return-complete-listitemconfirmation)
-        - [`toItemConfirmation` transformer](#toitemconfirmation-transformer)
+  - [Step 0: Structure](#step-0-structure)
+  - [Step 1: Edge Behaviour: `List[ShoppingListItem] => F[List[ItemConfirmation]]`](#step-1-edge-behaviour-listshoppinglistitem--flistitemconfirmation)
+  - [Step 2: Dependencies](#step-2-dependencies)
+  - [Step 3: Deriving Proof](#step-3-deriving-proof)
+    - [Concepts: Monad, Functor & Higher Kinded Types](#concepts-monad-functor--higher-kinded-types)
+    - [`ItemConfirmation` transformers](#itemconfirmation-transformers)
+    - [Transformers to return complete `List[ItemConfirmation]`](#transformers-to-return-complete-listitemconfirmation)
+    - [`toItemConfirmation` transformer](#toitemconfirmation-transformer)
 - [Conclusion](#conclusion)
-    - [Complete Source Code](#complete-source-code)
+  - [Complete Source Code](#complete-source-code)
 
 <!-- markdown-toc end -->
 # Introduction
@@ -40,6 +40,8 @@ In our project workflow, we break down features to implement into tickets and de
 In case you don't want to dive in just yet, here is the idea we will cover in this post.
 
 > Think about the behaviour of your program in terms of data types & functions signatures. Next step is to `prove` or `derive` a function that composes all of the types & signatures to implement the feature. Then carry on to implement each of the individual functions with the guarantee that all functions will compose together.
+
+{{% promptmid %}}
 
 Now onto the story.
 
@@ -77,6 +79,8 @@ One way to avoid this issue is by defining behaviour of the final product with *
 ![Pegs & holes of the four blocks is defined along with how they are connected. Rest of the block is missing.](/images/glue-code.jpg)
 
 Now each of the apprentices can use the block's skeleton to create his/her own block as (s)he knows the size, colour and position of peg & hole.
+
+{{% promptmid %}}
 
 # Type Driven Development
 We can achieve similar results with greater flexibility using domain model types & interfaces/function types. Before we look at "How?" let's first formally define it.
@@ -225,7 +229,9 @@ object Dependencies {
 }
 ```
 
-## Step3: Deriving Proof
+{{% promptmid %}}
+
+## Step 3: Deriving Proof
 
 We have defined the behaviour of our dependencies and also define how the overall system should behave from Customer's perspective.
 
@@ -430,6 +436,8 @@ object Specification {
 }
 
 ```
+
+{{% promptend %}}
 
 # Conclusion
 

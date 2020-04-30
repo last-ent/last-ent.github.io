@@ -26,7 +26,10 @@ Consider an API `Donatron` that accepts donations. The API's algorithm is as fol
 
 End goal is to be able to execute `Donatron.donate` function and get correct response.
 
+{{% promptmid %}}
+
 **Algorithm as a flowchart**
+
 ![Expected flow of Donatron](/images/donatron-flow.png)
 
 Using `IO` we can model the algorithm by using
@@ -89,7 +92,9 @@ The beauty of `EitherT` is that we can chain/compose our functions. This is grea
 
 We will take each of the functions we defined earlier and convert them to `EitherT`. In order to do this, we will introduce new `case class`es that will be used to encapsulate errors.
 
-So get started...
+So let's get started...
+
+{{% promptend %}}
 
 ## `checkForValidInts`
 
@@ -185,6 +190,8 @@ def checkForMinimumDonationAmountET(data: ValidDonationsFound): EitherT[IO, RawD
 }
 ```
 
+{{% promptmid %}}
+
 ## `submitDonations`
 ```scala
 def submitDonations(data: DonationsAboveMinimumFound): IO[AcceptedDonations] =
@@ -245,6 +252,7 @@ def donate(req: Request): IO[Response] =
 
 ## One more thing...
 
+{{% promptend %}}
 If we try to run the code as-is, we get following compilation error:
 
 ```bash
