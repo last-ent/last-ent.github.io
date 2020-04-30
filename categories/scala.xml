@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about scala)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/scala.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Tue, 14 Apr 2020 20:42:56 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introduction to ADTs (Algebraic Data Types)</title><link>https://last-ent.com/posts/introduction-to-adts/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;blockquote&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about scala)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/scala.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Apr 2020 21:27:41 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introduction to ADTs (Algebraic Data Types)</title><link>https://last-ent.com/posts/introduction-to-adts/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;blockquote&gt;
 &lt;p&gt;Algebraic Data Types (or ADTs) model the flow a program (or a system) in terms of data &amp;amp; functions that describe the complete behaviour and states the data can go through.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Let's take an example to grok the concept better.&lt;/p&gt;
@@ -14,6 +14,28 @@
 &lt;li&gt;Create pairs from the filtered list&lt;/li&gt;
 &lt;li&gt;Apply equation for area of rectangle&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Interested for more posts like this?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;h4&gt;Types without ADTs&lt;/h4&gt;
 &lt;p&gt;Base functions:&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;filterPositives&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;Int&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="n"&gt;allIntegers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;filter&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="k"&gt;_&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
@@ -119,6 +141,28 @@
 &lt;/pre&gt;
 
 
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Liked this and want more?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;h3&gt;Conclusion&lt;/h3&gt;
 &lt;p&gt;I hope this sheds some light on the value of ADTs and why they are useful.&lt;/p&gt;
 &lt;p&gt;There is a lot more to ADTs but I will cover it in a separate post using the context of a web application.&lt;/p&gt;&lt;/div&gt;</description><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><category>type driven development</category><guid>https://last-ent.com/posts/introduction-to-adts/</guid><pubDate>Mon, 13 Apr 2020 22:31:05 GMT</pubDate></item><item><title>Elegance of Monadic Composition</title><link>https://last-ent.com/posts/elegance-of-monadic-composition/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Functional programming has many interesting concepts but it can be hard to find practical applications for it in everyday work. In this post, I will explain how Monadic Composition can be used write elegant and easy to understand code.&lt;/p&gt;
@@ -142,8 +186,30 @@
 &lt;li&gt;Return Response&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;End goal is to be able to execute &lt;code&gt;Donatron.donate&lt;/code&gt; function and get correct response.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Algorithm as a flowchart&lt;/strong&gt;
-&lt;img alt="Expected flow of Donatron" src="https://last-ent.com/images/donatron-flow.png"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Interested for more posts like this?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;strong&gt;Algorithm as a flowchart&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Expected flow of Donatron" src="https://last-ent.com/images/donatron-flow.png"&gt;&lt;/p&gt;
 &lt;p&gt;Using &lt;code&gt;IO&lt;/code&gt; we can model the algorithm by using&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;flatmap&lt;/code&gt; on success&lt;/li&gt;
@@ -198,7 +264,29 @@
 &lt;/ul&gt;
 &lt;p&gt;The beauty of &lt;code&gt;EitherT&lt;/code&gt; is that we can chain/compose our functions. This is great and all but now comes the question, "How can we reuse our existing functions?" This is where the elegance of &lt;code&gt;EitherT&lt;/code&gt; truly shines for it has methods which will help us to convert our &lt;code&gt;IO&lt;/code&gt;s into &lt;code&gt;EitherT&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;We will take each of the functions we defined earlier and convert them to &lt;code&gt;EitherT&lt;/code&gt;. In order to do this, we will introduce new &lt;code&gt;case class&lt;/code&gt;es that will be used to encapsulate errors.&lt;/p&gt;
-&lt;p&gt;So get started...&lt;/p&gt;
+&lt;p&gt;So let's get started...&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Liked this and want more?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;h3&gt;&lt;code&gt;checkForValidInts&lt;/code&gt;&lt;/h3&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;checkForValidInts&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;req&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Request&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;IO&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;ValidDonationsFound&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
   &lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;validInts&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;nonInts&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt;
@@ -289,6 +377,28 @@
 &lt;/pre&gt;
 
 
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Interested for more posts like this?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;h3&gt;&lt;code&gt;submitDonations&lt;/code&gt;&lt;/h3&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="n"&gt;submitDonations&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;DonationsAboveMinimumFound&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;IO&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;AcceptedDonations&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt;
   &lt;span class="n"&gt;checkForAboveMaxDonationAmount&lt;/span&gt;&lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;aboveMinimum&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
@@ -343,7 +453,29 @@
 
 
 &lt;h3&gt;One more thing...&lt;/h3&gt;
-&lt;p&gt;If we try to run the code as-is, we get following compilation error:&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Liked this and want more?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
+If we try to run the code as-is, we get following compilation error:
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;info&lt;span class="o"&gt;]&lt;/span&gt; Compiling &lt;span class="m"&gt;1&lt;/span&gt; Scala &lt;span class="nb"&gt;source&lt;/span&gt; to /home/ent/Documents/Code/DonatronExample/target/scala-2.12/classes ...
 &lt;span class="o"&gt;[&lt;/span&gt;error&lt;span class="o"&gt;]&lt;/span&gt; /home/ent/Documents/Code/DonatronExample/src/main/scala/donatron/Donatron.scala:23:16: &lt;span class="nb"&gt;type&lt;/span&gt; mismatch&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="o"&gt;[&lt;/span&gt;error&lt;span class="o"&gt;]&lt;/span&gt;  found   : cats.effect.IO&lt;span class="o"&gt;[&lt;/span&gt;donatron.models.Response&lt;span class="o"&gt;]&lt;/span&gt;
@@ -404,37 +536,27 @@
 
 &lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#introduction"&gt;Introduction&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#introduction"&gt;Introduction&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#tldr"&gt;TLDR&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#the-square-jigsaw-table"&gt;The Square Jigsaw Table&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#the-square-jigsaw-table"&gt;The Square Jigsaw Table&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#why-did-this-happen"&gt;Why did this happen?&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#specification--proof"&gt;Specification &amp;amp; Proof&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#type-driven-development"&gt;Type Driven Development&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#type-driven-development"&gt;Type Driven Development&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#what-does-this-mean"&gt;What does this mean?&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#case-study-online-shopping"&gt;Case Study: Online Shopping&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#code-demo"&gt;Code Demo&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#code-demo"&gt;Code Demo&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#step-0-structure"&gt;Step 0: Structure&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#step-1-edge-behaviour-listshoppinglistitem--flistitemconfirmation"&gt;Step 1: Edge Behaviour: &lt;code&gt;List[ShoppingListItem] =&amp;gt; F[List[ItemConfirmation]]&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#step-2-dependencies"&gt;Step 2: Dependencies&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#step3-deriving-proof"&gt;Step3: Deriving Proof&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#step-3-deriving-proof"&gt;Step 3: Deriving Proof&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#concepts-monad-functor--higher-kinded-types"&gt;Concepts: Monad, Functor &amp;amp; Higher Kinded Types&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#itemconfirmation-transformers"&gt;&lt;code&gt;ItemConfirmation&lt;/code&gt; transformers&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#transformers-to-return-complete-listitemconfirmation"&gt;Transformers to return complete &lt;code&gt;List[ItemConfirmation]&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#toitemconfirmation-transformer"&gt;&lt;code&gt;toItemConfirmation&lt;/code&gt; transformer&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#conclusion"&gt;Conclusion&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#conclusion"&gt;Conclusion&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/#complete-source-code"&gt;Complete Source Code&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- markdown-toc end --&gt;
 
@@ -445,6 +567,28 @@
 &lt;blockquote&gt;
 &lt;p&gt;Think about the behaviour of your program in terms of data types &amp;amp; functions signatures. Next step is to &lt;code&gt;prove&lt;/code&gt; or &lt;code&gt;derive&lt;/code&gt; a function that composes all of the types &amp;amp; signatures to implement the feature. Then carry on to implement each of the individual functions with the guarantee that all functions will compose together.&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Interested for more posts like this?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;p&gt;Now onto the story.&lt;/p&gt;
 &lt;h2&gt;The Square Jigsaw Table&lt;/h2&gt;
 &lt;p&gt;A Master Carpenter was asked to create a square table which was made of four big square blocks that connect together like a jigsaw puzzle. Four colours were to be used - Red, Green, Yellow &amp;amp; Teal.&lt;/p&gt;
@@ -471,6 +615,28 @@
 &lt;p&gt;One way to avoid this issue is by defining behaviour of the final product with &lt;strong&gt;just enough&lt;/strong&gt; information that everyone can work on their own with confidence. If we take the example of our four blocks, we can specify the behaviour of components using the block colours, pegs &amp;amp; holes of the four blocks and how they will connect. Here is what the apprentices were given to work with.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Pegs &amp;amp; holes of the four blocks is defined along with how they are connected. Rest of the block is missing." src="https://last-ent.com/images/glue-code.jpg"&gt;&lt;/p&gt;
 &lt;p&gt;Now each of the apprentices can use the block's skeleton to create his/her own block as (s)he knows the size, colour and position of peg &amp;amp; hole.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Interested for more posts like this?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;h2&gt;Type Driven Development&lt;/h2&gt;
 &lt;p&gt;We can achieve similar results with greater flexibility using domain model types &amp;amp; interfaces/function types. Before we look at "How?" let's first formally define it.&lt;/p&gt;
 &lt;blockquote&gt;
@@ -607,7 +773,29 @@
 &lt;/pre&gt;
 
 
-&lt;h3&gt;Step3: Deriving Proof&lt;/h3&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Interested for more posts like this?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
+&lt;h3&gt;Step 3: Deriving Proof&lt;/h3&gt;
 &lt;p&gt;We have defined the behaviour of our dependencies and also define how the overall system should behave from Customer's perspective.&lt;/p&gt;
 &lt;h4&gt;Concepts: Monad, Functor &amp;amp; Higher Kinded Types&lt;/h4&gt;
 &lt;ul&gt;
@@ -799,6 +987,28 @@
 &lt;/pre&gt;
 
 
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Liked this and want more?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Now if we look at complete specification, we can tell that following functions/types need to be defined.&lt;/p&gt;
 &lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;val&lt;/span&gt; &lt;span class="n"&gt;toShopOrder&lt;/span&gt;&lt;span class="k"&gt;:&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;ShoppingListItem&lt;/span&gt;&lt;span class="o"&gt;],&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;CatalogItem&lt;/span&gt;&lt;span class="o"&gt;])&lt;/span&gt; &lt;span class="k"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nc"&gt;List&lt;/span&gt;&lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;ShopOrderItem&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="k"&gt;=&lt;/span&gt; &lt;span class="o"&gt;???&lt;/span&gt;

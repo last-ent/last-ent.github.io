@@ -9,7 +9,7 @@
 .. type: text
 -->
 
-I am a polyglot Software Engineer who loves to learn and experiment with different topics.
+I am an aspiring Software Architect who loves to learn and experiment with different topics.
 
 ## Domains
 I have worked in & built large scale systems for different domains:

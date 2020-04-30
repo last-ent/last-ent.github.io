@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about software engineering)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/software-engineering.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 19 Jan 2020 10:11:31 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Elements of Coding Style</title><link>https://last-ent.com/posts/elements-of-coding-style/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc --&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about software engineering)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/software-engineering.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Thu, 30 Apr 2020 21:27:42 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Elements of Coding Style</title><link>https://last-ent.com/posts/elements-of-coding-style/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc --&gt;
 
 &lt;p&gt;&lt;strong&gt;Table of Contents&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#rules-of-software-engineering"&gt;Rules of Software Engineering&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#elements-of-coding-style"&gt;Elements of Coding Style&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#elements-of-coding-style"&gt;Elements of Coding Style&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#human-readable-code"&gt;Human Readable Code&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#functional-naming"&gt;Functional Naming&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#functional-naming"&gt;Functional Naming&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#think-in-terms-of-functionality-not-types"&gt;Think in terms of functionality, not types&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#write-in-terms-of-verbs-not-instructions"&gt;Write in terms of verbs, not instructions&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#dont-leak-implementation-in-names"&gt;Don't leak implementation in names&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#signal-to-noise-ratio"&gt;Signal to Noise ratio&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#readable-code"&gt;Readable Code&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#readable-code"&gt;Readable Code&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#keep-the-code-concise"&gt;Keep the code concise&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#word-agglutination-doesnt-help-with-code-readability"&gt;Word agglutination doesn't help with code readability&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#readable-code-is-debuggable-code"&gt;Readable code is debuggable code&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#think-enterprise-write-simple"&gt;Think Enterprise, Write Simple&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#think-enterprise-write-simple"&gt;Think Enterprise, Write Simple&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#use-function-type-for-simple-cases"&gt;Use Function Type for simple cases&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#use-traits-when"&gt;Use traits when&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#multiple-functionsmethods-logically-make-sense-to-be-grouped-together-standard-use-case"&gt;Multiple functions/methods logically make sense to be grouped together (standard use case)&lt;/a&gt;&lt;/li&gt;
@@ -30,10 +26,6 @@
 &lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#think-in-terms-of-what--why-not-how"&gt;Think in terms of What &amp;amp; Why, not How&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href="https://last-ent.com/posts/elements-of-coding-style/#thats-not-how-people-speak"&gt;That's not how people speak&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -52,6 +44,28 @@
 &lt;/blockquote&gt;
 &lt;h2&gt;Elements of Coding Style&lt;/h2&gt;
 &lt;p&gt;I think all good code has following &lt;code&gt;Elements&lt;/code&gt;. These &lt;code&gt;elements&lt;/code&gt; are not unique to any single programming language or paradigm, they are universal to how humans think and make sense of abstractions.&lt;/p&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Interested for more posts like this?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;h3&gt;Human Readable Code&lt;/h3&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A computer language is not just a way of getting a computer to perform operations [...] programs must be written for people to read, and only incidentally for machines to execute.&lt;/p&gt;
@@ -145,6 +159,28 @@
 
 
 &lt;h5&gt;Think in terms of What &amp;amp; Why, not How&lt;/h5&gt;
+&lt;p&gt;&lt;/p&gt;&lt;hr&gt;
+&lt;!-- Begin Mailchimp Signup Form --&gt;
+&lt;link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css"&gt;
+&lt;style type="text/css"&gt;
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+&lt;/style&gt;
+&lt;div id="mc_embed_signup"&gt;
+&lt;form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate&gt;
+    &lt;div id="mc_embed_signup_scroll"&gt;
+	&lt;label for="mce-EMAIL"&gt;Liked this and want more?&lt;/label&gt;
+	&lt;input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required&gt;
+    &lt;!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--&gt;
+    &lt;div style="position: absolute; left: -5000px;" aria-hidden="true"&gt;&lt;input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""&gt;&lt;/div&gt;
+    &lt;div class="clear"&gt;&lt;input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+&lt;/div&gt;
+
+&lt;!--End mc_embed_signup--&gt;
+&lt;hr&gt;
 &lt;h5&gt;That's not how people speak&lt;/h5&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Can you explain how your Online Shopping API works?&lt;/p&gt;

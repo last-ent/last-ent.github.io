@@ -14,23 +14,23 @@
 
 - [Rules of Software Engineering](#rules-of-software-engineering)
 - [Elements of Coding Style](#elements-of-coding-style)
-    - [Human Readable Code](#human-readable-code)
-        - [Functional Naming](#functional-naming)
-            - [Think in terms of functionality, not types](#think-in-terms-of-functionality-not-types)
-            - [Write in terms of verbs, not instructions](#write-in-terms-of-verbs-not-instructions)
-            - [Don't leak implementation in names](#dont-leak-implementation-in-names)
-    - [Signal to Noise ratio](#signal-to-noise-ratio)
-        - [Readable Code](#readable-code)
-            - [Keep the code concise](#keep-the-code-concise)
-            - [Word agglutination doesn't help with code readability](#word-agglutination-doesnt-help-with-code-readability)
-            - [Readable code is debuggable code](#readable-code-is-debuggable-code)
-        - [Think Enterprise, Write Simple](#think-enterprise-write-simple)
-            - [Use Function Type for simple cases](#use-function-type-for-simple-cases)
-            - [Use traits when](#use-traits-when)
-                - [Multiple functions/methods logically make sense to be grouped together (standard use case)](#multiple-functionsmethods-logically-make-sense-to-be-grouped-together-standard-use-case)
-                - [Single function call might require data that shouldn't be visible to caller](#single-function-call-might-require-data-that-shouldnt-be-visible-to-caller)
-            - [Think in terms of What & Why, not How](#think-in-terms-of-what--why-not-how)
-            - [That's not how people speak](#thats-not-how-people-speak)
+  - [Human Readable Code](#human-readable-code)
+    - [Functional Naming](#functional-naming)
+      - [Think in terms of functionality, not types](#think-in-terms-of-functionality-not-types)
+      - [Write in terms of verbs, not instructions](#write-in-terms-of-verbs-not-instructions)
+      - [Don't leak implementation in names](#dont-leak-implementation-in-names)
+  - [Signal to Noise ratio](#signal-to-noise-ratio)
+    - [Readable Code](#readable-code)
+      - [Keep the code concise](#keep-the-code-concise)
+      - [Word agglutination doesn't help with code readability](#word-agglutination-doesnt-help-with-code-readability)
+      - [Readable code is debuggable code](#readable-code-is-debuggable-code)
+    - [Think Enterprise, Write Simple](#think-enterprise-write-simple)
+      - [Use Function Type for simple cases](#use-function-type-for-simple-cases)
+      - [Use traits when](#use-traits-when)
+        - [Multiple functions/methods logically make sense to be grouped together (standard use case)](#multiple-functionsmethods-logically-make-sense-to-be-grouped-together-standard-use-case)
+        - [Single function call might require data that shouldn't be visible to caller](#single-function-call-might-require-data-that-shouldnt-be-visible-to-caller)
+      - [Think in terms of What & Why, not How](#think-in-terms-of-what--why-not-how)
+      - [That's not how people speak](#thats-not-how-people-speak)
 
 <!-- markdown-toc end -->
 
@@ -49,6 +49,8 @@ Having said that, `Rule 3` should rarely be in opposition to `Rule 1 & 2`. If yo
 # Elements of Coding Style
 
 I think all good code has following `Elements`. These `elements` are not unique to any single programming language or paradigm, they are universal to how humans think and make sense of abstractions.
+
+{{% promptmid %}}
 
 ## Human Readable Code
 
@@ -162,6 +164,8 @@ object Catalog {
 ```
 
 #### Think in terms of What & Why, not How
+
+{{% promptend %}}
 
 #### That's not how people speak
 

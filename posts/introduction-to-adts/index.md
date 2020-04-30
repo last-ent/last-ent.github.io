@@ -24,6 +24,8 @@ Here's a possible algorithm:
 * Create pairs from the filtered list
 * Apply equation for area of rectangle
 
+{{% promptmid %}}
+
 ### Types without ADTs
 
 Base functions:
@@ -154,6 +156,7 @@ However with ADTs, we have the compiler on our side ensuring the program is type
 def programADTs(allIntegers: AllIntegers): Areas = allIntegers // Compiler error!
 ```
 
+{{% promptend %}}
 
 ## Conclusion
 

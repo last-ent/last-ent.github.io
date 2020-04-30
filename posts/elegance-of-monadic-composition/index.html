@@ -122,8 +122,28 @@
 <li>Return Response</li>
 </ol>
 <p>End goal is to be able to execute <code>Donatron.donate</code> function and get correct response.</p>
-<p><strong>Algorithm as a flowchart</strong>
-<img alt="Expected flow of Donatron" src="../../images/donatron-flow.png"></p>
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Interested for more posts like this?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<p><strong>Algorithm as a flowchart</strong></p>
+<p><img alt="Expected flow of Donatron" src="../../images/donatron-flow.png"></p>
 <p>Using <code>IO</code> we can model the algorithm by using</p>
 <ul>
 <li>
@@ -184,7 +204,27 @@
 </ul>
 <p>The beauty of <code>EitherT</code> is that we can chain/compose our functions. This is great and all but now comes the question, "How can we reuse our existing functions?" This is where the elegance of <code>EitherT</code> truly shines for it has methods which will help us to convert our <code>IO</code>s into <code>EitherT</code>.</p>
 <p>We will take each of the functions we defined earlier and convert them to <code>EitherT</code>. In order to do this, we will introduce new <code>case class</code>es that will be used to encapsulate errors.</p>
-<p>So get started...</p>
+<p>So let's get started...</p>
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Liked this and want more?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
 <h3><code>checkForValidInts</code></h3>
 <pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">checkForValidInts</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">ValidDonationsFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="k">val</span> <span class="o">(</span><span class="n">validInts</span><span class="o">,</span> <span class="n">nonInts</span><span class="o">)</span> <span class="k">=</span>
@@ -275,6 +315,26 @@
 </pre>
 
 
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Interested for more posts like this?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
 <h3><code>submitDonations</code></h3>
 <pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">submitDonations</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">DonationsAboveMinimumFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">checkForAboveMaxDonationAmount</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="n">aboveMinimum</span><span class="o">)</span>
@@ -329,7 +389,27 @@
 
 
 <h3>One more thing...</h3>
-<p>If we try to run the code as-is, we get following compilation error:</p>
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Liked this and want more?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+If we try to run the code as-is, we get following compilation error:
 <pre class="code literal-block"><span></span><span class="o">[</span>info<span class="o">]</span> Compiling <span class="m">1</span> Scala <span class="nb">source</span> to /home/ent/Documents/Code/DonatronExample/target/scala-2.12/classes ...
 <span class="o">[</span>error<span class="o">]</span> /home/ent/Documents/Code/DonatronExample/src/main/scala/donatron/Donatron.scala:23:16: <span class="nb">type</span> mismatch<span class="p">;</span>
 <span class="o">[</span>error<span class="o">]</span>  found   : cats.effect.IO<span class="o">[</span>donatron.models.Response<span class="o">]</span>
