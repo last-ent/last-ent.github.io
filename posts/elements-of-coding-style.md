@@ -9,32 +9,6 @@
 .. type: text
 -->
 
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
-
-- [Rules of Software Engineering](#rules-of-software-engineering)
-- [Elements of Coding Style](#elements-of-coding-style)
-  - [Human Readable Code](#human-readable-code)
-    - [Functional Naming](#functional-naming)
-      - [Think in terms of functionality, not types](#think-in-terms-of-functionality-not-types)
-      - [Write in terms of verbs, not instructions](#write-in-terms-of-verbs-not-instructions)
-      - [Don't leak implementation in names](#dont-leak-implementation-in-names)
-  - [Signal to Noise ratio](#signal-to-noise-ratio)
-    - [Readable Code](#readable-code)
-      - [Keep the code concise](#keep-the-code-concise)
-      - [Word agglutination doesn't help with code readability](#word-agglutination-doesnt-help-with-code-readability)
-      - [Readable code is debuggable code](#readable-code-is-debuggable-code)
-    - [Think Enterprise, Write Simple](#think-enterprise-write-simple)
-      - [Use Function Type for simple cases](#use-function-type-for-simple-cases)
-      - [Use traits when](#use-traits-when)
-        - [Multiple functions/methods logically make sense to be grouped together (standard use case)](#multiple-functionsmethods-logically-make-sense-to-be-grouped-together-standard-use-case)
-        - [Single function call might require data that shouldn't be visible to caller](#single-function-call-might-require-data-that-shouldnt-be-visible-to-caller)
-      - [Think in terms of What & Why, not How](#think-in-terms-of-what--why-not-how)
-      - [That's not how people speak](#thats-not-how-people-speak)
-
-<!-- markdown-toc end -->
-
-
 # Rules of Software Engineering
 There are three important rules in Software Engineering.
 
@@ -42,15 +16,16 @@ There are three important rules in Software Engineering.
 * **Rule 2: Easy to debug**. If the code breaks, it should be easy to quickly investigate & identify where is the issue.
 * **Rule 3: Shipping is the most important feature**. No matter how correct or elegant your code is, if you can't ship working code on time then why bother?
 
+
 Having said that, `Rule 3` should rarely be in opposition to `Rule 1 & 2`. If you have to veto `Rule 1 & 2` to ship your feature, then something's horribly wrong in your code & process. Complexity in code is a given and it is an engineer's responsibility to figure out how best to contain the damage and stop it from affecting the rest of the system.
 
 > Less elegant yet easy to understand & easier to debug should be the minimum expectation from all code shipped.
 
+{{% promptmid %}}
+
 # Elements of Coding Style
 
 I think all good code has following `Elements`. These `elements` are not unique to any single programming language or paradigm, they are universal to how humans think and make sense of abstractions.
-
-{{% promptmid %}}
 
 ## Human Readable Code
 

@@ -9,30 +9,6 @@
 .. type: text
 -->
 
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-**Table of Contents**
-
-- [Introduction](#introduction)
-  - [TLDR](#tldr)
-- [The Square Jigsaw Table](#the-square-jigsaw-table)
-  - [Why did this happen?](#why-did-this-happen)
-  - [Specification & Proof](#specification--proof)
-- [Type Driven Development](#type-driven-development)
-  - [What does this mean?](#what-does-this-mean)
-- [Case Study: Online Shopping](#case-study-online-shopping)
-- [Code Demo](#code-demo)
-  - [Step 0: Structure](#step-0-structure)
-  - [Step 1: Edge Behaviour: `List[ShoppingListItem] => F[List[ItemConfirmation]]`](#step-1-edge-behaviour-listshoppinglistitem--flistitemconfirmation)
-  - [Step 2: Dependencies](#step-2-dependencies)
-  - [Step 3: Deriving Proof](#step-3-deriving-proof)
-    - [Concepts: Monad, Functor & Higher Kinded Types](#concepts-monad-functor--higher-kinded-types)
-    - [`ItemConfirmation` transformers](#itemconfirmation-transformers)
-    - [Transformers to return complete `List[ItemConfirmation]`](#transformers-to-return-complete-listitemconfirmation)
-    - [`toItemConfirmation` transformer](#toitemconfirmation-transformer)
-- [Conclusion](#conclusion)
-  - [Complete Source Code](#complete-source-code)
-
-<!-- markdown-toc end -->
 # Introduction
 In our project workflow, we break down features to implement into tickets and developers pick them off one by one; Pretty standard & typical Agile/Kanban workflow. However while working on a feature recently, we came across on an interesting problem where our standard workflow didn't work out. Rather than trying to explain it in vague terms, I am going to start with a story.
 

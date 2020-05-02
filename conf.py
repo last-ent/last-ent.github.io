@@ -141,13 +141,32 @@ NAVIGATION_LINKS = {
     ), "Archives"), ("/pages/about", "About")),
 }
 
+# NAVIGATION_LINKS = {
+#     DEFAULT_LANG: (
+#         ('/index.html', 'Home', 'fa fa-home'),
+#         ('/archive.html', 'Archives', 'fa fa-folder-open'),
+#         ('/categories/index.html', 'Tags', 'fa fa-tags'),
+#         ('/rss.xml', 'RSS', 'fa fa-rss'),
+#         ('https://getnikola.com', 'About me', 'fa fa-user'),
+#         ('https://twitter.com/getnikola', 'My Twitter', 'fab fa-twitter'),
+#         ('https://github.com/getnikola', 'My Github', 'fab fa-github'),
+#     )
+# }
+
+# DATE_FANCINESS = 2
+
 # Alternative navigation links. Works the same way NAVIGATION_LINKS does,
 # although themes may not always support them. (translatable)
 # (Bootstrap 4: right-side of navbar, Bootblog 4: right side of title)
-NAVIGATION_ALT_LINKS = {DEFAULT_LANG: {}}
+NAVIGATION_ALT_LINKS = {
+    # DEFAULT_LANG: (("/pages/learning-targets", "Learning Targets"), ((
+    #     ("/archive.html", "Archive"),
+    #     ("/categories/", "Tags"),
+    # ), "Archives"), ("/pages/about", "About")),
+}
 
 # Name of the theme to use.
-THEME = "bootblog4"
+# THEME = "zen"
 
 # Primary color of your theme. This will be used to customize your theme.
 # Must be a HEX value.
@@ -162,7 +181,7 @@ THEME_CONFIG = {
     DEFAULT_LANG: {
         # 'navbar_light': True,
         # Show the latest featured post in a large box, with the previewimage as its background.
-        'featured_large': False,
+        'featured_large': True,
         # Show the first (remaining) two featured posts in small boxes.
         'featured_small': True,
         # Show featured posts on mobile.
@@ -171,7 +190,7 @@ THEME_CONFIG = {
         # `featured_small` displays them only on desktop.
         'featured_large_image_on_mobile': True,
         # Strip HTML from featured post text.
-        'featured_strip_html': False,
+        'featured_strip_html': True,
         # Contents of the sidebar, If empty, the sidebar is not displayed.
         'sidebar': ''
     }
@@ -874,7 +893,7 @@ IMAGE_FOLDERS = {'images': 'images'}
 # )
 
 # Show teasers (instead of full posts) in indexes? Defaults to False.
-# INDEX_TEASERS = False
+INDEX_TEASERS = True
 
 # HTML fragments with the Read more... links.
 # The following tags exist and are replaced for you:
@@ -1079,19 +1098,19 @@ MARKDOWN_EXTENSIONS = [
 # long time). Insert anything you want here, or even make it empty (which is
 # the default right now)
 # (translatable)
-# SOCIAL_BUTTONS_CODE = """
-# <!-- Social buttons -->
-# <div id="addthisbox" class="addthis_toolbox addthis_peekaboo_style addthis_default_style addthis_label_style addthis_32x32_style">
-# <a class="addthis_button_more">Share</a>
-# <ul><li><a class="addthis_button_facebook"></a>
-# <li><a class="addthis_button_google_plusone_share"></a>
-# <li><a class="addthis_button_linkedin"></a>
-# <li><a class="addthis_button_twitter"></a>
-# </ul>
-# </div>
-# <script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script>
-# <!-- End of social buttons -->
-# """
+SOCIAL_BUTTONS_CODE = """
+<!-- Social buttons -->
+<div id="addthisbox" class="addthis_toolbox addthis_peekaboo_style addthis_default_style addthis_label_style addthis_32x32_style">
+<a class="addthis_button_more">Share</a>
+<ul><li><a class="addthis_button_facebook"></a>
+<li><a class="addthis_button_google_plusone_share"></a>
+<li><a class="addthis_button_linkedin"></a>
+<li><a class="addthis_button_twitter"></a>
+</ul>
+</div>
+<script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script>
+<!-- End of social buttons -->
+"""
 
 # Show link to source for the posts?
 SHOW_SOURCELINK = False
@@ -1155,7 +1174,7 @@ SHOW_SOURCELINK = False
 # </form>
 # <!-- End of custom search -->
 # """ % SITE_URL
-#
+
 # If you prefer a Google search form, here's an example that should just work:
 # SEARCH_FORM = """
 # <!-- Google custom search -->
@@ -1188,7 +1207,14 @@ SHOW_SOURCELINK = False
 # Extra things you want in the pages HEAD tag. This will be added right
 # before </head>
 # (translatable)
-# EXTRA_HEAD_DATA = ""
+EXTRA_HEAD_DATA = """
+<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+"""
 # Google Analytics or whatever else you use. Added to the bottom of <body>
 # in the default template (base.tmpl).
 # (translatable)
