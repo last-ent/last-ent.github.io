@@ -11,7 +11,13 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="https://last-ent.com/posts/type-driven-development/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Ent">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<meta name="author" content="Ent">
 <link rel="prev" href="../cats-effects-io/" title="Cats Effect's IO" type="text/html">
 <link rel="next" href="../elements-of-coding-style/" title="Elements of Coding Style" type="text/html">
 <meta property="og:site_name" content="Last Ent's Thoughts">
@@ -95,49 +101,18 @@
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-
-<p><strong>Table of Contents</strong></p>
-<ul>
-<li><a href="#introduction">Introduction</a></li>
-<li><a href="#tldr">TLDR</a></li>
-<li><a href="#the-square-jigsaw-table">The Square Jigsaw Table</a></li>
-<li><a href="#why-did-this-happen">Why did this happen?</a></li>
-<li><a href="#specification--proof">Specification &amp; Proof</a></li>
-<li><a href="#type-driven-development">Type Driven Development</a></li>
-<li><a href="#what-does-this-mean">What does this mean?</a></li>
-<li><a href="#case-study-online-shopping">Case Study: Online Shopping</a></li>
-<li><a href="#code-demo">Code Demo</a></li>
-<li><a href="#step-0-structure">Step 0: Structure</a></li>
-<li><a href="#step-1-edge-behaviour-listshoppinglistitem--flistitemconfirmation">Step 1: Edge Behaviour: <code>List[ShoppingListItem] =&gt; F[List[ItemConfirmation]]</code></a></li>
-<li><a href="#step-2-dependencies">Step 2: Dependencies</a></li>
-<li>
-<a href="#step-3-deriving-proof">Step 3: Deriving Proof</a><ul>
-<li><a href="#concepts-monad-functor--higher-kinded-types">Concepts: Monad, Functor &amp; Higher Kinded Types</a></li>
-<li><a href="#itemconfirmation-transformers"><code>ItemConfirmation</code> transformers</a></li>
-<li><a href="#transformers-to-return-complete-listitemconfirmation">Transformers to return complete <code>List[ItemConfirmation]</code></a></li>
-<li><a href="#toitemconfirmation-transformer"><code>toItemConfirmation</code> transformer</a></li>
-</ul>
-</li>
-<li><a href="#conclusion">Conclusion</a></li>
-<li><a href="#complete-source-code">Complete Source Code</a></li>
-</ul>
-<!-- markdown-toc end --><h2>Introduction</h2>
+<h2>Introduction</h2>
 <p>In our project workflow, we break down features to implement into tickets and developers pick them off one by one; Pretty standard &amp; typical Agile/Kanban workflow. However while working on a feature recently, we came across on an interesting problem where our standard workflow didn't work out. Rather than trying to explain it in vague terms, I am going to start with a story.</p>
 <h3>TLDR</h3>
 <p>In case you don't want to dive in just yet, here is the idea we will cover in this post.</p>
 <blockquote>
 <p>Think about the behaviour of your program in terms of data types &amp; functions signatures. Next step is to <code>prove</code> or <code>derive</code> a function that composes all of the types &amp; signatures to implement the feature. Then carry on to implement each of the individual functions with the guarantee that all functions will compose together.</p>
 </blockquote>
-<p></p>
+<p>
+<!-- TEASER_END -->
+</p>
 <hr>
-<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup">
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
 <form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
 	<label for="mce-EMAIL">Interested for more posts like this?</label>
@@ -175,15 +150,11 @@
 <p>One way to avoid this issue is by defining behaviour of the final product with <strong>just enough</strong> information that everyone can work on their own with confidence. If we take the example of our four blocks, we can specify the behaviour of components using the block colours, pegs &amp; holes of the four blocks and how they will connect. Here is what the apprentices were given to work with.</p>
 <p><img alt="Pegs &amp; holes of the four blocks is defined along with how they are connected. Rest of the block is missing." src="../../images/glue-code.jpg"></p>
 <p>Now each of the apprentices can use the block's skeleton to create his/her own block as (s)he knows the size, colour and position of peg &amp; hole.</p>
-<p></p>
+<p>
+<!-- TEASER_END -->
+</p>
 <hr>
-<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup">
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
 <form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
 	<label for="mce-EMAIL">Interested for more posts like this?</label>
@@ -336,15 +307,11 @@
 </pre>
 
 
-<p></p>
+<p>
+<!-- TEASER_END -->
+</p>
 <hr>
-<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup">
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
 <form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
 	<label for="mce-EMAIL">Interested for more posts like this?</label>
@@ -557,13 +524,7 @@
 
 <p></p>
 <hr>
-<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup">
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
 <form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
 	<label for="mce-EMAIL">Liked this and want more?</label>
@@ -703,7 +664,24 @@
 </div>
 
 
-        <script src="../../assets/js/all-nocdn.js"></script><script>
+        <script src="../../assets/js/all-nocdn.js"></script><!-- Social buttons --><div id="addthisbox" class="addthis_toolbox addthis_peekaboo_style addthis_default_style addthis_label_style addthis_32x32_style">
+<a class="addthis_button_more">Share</a>
+<ul>
+<li>
+<a class="addthis_button_facebook"></a>
+</li>
+<li>
+<a class="addthis_button_google_plusone_share"></a>
+</li>
+<li>
+<a class="addthis_button_linkedin"></a>
+</li>
+<li>
+<a class="addthis_button_twitter"></a>
+</li>
+</ul>
+</div>
+<script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script><!-- End of social buttons --><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {

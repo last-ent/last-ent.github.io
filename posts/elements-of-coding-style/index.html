@@ -11,7 +11,13 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
 <link rel="canonical" href="https://last-ent.com/posts/elements-of-coding-style/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><meta name="author" content="Ent">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<meta name="author" content="Ent">
 <link rel="prev" href="../type-driven-development/" title="Type Driven Development" type="text/html">
 <link rel="next" href="../elegance-of-monadic-composition/" title="Elegance of Monadic Composition" type="text/html">
 <meta property="og:site_name" content="Last Ent's Thoughts">
@@ -94,40 +100,7 @@
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
-<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
-
-<p><strong>Table of Contents</strong></p>
-<ul>
-<li><a href="#rules-of-software-engineering">Rules of Software Engineering</a></li>
-<li><a href="#elements-of-coding-style">Elements of Coding Style</a></li>
-<li>
-<a href="#human-readable-code">Human Readable Code</a><ul>
-<li><a href="#functional-naming">Functional Naming</a></li>
-<li><a href="#think-in-terms-of-functionality-not-types">Think in terms of functionality, not types</a></li>
-<li><a href="#write-in-terms-of-verbs-not-instructions">Write in terms of verbs, not instructions</a></li>
-<li><a href="#dont-leak-implementation-in-names">Don't leak implementation in names</a></li>
-</ul>
-</li>
-<li>
-<a href="#signal-to-noise-ratio">Signal to Noise ratio</a><ul>
-<li><a href="#readable-code">Readable Code</a></li>
-<li><a href="#keep-the-code-concise">Keep the code concise</a></li>
-<li><a href="#word-agglutination-doesnt-help-with-code-readability">Word agglutination doesn't help with code readability</a></li>
-<li><a href="#readable-code-is-debuggable-code">Readable code is debuggable code</a></li>
-<li><a href="#think-enterprise-write-simple">Think Enterprise, Write Simple</a></li>
-<li><a href="#use-function-type-for-simple-cases">Use Function Type for simple cases</a></li>
-<li>
-<a href="#use-traits-when">Use traits when</a><ul>
-<li><a href="#multiple-functionsmethods-logically-make-sense-to-be-grouped-together-standard-use-case">Multiple functions/methods logically make sense to be grouped together (standard use case)</a></li>
-<li><a href="#single-function-call-might-require-data-that-shouldnt-be-visible-to-caller">Single function call might require data that shouldn't be visible to caller</a></li>
-</ul>
-</li>
-<li><a href="#think-in-terms-of-what--why-not-how">Think in terms of What &amp; Why, not How</a></li>
-<li><a href="#thats-not-how-people-speak">That's not how people speak</a></li>
-</ul>
-</li>
-</ul>
-<!-- markdown-toc end --><h2>Rules of Software Engineering</h2>
+<h2>Rules of Software Engineering</h2>
 <p>There are three important rules in Software Engineering.</p>
 <ul>
 <li>
@@ -141,17 +114,11 @@
 <blockquote>
 <p>Less elegant yet easy to understand &amp; easier to debug should be the minimum expectation from all code shipped.</p>
 </blockquote>
-<h2>Elements of Coding Style</h2>
-<p>I think all good code has following <code>Elements</code>. These <code>elements</code> are not unique to any single programming language or paradigm, they are universal to how humans think and make sense of abstractions.</p>
-<p></p>
+<p>
+<!-- TEASER_END -->
+</p>
 <hr>
-<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup">
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
 <form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
 	<label for="mce-EMAIL">Interested for more posts like this?</label>
@@ -163,6 +130,8 @@
 
 <!--End mc_embed_signup-->
 <hr>
+<h2>Elements of Coding Style</h2>
+<p>I think all good code has following <code>Elements</code>. These <code>elements</code> are not unique to any single programming language or paradigm, they are universal to how humans think and make sense of abstractions.</p>
 <h3>Human Readable Code</h3>
 <blockquote>
 <p>A computer language is not just a way of getting a computer to perform operations [...] programs must be written for people to read, and only incidentally for machines to execute.</p>
@@ -258,13 +227,7 @@
 <h5>Think in terms of What &amp; Why, not How</h5>
 <p></p>
 <hr>
-<!-- Begin Mailchimp Signup Form --><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup">
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
 <form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
 	<label for="mce-EMAIL">Liked this and want more?</label>
@@ -310,7 +273,24 @@
 </div>
 
 
-        <script src="../../assets/js/all-nocdn.js"></script><script>
+        <script src="../../assets/js/all-nocdn.js"></script><!-- Social buttons --><div id="addthisbox" class="addthis_toolbox addthis_peekaboo_style addthis_default_style addthis_label_style addthis_32x32_style">
+<a class="addthis_button_more">Share</a>
+<ul>
+<li>
+<a class="addthis_button_facebook"></a>
+</li>
+<li>
+<a class="addthis_button_google_plusone_share"></a>
+</li>
+<li>
+<a class="addthis_button_linkedin"></a>
+</li>
+<li>
+<a class="addthis_button_twitter"></a>
+</li>
+</ul>
+</div>
+<script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script><!-- End of social buttons --><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {

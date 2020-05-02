@@ -26,6 +26,7 @@ Consider an API `Donatron` that accepts donations. The API's algorithm is as fol
 
 End goal is to be able to execute `Donatron.donate` function and get correct response.
 
+
 {{% promptmid %}}
 
 **Algorithm as a flowchart**

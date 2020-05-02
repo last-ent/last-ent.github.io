@@ -7,94 +7,94 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2020-04-14T10:39:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2020/</loc>
-  <lastmod>2020-04-14T10:39:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2020-04-30T21:28:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/enterprise-software-development/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/functional-programming/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/musings/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/programming/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/scala/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/software-design/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/software-engineering/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/type-driven-development/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/about/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/learning-targets/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/nuances-of-investment/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/cats-effects-io/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/companies-devs-want-different-things/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/elegance-of-monadic-composition/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/elements-of-coding-style/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/introduction-to-adts/</loc>
-  <lastmod>2020-04-14T10:39:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/type-driven-development/</loc>
-  <lastmod>2020-01-19T10:11:00Z</lastmod>
+  <lastmod>2020-05-02T00:59:00Z</lastmod>
  </url>
 </urlset>
