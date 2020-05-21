@@ -28,16 +28,17 @@ API service will return User's Information by:
 
 In order to write the ADTs we first need to understand the possible states in each layer.
 
-We know that the authentication server & our own server will respond with one of the typical HTTP statuses (we will use a simpler set for this example). We will similarly assume smaller set of states for the database.
+We know that the authentication server & our own server will respond with one of the typical HTTP statuses (we will use a simpler set for this example). We will similarly assume smaller set of states for the database. We will discuss these further in later section.
 
-![States of Response, Auth Server & Database](/images/adts-per-layer.png)
+The following server diagram and ADTs(possible states) give us a good idea of how we want to design our system.
 
-We can describe the flow of our system as
+![Overview of web api](/images/adt-flow-overview.png)
+
+which is described by
 
 ## Server
 
 ```scala
-
 import cats.effect.IO
 
 class Server(http: Http, database: Database) {
@@ -64,13 +65,13 @@ class Server(http: Http, database: Database) {
   def toSuccessfulResponse(userInfo: UserInfo): IO[UserInfoResponse] = ???
 
 }
-
 ```
+
+We have external dependencies which can be further encoded in terms of following traits & `case class`es
 
 ## Traits
 
 ```scala
-
 trait Request {
     def getCredentials(): IO[UserCredentials]
 }
@@ -87,56 +88,77 @@ trait Database{
 ## Credentials
 
 ```scala
-
 final case class UserCredentials(userId: String, password: String)
 
 final case class AuthCredentials(userId: String, userName: String)
 
 final case class UserInfo()
+```
 
+## Successful Response
+
+```scala
+
+final case class UserInfoResponse(userInfo: UserInfo) extends Response
 ```
 
 # Arrows & Sets
 
-Let's define our system in terms of functions & ADTs
+Previously we defined our system in terms of happy path. But in reality there are many ways in which the server can end up in an error state, following diagram shows the alternative possible flow.
 
+We can define these using following top high level `trait`s.
 
-# Defining ADTs
-
-We can define our `Response` types as
+## Top level Error Traits
 
 ```scala
+sealed trait CredentialErrorResponse
 
-sealed trait Response
-final case class UserInfoResponse(userInfo: UserInfo) extends Response
+sealed trait AuthResponse
+sealed trait AuthErrorResponse extends AuthResponse
 
-final case class CredentialsMissing(msg: String) extends RuntimeException(msg) with Response
-final case class UnauthorizedUser(msg: String) extends RuntimeException(msg) with Response
-final case class NotFound(msg: String) extends RuntimeException(msg) with Response
-final case class Forbidden(msg: String) extends RuntimeException(msg) with Response
-final case class InternalServerError(msg: String) extends RuntimeException(msg) with Response
+sealed trait DBResponse
+sealed trait DBErrorResponse extends DBResponse
+```
+
+![Complete flow](/images/adt-complete-flow.png)
+
+And these Error ADTs can further be broken down as follows.
+
+![States of Response, Auth Server & Database](/images/adt-error-states.png)
+
+# Defining Error ADTs
+
+Based on the above traits and error ADT breakdown, we can define the case classes to represent them as follows.
+
+```scala
+final case class CredentialsMissing(msg: String) extends RuntimeException(msg) with CredentialErrorResponse
+final case class UnauthorizedUser(msg: String) extends RuntimeException(msg) with CredentialErrorResponse
+final case class NotFound(msg: String) extends RuntimeException(msg) with CredentialErrorResponse
+final case class Forbidden(msg: String) extends RuntimeException(msg) with CredentialErrorResponse
+final case class InternalServerError(msg: String) extends RuntimeException(msg) with CredentialErrorResponse
 ```
 
 `AuthResponse` types
 
 ```scala
-
-sealed trait AuthResponse
 final case class AuthCredentialsResponse(authCredentials: AuthCredentials) extends AuthResponse
 
-final case class UnauthorizedAuthUser(msg: String) extends RuntimeException(msg: String) with AuthResponse
-final case class AuthUserNotFound(msg: String) extends RuntimeException(msg: String) with AuthResponse
-final case class AuthServerError(msg: String) extends RuntimeExtends(msg: String) with AuthResponse
+final case class UnauthorizedAuthUser(msg: String) extends RuntimeException(msg: String) with AuthErrorResponse
+final case class AuthUserNotFound(msg: String) extends RuntimeException(msg: String) with AuthErrorResponse
+final case class AuthServerError(msg: String) extends RuntimeException(msg: String) with AuthErrorResponse
 ```
 
 `Database` types
 
 ```scala
-
-sealed trait DBResponse
-
 final case class UserInfoFound() extends DBResponse
 final case class UserInfoNotFound() extends DBResponse
 
-final case class DBError(msg: String) extends RuntimeException(msg) with DBResponse
+final case class DBError(msg: String) extends RuntimeException(msg) with DBErrorResponse
 ```
+
+{{% promptend %}}
+
+# Conclusion
+
+Hopefully now you have a better idea on how to take a system and slowly break it down into ADTs without even touching the actual implementation. This allows us to think and reason about our system in a declarative manner.

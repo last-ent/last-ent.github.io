@@ -5,3 +5,9 @@ output
 .vscode/
 **/*.kra
 **/*~
+.metals/metals.log
+.metals/metals.h2.db
+.metals/metals.lock.db
+.doit.db.bak
+.doit.db.dat
+.doit.db.dir
