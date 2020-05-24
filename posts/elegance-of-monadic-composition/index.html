@@ -84,10 +84,11 @@
         <!--Body content-->
         
         
+        
 <article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Elegance of Monadic Composition</a></h1>
 
         <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
                     Ent
             </span></p>
             <p class="dateline">
@@ -135,7 +136,7 @@
 <!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
 <form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
-	<label for="mce-EMAIL">Interested for more posts like this?</label>
+	<label for="mce-EMAIL">Interested in more posts like this?</label>
 	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
     <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
     </div>
@@ -153,7 +154,7 @@
 <li>
 <code>IO.raiseError</code> on failure</li>
 </ul>
-<pre class="code literal-block"><span></span><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
 
 <span class="k">class</span> <span class="nc">Donatron</span><span class="o">()</span> <span class="o">{</span>
 
@@ -183,7 +184,7 @@
       <span class="o">.</span><span class="n">delay</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">s"Valid Donations: </span><span class="si">${</span><span class="n">donations</span><span class="o">.</span><span class="n">toLogMessage</span><span class="si">}</span><span class="s">"</span><span class="o">))</span>
       <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">donations</span><span class="o">)</span>
 <span class="o">}</span>
-</pre>
+</code></pre>
 
 
 <p>Complete code can be found at <a href="https://github.com/last-ent/donatron/blob/io/src/main/scala/donatron/Donatron.scala">Donatron Example: IO</a></p>
@@ -191,8 +192,8 @@
 <p><strong>IO Algorithm Flowchart</strong>
 <img alt="IO flow" src="../../images/donatron-io.png"></p>
 <p>Put another way, we have a set of functions that need to be executed in case of success and a few which should be executed regardless of how many functions are successfully executed. There are many ways in Functional Programming to make this work but in our case let's use <code>EitherT</code>.</p>
-<pre class="code literal-block"><span></span><span class="nc">EitherT</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span>, <span class="kt">A</span>, <span class="kt">B</span><span class="o">]</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="nc">EitherT</span><span class="o">[</span><span class="kt">F</span><span class="o">[</span><span class="k">_</span><span class="o">]</span><span class="p">,</span> <span class="kt">A</span><span class="p">,</span> <span class="kt">B</span><span class="o">]</span>
+</code></pre>
 
 
 <ul>
@@ -222,7 +223,7 @@
 <!--End mc_embed_signup-->
 <hr>
 <h3><code>checkForValidInts</code></h3>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">checkForValidInts</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">ValidDonationsFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">checkForValidInts</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">ValidDonationsFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="k">val</span> <span class="o">(</span><span class="n">validInts</span><span class="o">,</span> <span class="n">nonInts</span><span class="o">)</span> <span class="k">=</span>
     <span class="n">req</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">partition</span><span class="o">(</span><span class="n">value</span> <span class="k">=&gt;</span> <span class="nc">Try</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="n">toInt</span><span class="o">).</span><span class="n">isSuccess</span><span class="o">)</span>
 
@@ -235,11 +236,11 @@
       <span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</pre>
+</code></pre>
 
 
 <p>After conversion:</p>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">checkForValidIntsET</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">RawData</span>, <span class="kt">ValidDonationsFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">checkForValidIntsET</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span><span class="p">,</span> <span class="kt">RawData</span><span class="p">,</span> <span class="kt">ValidDonationsFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="k">val</span> <span class="n">parts</span> <span class="k">=</span>
     <span class="n">req</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">partition</span><span class="o">(</span><span class="n">value</span> <span class="k">=&gt;</span> <span class="nc">Try</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="n">toInt</span><span class="o">).</span><span class="n">isSuccess</span><span class="o">)</span>
 
@@ -254,11 +255,11 @@
     <span class="o">}</span>
   <span class="o">)</span>
 <span class="o">}</span>
-</pre>
+</code></pre>
 
 
 <h3><code>checkForMinimumDonationAmount</code></h3>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">checkForMinimumDonationAmount</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">ValidDonationsFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">DonationsAboveMinimumFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">checkForMinimumDonationAmount</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">ValidDonationsFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">DonationsAboveMinimumFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="k">val</span> <span class="o">(</span><span class="n">aboveMinimum</span><span class="o">,</span> <span class="n">belowMinimum</span><span class="o">)</span> <span class="k">=</span> <span class="n">data</span><span class="o">.</span><span class="n">validInts</span><span class="o">.</span><span class="n">partition</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span>
 
   <span class="n">aboveMinimum</span><span class="o">.</span><span class="n">isEmpty</span> <span class="k">match</span> <span class="o">{</span>
@@ -280,11 +281,11 @@
       <span class="o">)</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</pre>
+</code></pre>
 
 
 <p>After conversion:</p>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">checkForMinimumDonationAmountET</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">ValidDonationsFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">RawData</span>, <span class="kt">DonationsAboveMinimumFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">checkForMinimumDonationAmountET</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">ValidDonationsFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span><span class="p">,</span> <span class="kt">RawData</span><span class="p">,</span> <span class="kt">DonationsAboveMinimumFound</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
   <span class="k">val</span> <span class="n">parts</span> <span class="k">=</span> <span class="n">data</span><span class="o">.</span><span class="n">validInts</span><span class="o">.</span><span class="n">partition</span><span class="o">(</span><span class="k">_</span><span class="o">.</span><span class="n">length</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="o">)</span>
 
   <span class="nc">EitherT</span><span class="o">.</span><span class="n">fromEither</span><span class="o">(</span>
@@ -308,7 +309,7 @@
     <span class="o">}</span>
   <span class="o">)</span>
 <span class="o">}</span>
-</pre>
+</code></pre>
 
 
 <p>
@@ -318,7 +319,7 @@
 <!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
 <form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
     <div id="mc_embed_signup_scroll">
-	<label for="mce-EMAIL">Interested for more posts like this?</label>
+	<label for="mce-EMAIL">Interested in more posts like this?</label>
 	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
     <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
     </div>
@@ -328,7 +329,7 @@
 <!--End mc_embed_signup-->
 <hr>
 <h3><code>submitDonations</code></h3>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">submitDonations</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">DonationsAboveMinimumFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">submitDonations</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">DonationsAboveMinimumFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">checkForAboveMaxDonationAmount</span><span class="o">(</span><span class="n">data</span><span class="o">.</span><span class="n">aboveMinimum</span><span class="o">)</span>
     <span class="o">.</span><span class="n">map</span> <span class="o">{</span> <span class="n">validDonations</span> <span class="k">=&gt;</span>
       <span class="nc">AcceptedDonations</span><span class="o">(</span>
@@ -337,47 +338,47 @@
         <span class="n">lessThanMinimum</span> <span class="k">=</span> <span class="n">data</span><span class="o">.</span><span class="n">lessThanMinimum</span>
       <span class="o">)</span>
     <span class="o">}</span>
-</pre>
+</code></pre>
 
 
 <p>After conversion:</p>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">submitDonationsET</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">DonationsAboveMinimumFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">RawData</span>, <span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">submitDonationsET</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">DonationsAboveMinimumFound</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span><span class="p">,</span> <span class="kt">RawData</span><span class="p">,</span> <span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
   <span class="nc">EitherT</span><span class="o">.</span><span class="n">liftF</span><span class="o">(</span><span class="n">submitDonations</span><span class="o">(</span><span class="n">data</span><span class="o">))</span>
-</pre>
+</code></pre>
 
 
 <h3><code>logAndReturnAcceptedDonations</code></h3>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">logAndReturnAcceptedDonations</span><span class="o">(</span><span class="n">donations</span><span class="k">:</span> <span class="kt">AcceptedDonations</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">logAndReturnAcceptedDonations</span><span class="o">(</span><span class="n">donations</span><span class="k">:</span> <span class="kt">AcceptedDonations</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
   <span class="nc">IO</span>
     <span class="o">.</span><span class="n">delay</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="s">s"Valid Donations: </span><span class="si">${</span><span class="n">donations</span><span class="o">.</span><span class="n">toLogMessage</span><span class="si">}</span><span class="s">"</span><span class="o">))</span>
     <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="k">_</span> <span class="k">=&gt;</span> <span class="n">donations</span><span class="o">)</span>
-</pre>
+</code></pre>
 
 
 <p>After conversion:</p>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">logAndReturnAcceptedDonationsET</span><span class="o">(</span><span class="n">donations</span><span class="k">:</span> <span class="kt">AcceptedDonations</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span>, <span class="kt">RawData</span>, <span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">logAndReturnAcceptedDonationsET</span><span class="o">(</span><span class="n">donations</span><span class="k">:</span> <span class="kt">AcceptedDonations</span><span class="o">)</span><span class="k">:</span> <span class="kt">EitherT</span><span class="o">[</span><span class="kt">IO</span><span class="p">,</span> <span class="kt">RawData</span><span class="p">,</span> <span class="kt">AcceptedDonations</span><span class="o">]</span> <span class="k">=</span>
   <span class="nc">EitherT</span><span class="o">.</span><span class="n">liftF</span><span class="o">(</span><span class="n">logAndReturnAcceptedDonations</span><span class="o">(</span><span class="n">donations</span><span class="o">))</span>
-</pre>
+</code></pre>
 
 
 <p>Now that we have <code>EitherT</code> versions for all of the required functions, let's plug them into our <code>donate</code> function.</p>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">donate</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">donate</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">checkForValidInts</span><span class="o">(</span><span class="n">req</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">checkForMinimumDonationAmount</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">submitDonations</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">logAndReturnAcceptedDonations</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">logAndReturnResponse</span><span class="o">)</span>
-</pre>
+</code></pre>
 
 
 <p>After conversion</p>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">donate</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">donate</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">checkForValidIntsET</span><span class="o">(</span><span class="n">req</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">checkForMinimumDonationAmountET</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">submitDonationsET</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">logAndReturnAcceptedDonationsET</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">logAndReturnResponse</span><span class="o">)</span>
-</pre>
+</code></pre>
 
 
 <h3>One more thing...</h3>
@@ -396,7 +397,7 @@
 <!--End mc_embed_signup-->
 <hr>
 If we try to run the code as-is, we get following compilation error:
-<pre class="code literal-block"><span></span><span class="o">[</span>info<span class="o">]</span> Compiling <span class="m">1</span> Scala <span class="nb">source</span> to /home/ent/Documents/Code/DonatronExample/target/scala-2.12/classes ...
+<pre class="code literal-block"><span></span><code><span class="o">[</span>info<span class="o">]</span> Compiling <span class="m">1</span> Scala <span class="nb">source</span> to /home/ent/Documents/Code/DonatronExample/target/scala-2.12/classes ...
 <span class="o">[</span>error<span class="o">]</span> /home/ent/Documents/Code/DonatronExample/src/main/scala/donatron/Donatron.scala:23:16: <span class="nb">type</span> mismatch<span class="p">;</span>
 <span class="o">[</span>error<span class="o">]</span>  found   : cats.effect.IO<span class="o">[</span>donatron.models.Response<span class="o">]</span>
 <span class="o">[</span>error<span class="o">]</span>  required: cats.data.EitherT<span class="o">[</span>cats.effect.IO,?,?<span class="o">]</span>
@@ -410,12 +411,12 @@ If we try to run the code as-is, we get following compilation error:
 <span class="o">[</span>error<span class="o">]</span> two errors found
 <span class="o">[</span>error<span class="o">]</span> <span class="o">(</span>Compile / compileIncremental<span class="o">)</span> Compilation failed
 <span class="o">[</span>error<span class="o">]</span> Total time: <span class="m">1</span> s, completed Nov <span class="m">23</span>, <span class="m">2019</span> <span class="m">9</span>:26:16 PM
-</pre>
+</code></pre>
 
 
 <p>Basically <code>logAndReturnResponse</code> expects <code>IO[Response]</code> but <code>logAndReturnAcceptedDonationsET</code> returns an <code>EitherT</code>. So how can we solve this? One way would be to pattern match on <code>EitherT.value</code> and convert it to <code>Response</code>. However this isn't elegant.</p>
 <p>Let's take a step back and look at our trait definitions for <code>RawData</code>, <code>RawDataSuccess</code> &amp; <code>RawDataErr</code>.</p>
-<pre class="code literal-block"><span></span><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">RawData</span> <span class="o">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">RawData</span> <span class="o">{</span>
   <span class="k">def</span> <span class="n">toLogMessage</span><span class="k">:</span> <span class="kt">LogMessage</span>
 
   <span class="k">def</span> <span class="n">toResponse</span><span class="k">:</span> <span class="kt">Response</span> <span class="o">=</span> <span class="nc">Response</span><span class="o">(</span><span class="n">toLogMessage</span><span class="o">.</span><span class="n">value</span><span class="o">)</span>
@@ -424,32 +425,32 @@ If we try to run the code as-is, we get following compilation error:
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">RawDataSuccess</span> <span class="k">extends</span> <span class="nc">RawData</span>
 
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">RawDataErr</span> <span class="k">extends</span> <span class="nc">RawData</span>
-</pre>
+</code></pre>
 
 
-<p><code>RawDataSuccess</code> &amp; <code>RawDataErr</code> extend <code>RawData</code> and we are using <code>EitherT</code> which has the method <code>merge</code>! This means we can <code>merge</code> our <code>EitherT</code> to get a value of type <code>RawData</code><sup id="fnref-1"><a class="footnote-ref" href="#fn-1">1</a></sup>.</p>
+<p><code>RawDataSuccess</code> &amp; <code>RawDataErr</code> extend <code>RawData</code> and we are using <code>EitherT</code> which has the method <code>merge</code>! This means we can <code>merge</code> our <code>EitherT</code> to get a value of type <code>RawData</code><sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
 <p>So let's add a <code>.merge</code> and see if the compiler is happy with us.</p>
-<pre class="code literal-block"><span></span><span class="k">def</span> <span class="n">donate</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">donate</span><span class="o">(</span><span class="n">req</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">checkForValidIntsET</span><span class="o">(</span><span class="n">req</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">checkForMinimumDonationAmountET</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">submitDonationsET</span><span class="o">)</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">logAndReturnAcceptedDonationsET</span><span class="o">)</span>
     <span class="o">.</span><span class="n">merge</span>
     <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">logAndReturnResponse</span><span class="o">)</span>
-</pre>
+</code></pre>
 
 
-<pre class="code literal-block"><span></span><span class="o">[</span>info<span class="o">]</span> Compiling <span class="m">1</span> Scala <span class="nb">source</span> to /home/ent/Documents/Code/DonatronExample/target/scala-2.12/classes ...
+<pre class="code literal-block"><span></span><code><span class="o">[</span>info<span class="o">]</span> Compiling <span class="m">1</span> Scala <span class="nb">source</span> to /home/ent/Documents/Code/DonatronExample/target/scala-2.12/classes ...
 <span class="o">[</span>success<span class="o">]</span> Total time: <span class="m">1</span> s, completed Nov <span class="m">23</span>, <span class="m">2019</span> <span class="m">9</span>:48:13 PM
-</pre>
+</code></pre>
 
 
 <p>Complete code can be found at <a href="https://github.com/last-ent/donatron/blob/master/src/main/scala/donatron/Donatron.scala">Donatron Example: master</a></p>
 <div class="footnote">
 <hr>
 <ol>
-<li id="fn-1">
-<p>It is for this reason that we defined the <code>Left</code> of all our <code>EitherT</code>s as <code>RawData</code> instead of <code>RawDataErr</code>. <a class="footnote-backref" href="#fnref-1" title="Jump back to footnote 1 in the text">↩</a></p>
+<li id="fn:1">
+<p>It is for this reason that we defined the <code>Left</code> of all our <code>EitherT</code>s as <code>RawData</code> instead of <code>RawDataErr</code>. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 </ol>
 </div>
@@ -471,6 +472,7 @@ If we try to run the code as-is, we get following compilation error:
             </li>
         </ul></nav></aside></article><!--End of body content--><footer id="footer">
             Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+            
             
         </footer>
 </div>
@@ -504,7 +506,6 @@ If we try to run the code as-is, we get following compilation error:
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'UA-148031816-1');
 </script>
 </body>

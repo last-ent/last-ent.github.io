@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about software design)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/software-design.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sat, 02 May 2020 00:59:21 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Introduction to ADTs (Algebraic Data Types)</title><link>https://last-ent.com/posts/introduction-to-adts/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;blockquote&gt;
-&lt;p&gt;Algebraic Data Types (or ADTs) model the flow a program (or a system) in terms of data &amp;amp; functions that describe the complete behaviour and states the data can go through.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about software design)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/software-design.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:last_ent@outlook.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 24 May 2020 18:32:58 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>ADTs in Practice</title><link>https://last-ent.com/posts/adts-in-practice/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;In &lt;a href="https://last-ent.com/posts/introduction-to-adts"&gt;previous post&lt;/a&gt; we defined ADTs as&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Algebraic Data Types (or ADTs) model the flow of a program (or a system) in terms of data &amp;amp; functions that describe the complete behaviour and states the data can go through.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In this post, we will work through defining ADTs for an API service.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="How to design ADT for a request-response flow?" src="https://last-ent.com/images/adt-server.png"&gt;&lt;/p&gt;
+&lt;p&gt;API service will return User's Information by:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Extracting user id &amp;amp; password from the request&lt;/li&gt;
+&lt;li&gt;Checks them against an authorization service&lt;/li&gt;
+&lt;li&gt;Retrieves User's Information from database&lt;/li&gt;
+&lt;li&gt;Returns User Information in response&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/adts-in-practice/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><category>type driven development</category><guid>https://last-ent.com/posts/adts-in-practice/</guid><pubDate>Sun, 24 May 2020 15:50:02 GMT</pubDate></item><item><title>Introduction to ADTs (Algebraic Data Types)</title><link>https://last-ent.com/posts/introduction-to-adts/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;blockquote&gt;
+&lt;p&gt;Algebraic Data Types (or ADTs) model the flow of a program (or a system) in terms of data &amp;amp; functions that describe the complete behaviour and states the data can go through.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Let's take an example to grok the concept better.&lt;/p&gt;
 &lt;h2&gt;Example: Area of a rectangle&lt;/h2&gt;

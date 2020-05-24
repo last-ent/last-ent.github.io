@@ -9,7 +9,7 @@
 .. type: text
 -->
 
-> Algebraic Data Types (or ADTs) model the flow a program (or a system) in terms of data & functions that describe the complete behaviour and states the data can go through.
+> Algebraic Data Types (or ADTs) model the flow of a program (or a system) in terms of data & functions that describe the complete behaviour and states the data can go through.
 
 Let's take an example to grok the concept better.
 
