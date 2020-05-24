@@ -1,11 +1,11 @@
 <!--
 .. title: ADTs in Practice
 .. slug: adts-in-practice
-.. date: 2020-04-19 17:50:02 UTC+02:00
-.. tags: 
+.. date: 2020-05-24 17:50:02 UTC+02:00
+.. tags: software design, type driven development, functional programming, programming, scala
 .. category: 
 .. link: 
-.. description: 
+.. description: How to use Algebraic Data Types (ADTs) in a real world appliation like a web api? I discuss that in this post.
 .. type: text
 -->
 
@@ -21,14 +21,12 @@ API service will return User's Information by:
 
 - Extracting user id & password from the request
 - Checks them against an authorization service
-- Retrieves user's information from database
+- Retrieves User's Information from database
 - Returns User Information in response
 
 {{% promptmid %}}
 
-In order to write the ADTs we first need to understand the possible states in each layer.
-
-We know that the authentication server & our own server will respond with one of the typical HTTP statuses (we will use a simpler set for this example). We will similarly assume smaller set of states for the database. We will discuss these further in later section.
+In order to write the ADTs we first need to understand the flow of our system.
 
 The following server diagram and ADTs(possible states) give us a good idea of how we want to design our system.
 
@@ -102,9 +100,11 @@ final case class UserInfo()
 final case class UserInfoResponse(userInfo: UserInfo) extends Response
 ```
 
-# Arrows & Sets
+# ADTs & Flow
 
-Previously we defined our system in terms of happy path. But in reality there are many ways in which the server can end up in an error state, following diagram shows the alternative possible flow.
+Previously we defined our system in terms of happy path. But in reality there are many ways in which the server can end up in an error state. 
+
+For example, we know that the authentication server & our own server can respond with one of the typical HTTP statuses for error (we will use a simpler set for this example). We will similarly assume smaller set of states for the database.
 
 We can define these using following top high level `trait`s.
 
@@ -120,9 +120,7 @@ sealed trait DBResponse
 sealed trait DBErrorResponse extends DBResponse
 ```
 
-![Complete flow](/images/adt-complete-flow.png)
-
-And these Error ADTs can further be broken down as follows.
+Following are examples of possible errors we will handle per domain.
 
 ![States of Response, Auth Server & Database](/images/adt-error-states.png)
 
@@ -156,6 +154,10 @@ final case class UserInfoNotFound() extends DBResponse
 
 final case class DBError(msg: String) extends RuntimeException(msg) with DBErrorResponse
 ```
+
+Now if we look at how our system is overall designed we have a very nice diagram based around ADTs & Flow.
+
+![Complete flow of system that includes Request to Response & possible ADTs per each intermim function call](/images/adt-complete-flow.png)
 
 {{% promptend %}}
 
