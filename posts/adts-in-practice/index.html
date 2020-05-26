@@ -190,7 +190,9 @@
 
 
 <h3>Successful Response</h3>
-<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="k">:</span> <span class="kt">UserInfo</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Response</span>
+<pre class="code literal-block"><span></span><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Response</span>
+
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="k">:</span> <span class="kt">UserInfo</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Response</span>
 </code></pre>
 
 
@@ -256,6 +258,16 @@
 <hr>
 <h2>Conclusion</h2>
 <p>Hopefully now you have a better idea on how to take a system and slowly break it down into ADTs without even touching the actual implementation. This allows us to think and reason about our system in a declarative manner.</p>
+<h4>Code</h4>
+<p><script src="https://gist.github.com/ec183a09b5fa496cb7421b59fbce057b.js"></script><noscript><pre>import cats.effect.IO
+
+class Server(http: Http, database: Database) {
+
+  def process(request: Request): IO[Response] = {
+
+    val respF =
+      for {
+        creds </pre></noscript></p>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
@@ -278,24 +290,7 @@
 </div>
 
 
-        <script src="../../assets/js/all-nocdn.js"></script><!-- Social buttons --><div id="addthisbox" class="addthis_toolbox addthis_peekaboo_style addthis_default_style addthis_label_style addthis_32x32_style">
-<a class="addthis_button_more">Share</a>
-<ul>
-<li>
-<a class="addthis_button_facebook"></a>
-</li>
-<li>
-<a class="addthis_button_google_plusone_share"></a>
-</li>
-<li>
-<a class="addthis_button_linkedin"></a>
-</li>
-<li>
-<a class="addthis_button_twitter"></a>
-</li>
-</ul>
-</div>
-<script src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f7088a56bb93798"></script><!-- End of social buttons --><script>
+        <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
         captions: function(element) {
