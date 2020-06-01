@@ -22,7 +22,7 @@ SITE_URL = "https://last-ent.com/"
 # This is the URL where Nikola's output will be deployed.
 # If not set, defaults to SITE_URL
 # BASE_URL = "https://last-ent.com/"
-BLOG_EMAIL = "last_ent@outlook.com"
+BLOG_EMAIL = "blog@last-ent.com"
 BLOG_DESCRIPTION = "Thoughts as provided by Ent"  # (translatable)
 
 # Nikola is multilingual!
@@ -1220,16 +1220,16 @@ EXTRA_HEAD_DATA = """
 # (translatable)
 BODY_END = ""
 
-BODY_END = """
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-148031816-1');
-</script>
-"""
+# BODY_END = """
+# <!-- Global site tag (gtag.js) - Google Analytics -->
+# <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
+# <script>
+#   window.dataLayer = window.dataLayer || [];
+#   function gtag(){dataLayer.push(arguments);}
+#   gtag('js', new Date());
+#   gtag('config', 'UA-148031816-1');
+# </script>
+# """
 
 # The possibility to extract metadata from the filename by using a
 # regular expression.
