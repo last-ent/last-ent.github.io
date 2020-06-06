@@ -5,18 +5,22 @@
 .. tags: software design, functional programming, programming, scala, FP for sceptics, FP for sceptics
 .. category: 
 .. link: 
-.. description: Introduction to Option Type. A beginner friendly, crisp & concise article on how to think and reason about Option type.
+.. description: Introduction to Option Type aka Maybe Type. A beginner friendly, crisp & concise article on how to think and reason about Option type. 
 .. type: text
 -->
 
-In Functional Programming we define our system in terms of ADTs, data flow & functions. We start by defining "Happy Path" and then move on to handle exceptions or "Unhappy Path". `ADTs in Practice` used Exceptions (`IO.raiseError`) to signal bad state and cut the flow short. 
+Functional Programming (FP) is based around mathematical concepts like **Type Theory** - _We define our system in terms of ADTs, data flow & functions._
 
-Functional Programming is based around mathematical concepts (Type Theory) and they don't have "Exceptions" as defined in Imperative Programming. They use special constructs or types instead. Here are a few:
+We first implement "Happy Path" and then implement handlers for "Unhappy Path". In [`ADTs in Practice`](/posts/adts-in-practice) we used "Exceptions" (`IO.raiseError`).
+
+However FP promotes using types for error handling, such as:
 
 - `Option`
 - `Either`
 - `Monad`
 - _etc._
+
+In this post we will start by looking at the simplest of these:
 
 > `Option` type denotes presence (`Some(value)`) or absence (`None`) of a value.
 
@@ -35,32 +39,42 @@ Extracting value
 ```
 {{% promptmid %}}
 
-In programming, we use functions and methods to perform an action and return a value[^1]. Depending upon the logic we may or may not have a return value. In case of Imperative Programming, this is expressed either as `null` or an `Exception`; In Functional programming we make use of `Option` type.
+In programming, we use functions and methods to do any action and return a value[^1]. Depending upon the logic we may or may not have a return value. 
 
-Is this a useful construct? Consider retrieving a value from a HashMap or Dictionary.
+Imperative Programming (Java, Python etc) this is expressed as either `null` or an `Exception`.
+
+ In Functional programming we can use of `Option` type to represent value `may exist`.
+
+Is this practical? Consider retrieving a value from a HashMap or Dictionary.
 
 ```scala
 val hMap: Map[Int, Int] = Map(1 -> 102, 2 -> 202, 3 -> 302)
 
-hMap.get(100) // What should be the value here? `100` does not exist in `hMap`
+hMap.get(100) 
+// What should be the value here?
+// `100` does not exist in `hMap`
 ```
 In non-FP languages, we need to do null check or have exception handling around `hMap.get`.
 
-In FP languages, an `Option` is returned and depending upon the flow of the program, we have two ways of dealing with it:
+In FP languages, `hMap.get` will return an `Option` and depending upon the flow of the program, we have two ways of dealing with it:
 
 * **Extract value**
 * **Work within Option context**
 
 # Extract value
-This is useful when we want to directly work with a value. There are two ways to extract a value from an `Option`
+> This is useful when we want to directly work with a value, whether it exists or not.
+
+There are two ways to extract a value from an `Option`
 
 * **getOrElse**
 * **Pattern Matching**
 
 ## `getOrElse`
+_This is idiomatic in Scala and similar function/method is available in other imperative languages as well._
 
 ```scala
-def getString(opt: Option[String]): String = "Got Value: " + opt.getOrElse("None")
+def getString(opt: Option[String]): String =
+    "Got Value: " + opt.getOrElse("None")
 
 getString(Some("100")) // "Got Value: 100"
 
@@ -68,6 +82,7 @@ getString(None) // "Got Value: None"
 ```
 
 ## Pattern Matching
+_Pattern Matching is the "functional way" of extracting a value.[^2]_
 
 ```scala
 def extractFromOption(opt: Option[String]): String =
@@ -82,14 +97,12 @@ extractFromOption(None) // "Got Value: None"
 ```
 
 ## What about `.get`?
-`Option` type also has `.get` method but it's not safe to use as `None.get` will throw an exception and we want to avoid running into such errors.
+`Option` type also has `.get` method but it is unsafe to use as `None.get` will throw an exception and we want to avoid running into such errors.
 
-> Note that `Option` ensures that we will never run into `NullPointerException` thanks to `.getOrElse` & pattern matching. 
-
-Next let's look at how to work with `Option` without extracting the value at every turn which can get cumbersome.
+> **Note**: `Option` ensures that we will never run into `NullPointerException` (NPE) thanks to `.getOrElse` & pattern matching[^3]. 
 
 # Work within Option context
-If we have a bunch of functions that accept concrete inputs (not `Option`) and/or we only want to execute code when a value is available ie., on `Some` but not on `None`; In such cases, we want to work within "`Option` context".
+We work with an `Option` type without extracting the value at every turn, which will get cumbersome.
 
 Consider the flow in diagram:
 
@@ -99,21 +112,30 @@ getOptionValue -> ??? -> addTen -> ??? -> asString -> extractFromOption
 which is defined by the following methods
 
 ```scala
-val hMap: Map[Int, Int] = Map(1 -> 102, 2 -> 202, 3 -> 302)
+val hMap: Map[Int, Value] = 
+  Map(
+    1 -> Value(102),
+    2 -> Value(202),
+    3 -> Value(302)
+  )
 
-def getOptionValue(i: Int): Option[Int] = hMap.get(i)
+def getOptionValue(i: Int): Option[Value] = hMap.get(i)
 
-def addTen(i: Int): Int = i + 10
+def addTen(i: Value): Value10 = Value10(i.value + 10)
 
-def asString(value: Int): String = s"Got Value: $value"
+def asString(num: Value10): String = s"Got Value: ${num.value}"
+
+case class Value(value: Int) extends AnyVal
+case class Value10(value: Int) extends AnyVal
 ```
 
 There are two ways of working within `Option context`
 
 ## Using `map` to compose our functions
+> `map` is useful when a function in the chain returns an `Option` and rest of functions need to be executed only if function's input is available.
 
 ```scala
-def mapOpt(i: Int) =
+def mapOpt(i: Int): Option[String] =
   getOptionValue(i)
     .map(addTen)
     .map(asString)
@@ -127,10 +149,11 @@ extractFromOption(mapOpt(100)) // "Got Value: None"
 <Show how code flow/shortcircuits for both values>
 ```
 
-## Using `for-comprehension` or `flatMap`[^2]
+## Using `for-comprehension` or `flatMap`[^4]
+> `for-comprehension` and `flatMap` are useful when multiple functions in the chain return `Option` and but we only want to execute the next function if function's input is available.
 
 ```scala
-def forOpt(i: Int) =
+def forOpt(i: Int): Option[String] =
   for {
     value <- hMap.get(i)
     val10 <- Some(addTen(value))
@@ -142,18 +165,22 @@ extractFromOption(forOpt(3)) // "Got Value: 312"
 extractFromOption(forOpt(100)) // "Got Value: None"
 ```
 
-> In both cases of working within `Option` context, our code reads straightforward without excessive error handling. This is also one of the major advantages of using a `Option` type.
+> **Note**: The code is a straightforward to read because we need not check for `None` at every step.
 
 {{% promptend %}}
 
 # Conclusion
 
-In this post we looked at what is an `Option` type, how & why to use it.
+**In this post** we looked at `Option` type - _what, how & why to use it_.
 
-We saw how it allows us to deal with `null` case explicitly so that we don't run into `NullPointerException` or similar issues. The code is also more elegant to read.
+**We saw how it**:
 
-In my next post I will cover **where, when and to what extent** `Option` type is useful in context of a practical application.
+* Elegantly handles possible `null` cases  so that we don't run into `NullPointerException` or similar issues.
+* Makes code declarative/functional to read.
+
+**In my next post** I will cover _where, when and to what extent_ `Option` type is useful in practical applications.
 
 [^1]: For sake of simplicity we are ignoring mutablity and impure functions.
-[^2]: If you are unfamiliar with how `flatMap` or `for-comprehension` works, you can ignore `for-comprehension` for now.
-I will be covering `map/flatMap` in a future post.
+[^2]: Pattern Matching is quite versatile as we will see in case of `Either`. I plan on writing a separate post about its versatility.
+[^3]: The caveat is that if we have `Option[None]` then we risk NPE at next level. However `Option[None]` is a code smell and needs to be fixed.
+[^4]: If you are unfamiliar with how `flatMap` or `for-comprehension` works, you can ignore `for-comprehension` for now. I will be covering `map/flatMap` in a future post.
