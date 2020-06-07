@@ -2,7 +2,7 @@
 .. title: Introduction to ADTs (Algebraic Data Types)
 .. slug: introduction-to-adts
 .. date: 2020-04-14 00:31:05 UTC+02:00
-.. tags: software design, type driven development, functional programming, programming, scala
+.. tags: software design, functional programming, programming, scala, FP for sceptics
 .. category: 
 .. link: 
 .. description: Introduction to Algebraic Data Types. A detailed beginner friendly tutorial on why and how to use ADTs.

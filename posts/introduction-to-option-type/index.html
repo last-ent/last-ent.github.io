@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Introduction to Option Type aka Maybe Type. A beginner friendly, crisp &amp; concise article on how to think and reason about Option type. ">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction to Option Type | Last Ent's Thoughts</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://last-ent.com/posts/introduction-to-option-type/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<meta name="author" content="Ent">
+<link rel="prev" href="../adts-in-practice/" title="ADTs in Practice" type="text/html">
+<meta property="og:site_name" content="Last Ent's Thoughts">
+<meta property="og:title" content="Introduction to Option Type">
+<meta property="og:url" content="https://last-ent.com/posts/introduction-to-option-type/">
+<meta property="og:description" content="Introduction to Option Type aka Maybe Type. A beginner friendly, crisp &amp; concise article on how to think and reason about Option type. ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-06-01T00:38:34+02:00">
+<meta property="article:tag" content="FP for sceptics">
+<meta property="article:tag" content="functional programming">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="software design">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://last-ent.com/">
+
+            <span id="blog-title">Last Ent's Thoughts</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../pages/learning-targets" class="nav-link">Learning Targets</a>
+            </li>
+<li class="nav-item dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archives</a>
+            <div class="dropdown-menu">
+                    <a href="../../archive.html" class="dropdown-item">Archive</a>
+                    <a href="../../categories/" class="dropdown-item">Tags</a>
+            </div>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about" class="nav-link">About</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Introduction to Option Type</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Ent
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-06-01T00:38:34+02:00" itemprop="datePublished" title="2020-06-01 00:38">2020-06-01 00:38</time></a>
+            </p>
+            
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>Functional Programming (FP) is based around mathematical concepts like <strong>Type Theory</strong> - <em>We define our system in terms of ADTs, data flow &amp; functions<sup id="fnref:0"><a class="footnote-ref" href="#fn:0">1</a></sup>.</em></p>
+<p>We first implement "Happy Path" and then implement handlers for "Unhappy Path" (error handling). In <a href="../adts-in-practice"><code>ADTs in Practice</code></a> we used "Exceptions" (<code>IO.raiseError</code>) for error handling.</p>
+<p>However FP promotes using types for error handling, such as:</p>
+<ul>
+<li><code>Option</code></li>
+<li><code>Either</code></li>
+<li><code>Monad</code></li>
+<li><em>etc.</em></li>
+</ul>
+<p>In this post we will start by looking at the simplest of these:</p>
+<blockquote>
+<p><code>Option</code> type denotes presence (<code>Some(value)</code>) or absence (<code>None</code>) of a value.</p>
+</blockquote>
+<p><img alt="Option has Some(value) &amp; None. What are two ways of using it?" src="../../images/option_title.png"><!-- TEASER_END --></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Interested in more posts like this?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<p>In programming, we use functions and methods to do any action and return a value<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">2</a></sup>. Depending upon the logic we may or may not have a return value. </p>
+<p>Imperative Programming Languages (Java, Python etc) express this using either <code>null</code> or an <code>Exception</code>.</p>
+<p>In Functional programming we can use <code>Option</code> type to say the value <code>may exist</code>.</p>
+<p>Is this practical? Consider retrieving a value from a HashMap or a Dictionary.</p>
+<pre class="code literal-block"><span></span><code><span class="k">val</span> <span class="n">hMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">102</span><span class="o">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">202</span><span class="o">,</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">302</span><span class="o">)</span>
+
+<span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span> 
+<span class="c1">// What should be the value here?</span>
+<span class="c1">// `100` does not exist in `hMap`</span>
+</code></pre>
+
+
+<p>In non-FP languages, we need to do null check or have exception handling around <code>hMap.get</code>.</p>
+<p>In FP languages, <code>hMap.get</code> will return an <code>Option</code> and depending upon the flow of the program, we have two ways of dealing with it:</p>
+<ul>
+<li><strong>Extract value</strong></li>
+<li><strong>Work within Option context</strong></li>
+</ul>
+<h2>Extract value</h2>
+<blockquote>
+<p>This is useful when we want to directly work with a value, whether it exists or not.</p>
+</blockquote>
+<p>There are two ways to extract a value from an <code>Option</code></p>
+<ul>
+<li><strong>getOrElse</strong></li>
+<li><strong>Pattern Matching</strong></li>
+</ul>
+<h3><code>getOrElse</code></h3>
+<p><em>This is idiomatic in Scala and similar function/method is available in other imperative languages as well.</em></p>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">getFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+    <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">opt</span><span class="o">.</span><span class="n">getOrElse</span><span class="o">(</span><span class="s">"None"</span><span class="o">)</span>
+
+<span class="n">getFromOption</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">"100"</span><span class="o">))</span> <span class="c1">// "Got Value: 100"</span>
+
+<span class="n">getFromOption</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// "Got Value: None" </span>
+</code></pre>
+
+
+<h3>Pattern Matching</h3>
+<p><em>Pattern Matching is the "functional way" of extracting a value.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">3</a></sup></em></p>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">extractFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+  <span class="n">opt</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
+  <span class="o">}</span>
+
+<span class="n">extractFromOption</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">"100"</span><span class="o">))</span> <span class="c1">// "Got Value: 100"</span>
+
+<span class="n">extractFromOption</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// "Got Value: None" </span>
+</code></pre>
+
+
+<h3>What about <code>.get</code>?</h3>
+<p><code>Option</code> type also has <code>.get</code> method but it is unsafe to use as <code>None.get</code> will throw an exception and we want to avoid running into such errors.</p>
+<blockquote>
+<p><strong>Note</strong>: <code>Option</code> ensures that we will never run into <code>NullPointerException</code> (NPE) thanks to <code>.getOrElse</code> &amp; pattern matching<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">4</a></sup>. </p>
+</blockquote>
+<h2>Work within Option context</h2>
+<blockquote>
+<p>This is useful when we want to work with an <code>Option</code> type without extracting the value at every turn, which will get cumbersome.</p>
+</blockquote>
+<p>Consider the flow:</p>
+<p><img alt="Functional flow" src="../../images/option_fcns.png"></p>
+<p>which is defined by the following functions</p>
+<pre class="code literal-block"><span></span><code><span class="k">val</span> <span class="n">hMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Value</span><span class="o">]</span> <span class="k">=</span> 
+  <span class="nc">Map</span><span class="o">(</span>
+    <span class="mi">1</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="o">(</span><span class="mi">102</span><span class="o">),</span>
+    <span class="mi">2</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="o">(</span><span class="mi">202</span><span class="o">),</span>
+    <span class="mi">3</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="o">(</span><span class="mi">302</span><span class="o">)</span>
+  <span class="o">)</span>
+
+<span class="k">def</span> <span class="n">getOptionValue</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Value</span><span class="o">]</span> <span class="k">=</span> <span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="n">addTen</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Value</span><span class="o">)</span><span class="k">:</span> <span class="kt">Value10</span> <span class="o">=</span> <span class="nc">Value10</span><span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">10</span><span class="o">)</span>
+
+<span class="k">def</span> <span class="n">asString</span><span class="o">(</span><span class="n">num</span><span class="k">:</span> <span class="kt">Value10</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+  <span class="s">s"Got Value: </span><span class="si">${</span><span class="n">num</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s">"</span>
+
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Value</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Value10</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
+</code></pre>
+
+
+<p>There are two ways of working within <code>Option context</code></p>
+<p><img alt="Working within Option Context" src="../../images/option_context2.png"></p>
+<h3>Using <code>map</code> to compose our functions</h3>
+<blockquote>
+<p><code>map</code> is useful when a function in the chain returns an <code>Option</code> and rest of functions need to be executed only if function's input is available.</p>
+</blockquote>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">mapOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">getOptionValue</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">addTen</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">asString</span><span class="o">)</span>
+
+<span class="n">extractFromOption</span><span class="o">(</span><span class="n">mapOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
+
+<span class="n">extractFromOption</span><span class="o">(</span><span class="n">mapOpt</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span> <span class="c1">// "Got Value: None"</span>
+</code></pre>
+
+
+<h3>Using <code>for-comprehension</code> or <code>flatMap</code><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">5</a></sup>
+</h3>
+<blockquote>
+<p><code>for-comprehension</code> (and <code>flatMap</code>) are useful when multiple functions in the chain return <code>Option</code> and but we only want to execute the next function if function's input is available.</p>
+</blockquote>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">forOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
+  <span class="k">for</span> <span class="o">{</span>
+    <span class="n">value</span> <span class="k">&lt;-</span> <span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+    <span class="n">val10</span> <span class="k">&lt;-</span> <span class="nc">Some</span><span class="o">(</span><span class="n">addTen</span><span class="o">(</span><span class="n">value</span><span class="o">))</span>
+    <span class="n">str</span>   <span class="k">&lt;-</span> <span class="nc">Some</span><span class="o">(</span><span class="n">asString</span><span class="o">(</span><span class="n">val10</span><span class="o">))</span>
+  <span class="o">}</span> <span class="k">yield</span> <span class="n">str</span>
+
+<span class="n">extractFromOption</span><span class="o">(</span><span class="n">forOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
+
+<span class="n">extractFromOption</span><span class="o">(</span><span class="n">forOpt</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span> <span class="c1">// "Got Value: None"</span>
+</code></pre>
+
+
+<blockquote>
+<p><strong>Note</strong>: The code is a straightforward to read because we need not check for <code>None</code> at every step.</p>
+</blockquote>
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Liked this and want more?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<h2>Conclusion</h2>
+<p><strong>In this post</strong> we looked at <code>Option</code> type - <em>what, how &amp; why to use it</em>.</p>
+<p><strong>We saw how it</strong>:</p>
+<ul>
+<li>Elegantly handles possible <code>null</code> cases  so that we don't run into <code>NullPointerException</code> or similar issues.</li>
+<li>Makes code declarative/functional to read.</li>
+</ul>
+<p><strong>In my next post</strong> I will cover <em>where, when and to what extent</em> <code>Option</code> type is useful in practical applications.</p>
+<h4>Code</h4>
+<p><script src="https://gist.github.com/9554bf80cf98aede3304faa190db2938.js"></script></p>
+<noscript><pre>/*
+  BASIC EXAMPLE
+*/
+val hMap0: Map[Int, Int] = Map(1 -&gt; 102, 2 -&gt; 202, 3 -&gt; 302)
+
+hMap0.get(100) 
+// What should be the value here?
+// `100` does not exist in `hMap`
+
+/*
+  EXTRACTOR FROM OPTION
+*/
+def getFromOption(opt: Option[String]): String =
+    "Got Value: " + opt.getOrElse("None")
+
+getFromOption(Some("100")) // "Got Value: 100"
+
+getFromOption(None) // "Got Value: None" 
+
+def extractFromOption(opt: Option[String]): String =
+  opt match {
+    case None        =&gt; "Got Value: " + "None"
+    case Some(value) =&gt; "Got Value: " + value
+  }
+
+extractFromOption(Some("100")) // "Got Value: 100"
+
+extractFromOption(None) // "Got Value: None" 
+
+/*
+  FUNCTIONS FOR WORKING WITHIN CONTEXT
+*/
+val hMap: Map[Int, Value] = 
+  Map(
+    1 -&gt; Value(102),
+    2 -&gt; Value(202),
+    3 -&gt; Value(302)
+  )
+
+def getOptionValue(i: Int): Option[Value] = hMap.get(i)
+
+def addTen(i: Value): Value10 = Value10(i.value + 10)
+
+def asString(num: Value10): String =
+  s"Got Value: ${num.value}"
+
+case class Value(value: Int)
+case class Value10(value: Int)
+
+/*
+  WORKING WITHIN CONTEXT
+*/
+def mapOpt(i: Int): Option[String] =
+  getOptionValue(i)
+    .map(addTen)
+    .map(asString)
+
+extractFromOption(mapOpt(3)) // "Got Value: 312"
+
+extractFromOption(mapOpt(100)) // "Got Value: None"
+
+def forOpt(i: Int): Option[String] =
+  for {
+    value </pre></noscript>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:0">
+<p>See <code>[Introduction to ADTs](/posts/introduction-to-adts)</code> <a class="footnote-backref" href="#fnref:0" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:1">
+<p>For sake of simplicity we are ignoring mutablity and impure functions. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>Pattern Matching is quite versatile as we will see in case of <code>Either</code>. I plan on writing a separate post about its versatility. <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>The caveat is that if we have <code>Option[None]</code> then we risk NPE at next level. However <code>Option[None]</code> is a code smell and needs to be fixed. <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:4">
+<p>If you are unfamiliar with how <code>flatMap</code> or <code>for-comprehension</code> works, you can ignore <code>for-comprehension</code> for now. I will be covering <code>map/flatMap</code> in a future post. <a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/fp-for-sceptics/" rel="tag">FP for sceptics</a></li>
+            <li><a class="tag p-category" href="../../categories/functional-programming/" rel="tag">functional programming</a></li>
+            <li><a class="tag p-category" href="../../categories/programming/" rel="tag">programming</a></li>
+            <li><a class="tag p-category" href="../../categories/scala/" rel="tag">scala</a></li>
+            <li><a class="tag p-category" href="../../categories/software-design/" rel="tag">software design</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../adts-in-practice/" rel="prev" title="ADTs in Practice">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-148031816-1');
+</script>
+</body>
+</html>

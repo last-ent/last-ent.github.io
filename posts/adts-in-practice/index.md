@@ -2,7 +2,7 @@
 .. title: ADTs in Practice
 .. slug: adts-in-practice
 .. date: 2020-05-24 17:50:02 UTC+02:00
-.. tags: software design, type driven development, functional programming, programming, scala
+.. tags: software design, functional programming, programming, scala, FP for sceptics
 .. category: 
 .. link: 
 .. description: How to use Algebraic Data Types (ADTs) in a real world appliation like a web api? I discuss that in this post.
