@@ -148,8 +148,8 @@ def extractFromOption(opt: Option[String]): String =
 def forOpt(i: Int): Option[String] =
   for {
     value <- hMap.get(i)
-    val10 <- Some(addTen(value))
-    str   <- Some(asString(val10))
+    val10 <- Option.apply(addTen(value))
+    str   <- Option.apply(asString(val10))
   } yield str
 
 // Using flatMap
