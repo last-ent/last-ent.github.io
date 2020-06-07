@@ -110,8 +110,7 @@ def getOptionValue(i: Int): Option[Value] = hMap.get(i)
 
 def addTen(i: Value): Value10 = Value10(i.value + 10)
 
-def asString(num: Value10): String =
-  s"Got Value: ${num.value}"
+def asString(num: Value10): String = s"${num.value}"
 
 case class Value(value: Int) extends AnyVal
 case class Value10(value: Int) extends AnyVal
@@ -133,12 +132,19 @@ def mapOpt(i: Int): Option[String] =
 extractFromOption(mapOpt(3)) // "Got Value: 312"
 
 extractFromOption(mapOpt(100)) // "Got Value: None"
+
+def extractFromOption(opt: Option[String]): String =
+  opt match {
+    case None        => "Got Value: " + "None"
+    case Some(value) => "Got Value: " + value
+  }
 ```
 
 ## Using `for-comprehension` or `flatMap`[^4]
 > `for-comprehension` (and `flatMap`) are useful when multiple functions in the chain return `Option` and but we only want to execute the next function if function's input is available.
 
 ```scala
+// Using for-comprehension
 def forOpt(i: Int): Option[String] =
   for {
     value <- hMap.get(i)
@@ -146,9 +152,25 @@ def forOpt(i: Int): Option[String] =
     str   <- Some(asString(val10))
   } yield str
 
-extractFromOption(forOpt(3)) // "Got Value: 312"
+// Using flatMap
+def flatMapOpt(i: Int): Option[String] =
+  getOptionValue(i)
+    .flatMap(valOpt => Option.apply(addTen(valOpt)))
+    .flatMap(val10 => Option.apply(asString(val10)))
 
+// for-comprehension
+extractFromOption(forOpt(3)) // "Got Value: 312"
 extractFromOption(forOpt(100)) // "Got Value: None"
+
+// flatmap
+extractFromOption(flatMapOpt(3)) // "Got Value: 312"
+extractFromOption(flatMapOpt(100)) // "Got Value: None"
+
+def extractFromOption(opt: Option[String]): String =
+  opt match {
+    case None        => "Got Value: " + "None"
+    case Some(value) => "Got Value: " + value
+  }
 ```
 
 > **Note**: The code is a straightforward to read because we need not check for `None` at every step.
@@ -170,7 +192,7 @@ extractFromOption(forOpt(100)) // "Got Value: None"
 
 {{% gist 9554bf80cf98aede3304faa190db2938 %}}
 
-[^0]: See `[Introduction to ADTs](/posts/introduction-to-adts)`
+[^0]: See [Introduction to ADTs](/posts/introduction-to-adts)
 [^1]: For sake of simplicity we are ignoring mutablity and impure functions.
 [^2]: Pattern Matching is quite versatile as we will see in case of `Either`. I plan on writing a separate post about its versatility.
 [^3]: The caveat is that if we have `Option[None]` then we risk NPE at next level. However `Option[None]` is a code smell and needs to be fixed.

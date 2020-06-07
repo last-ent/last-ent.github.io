@@ -203,8 +203,7 @@
 
 <span class="k">def</span> <span class="n">addTen</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Value</span><span class="o">)</span><span class="k">:</span> <span class="kt">Value10</span> <span class="o">=</span> <span class="nc">Value10</span><span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">10</span><span class="o">)</span>
 
-<span class="k">def</span> <span class="n">asString</span><span class="o">(</span><span class="n">num</span><span class="k">:</span> <span class="kt">Value10</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-  <span class="s">s"Got Value: </span><span class="si">${</span><span class="n">num</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s">"</span>
+<span class="k">def</span> <span class="n">asString</span><span class="o">(</span><span class="n">num</span><span class="k">:</span> <span class="kt">Value10</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">s"</span><span class="si">${</span><span class="n">num</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s">"</span>
 
 <span class="k">case</span> <span class="k">class</span> <span class="nc">Value</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
 <span class="k">case</span> <span class="k">class</span> <span class="nc">Value10</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
@@ -225,6 +224,12 @@
 <span class="n">extractFromOption</span><span class="o">(</span><span class="n">mapOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
 
 <span class="n">extractFromOption</span><span class="o">(</span><span class="n">mapOpt</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span> <span class="c1">// "Got Value: None"</span>
+
+<span class="k">def</span> <span class="n">extractFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+  <span class="n">opt</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
+  <span class="o">}</span>
 </code></pre>
 
 
@@ -233,16 +238,33 @@
 <blockquote>
 <p><code>for-comprehension</code> (and <code>flatMap</code>) are useful when multiple functions in the chain return <code>Option</code> and but we only want to execute the next function if function's input is available.</p>
 </blockquote>
-<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">forOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span></span><code><span class="c1">// Using for-comprehension</span>
+<span class="k">def</span> <span class="n">forOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
   <span class="k">for</span> <span class="o">{</span>
     <span class="n">value</span> <span class="k">&lt;-</span> <span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
     <span class="n">val10</span> <span class="k">&lt;-</span> <span class="nc">Some</span><span class="o">(</span><span class="n">addTen</span><span class="o">(</span><span class="n">value</span><span class="o">))</span>
     <span class="n">str</span>   <span class="k">&lt;-</span> <span class="nc">Some</span><span class="o">(</span><span class="n">asString</span><span class="o">(</span><span class="n">val10</span><span class="o">))</span>
   <span class="o">}</span> <span class="k">yield</span> <span class="n">str</span>
 
-<span class="n">extractFromOption</span><span class="o">(</span><span class="n">forOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
+<span class="c1">// Using flatMap</span>
+<span class="k">def</span> <span class="n">flatMapOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
+  <span class="n">getOptionValue</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">valOpt</span> <span class="k">=&gt;</span> <span class="nc">Option</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="n">addTen</span><span class="o">(</span><span class="n">valOpt</span><span class="o">)))</span>
+    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">val10</span> <span class="k">=&gt;</span> <span class="nc">Option</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="n">asString</span><span class="o">(</span><span class="n">val10</span><span class="o">)))</span>
 
+<span class="c1">// for-comprehension</span>
+<span class="n">extractFromOption</span><span class="o">(</span><span class="n">forOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
 <span class="n">extractFromOption</span><span class="o">(</span><span class="n">forOpt</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span> <span class="c1">// "Got Value: None"</span>
+
+<span class="c1">// flatmap</span>
+<span class="n">extractFromOption</span><span class="o">(</span><span class="n">flatMapOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
+<span class="n">extractFromOption</span><span class="o">(</span><span class="n">flatMapOpt</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span> <span class="c1">// "Got Value: None"</span>
+
+<span class="k">def</span> <span class="n">extractFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+  <span class="n">opt</span> <span class="k">match</span> <span class="o">{</span>
+    <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
+  <span class="o">}</span>
 </code></pre>
 
 
@@ -341,7 +363,7 @@ def forOpt(i: Int): Option[String] =
 <hr>
 <ol>
 <li id="fn:0">
-<p>See <code>[Introduction to ADTs](/posts/introduction-to-adts)</code> <a class="footnote-backref" href="#fnref:0" title="Jump back to footnote 1 in the text">↩</a></p>
+<p>See <a href="../introduction-to-adts">Introduction to ADTs</a> <a class="footnote-backref" href="#fnref:0" title="Jump back to footnote 1 in the text">↩</a></p>
 </li>
 <li id="fn:1">
 <p>For sake of simplicity we are ignoring mutablity and impure functions. <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 2 in the text">↩</a></p>
@@ -385,11 +407,6 @@ def forOpt(i: Int): Option[String] =
         captions: function(element) {
             return element.getElementsByTagName('img')[0].alt;
     }});
-    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-148031816-1');
-</script>
+    </script>
 </body>
 </html>
