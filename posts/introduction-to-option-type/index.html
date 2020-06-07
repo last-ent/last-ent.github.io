@@ -242,8 +242,8 @@
 <span class="k">def</span> <span class="n">forOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
   <span class="k">for</span> <span class="o">{</span>
     <span class="n">value</span> <span class="k">&lt;-</span> <span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
-    <span class="n">val10</span> <span class="k">&lt;-</span> <span class="nc">Some</span><span class="o">(</span><span class="n">addTen</span><span class="o">(</span><span class="n">value</span><span class="o">))</span>
-    <span class="n">str</span>   <span class="k">&lt;-</span> <span class="nc">Some</span><span class="o">(</span><span class="n">asString</span><span class="o">(</span><span class="n">val10</span><span class="o">))</span>
+    <span class="n">val10</span> <span class="k">&lt;-</span> <span class="nc">Option</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="n">addTen</span><span class="o">(</span><span class="n">value</span><span class="o">))</span>
+    <span class="n">str</span>   <span class="k">&lt;-</span> <span class="nc">Option</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="n">asString</span><span class="o">(</span><span class="n">val10</span><span class="o">))</span>
   <span class="o">}</span> <span class="k">yield</span> <span class="n">str</span>
 
 <span class="c1">// Using flatMap</span>
@@ -311,7 +311,6 @@ def getFromOption(opt: Option[String]): String =
     "Got Value: " + opt.getOrElse("None")
 
 getFromOption(Some("100")) // "Got Value: 100"
-
 getFromOption(None) // "Got Value: None" 
 
 def extractFromOption(opt: Option[String]): String =
@@ -321,7 +320,6 @@ def extractFromOption(opt: Option[String]): String =
   }
 
 extractFromOption(Some("100")) // "Got Value: 100"
-
 extractFromOption(None) // "Got Value: None" 
 
 /*
@@ -353,12 +351,15 @@ def mapOpt(i: Int): Option[String] =
     .map(asString)
 
 extractFromOption(mapOpt(3)) // "Got Value: 312"
-
 extractFromOption(mapOpt(100)) // "Got Value: None"
 
 def forOpt(i: Int): Option[String] =
   for {
-    value </pre></noscript>
+    value  Option.apply(addTen(valOpt)))
+    .flatMap(val10 =&gt; Option.apply(asString(val10)))
+
+extractFromOption(flatMapOpt(3)) // "Got Value: 312"
+extractFromOption(flatMapOpt(100)) // "Got Value: None"</pre></noscript>
 <div class="footnote">
 <hr>
 <ol>
