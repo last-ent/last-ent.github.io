@@ -307,6 +307,9 @@ def donate(req: Request): IO[Response] =
 [info] Compiling 1 Scala source to /home/ent/Documents/Code/DonatronExample/target/scala-2.12/classes ...
 [success] Total time: 1 s, completed Nov 23, 2019 9:48:13 PM
 ```
+
+{{% promptbook %}}
+
 Complete code can be found at [Donatron Example: master](https://github.com/last-ent/donatron/blob/master/src/main/scala/donatron/Donatron.scala)
 
 [^1]:

@@ -151,3 +151,5 @@ object Catalog {
 > vs.
 
 >> You send your shopping list to our API, it checks with catalog for available items. Order is placed to our shop with the items which were found in the system. Finally the complete list of items ordered in shop and items not found in shop are returned to user with proper status message.
+
+{{% promptbook %}}

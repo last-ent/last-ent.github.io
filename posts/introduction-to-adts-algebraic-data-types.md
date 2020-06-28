@@ -163,3 +163,5 @@ def programADTs(allIntegers: AllIntegers): Areas = allIntegers // Compiler error
 I hope this sheds some light on the value of ADTs and why they are useful.
 
 There is a lot more to ADTs but I will cover it in a separate post using the context of a web application.
+
+{{% promptbook %}}

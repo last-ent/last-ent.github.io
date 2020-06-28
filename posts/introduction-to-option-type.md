@@ -2,7 +2,7 @@
 .. title: Introduction to Option Type
 .. slug: introduction-to-option-type
 .. date: 2020-06-01 00:38:34 UTC+02:00
-.. tags: software design, functional programming, programming, scala, FP for sceptics, FP for sceptics
+.. tags: software design, functional programming, programming, scala, FP for sceptics
 .. category: 
 .. link: 
 .. description: Introduction to Option Type aka Maybe Type. A beginner friendly, crisp & concise article on how to think and reason about Option type. 
@@ -187,6 +187,8 @@ def extractFromOption(opt: Option[String]): String =
 * Makes code declarative/functional to read.
 
 **In my next post** I will cover _where, when and to what extent_ `Option` type is useful in practical applications.
+
+{{% promptbook %}}
 
 ### Code
 

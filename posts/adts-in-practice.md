@@ -167,6 +167,8 @@ Now if we look at how our system is overall designed we have a very nice diagram
 
 Hopefully now you have a better idea on how to take a system and slowly break it down into ADTs without even touching the actual implementation. This allows us to think and reason about our system in a declarative manner.
 
+{{% promptbook %}}
+
 ### Code
 
 {{% gist ec183a09b5fa496cb7421b59fbce057b %}}
