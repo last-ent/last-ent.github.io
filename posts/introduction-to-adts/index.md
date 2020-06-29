@@ -1,5 +1,5 @@
 <!--
-.. title: Introduction to ADTs (Algebraic Data Types)
+.. title: FP for Sceptics: Introduction to ADTs (Algebraic Data Types)
 .. slug: introduction-to-adts
 .. date: 2020-04-14 00:31:05 UTC+02:00
 .. tags: software design, functional programming, programming, scala, FP for sceptics
@@ -163,3 +163,5 @@ def programADTs(allIntegers: AllIntegers): Areas = allIntegers // Compiler error
 I hope this sheds some light on the value of ADTs and why they are useful.
 
 There is a lot more to ADTs but I will cover it in a separate post using the context of a web application.
+
+{{% promptbook %}}

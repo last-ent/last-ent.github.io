@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="description" content="How to use Algebraic Data Types (ADTs) in a real world appliation like a web api? I discuss that in this post.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ADTs in Practice | Last Ent's Thoughts</title>
+<title>FP for Sceptics: ADTs in Practice | Last Ent's Thoughts</title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
@@ -17,11 +17,16 @@
 	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
 	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
 </style>
+<script src="https://gumroad.com/js/gumroad.js"></script><style>
+.center {
+  text-align: center;
+}
+</style>
 <meta name="author" content="Ent">
-<link rel="prev" href="../introduction-to-adts/" title="Introduction to ADTs (Algebraic Data Types)" type="text/html">
-<link rel="next" href="../introduction-to-option-type/" title="Introduction to Option Type" type="text/html">
+<link rel="prev" href="../introduction-to-adts/" title="FP for Sceptics: Introduction to ADTs (Algebraic Data Types)" type="text/html">
+<link rel="next" href="../introduction-to-option-type/" title="FP for Sceptics: Introduction to Option Type" type="text/html">
 <meta property="og:site_name" content="Last Ent's Thoughts">
-<meta property="og:title" content="ADTs in Practice">
+<meta property="og:title" content="FP for Sceptics: ADTs in Practice">
 <meta property="og:url" content="https://last-ent.com/posts/adts-in-practice/">
 <meta property="og:description" content="How to use Algebraic Data Types (ADTs) in a real world appliation like a web api? I discuss that in this post.">
 <meta property="og:type" content="article">
@@ -85,7 +90,7 @@
         
         
         
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">ADTs in Practice</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">FP for Sceptics: ADTs in Practice</a></h1>
 
         <div class="metadata">
             <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
@@ -259,6 +264,15 @@
 <hr>
 <h2>Conclusion</h2>
 <p>Hopefully now you have a better idea on how to take a system and slowly break it down into ADTs without even touching the actual implementation. This allows us to think and reason about our system in a declarative manner.</p>
+<p></p>
+<hr>
+<div class="center">
+  <b>Would you like a free ebooklet?</b>
+  <p>
+  <a class="gumroad-button" href="https://gum.co/AWmOs" target="_blank">FP for Sceptics: Algebraic Data Types</a>
+</p>
+</div>
+<hr>
 <h4>Code</h4>
 <p><script src="https://gist.github.com/ec183a09b5fa496cb7421b59fbce057b.js"></script></p>
 <noscript><pre>import cats.effect.IO
@@ -281,10 +295,10 @@ class Server(http: Http, database: Database) {
         </ul>
 <ul class="pager hidden-print">
 <li class="previous">
-                <a href="../introduction-to-adts/" rel="prev" title="Introduction to ADTs (Algebraic Data Types)">Previous post</a>
+                <a href="../introduction-to-adts/" rel="prev" title="FP for Sceptics: Introduction to ADTs (Algebraic Data Types)">Previous post</a>
             </li>
             <li class="next">
-                <a href="../introduction-to-option-type/" rel="next" title="Introduction to Option Type">Next post</a>
+                <a href="../introduction-to-option-type/" rel="next" title="FP for Sceptics: Introduction to Option Type">Next post</a>
             </li>
         </ul></nav></aside></article><!--End of body content--><footer id="footer">
             Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          

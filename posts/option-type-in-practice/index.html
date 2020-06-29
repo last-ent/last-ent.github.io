@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="A pragmatic look at where to use Option Type in real world applications like a Web API.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FP for Sceptics: Option Type in Practice | Last Ent's Thoughts</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="canonical" href="https://last-ent.com/posts/option-type-in-practice/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<script src="https://gumroad.com/js/gumroad.js"></script><style>
+.center {
+  text-align: center;
+}
+</style>
+<meta name="author" content="Ent">
+<link rel="prev" href="../introduction-to-option-type/" title="FP for Sceptics: Introduction to Option Type" type="text/html">
+<meta property="og:site_name" content="Last Ent's Thoughts">
+<meta property="og:title" content="FP for Sceptics: Option Type in Practice">
+<meta property="og:url" content="https://last-ent.com/posts/option-type-in-practice/">
+<meta property="og:description" content="A pragmatic look at where to use Option Type in real world applications like a Web API.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-06-29T18:00:00+02:00">
+<meta property="article:tag" content="FP for sceptics">
+<meta property="article:tag" content="functional programming">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="scala">
+<meta property="article:tag" content="software design">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="https://last-ent.com/">
+
+            <span id="blog-title">Last Ent's Thoughts</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../pages/learning-targets" class="nav-link">Learning Targets</a>
+            </li>
+<li class="nav-item dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archives</a>
+            <div class="dropdown-menu">
+                    <a href="../../archive.html" class="dropdown-item">Archive</a>
+                    <a href="../../categories/" class="dropdown-item">Tags</a>
+            </div>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about" class="nav-link">About</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">FP for Sceptics: Option Type in Practice</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Ent
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-06-29T18:00:00+02:00" itemprop="datePublished" title="2020-06-29 18:00">2020-06-29 18:00</time></a>
+            </p>
+            
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>In <a href="../introduction-to-option-type/">previous post</a> we defined FP &amp; error handling</p>
+<blockquote>
+<p>Functional Programming (FP) is based around mathematical concepts like <strong>Type Theory</strong> - <em>We define our system in terms of ADTs, data flow &amp; functions.</em></p>
+<p>FP promotes using types for error handling</p>
+<ul>
+<li><code>Option</code></li>
+<li><code>Either</code></li>
+<li><code>Monad</code></li>
+<li><em>etc.</em></li>
+</ul>
+</blockquote>
+<p>Previous post also explained <code>Option</code> type and how it works.</p>
+<p><a href="../adts-in-practice/">ADTs in Practice</a> took a practical system<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> and designed ADTs for it.</p>
+<p>In this post, we will reuse the same system but try to figure out where <code>Option</code> type makes most sense to use.</p>
+<p><img alt="Option Type: Where to use it?" src="../../images/option-practice-title.png"></p>
+<p>
+<!-- TEASER_END -->
+</p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Interested in more posts like this?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<h2>Practical System Overview</h2>
+<p>Let's start by defining the flow of our system.</p>
+<p><img alt="Overview of web api" src="../../images/adt-flow-overview.png"></p>
+<p>Defined by the code<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup></p>
+<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+
+<span class="k">class</span> <span class="nc">Server</span><span class="o">(</span><span class="n">http</span><span class="k">:</span> <span class="kt">Http</span><span class="o">,</span> <span class="n">database</span><span class="k">:</span> <span class="kt">Database</span><span class="o">)</span> <span class="o">{</span>
+
+  <span class="k">def</span> <span class="n">process</span><span class="o">(</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+
+    <span class="k">val</span> <span class="n">respF</span> <span class="k">=</span>
+      <span class="k">for</span> <span class="o">{</span>
+        <span class="n">creds</span> <span class="k">&lt;-</span> <span class="n">request</span><span class="o">.</span><span class="n">getCredentials</span><span class="o">()</span>
+        <span class="n">authorizedCreds</span> <span class="k">&lt;-</span> <span class="n">authenticateUser</span><span class="o">(</span><span class="n">creds</span><span class="o">)</span>
+        <span class="n">userInfo</span> <span class="k">&lt;-</span> <span class="n">getUserInfo</span><span class="o">(</span><span class="n">authorizedCreds</span><span class="o">)</span>
+        <span class="n">successfulResponse</span> <span class="k">&lt;-</span> <span class="n">toSuccessfulResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="o">)</span>
+      <span class="o">}</span> <span class="k">yield</span> <span class="n">successfulResponse</span>
+
+    <span class="n">respF</span><span class="o">.</span><span class="n">handleErrorWith</span><span class="o">(</span><span class="n">toFailedResponse</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">authenticateUser</span><span class="o">(</span><span class="n">creds</span><span class="k">:</span> <span class="kt">UserCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AuthCredentials</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+  <span class="k">def</span> <span class="n">getUserInfo</span><span class="o">(</span><span class="n">authCreds</span><span class="k">:</span> <span class="kt">AuthCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserInfo</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+  <span class="k">def</span> <span class="n">toFailedResponse</span><span class="o">(</span><span class="n">err</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+  <span class="k">def</span> <span class="n">toSuccessfulResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="k">:</span> <span class="kt">UserInfo</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserInfoResponse</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+<span class="o">}</span>
+</code></pre>
+
+
+<h2>Using <code>Option</code> type</h2>
+<p>Let's consider <code>getUserInfo</code> which connects to the database to retrieve <code>UserInfo</code></p>
+<pre class="code literal-block"><span></span><code><span class="c1">// Database ADTs</span>
+
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoFound</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoNotFound</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
+
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">DBError</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+    <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span>
+    <span class="k">with</span> <span class="nc">DBErrorResponse</span>
+</code></pre>
+
+
+<p>It is possible for an authenticated user to not have <code>UserInfo</code><sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup> in database.</p>
+<p>If we look at definition of <code>Option</code> type</p>
+<blockquote>
+<p><code>Option</code> type denotes presence (<code>Some(value)</code>) or absence (<code>None</code>) of a value.<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup></p>
+</blockquote>
+<p>We can see that <code>UserInfoFound</code> and <code>UserInfoNotFound</code> are two ADTs used to describe presence and absence of <code>UserInfo</code>.</p>
+<p>Instead of using two different <code>case class</code>es which don't give us any extra useful information, we can replace them with a single <code>Option</code> type.</p>
+<p>Here's what the new code would look like.</p>
+<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+
+<span class="k">class</span> <span class="nc">Server</span><span class="o">(</span><span class="n">http</span><span class="k">:</span> <span class="kt">Http</span><span class="o">,</span> <span class="n">database</span><span class="k">:</span> <span class="kt">Database</span><span class="o">)</span> <span class="o">{</span>
+
+  <span class="c1">// Changed</span>
+  <span class="k">def</span> <span class="n">getUserInfo</span><span class="o">(</span><span class="n">authCreds</span><span class="k">:</span> <span class="kt">AuthCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">UserInfo</span><span class="o">]]</span> <span class="k">=</span> <span class="o">???</span>
+
+  <span class="c1">// toSuccessfulResponse can do a pattern match </span>
+  <span class="c1">// or .getOrElse on userInfoOpt to extract</span>
+  <span class="c1">// the value and convert it to UserInfoResponse</span>
+  <span class="k">def</span> <span class="n">toSuccessfulResponse</span><span class="o">(</span><span class="n">userInfoOpt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">UserInfo</span><span class="o">])</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserInfoResponse</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+
+  <span class="c1">// Unchanged</span>
+  <span class="k">def</span> <span class="n">process</span><span class="o">(</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+
+    <span class="k">val</span> <span class="n">respF</span> <span class="k">=</span>
+      <span class="k">for</span> <span class="o">{</span>
+        <span class="n">creds</span> <span class="k">&lt;-</span> <span class="n">request</span><span class="o">.</span><span class="n">getCredentials</span><span class="o">()</span>
+        <span class="n">authorizedCreds</span> <span class="k">&lt;-</span> <span class="n">authenticateUser</span><span class="o">(</span><span class="n">creds</span><span class="o">)</span>
+        <span class="n">userInfo</span> <span class="k">&lt;-</span> <span class="n">getUserInfo</span><span class="o">(</span><span class="n">authorizedCreds</span><span class="o">)</span>
+        <span class="n">successfulResponse</span> <span class="k">&lt;-</span> <span class="n">toSuccessfulResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="o">)</span>
+      <span class="o">}</span> <span class="k">yield</span> <span class="n">successfulResponse</span>
+
+    <span class="n">respF</span><span class="o">.</span><span class="n">handleErrorWith</span><span class="o">(</span><span class="n">toFailedResponse</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="k">def</span> <span class="n">authenticateUser</span><span class="o">(</span><span class="n">creds</span><span class="k">:</span> <span class="kt">UserCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AuthCredentials</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+  <span class="k">def</span> <span class="n">toFailedResponse</span><span class="o">(</span><span class="n">err</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+<span class="o">}</span>
+</code></pre>
+
+
+<h2>When not to use <code>Option</code> type</h2>
+<p>A question one might ask is</p>
+<blockquote>
+<p>Why not rewrite the complete system to use <code>Option</code> or <code>OptionT</code><sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>?</p>
+</blockquote>
+<p>The answer revolves around understanding the <strong>granularity of our exception handling</strong> in the system.</p>
+<p>Let's consider another component, <code>Auth Service</code> which has either successful or error states.</p>
+<p><img alt="Auth Service ADTs" src="../../images/option-auth-service.png"></p>
+<p>Defined by </p>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">authenticateUser</span><span class="o">(</span><span class="n">creds</span><span class="k">:</span> <span class="kt">UserCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AuthCredentials</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+
+<span class="c1">// Success</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthCredentialsResponse</span><span class="o">(</span>
+    <span class="n">authCredentials</span><span class="k">:</span> <span class="kt">AuthCredentials</span>
+<span class="o">)</span> <span class="k">extends</span> <span class="nc">AuthResponse</span>
+
+<span class="c1">// Failure</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UnauthorizedAuthUser</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+    <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+    <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthUserNotFound</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+    <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+    <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthServerError</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+    <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+    <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
+</code></pre>
+
+
+<p>Here's what high granularity tells us:</p>
+<p><img alt="authenticateUser: High granularity with ADTs" src="../../images/option-auth-adts.png"></p>
+<p>If we modify <code>authenticateUser</code> to use <code>Option</code> type and stop raising erros for <code>AuthErrorResponse</code> ADTs.</p>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">authenticateUser</span><span class="o">(</span><span class="n">creds</span><span class="k">:</span> <span class="kt">UserCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Option</span><span class="o">[</span><span class="kt">AuthCredentials</span><span class="o">]]</span> <span class="k">=</span> <span class="o">???</span>
+</code></pre>
+
+
+<p>A lot of information is lost:</p>
+<p><img alt="authenticateUser: Low granularity with Option Type" src="../../images/option-auth-opt.png"></p>
+<p>This was not an issue for <code>getUserInfo</code> because we used <code>Option</code> type to only denote presence or absence of <code>UserInfo</code>.</p>
+<p>We did not use it for exception handling where having extra information can be quite vital.</p>
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Liked this and want more?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<h2>Conclusion</h2>
+<p>In this post we looked at where <code>Option</code> type can be used in a system and more importantly, where NOT to use it.</p>
+<p>In later posts, I will cover <code>Either</code>/<code>EitherT</code>, which is the most practical &amp; useful type construct.</p>
+<p></p>
+<hr>
+<div class="center">
+  <b>Would you like a free ebooklet?</b>
+  <p>
+  <a class="gumroad-button" href="https://gum.co/AWmOs" target="_blank">FP for Sceptics: Algebraic Data Types</a>
+</p>
+</div>
+<hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:1">
+<p><img alt="Practical Server: Thumbnail" src="../../images/option-server.png"> <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:2">
+<p>Complete code ref can be found at <a href="https://gist.github.com/last-ent/ec183a09b5fa496cb7421b59fbce057b">Github Gist.</a> <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">↩</a></p>
+</li>
+<li id="fn:3">
+<p>Imagine a bookmark system, <code>UserInfo</code> can mean list of bookmarks and hence can be empty. <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">↩</a></p>
+</li>
+<li id="fn:4">
+<p><a href="../introduction-to-option-type">Introduction to <code>Option</code> Type</a> <a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:5">
+<p>In Scala (Cats), <code>OptionT</code> is a wrapper over <code>IO[Option]</code> to make it easier to work in <code>IO</code> context. I won't be covering it in this post but if you are curious, have a look at <a href="https://typelevel.org/cats/datatypes/optiont.html">Cats' Official Documentation</a> <a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/fp-for-sceptics/" rel="tag">FP for sceptics</a></li>
+            <li><a class="tag p-category" href="../../categories/functional-programming/" rel="tag">functional programming</a></li>
+            <li><a class="tag p-category" href="../../categories/programming/" rel="tag">programming</a></li>
+            <li><a class="tag p-category" href="../../categories/scala/" rel="tag">scala</a></li>
+            <li><a class="tag p-category" href="../../categories/software-design/" rel="tag">software design</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../introduction-to-option-type/" rel="prev" title="FP for Sceptics: Introduction to Option Type">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-148031816-1');
+</script>
+</body>
+</html>

@@ -19,7 +19,7 @@
  </url>
  <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2020-06-07T20:19:00Z</lastmod>
+  <lastmod>2020-06-29T18:13:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
@@ -100,6 +100,10 @@
  <url>
   <loc>https://last-ent.com/posts/introduction-to-option-type/</loc>
   <lastmod>2020-05-26T16:28:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/option-type-in-practice/</loc>
+  <lastmod>2020-06-19T19:52:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</loc>

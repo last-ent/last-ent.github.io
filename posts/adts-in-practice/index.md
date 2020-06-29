@@ -1,5 +1,5 @@
 <!--
-.. title: ADTs in Practice
+.. title: FP for Sceptics: ADTs in Practice
 .. slug: adts-in-practice
 .. date: 2020-05-24 17:50:02 UTC+02:00
 .. tags: software design, functional programming, programming, scala, FP for sceptics
@@ -166,6 +166,8 @@ Now if we look at how our system is overall designed we have a very nice diagram
 # Conclusion
 
 Hopefully now you have a better idea on how to take a system and slowly break it down into ADTs without even touching the actual implementation. This allows us to think and reason about our system in a declarative manner.
+
+{{% promptbook %}}
 
 ### Code
 
