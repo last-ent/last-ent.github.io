@@ -1,5 +1,5 @@
 <!--
-.. title: Introduction to ADTs (Algebraic Data Types)
+.. title: FP for Sceptics: Introduction to ADTs (Algebraic Data Types)
 .. slug: introduction-to-adts
 .. date: 2020-04-14 00:31:05 UTC+02:00
 .. tags: software design, functional programming, programming, scala, FP for sceptics

@@ -1,17 +1,30 @@
 <!--
-.. title: Option Type in Practice
+.. title: FP for Sceptics: Option Type in Practice
 .. slug: option-type-in-practice
-.. date: 2020-06-10 21:18:26 UTC+02:00
+.. date: 2020-06-29 18:00:00 UTC+02:00
 .. tags: software design, functional programming, programming, scala, FP for sceptics
 .. category: 
 .. link: 
 .. description: A pragmatic look at where to use Option Type in real world applications like a Web API.
 .. type: text
-.. status: draft
 -->
+
+In [previous post](/posts/introduction-to-option-type/) we defined FP & error handling
+
+> Functional Programming (FP) is based around mathematical concepts like **Type Theory** - _We define our system in terms of ADTs, data flow & functions._
+
+> FP promotes using types for error handling
+> 
+  - `Option`
+  - `Either`
+  - `Monad`
+  - _etc._
+
+Previous post also explained `Option` type and how it works.
+
 [ADTs in Practice](/posts/adts-in-practice/) took a practical system[^1] and designed ADTs for it.
 
-Let's implement `Option` Type within this system.
+In this post, we will reuse the same system but try to figure out where `Option` type makes most sense to use.
 
 ![Option Type: Where to use it?](/images/option-practice-title.png)
 
@@ -50,14 +63,12 @@ class Server(http: Http, database: Database) {
   def toFailedResponse(err: Throwable): IO[Response] = ???
 
   def toSuccessfulResponse(userInfo: UserInfo): IO[UserInfoResponse] = ???
-
 }
 ```
 
-# Using `Option` Type
+# Using `Option` type
 
 Let's consider `getUserInfo` which connects to the database to retrieve `UserInfo`
-
 
 ```scala
 // Database ADTs
@@ -65,12 +76,14 @@ Let's consider `getUserInfo` which connects to the database to retrieve `UserInf
 final case class UserInfoFound() extends DBResponse
 final case class UserInfoNotFound() extends DBResponse
 
-final case class DBError(msg: String) extends RuntimeException(msg) with DBErrorResponse
+final case class DBError(msg: String)
+    extends RuntimeException(msg)
+    with DBErrorResponse
 ```
 
-It is possible for an authenticated user to not have User Info[^3] in database.
+It is possible for an authenticated user to not have `UserInfo`[^3] in database.
 
-If we look at definition of `Option` Type
+If we look at definition of `Option` type
 
 > `Option` type denotes presence (`Some(value)`) or absence (`None`) of a value.[^4]
 
@@ -88,6 +101,9 @@ class Server(http: Http, database: Database) {
   // Changed
   def getUserInfo(authCreds: AuthCredentials): IO[Option[UserInfo]] = ???
 
+  // toSuccessfulResponse can do a pattern match 
+  // or .getOrElse on userInfoOpt to extract
+  // the value and convert it to UserInfoResponse
   def toSuccessfulResponse(userInfoOpt: Option[UserInfo]): IO[UserInfoResponse] = ???
 
 
@@ -111,7 +127,7 @@ class Server(http: Http, database: Database) {
 }
 ```
 
-# When not to use `Option` Type
+# When not to use `Option` type
 
 A question one might ask is
 
@@ -129,19 +145,27 @@ Defined by
 def authenticateUser(creds: UserCredentials): IO[AuthCredentials] = ???
 
 // Success
-final case class AuthCredentialsResponse(authCredentials: AuthCredentials) extends AuthResponse
+final case class AuthCredentialsResponse(
+    authCredentials: AuthCredentials
+) extends AuthResponse
 
 // Failure
-final case class UnauthorizedAuthUser(msg: String) extends RuntimeException(msg: String) with AuthErrorResponse
-final case class AuthUserNotFound(msg: String) extends RuntimeException(msg: String) with AuthErrorResponse
-final case class AuthServerError(msg: String) extends RuntimeException(msg: String) with AuthErrorResponse
+final case class UnauthorizedAuthUser(msg: String)
+    extends RuntimeException(msg: String)
+    with AuthErrorResponse
+final case class AuthUserNotFound(msg: String)
+    extends RuntimeException(msg: String)
+    with AuthErrorResponse
+final case class AuthServerError(msg: String)
+    extends RuntimeException(msg: String)
+    with AuthErrorResponse
 ```
 
 Here's what high granularity tells us:
 
 ![authenticateUser: High granularity with ADTs](/images/option-auth-adts.png)
 
-If we modify `authenticateUser` to use `Option` type.
+If we modify `authenticateUser` to use `Option` type and stop raising erros for `AuthErrorResponse` ADTs.
 
 ```scala
 def authenticateUser(creds: UserCredentials): IO[Option[AuthCredentials]] = ???
@@ -159,20 +183,7 @@ We did not use it for exception handling where having extra information can be q
 
 # Conclusion
 
-In this post we looked at where `Option` type can be used in a system and more importantly, where NOT to use it[^6].
-
-However as I mentioned in [Introduction to ADTs](/posts/introduction-to-adts/)
-
-> Functional Programming (FP) is based around mathematical concepts like **Type Theory** - _We define our system in terms of ADTs, data flow & functions._
-
-> FP promotes using types for error handling
-> 
-  - `Option`
-  - `Either`
-  - `Monad`
-  - _etc._
-
-Discussion about `Option` Type is complete with this post.
+In this post we looked at where `Option` type can be used in a system and more importantly, where NOT to use it.
 
 In later posts, I will cover `Either`/`EitherT`, which is the most practical & useful type construct.
 
@@ -182,10 +193,8 @@ In later posts, I will cover `Either`/`EitherT`, which is the most practical & u
 
 [^2]: Complete code ref can be found at [Github Gist.](https://gist.github.com/last-ent/ec183a09b5fa496cb7421b59fbce057b)
 
-[^3]: Imagine a bookmark system, User Info can mean list of bookmarks and hence can be empty.
+[^3]: Imagine a bookmark system, `UserInfo` can mean list of bookmarks and hence can be empty.
 
 [^4]: [Introduction to `Option` Type](/posts/introduction-to-option-type)
 
 [^5]: In Scala (Cats), `OptionT` is a wrapper over `IO[Option]` to make it easier to work in `IO` context. I won't be covering it in this post but if you are curious, have a look at [Cats' Official Documentation](https://typelevel.org/cats/datatypes/optiont.html)
-
-[^6]: For quite a while I felt FP was impractical because I saw programmers using `Option` type in wrong places and arguing that this was how FP works. Of course this turned out to be faulty understanding of the concepts.

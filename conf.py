@@ -1228,16 +1228,16 @@ EXTRA_HEAD_DATA = """
 # (translatable)
 BODY_END = ""
 
-# BODY_END = """
-# <!-- Global site tag (gtag.js) - Google Analytics -->
-# <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
-# <script>
-#   window.dataLayer = window.dataLayer || [];
-#   function gtag(){dataLayer.push(arguments);}
-#   gtag('js', new Date());
-#   gtag('config', 'UA-148031816-1');
-# </script>
-# """
+BODY_END = """
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-148031816-1');
+</script>
+"""
 
 # The possibility to extract metadata from the filename by using a
 # regular expression.

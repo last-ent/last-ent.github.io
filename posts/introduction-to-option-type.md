@@ -1,5 +1,5 @@
 <!--
-.. title: Introduction to Option Type
+.. title: FP for Sceptics: Introduction to Option Type
 .. slug: introduction-to-option-type
 .. date: 2020-06-01 00:38:34 UTC+02:00
 .. tags: software design, functional programming, programming, scala, FP for sceptics

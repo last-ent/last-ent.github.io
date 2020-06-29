@@ -1,5 +1,5 @@
 <!--
-.. title: ADTs in Practice
+.. title: FP for Sceptics: ADTs in Practice
 .. slug: adts-in-practice
 .. date: 2020-05-24 17:50:02 UTC+02:00
 .. tags: software design, functional programming, programming, scala, FP for sceptics
