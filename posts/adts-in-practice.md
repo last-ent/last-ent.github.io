@@ -171,4 +171,4 @@ Hopefully now you have a better idea on how to take a system and slowly break it
 
 ### Code
 
-{{% gist ec183a09b5fa496cb7421b59fbce057b %}}
+Complete code can be found at: [Gist ec183a09b5fa496cb7421b59fbce057b](https://gist.github.com/ec183a09b5fa496cb7421b59fbce057b)

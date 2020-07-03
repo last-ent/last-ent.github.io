@@ -192,7 +192,7 @@ def extractFromOption(opt: Option[String]): String =
 
 ### Code
 
-{{% gist 9554bf80cf98aede3304faa190db2938 %}}
+Complete code can be found at: [Gist 9554bf80cf98aede3304faa190db2938](https://gist.github.com/9554bf80cf98aede3304faa190db2938)
 
 [^0]: See [Introduction to ADTs](/posts/introduction-to-adts)
 [^1]: For sake of simplicity we are ignoring mutablity and impure functions.
