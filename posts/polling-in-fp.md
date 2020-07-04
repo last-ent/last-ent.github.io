@@ -9,9 +9,6 @@
 .. type: text
 -->
 
-<!-- 
-In this post we are going to see how a block of code that needs to be looped ad-infinitum can be turned into a Stream easily. -->
-
 In this post, let's look at how to poll a system using a Stream.
 
 Let's use the following problem statement.
@@ -21,6 +18,8 @@ Let's use the following problem statement.
 - We need to continually query the API to see if any new data is available.
 - It is possible to run into rate limiting issues.
 - The data processing isn't time critical, so we can query after wide intervals of time (1 minute).
+
+{{% promptmid %}}
 
 Let's figure out the major functions required.
 
@@ -110,9 +109,13 @@ In case of imperative code, we don't have any straightforward to extract values 
 
 However in case of the Stream, we are able to extract the result and check.
 
+{{% promptend %}}
+
 # Conclusion
 
 Hopefully you can see the advantage of Streams and how it can be used in a practical scenario for more testable and clearer code. Also as we already saw[^1] there are quite a lot of interesting ways we can manipulate the stream which are not available if we use a normal loop.
+
+{{% promptbook %}}
 
 
 [^0]: I was dealing with Amazon SQS. I am adding some extra constraints not application to SQS to make the list of constraints easier to gr0k.
