@@ -1,39 +1,48 @@
 <!--
-.. title: Continuous Polling in Functional Programming (Scala)
+.. title: Visual guide to polling in Functional Programming (Scala)
 .. slug: polling-in-fp
 .. date: 2020-07-03 17:55:41 UTC+02:00
-.. tags: 
+.. tags: software design, functional programming, programming, scala,
 .. category: 
 .. link: 
-.. description: 
+.. description: Visual guide to reason about using fs2 streams, especially for polling an API with rate limits.
 .. type: text
-.. status: draft
+.. previewimage: /images/poll-st-3.png
 -->
 
 In this post, let's look at how to poll a system using a Stream.
+
+To make it easier/interesting, I will explain it using a visual approach.
 
 Let's use the following problem statement.
 
 - We have API for a queue[^0] that can be queried using `pollFn` function.
 - We need to process data returned by queue using `process` function.
 - There may or may not be data at the time of querying.
+<!-- TEASER_END -->
 - We need to continually query the API to see if any new data is available.
 - It is possible to run into rate limiting issues.
 - The data processing isn't time critical, so we can query after wide intervals of time (1 minute).
 
-{{% promptmid %}}
+_This post assumes you understand fs2 streams._
 
-_This post assumes you understand fs2 streams. I intend to write about fs2 streams later on but for now have a look at [fs2 Streams Guide](https://fs2.io/guide.html)_
+_I intend to write about fs2 streams later on but for now have a look at [fs2 Streams Guide](https://fs2.io/guide.html)_
 
-Let's start by understanding what we want to build.
+# Visualising the problem
+Let's start by visualising what we want to build.
 
 ![1](/images/poll-to-fs2-flow2.png) We know that `pollFn` function will call `process` function.
 
 ![2](/images/poll-to-fs2-loop.png) Next we want to repeatedly call this function to check for fresh data.
 
-![3](/images/poll-to-fs2-wait-loop.png) We want to avoid being rate limited and we can get away with querying the API every 1 minute.
+![3](/images/poll-to-fs2-wait-loop.png) To avoid being rate limited we can query the API every 1 minute.
 
-Now that we have a clear idea of what we want to implement, let's start by implementing it in imperative Scala.
+
+Now that we have visualised the problem, let's try to implement it. We will first implement it using imperative programming and then using streams, which will be the more functional way of doing it.
+
+{{% promptmid %}}
+
+# Implementation: Imperative Scala
 
 ```scala
 // Basic functions
@@ -56,8 +65,13 @@ def continuousPoll() = {
 }
 ```
 
-The code in `continuousPoll` is pretty straightforward. Three lines to poll, process & wait while a fourth to run it in a loop.
+The code in `continuousPoll` is pretty straightforward.
 
+Three lines to _poll_, _process_ & _wait_. A fourth to _run it in a loop_.
+
+It also looks quite similar to the third diagram shown at beginning.
+
+# Implementation: FS2 Streams
 Now let's implement it using `fs2`.
 
 ```scala
@@ -100,23 +114,62 @@ At first glance, it might seem like the imperative version of poll is better, be
 
 I admit that the FP/Stream version of code will be a bit hard for those who aren't already used to these concepts[^1].
 
-Having said that, there is an important factor to consider for all code we write
+# Visualising Streams
 
-> How are we going to **test** the code?
+Before we jump to conclusions, let's try to visualize what the code is doing to see if this might improve our intuition of the code.
 
-In case of imperative code, we don't have any straightforward to extract values out of the infinite loop without relying upon hacks.
+We will start with the basic stream `pollStream` and build upon it by adding each stream function and looking at how it modifies the stream.
 
-However, with the Stream we are able to extract the result for testing as shown in the code above which is pretty straightforward.
+
+---
+
+## Visualization 1
+
+![Visualizing fs2 code 1](/images/poll-st-1.png)
+
+> * `pollStream` is a stream of `Int`s.
+
+---
+
+## Visualization 2
+
+![Visualizing fs2 code 2](/images/poll-st-2.png)
+
+> * `pollStream.evalTap` is a stream of `Int`s after being processed via `evalTap`.
+
+***
+
+## Visualization 3
+
+![Visualizing fs2 code 3](/images/poll-st-3.png)
+
+> * `pollStream.evalTap.metered` is a stream of `Int`s after being processed via `evalTap`.
+> * Now the Ints are spaced apart by a minute.
+___
+
+## Visualization 4
+
+![Visualizing fs2 code 4](/images/poll-st-4.png)
+
+> * `pollStream.evalTap.metered` is a stream of `Int`s after being processed via `evalTap`.
+> * Now the Ints are spaced apart by a minute.
+> * The stream will restart after it comes to an end.
+
+# Testing
+
+Imperative code doesn't give us a straightforward way to extract values out of the infinite loop without relying upon hacks.
+
+Stream makes it easy to extract the result for testing as shown by `result` function definition.
 
 {{% promptend %}}
 
 # Conclusion
 
-Hopefully you can see the advantage of Streams and how it can be used in a practical scenario for more testable and clearer code. Also as we already saw[^1] there are quite a lot of interesting ways we can manipulate the stream which are not available if we use a normal loop.
+Hopefully this post gave you an idea on how to turn a polling function into a fs2 stream and how to test a stream.
 
 {{% promptbook %}}
 
 
 [^0]: I was dealing with Amazon SQS but for this example I am adding extra constraints to make it more interesting and easier to gr0k.
 
-[^1]: See (https://fs2.io/guide.html)[https://fs2.io/guide.html]
+[^1]: See [https://fs2.io/guide.html](https://fs2.io/guide.html)

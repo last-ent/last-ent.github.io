@@ -7,6 +7,7 @@
 .. link: 
 .. description: Introduction to Option Type aka Maybe Type. A beginner friendly, crisp & concise article on how to think and reason about Option type. 
 .. type: text
+.. previewimage: /images/option_title.png
 -->
 
 Functional Programming (FP) is based around mathematical concepts like **Type Theory** - _We define our system in terms of ADTs, data flow & functions[^0]._

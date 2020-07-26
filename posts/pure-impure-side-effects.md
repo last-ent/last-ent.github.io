@@ -7,6 +7,7 @@
 .. link: 
 .. description: 
 .. type: text
+.. status: draft
 -->
 
 The more you hang out in Functinal Programming (FP) world, the more you will start to come across terms that are never explained but assumed to be already known by the reader[^0]. 

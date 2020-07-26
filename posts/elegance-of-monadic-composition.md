@@ -7,6 +7,7 @@
 .. link:
 .. description: A tutorial to understand and learn about what composition means in Functional Programming and we can use it to write more elegant code.
 .. type: text
+.. previewimage: /images/donatron-io.png
 -->
 
 Functional programming has many interesting concepts but it can be hard to find practical applications for it in everyday work. In this post, I will explain how Monadic Composition can be used write elegant and easy to understand code.

@@ -7,6 +7,7 @@
 .. link: 
 .. description: Introduction to Algebraic Data Types. A detailed beginner friendly tutorial on why and how to use ADTs.
 .. type: text
+.. previewimage: /images/adt-flow.png
 -->
 
 > Algebraic Data Types (or ADTs) model the flow of a program (or a system) in terms of data & functions that describe the complete behaviour and states the data can go through.
