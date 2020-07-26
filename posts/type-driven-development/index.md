@@ -7,6 +7,7 @@
 .. link: 
 .. description: Type Driven Development: Formal specification using Type System. Define your code behaviour using types and let the compiler guide you to a verified system.
 .. type: text
+.. previewimage: /images/shopping.png
 -->
 
 # Introduction

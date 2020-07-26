@@ -9,8 +9,9 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="rss.xml">
 <link rel="canonical" href="https://last-ent.com/">
+<link rel="next" href="index-1.html" type="text/html">
 <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
@@ -22,7 +23,7 @@
   text-align: center;
 }
 </style>
-<link rel="prefetch" href="posts/option-type-in-practice/" type="text/html">
+<link rel="prefetch" href="posts/polling-in-fp/" type="text/html">
 </head>
 <body>
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
@@ -39,7 +40,7 @@
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="https://last-ent.com/">
+            <a class="navbar-brand blog-header-logo text-dark" href=".">
 
             <span id="blog-title">Last Ent's Thoughts</span>
         </a>
@@ -68,7 +69,35 @@
 </ul>
 </div>
 <!-- /.navbar-collapse -->
-</nav>
+</nav><div class="d-block">
+
+            <div class="row mb-2">
+                <div class="col-md-12">
+                    <div class="card flex-md-row mb-4 box-shadow h-md-250">
+                       <div class="card-body d-flex flex-column align-items-start">
+                           <h3 class="mb-0">
+                               <a class="text-dark" href="posts/adts-in-practice/">FP for Sceptics: ADTs in Practice</a>
+                           </h3>
+                               <div class="card-text mb-auto bootblog4-featured-text">In previous post we defined ADTs as
+
+Algebraic Data Types (or ADTs) model the flow of a program (or a system) in terms of data &amp; functions that describe the complete behaviour and states the data can go through.
+
+In this post, we will work through defining ADTs for an API service.
+
+API service will return User's Information by:
+
+Extracting user id &amp; password from the request
+Checks them against an authorization service
+Retrieves User's Information from database
+Returns User Information in response</div>
+                               </div>
+                               <img class="card-img-right flex-auto d-none d-lg-block" src="images/adt-server.png" alt="FP for Sceptics: ADTs in Practice">
+</div>
+                </div>
+
+       </div>
+    </div>
+
 </div>
 
 <div class="container" id="content" role="main">
@@ -83,7 +112,31 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/option-type-in-practice/" class="u-url">FP for Sceptics: Option Type in Practice</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/polling-in-fp/" class="u-url">Visual guide to polling in Functional Programming (Scala)</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Ent
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/polling-in-fp/" rel="bookmark">
+            <time class="published dt-published" datetime="2020-07-03T17:55:41+02:00" itemprop="datePublished" title="2020-07-03 17:55">2020-07-03 17:55</time></a>
+            </p>
+                </div>
+            </header><div class="p-summary entry-summary">
+                    <div>
+<p>In this post, let's look at how to poll a system using a Stream.</p>
+<p>To make it easier/interesting, I will explain it using a visual approach.</p>
+<p>Let's use the following problem statement.</p>
+<ul>
+<li>We have API for a queue<sup id="fnref:0"><a class="footnote-ref" href="posts/polling-in-fp/#fn:0">1</a></sup> that can be queried using <code>pollFn</code> function.</li>
+<li>We need to process data returned by queue using <code>process</code> function.</li>
+<li>There may or may not be data at the time of querying.
+<p class="more"><a href="posts/polling-in-fp/">Read more…</a></p>
+</li>
+</ul>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/option-type-in-practice/" class="u-url">FP for Sceptics: Option Type in Practice</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Ent
@@ -345,46 +398,13 @@ then the company shouldn't get crippled and be able to move on and work efficent
 <p>~ 5th May, 2AM &amp; 11:30 AM</p>
 </div>
                 </div>
-            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/thoughts-on-changing-programming-languages/" class="u-url">Thoughts on changing programming languages</a></h1>
-                <div class="metadata">
-                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                        Ent
-                    </span></p>
-            <p class="dateline">
-            <a href="posts/thoughts-on-changing-programming-languages/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-08-12T20:21:48+02:00" itemprop="datePublished" title="2019-08-12 20:21">2019-08-12 20:21</time></a>
-            </p>
-                </div>
-            </header><div class="p-summary entry-summary">
-                    <div>
-<p>In general people like to say that one should not be bound to any particular language
-and instead should be able to switch languages as and when required. However it is also
-common to see that programmers, especially those with many years of experience, loathe
-this concept.</p>
-<p>We tend to dismiss this by saying that they are set in their ways and that they are being stubborn
-&amp; don't want to make the effort. However that might not be true in all cases, what a younger developer
-tends to not understand is that a veteran developer has spent an insurmountable amount of time understanding
-and mastering their craft. They have gained command over their tools of trade that allows them to bend the world
-to their will. Indeed it is a frightening thought to ask someone to abandon their previous knowledge and start from
-the beginning because they will always be conscious of the vast disparity between their skills of the old and the
-skill level they have now.</p>
-<p>To a developer who still hasn't learned more than a few techniques, this is of little consequence.
-However, this becomes a very painful handicap for those who lose a lot by making such a transition.</p>
-<p>~ 5th May, 1:25AM</p>
-</div>
-                </div>
             </article>
 </div>
     
-
-    
-
-    
-
-
-        <!--End of body content-->
-
-        <footer id="footer">
+        <ul class="pager postindexpager clearfix">
+<li class="next"><a href="index-1.html" rel="next">Older posts</a></li>
+        </ul>
+<!--End of body content--><footer id="footer">
             Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
             
             

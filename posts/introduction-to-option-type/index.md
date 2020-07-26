@@ -7,6 +7,7 @@
 .. link: 
 .. description: Introduction to Option Type aka Maybe Type. A beginner friendly, crisp & concise article on how to think and reason about Option type. 
 .. type: text
+.. previewimage: /images/option_title.png
 -->
 
 Functional Programming (FP) is based around mathematical concepts like **Type Theory** - _We define our system in terms of ADTs, data flow & functions[^0]._
@@ -192,7 +193,7 @@ def extractFromOption(opt: Option[String]): String =
 
 ### Code
 
-{{% gist 9554bf80cf98aede3304faa190db2938 %}}
+Complete code can be found at: [Gist 9554bf80cf98aede3304faa190db2938](https://gist.github.com/9554bf80cf98aede3304faa190db2938)
 
 [^0]: See [Introduction to ADTs](/posts/introduction-to-adts)
 [^1]: For sake of simplicity we are ignoring mutablity and impure functions.

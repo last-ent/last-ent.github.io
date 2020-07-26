@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://last-ent.com/posts/adts-in-practice/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -29,6 +29,7 @@
 <meta property="og:title" content="FP for Sceptics: ADTs in Practice">
 <meta property="og:url" content="https://last-ent.com/posts/adts-in-practice/">
 <meta property="og:description" content="How to use Algebraic Data Types (ADTs) in a real world appliation like a web api? I discuss that in this post.">
+<meta property="og:image" content="https://last-ent.com/images/adt-server.png">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2020-05-24T17:50:02+02:00">
 <meta property="article:tag" content="FP for sceptics">
@@ -52,7 +53,7 @@
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="https://last-ent.com/">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
 
             <span id="blog-title">Last Ent's Thoughts</span>
         </a>
@@ -141,7 +142,7 @@
 <p><img alt="Overview of web api" src="../../images/adt-flow-overview.png"></p>
 <p>which is described by</p>
 <h3>Server</h3>
-<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+<pre class="code literal-block"><span class="k">import</span> <span class="nn">cats.effect.IO</span>
 
 <span class="k">class</span> <span class="nc">Server</span><span class="o">(</span><span class="n">http</span><span class="k">:</span> <span class="kt">Http</span><span class="o">,</span> <span class="n">database</span><span class="k">:</span> <span class="kt">Database</span><span class="o">)</span> <span class="o">{</span>
 
@@ -167,12 +168,11 @@
   <span class="k">def</span> <span class="n">toSuccessfulResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="k">:</span> <span class="kt">UserInfo</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserInfoResponse</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
 
 <span class="o">}</span>
-</code></pre>
-
+</pre>
 
 <p>We have external dependencies which can be further encoded in terms of following traits &amp; <code>case class</code>es</p>
 <h3>Traits</h3>
-<pre class="code literal-block"><span></span><code><span class="k">trait</span> <span class="nc">Request</span> <span class="o">{</span>
+<pre class="code literal-block"><span class="k">trait</span> <span class="nc">Request</span> <span class="o">{</span>
     <span class="k">def</span> <span class="n">getCredentials</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserCredentials</span><span class="o">]</span>
 <span class="o">}</span>
 
@@ -183,68 +183,61 @@
 <span class="k">trait</span> <span class="nc">Database</span><span class="o">{</span>
     <span class="k">def</span> <span class="n">queryUser</span><span class="o">(</span><span class="n">userName</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserInfo</span><span class="o">]</span>
 <span class="o">}</span>
-</code></pre>
-
+</pre>
 
 <h3>Credentials</h3>
-<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserCredentials</span><span class="o">(</span><span class="n">userId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">password</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<pre class="code literal-block"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserCredentials</span><span class="o">(</span><span class="n">userId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">password</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthCredentials</span><span class="o">(</span><span class="n">userId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">userName</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
 
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfo</span><span class="o">()</span>
-</code></pre>
-
+</pre>
 
 <h3>Successful Response</h3>
-<pre class="code literal-block"><span></span><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Response</span>
+<pre class="code literal-block"><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Response</span>
 
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="k">:</span> <span class="kt">UserInfo</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Response</span>
-</code></pre>
-
+</pre>
 
 <h2>ADTs &amp; Flow</h2>
 <p>Previously we defined our system in terms of happy path. But in reality there are many ways in which the server can end up in an error state. </p>
 <p>For example, we know that the authentication server &amp; our own server can respond with one of the typical HTTP statuses for error (we will use a simpler set for this example). We will similarly assume smaller set of states for the database.</p>
 <p>We can define these using following top high level <code>trait</code>s.</p>
 <h3>Top level Error Traits</h3>
-<pre class="code literal-block"><span></span><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">CredentialErrorResponse</span>
+<pre class="code literal-block"><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">CredentialErrorResponse</span>
 
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">AuthResponse</span>
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">AuthErrorResponse</span> <span class="k">extends</span> <span class="nc">AuthResponse</span>
 
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">DBResponse</span>
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">DBErrorResponse</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
-</code></pre>
-
+</pre>
 
 <p>Following are examples of possible errors we will handle per domain.</p>
 <p><img alt="States of Response, Auth Server &amp; Database" src="../../images/adt-error-states.png"></p>
 <h2>Defining Error ADTs</h2>
 <p>Based on the above traits and error ADT breakdown, we can define the case classes to represent them as follows.</p>
-<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">CredentialsMissing</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
+<pre class="code literal-block"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">CredentialsMissing</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UnauthorizedUser</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">NotFound</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Forbidden</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">InternalServerError</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
-</code></pre>
-
+</pre>
 
 <p><code>AuthResponse</code> types</p>
-<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthCredentialsResponse</span><span class="o">(</span><span class="n">authCredentials</span><span class="k">:</span> <span class="kt">AuthCredentials</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AuthResponse</span>
+<pre class="code literal-block"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthCredentialsResponse</span><span class="o">(</span><span class="n">authCredentials</span><span class="k">:</span> <span class="kt">AuthCredentials</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AuthResponse</span>
 
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UnauthorizedAuthUser</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthUserNotFound</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthServerError</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
-</code></pre>
-
+</pre>
 
 <p><code>Database</code> types</p>
-<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoFound</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
+<pre class="code literal-block"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoFound</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoNotFound</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
 
 <span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">DBError</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">DBErrorResponse</span>
-</code></pre>
-
+</pre>
 
 <p>Now if we look at how our system is overall designed we have a very nice diagram based around ADTs &amp; Flow.</p>
 <p><img alt="Complete flow of system that includes Request to Response &amp; possible ADTs per each intermim function call" src="../../images/adt-complete-flow.png"></p>
@@ -274,16 +267,7 @@
 </div>
 <hr>
 <h4>Code</h4>
-<p><script src="https://gist.github.com/ec183a09b5fa496cb7421b59fbce057b.js"></script></p>
-<noscript><pre>import cats.effect.IO
-
-class Server(http: Http, database: Database) {
-
-  def process(request: Request): IO[Response] = {
-
-    val respF =
-      for {
-        creds </pre></noscript>
+<p>Complete code can be found at: <a href="https://gist.github.com/ec183a09b5fa496cb7421b59fbce057b">Gist ec183a09b5fa496cb7421b59fbce057b</a></p>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">

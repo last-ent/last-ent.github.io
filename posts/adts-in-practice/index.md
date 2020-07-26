@@ -7,6 +7,8 @@
 .. link: 
 .. description: How to use Algebraic Data Types (ADTs) in a real world appliation like a web api? I discuss that in this post.
 .. type: text
+.. status: featured
+.. previewimage: /images/adt-server.png
 -->
 
 In [previous post](/posts/introduction-to-adts) we defined ADTs as
@@ -171,4 +173,4 @@ Hopefully now you have a better idea on how to take a system and slowly break it
 
 ### Code
 
-{{% gist ec183a09b5fa496cb7421b59fbce057b %}}
+Complete code can be found at: [Gist ec183a09b5fa496cb7421b59fbce057b](https://gist.github.com/ec183a09b5fa496cb7421b59fbce057b)

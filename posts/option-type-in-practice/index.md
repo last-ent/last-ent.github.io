@@ -7,6 +7,7 @@
 .. link: 
 .. description: A pragmatic look at where to use Option Type in real world applications like a Web API.
 .. type: text
+.. previewimage: /images/option-practice-title.png
 -->
 
 In [previous post](/posts/introduction-to-option-type/) we defined FP & error handling

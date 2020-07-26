@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" href="../../rss.xml">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://last-ent.com/posts/introduction-to-option-type/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -29,6 +29,7 @@
 <meta property="og:title" content="FP for Sceptics: Introduction to Option Type">
 <meta property="og:url" content="https://last-ent.com/posts/introduction-to-option-type/">
 <meta property="og:description" content="Introduction to Option Type aka Maybe Type. A beginner friendly, crisp &amp; concise article on how to think and reason about Option type. ">
+<meta property="og:image" content="https://last-ent.com/images/option_title.png">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2020-06-01T00:38:34+02:00">
 <meta property="article:tag" content="FP for sceptics">
@@ -52,7 +53,7 @@
             </div>
         </div>
           <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
-            <a class="navbar-brand blog-header-logo text-dark" href="https://last-ent.com/">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
 
             <span id="blog-title">Last Ent's Thoughts</span>
         </a>
@@ -138,13 +139,12 @@
 <p>Imperative Programming Languages (Java, Python etc) express this using either <code>null</code> or an <code>Exception</code>.</p>
 <p>In Functional programming we can use <code>Option</code> type to say the value <code>may exist</code>.</p>
 <p>Is this practical? Consider retrieving a value from a HashMap or a Dictionary.</p>
-<pre class="code literal-block"><span></span><code><span class="k">val</span> <span class="n">hMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">102</span><span class="o">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">202</span><span class="o">,</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">302</span><span class="o">)</span>
+<pre class="code literal-block"><span class="k">val</span> <span class="n">hMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">102</span><span class="o">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">202</span><span class="o">,</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">302</span><span class="o">)</span>
 
 <span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span> 
 <span class="c1">// What should be the value here?</span>
 <span class="c1">// `100` does not exist in `hMap`</span>
-</code></pre>
-
+</pre>
 
 <p>In non-FP languages, we need to do null check or have exception handling around <code>hMap.get</code>.</p>
 <p>In FP languages, <code>hMap.get</code> will return an <code>Option</code> and depending upon the flow of the program, we have two ways of dealing with it:</p>
@@ -163,18 +163,17 @@
 </ul>
 <h3><code>getOrElse</code></h3>
 <p><em>This is idiomatic in Scala and similar function/method is available in other imperative languages as well.</em></p>
-<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">getFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+<pre class="code literal-block"><span class="k">def</span> <span class="n">getFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
     <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">opt</span><span class="o">.</span><span class="n">getOrElse</span><span class="o">(</span><span class="s">"None"</span><span class="o">)</span>
 
 <span class="n">getFromOption</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">"100"</span><span class="o">))</span> <span class="c1">// "Got Value: 100"</span>
 
 <span class="n">getFromOption</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// "Got Value: None" </span>
-</code></pre>
-
+</pre>
 
 <h3>Pattern Matching</h3>
 <p><em>Pattern Matching is the "functional way" of extracting a value.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">3</a></sup></em></p>
-<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">extractFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
+<pre class="code literal-block"><span class="k">def</span> <span class="n">extractFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
   <span class="n">opt</span> <span class="k">match</span> <span class="o">{</span>
     <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
     <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
@@ -183,8 +182,7 @@
 <span class="n">extractFromOption</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">"100"</span><span class="o">))</span> <span class="c1">// "Got Value: 100"</span>
 
 <span class="n">extractFromOption</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// "Got Value: None" </span>
-</code></pre>
-
+</pre>
 
 <h3>What about <code>.get</code>?</h3>
 <p><code>Option</code> type also has <code>.get</code> method but it is unsafe to use as <code>None.get</code> will throw an exception and we want to avoid running into such errors.</p>
@@ -198,7 +196,7 @@
 <p>Consider the flow:</p>
 <p><img alt="Functional flow" src="../../images/option_fcns.png"></p>
 <p>which is defined by the following functions</p>
-<pre class="code literal-block"><span></span><code><span class="k">val</span> <span class="n">hMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Value</span><span class="o">]</span> <span class="k">=</span> 
+<pre class="code literal-block"><span class="k">val</span> <span class="n">hMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Value</span><span class="o">]</span> <span class="k">=</span> 
   <span class="nc">Map</span><span class="o">(</span>
     <span class="mi">1</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="o">(</span><span class="mi">102</span><span class="o">),</span>
     <span class="mi">2</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="o">(</span><span class="mi">202</span><span class="o">),</span>
@@ -213,8 +211,7 @@
 
 <span class="k">case</span> <span class="k">class</span> <span class="nc">Value</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
 <span class="k">case</span> <span class="k">class</span> <span class="nc">Value10</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
-</code></pre>
-
+</pre>
 
 <p>There are two ways of working within <code>Option context</code></p>
 <p><img alt="Working within Option Context" src="../../images/option_context2.png"></p>
@@ -222,7 +219,7 @@
 <blockquote>
 <p><code>map</code> is useful when a function in the chain returns an <code>Option</code> and rest of functions need to be executed only if function's input is available.</p>
 </blockquote>
-<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="n">mapOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
+<pre class="code literal-block"><span class="k">def</span> <span class="n">mapOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
   <span class="n">getOptionValue</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
     <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">addTen</span><span class="o">)</span>
     <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">asString</span><span class="o">)</span>
@@ -236,15 +233,14 @@
     <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
     <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
   <span class="o">}</span>
-</code></pre>
-
+</pre>
 
 <h3>Using <code>for-comprehension</code> or <code>flatMap</code><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">5</a></sup>
 </h3>
 <blockquote>
 <p><code>for-comprehension</code> (and <code>flatMap</code>) are useful when multiple functions in the chain return <code>Option</code> and but we only want to execute the next function if function's input is available.</p>
 </blockquote>
-<pre class="code literal-block"><span></span><code><span class="c1">// Using for-comprehension</span>
+<pre class="code literal-block"><span class="c1">// Using for-comprehension</span>
 <span class="k">def</span> <span class="n">forOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
   <span class="k">for</span> <span class="o">{</span>
     <span class="n">value</span> <span class="k">&lt;-</span> <span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
@@ -271,8 +267,7 @@
     <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
     <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
   <span class="o">}</span>
-</code></pre>
-
+</pre>
 
 <blockquote>
 <p><strong>Note</strong>: The code is a straightforward to read because we need not check for <code>None</code> at every step.</p>
@@ -309,72 +304,7 @@
 </div>
 <hr>
 <h4>Code</h4>
-<p><script src="https://gist.github.com/9554bf80cf98aede3304faa190db2938.js"></script></p>
-<noscript><pre>/*
-  BASIC EXAMPLE
-*/
-val hMap0: Map[Int, Int] = Map(1 -&gt; 102, 2 -&gt; 202, 3 -&gt; 302)
-
-hMap0.get(100) 
-// What should be the value here?
-// `100` does not exist in `hMap`
-
-/*
-  EXTRACTOR FROM OPTION
-*/
-def getFromOption(opt: Option[String]): String =
-    "Got Value: " + opt.getOrElse("None")
-
-getFromOption(Some("100")) // "Got Value: 100"
-getFromOption(None) // "Got Value: None" 
-
-def extractFromOption(opt: Option[String]): String =
-  opt match {
-    case None        =&gt; "Got Value: " + "None"
-    case Some(value) =&gt; "Got Value: " + value
-  }
-
-extractFromOption(Some("100")) // "Got Value: 100"
-extractFromOption(None) // "Got Value: None" 
-
-/*
-  FUNCTIONS FOR WORKING WITHIN CONTEXT
-*/
-val hMap: Map[Int, Value] = 
-  Map(
-    1 -&gt; Value(102),
-    2 -&gt; Value(202),
-    3 -&gt; Value(302)
-  )
-
-def getOptionValue(i: Int): Option[Value] = hMap.get(i)
-
-def addTen(i: Value): Value10 = Value10(i.value + 10)
-
-def asString(num: Value10): String =
-  s"Got Value: ${num.value}"
-
-case class Value(value: Int)
-case class Value10(value: Int)
-
-/*
-  WORKING WITHIN CONTEXT
-*/
-def mapOpt(i: Int): Option[String] =
-  getOptionValue(i)
-    .map(addTen)
-    .map(asString)
-
-extractFromOption(mapOpt(3)) // "Got Value: 312"
-extractFromOption(mapOpt(100)) // "Got Value: None"
-
-def forOpt(i: Int): Option[String] =
-  for {
-    value  Option.apply(addTen(valOpt)))
-    .flatMap(val10 =&gt; Option.apply(asString(val10)))
-
-extractFromOption(flatMapOpt(3)) // "Got Value: 312"
-extractFromOption(flatMapOpt(100)) // "Got Value: None"</pre></noscript>
+<p>Complete code can be found at: <a href="https://gist.github.com/9554bf80cf98aede3304faa190db2938">Gist 9554bf80cf98aede3304faa190db2938</a></p>
 <div class="footnote">
 <hr>
 <ol>
