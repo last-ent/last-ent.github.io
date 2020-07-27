@@ -1,7 +1,7 @@
 <!--
 .. title: Visual guide to polling in Functional Programming (Scala)
 .. slug: polling-in-fp
-.. date: 2020-07-03 17:55:41 UTC+02:00
+.. date: 2020-07-26 17:55:41 UTC+02:00
 .. tags: software design, functional programming, programming, scala,
 .. category: 
 .. link: 
