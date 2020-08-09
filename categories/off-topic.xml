@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about off-topic)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/off-topic.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 09 Aug 2020 18:05:14 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>OT: Mapping thoughts, Memex &amp; Zettelkasten.</title><link>https://last-ent.com/posts/mapping-thoughts/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;em&gt;&lt;a href="https://last-ent.com/posts/introducing-off-topic"&gt;Off Topic&lt;/a&gt; are posts where I talk about the human side of things.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Vannevar Bush, &lt;code&gt;As We May Think&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Have you read Vannevar Bush's article &lt;code&gt;As We May Think&lt;/code&gt;? In that article he discusses an interesting concept:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;"A System becoming an extension of human knowledge and memory which &lt;code&gt;may be consulted with exceeding speed and flexibility&lt;/code&gt;."&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now this might not seem groundbreaking to us for we have Computers, Internet and Search Engines (Google, DDG, etc.). However it's important to know that Hypertext, which is the backbone of internet, was created thanks to the inspiration taken from &lt;em&gt;Memex&lt;/em&gt;, which is the name of the system Bush proposed. &lt;/p&gt;
+&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/mapping-thoughts/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>off-topic</category><guid>https://last-ent.com/posts/mapping-thoughts/</guid><pubDate>Sun, 09 Aug 2020 16:30:00 GMT</pubDate></item><item><title>Introducing Off Topic</title><link>https://last-ent.com/posts/introducing-off-topic/</link><dc:creator>Ent</dc:creator><description>&lt;pre class="code literal-block"&gt;I miss the days of yore,
+where blogs had focus broad.
+A mix of hobbies or talents varied,
+a window into a person's psyche.
+
+A journal of sorts where they write,
+of things that spark their interests and delights.
+Then came the internet of modern times,
+that asked of everything, to be commercialized.
+
+I protest, I detest,
+this utilitarian web.
+`Off Topic` is where,
+I break this thread.
+&lt;/pre&gt;</description><category>off-topic</category><guid>https://last-ent.com/posts/introducing-off-topic/</guid><pubDate>Sun, 09 Aug 2020 16:00:10 GMT</pubDate></item></channel></rss>

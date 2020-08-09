@@ -1,5 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Mon, 27 Jul 2020 06:38:00 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Visual guide to polling in Functional Programming (Scala)</title><link>https://last-ent.com/posts/polling-in-fp/</link><dc:creator>Ent</dc:creator><description>&lt;figure&gt;&lt;img src="https://last-ent.com/images/poll-st-3.png"&gt;&lt;/figure&gt; &lt;div&gt;&lt;p&gt;In this post, let's look at how to poll a system using a Stream.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 09 Aug 2020 18:05:14 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>OT: Mapping thoughts, Memex &amp; Zettelkasten.</title><link>https://last-ent.com/posts/mapping-thoughts/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;em&gt;&lt;a href="https://last-ent.com/posts/introducing-off-topic"&gt;Off Topic&lt;/a&gt; are posts where I talk about the human side of things.&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Vannevar Bush, &lt;code&gt;As We May Think&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;Have you read Vannevar Bush's article &lt;code&gt;As We May Think&lt;/code&gt;? In that article he discusses an interesting concept:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;"A System becoming an extension of human knowledge and memory which &lt;code&gt;may be consulted with exceeding speed and flexibility&lt;/code&gt;."&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now this might not seem groundbreaking to us for we have Computers, Internet and Search Engines (Google, DDG, etc.). However it's important to know that Hypertext, which is the backbone of internet, was created thanks to the inspiration taken from &lt;em&gt;Memex&lt;/em&gt;, which is the name of the system Bush proposed. &lt;/p&gt;
+&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/mapping-thoughts/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>off-topic</category><guid>https://last-ent.com/posts/mapping-thoughts/</guid><pubDate>Sun, 09 Aug 2020 16:30:00 GMT</pubDate></item><item><title>Introducing Off Topic</title><link>https://last-ent.com/posts/introducing-off-topic/</link><dc:creator>Ent</dc:creator><description>&lt;pre class="code literal-block"&gt;I miss the days of yore,
+where blogs had focus broad.
+A mix of hobbies or talents varied,
+a window into a person's psyche.
+
+A journal of sorts where they write,
+of things that spark their interests and delights.
+Then came the internet of modern times,
+that asked of everything, to be commercialized.
+
+I protest, I detest,
+this utilitarian web.
+`Off Topic` is where,
+I break this thread.
+&lt;/pre&gt;</description><category>off-topic</category><guid>https://last-ent.com/posts/introducing-off-topic/</guid><pubDate>Sun, 09 Aug 2020 16:00:10 GMT</pubDate></item><item><title>Visual guide to polling in Functional Programming (Scala)</title><link>https://last-ent.com/posts/polling-in-fp/</link><dc:creator>Ent</dc:creator><description>&lt;figure&gt;&lt;img src="https://last-ent.com/images/poll-st-3.png"&gt;&lt;/figure&gt; &lt;div&gt;&lt;p&gt;In this post, let's look at how to poll a system using a Stream.&lt;/p&gt;
 &lt;p&gt;To make it easier/interesting, I will explain it using a visual approach.&lt;/p&gt;
 &lt;p&gt;Let's use the following problem statement.&lt;/p&gt;
 &lt;ul&gt;
@@ -109,14 +131,4 @@
 &lt;p&gt;Think about the behaviour of your program in terms of data types &amp;amp; functions signatures. Next step is to &lt;code&gt;prove&lt;/code&gt; or &lt;code&gt;derive&lt;/code&gt; a function that composes all of the types &amp;amp; signatures to implement the feature. Then carry on to implement each of the individual functions with the guarantee that all functions will compose together.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/"&gt;Read more…&lt;/a&gt; (12 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><category>type driven development</category><guid>https://last-ent.com/posts/type-driven-development/</guid><pubDate>Sun, 08 Sep 2019 14:11:55 GMT</pubDate></item><item><title>Cats Effect's IO</title><link>https://last-ent.com/posts/cats-effects-io/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Cats Effect's Fibers/IOs run on a thread pool created over VM. They are essentially Green Threads that are created over the thread pool. Unlike async frameworks, IO.flatmaps does not include _asynchronous boundary. This means that essentially all of nested flatmaps are run within a single fiber. IO has mechanism to introduce asynchronous boundary but this has to be done manually by the developer via IO.shift. Operations such as race, parMapN or parTraverse inherently introduce asynchronous boundary.&lt;/p&gt;
-&lt;p&gt;~ 14th May, 22:11&lt;/p&gt;&lt;/div&gt;</description><category>programming</category><category>scala</category><guid>https://last-ent.com/posts/cats-effects-io/</guid><pubDate>Mon, 12 Aug 2019 18:44:38 GMT</pubDate></item><item><title>Companies &amp; Devs want different things</title><link>https://last-ent.com/posts/companies-devs-want-different-things/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Companies are interested in keeping the risk of their operations to a minimum.
-Software Developers want to learn and hone their craft. (This is not true for all developers and I don't speak for them.)&lt;/p&gt;
-&lt;p&gt;These two motivations don't align well with each other. Learning requies failure and unpredicability; Neither of which is good for company.
-Also, if you have employees who like to learn and experiment, they are more likely to innovate.
-The knee jerk reaction to this might be, "Yes! We WANT our employees to innovate!" But the reality is that not all innovation is good.
-More often than not, innovation can lead to creating silos and requiring special skills for developers to operate the tools.
-Tools that are unique and idosyncratic. This is not in company's best interest, because they want the cogs (Developers) in their machine
-to be replaceable. This is not malicious intent on the company's part, it just means that in case you want to leave the job for greener pastures
-then the company shouldn't get crippled and be able to move on and work efficently.&lt;/p&gt;
-&lt;p&gt;~ 5th May, 2AM &amp;amp; 11:30 AM&lt;/p&gt;&lt;/div&gt;</description><category>musings</category><category>programming</category><guid>https://last-ent.com/posts/companies-devs-want-different-things/</guid><pubDate>Mon, 12 Aug 2019 18:29:19 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/type-driven-development/"&gt;Read more…&lt;/a&gt; (12 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><category>type driven development</category><guid>https://last-ent.com/posts/type-driven-development/</guid><pubDate>Sun, 08 Sep 2019 14:11:55 GMT</pubDate></item></channel></rss>
