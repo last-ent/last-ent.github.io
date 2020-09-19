@@ -435,7 +435,7 @@ HIDDEN_TAGS = ['mathjax']
 # (translatable)
 # CATEGORIES_INDEX_PATH = "categories.html"
 
-# If CATEGORY_ALLOW_HIERARCHIES is set to True, categories can be organized in
+# If CATEGORY_ALLOW_HIERARCHIES is set to True,https://www.youtube.com/watch?v=qt7cQitrg6c categories can be organized in
 # hierarchies. For a post, the whole path in the hierarchy must be specified,
 # using a forward slash ('/') to separate paths. Use a backslash ('\') to escape
 # a forward slash or a backslash (i.e. '\//\\' is a path specifying the
@@ -1228,16 +1228,16 @@ EXTRA_HEAD_DATA = """
 # (translatable)
 BODY_END = ""
 
-BODY_END = """
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-148031816-1');
-</script>
-"""
+# BODY_END = """
+# <!-- Global site tag (gtag.js) - Google Analytics -->
+# <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
+# <script>
+#   window.dataLayer = window.dataLayer || [];
+#   function gtag(){dataLayer.push(arguments);}
+#   gtag('js', new Date());
+#   gtag('config', 'UA-148031816-1');
+# </script>
+# """
 
 # The possibility to extract metadata from the filename by using a
 # regular expression.
