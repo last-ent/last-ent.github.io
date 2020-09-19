@@ -83,7 +83,31 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/cats-effects-io/" class="u-url">Cats Effect's IO</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/type-driven-development/" class="u-url">Type Driven Development</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Ent
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/type-driven-development/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-09-08T16:11:55+02:00" itemprop="datePublished" title="2019-09-08 16:11">2019-09-08 16:11</time></a>
+            </p>
+                </div>
+            </header><div class="p-summary entry-summary">
+                    <div>
+<h2>Introduction</h2>
+<p>In our project workflow, we break down features to implement into tickets and developers pick them off one by one; Pretty standard &amp; typical Agile/Kanban workflow. However while working on a feature recently, we came across on an interesting problem where our standard workflow didn't work out. Rather than trying to explain it in vague terms, I am going to start with a story.</p>
+<h3>TLDR</h3>
+<p>In case you don't want to dive in just yet, here is the idea we will cover in this post.</p>
+<blockquote>
+<p>Think about the behaviour of your program in terms of data types &amp; functions signatures. Next step is to <code>prove</code> or <code>derive</code> a function that composes all of the types &amp; signatures to implement the feature. Then carry on to implement each of the individual functions with the guarantee that all functions will compose together.</p>
+</blockquote>
+<p>
+</p>
+<p class="more"><a href="posts/type-driven-development/">Read more…</a></p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/cats-effects-io/" class="u-url">Cats Effect's IO</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Ent
@@ -172,11 +196,6 @@ However, this becomes a very painful handicap for those who lose a lot by making
         captions: function(element) {
             return element.getElementsByTagName('img')[0].alt;
     }});
-    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-148031816-1');
-</script>
+    </script>
 </body>
 </html>

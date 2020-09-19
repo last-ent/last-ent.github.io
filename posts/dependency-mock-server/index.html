@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Load Testing for Black Friday or Cyber Week is a normal part of many e-commerce companies around this time. How to prepare if not all of your dependencies are ready? I answer this question in this post.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dependency Mock Server &amp; Black Friday Preparation | Last Ent's Thoughts</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link rel="canonical" href="https://last-ent.com/posts/dependency-mock-server/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<script src="https://gumroad.com/js/gumroad.js"></script><style>
+.center {
+  text-align: center;
+}
+</style>
+<meta name="author" content="Ent">
+<link rel="prev" href="../mapping-thoughts/" title="OT: Mapping thoughts, Memex &amp; Zettelkasten." type="text/html">
+<meta property="og:site_name" content="Last Ent's Thoughts">
+<meta property="og:title" content="Dependency Mock Server &amp; Black Friday Preparation">
+<meta property="og:url" content="https://last-ent.com/posts/dependency-mock-server/">
+<meta property="og:description" content="Load Testing for Black Friday or Cyber Week is a normal part of many e-commerce companies around this time. How to prepare if not all of your dependencies are ready? I answer this question in this pos">
+<meta property="og:image" content="https://last-ent.com/images/server-3-deps.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-09-19T23:34:47+02:00">
+<meta property="article:tag" content="software architecture">
+<meta property="article:tag" content="software design">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">Last Ent's Thoughts</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../pages/learning-targets" class="nav-link">Learning Targets</a>
+            </li>
+<li class="nav-item dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archives</a>
+            <div class="dropdown-menu">
+                    <a href="../../archive.html" class="dropdown-item">Archive</a>
+                    <a href="../../categories/" class="dropdown-item">Tags</a>
+            </div>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about" class="nav-link">About</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Dependency Mock Server &amp; Black Friday Preparation</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Ent
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-09-19T23:34:47+02:00" itemprop="datePublished" title="2020-09-19 23:34">2020-09-19 23:34</time></a>
+            </p>
+            
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<p>Last year while preparing for Black Friday our team had an interesting challenge:</p>
+<blockquote>
+<p>Some of our downstream services<sup id="fnref:0"><a class="footnote-ref" href="#fn:0">1</a></sup> had proper setup to provide environments/APIs to load test.</p>
+</blockquote>
+<p>This meant will have to configure our systems based on hopeful estimates based on last minute estimates and until then, we would could only sit idle. This wasn't appealing for obvious reasons of doing a hackjob and having a firefighting mode during Black Friday/Cyber Week.</p>
+<h2>Proposed Solution: Dependency Mock Server</h2>
+<p>The solution I came up with and which we used was to have a Mock Server that served endpoints similar to our dependencies and return dynamic responses based on request payload.</p>
+<p><img alt="Server with Three Dependencies" src="../../images/server-3-deps.png"></p>
+<p>
+<!-- TEASER_END -->
+</p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Interested in more posts like this?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<p>Next to deploy a separate server configured for load testing which would connect to the Mock Server. </p>
+<p><img alt="Server with Mocked Dependencies" src="../../images/server-with-mocks.png"></p>
+<h3>Why not use Stubs instead?</h3>
+<p>It is true that same can be accomplished via Stubs in code but there are a few issues with it:</p>
+<ul>
+<li>It is a very local solution ie., you cannot reuse the solution for other services you might want to test (unless the solution is in form of a library).</li>
+<li>Stubs don't account for network related resources. For example, in a previous project we ran into an issue where the service came to a standstill because it had to make HTTP calls to external services and during the load test, our server exhausted the thread pool.</li>
+<li>Stubs don't account for <a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing"><code>Fallacies of distributed computing</code></a>. These can lead to a completely different set of unknown/undiscovered problems. For eample while test with Mock System, we came across a lot of unexpected <code>5xx</code> errors.</li>
+</ul>
+<h2>Estimating performance</h2>
+<p>Now that my team was onboard with the idea of Mock Server, next big question was:</p>
+<blockquote>
+<p>How do we ensure that our Load Test numbers are realistic?</p>
+</blockquote>
+<p>Given that we were working with a mock server ie., there was little to no actual processing done and no further API/Database calls were being made by Mock Server; how could we ensure that the performance metrics we came up with were reallistic or as accurate as possible?</p>
+<p>For this we used following formula</p>
+<blockquote>
+<p><code>Expected Response Time @ Load X</code> = <code>Mock Server Response X</code> + <code>Server Response X</code> + <code>Known Pessimistic Responses of Mocked Dependencies</code></p>
+</blockquote>
+<p>Let's look at this with some example numbers</p>
+<ul>
+<li>Server responds in <strong>200ms</strong>
+</li>
+<li>Mock Server responds in <strong>50ms</strong>
+</li>
+<li>Typical known response time on slower end = <strong>200ms</strong>
+</li>
+</ul>
+<p>Then by using the above formula</p>
+<blockquote>
+<p><code>Expected Response Time</code> = <code>250ms</code> + <code>50ms</code> + <code>200ms</code></p>
+</blockquote>
+<p>Then we can estimate the server to respond in <strong>250ms to 450ms</strong> range.</p>
+<h2>Actual Load Tests</h2>
+<p>Later we got a chance to run a co-ordinated Load Test with all of our dependencies ready for the load. We realized that our numbers were pessimistic than how well the downstream services actually performed. This is because the teams were also working on stability and performance of their own services. Good news was that this let us set an upper bound for our SLAs and we could accordingly plan the required optimal configuration to run our production servers.</p>
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Liked this and want more?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<h2>Conclusion</h2>
+<p>Hopefully this shed some light on how to prepare for Load Tests in case there are constraints based on downstream service's availability.</p>
+<p></p>
+<hr>
+<div class="center">
+  <b>Would you like a free ebooklet?</b>
+  <p>
+  <a class="gumroad-button" href="https://gum.co/AWmOs" target="_blank">FP for Sceptics: Algebraic Data Types</a>
+</p>
+</div>
+<hr>
+<div class="footnote">
+<hr>
+<ol>
+<li id="fn:0">
+<p>One of the joys of working in a big corp is to realize a vital service you rely upon is a legacy afterthought of another team. <a class="footnote-backref" href="#fnref:0" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+</ol>
+</div>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/software-architecture/" rel="tag">software architecture</a></li>
+            <li><a class="tag p-category" href="../../categories/software-design/" rel="tag">software design</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../mapping-thoughts/" rel="prev" title="OT: Mapping thoughts, Memex &amp; Zettelkasten.">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script>
+</body>
+</html>
