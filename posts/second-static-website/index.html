@@ -2,15 +2,15 @@
 <html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="Ever thought about mapping your thoughts and ideas? What systems exist and how have they impacted our modern world? In this post, I briefly discuss them using Memex, Zettelkasten and other interim systems. This is a post meant to be food for thought.">
+<meta name="description" content="How to host static website using Netlify as alternative to Github Pages. Artisanal Static Website with Clean URLs or Pretty URLs. Sneak Peek to Easy Zettel.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OT: Mapping thoughts, Memex &amp; Zettelkasten. | Last Ent's Thoughts</title>
+<title>Second Static Website | Last Ent's Thoughts</title>
 <link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
-<link rel="canonical" href="https://last-ent.com/posts/mapping-thoughts/">
+<link rel="canonical" href="https://last-ent.com/posts/second-static-website/">
 <!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
@@ -23,14 +23,13 @@
 }
 </style>
 <meta name="author" content="Ent">
-<link rel="prev" href="../introducing-off-topic/" title="Introducing Off Topic" type="text/html">
-<link rel="next" href="../dependency-mock-server/" title="Dependency Mock Server &amp; Black Friday Preparation" type="text/html">
+<link rel="prev" href="../dependency-mock-server/" title="Dependency Mock Server &amp; Black Friday Preparation" type="text/html">
 <meta property="og:site_name" content="Last Ent's Thoughts">
-<meta property="og:title" content="OT: Mapping thoughts, Memex &amp; Zettelkasten.">
-<meta property="og:url" content="https://last-ent.com/posts/mapping-thoughts/">
-<meta property="og:description" content="Ever thought about mapping your thoughts and ideas? What systems exist and how have they impacted our modern world? In this post, I briefly discuss them using Memex, Zettelkasten and other interim sys">
+<meta property="og:title" content="Second Static Website">
+<meta property="og:url" content="https://last-ent.com/posts/second-static-website/">
+<meta property="og:description" content="How to host static website using Netlify as alternative to Github Pages. Artisanal Static Website with Clean URLs or Pretty URLs. Sneak Peek to Easy Zettel.">
 <meta property="og:type" content="article">
-<meta property="article:published_time" content="2020-08-09T18:30:00+02:00">
+<meta property="article:published_time" content="2020-11-03T23:56:24+01:00">
 <meta property="article:tag" content="off-topic">
 </head>
 <body>
@@ -86,7 +85,7 @@
         
         
         
-<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">OT: Mapping thoughts, Memex &amp; Zettelkasten.</a></h1>
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Second Static Website</a></h1>
 
         <div class="metadata">
             <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
@@ -94,7 +93,7 @@
             </span></p>
             <p class="dateline">
             <a href="." rel="bookmark">
-            <time class="published dt-published" datetime="2020-08-09T18:30:00+02:00" itemprop="datePublished" title="2020-08-09 18:30">2020-08-09 18:30</time></a>
+            <time class="published dt-published" datetime="2020-11-03T23:56:24+01:00" itemprop="datePublished" title="2020-11-03 23:56">2020-11-03 23:56</time></a>
             </p>
             
 
@@ -103,14 +102,13 @@
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
-<p><em><a href="../introducing-off-topic">Off Topic</a> are posts where I talk about the human side of things.</em></p>
-<h2>Vannevar Bush, <code>As We May Think</code>
-</h2>
-<p>Have you read Vannevar Bush's article <code>As We May Think</code>? In that article he discusses an interesting concept:</p>
-<blockquote>
-<p>"A System becoming an extension of human knowledge and memory which <code>may be consulted with exceeding speed and flexibility</code>."</p>
-</blockquote>
-<p>Now this might not seem groundbreaking to us for we have Computers, Internet and Search Engines (Google, DDG, etc.). However it's important to know that Hypertext, which is the backbone of internet, was created thanks to the inspiration taken from <em>Memex</em>, which is the name of the system Bush proposed. </p>
+<h2>Static Website Hosting</h2>
+<p>I really like the low footprint and utility of Static Websites. This website is built using <code>Nikola</code>.</p>
+<p>In this post I will talk about some issues I faced with deploying a second static website and how I eventually solved it.</p>
+<h3>Github Pages</h3>
+<p>I have long enjoyed the awesomeness of <code>User Github Pages</code> and am quite happy with it.</p>
+<p>However as soon as I tried to create a second independent static website with custom domain, <code>Github</code> was having nothing of it.</p>
+<p>After spending lot of time scouring the web for how to make it work between <code>Github</code> &amp; <code>Namecheap</code>, my DNS provider, I had nothing to show for it.</p>
 <p>
 <!-- TEASER_END -->
 </p>
@@ -127,56 +125,40 @@
 
 <!--End mc_embed_signup-->
 <hr>
-<h2>Deeper principle at play</h2>
-<p>It is known that many a people have read and been inspired by Memex over the years. Yet there are others who knew nothing about Memex and yet came up with similar systems. I think there's a deeper principle at play here.</p>
-<blockquote>
-<p>The need to organize and connect ideas, to create a material representation of our mental map of thoughts and abstractions seems to be a constant pursuit for human beings.</p>
-</blockquote>
-<h3>Software Systems</h3>
-<p>Let me start by giving a few software examples:</p>
+<h3>Netlify</h3>
+<p>Finally got around to having a look at <code>Netlify</code> and I must say it works great!</p>
+<p>It took me a while to understand how to deploy a simple HTML page as I am used to working with tools like <code>Nikola</code> or <code>Hugo</code>.</p>
+<h2>Artisanal Static Website</h2>
+<p>In case you want to handroll a static website with pure HTML pages, then here's the trick.</p>
+<h3>Clean URLs</h3>
+<p>If you want <code>Clent/Pretty URLS</code> then for each pages you need to have it in a separate sub-directory along with an <code>index.html</code> file.</p>
+<p>Let's look at an example:</p>
+<p>In case you want to have a site with following URLs:</p>
 <ul>
-<li>World Wide Web</li>
-<li>Project Xanadu</li>
-<li>Wikipedia</li>
-<li>Roam Research</li>
-<li>Obsidian</li>
-<li>Org Mode (Emacs)</li>
-<li>etc</li>
+<li><code>/</code></li>
+<li><code>/first</code></li>
+<li><code>/second</code></li>
+<li><code>/with-children</code></li>
+<li><code>/with-children/nested1</code></li>
+<li><code>/with-children/nested2</code></li>
 </ul>
-<p>If you are looking for a software to help you record your ideas, I think all options in the list from (personal) Wikipedia onwards are good.</p>
-<p>But personally I have come to dislike them and sometimes prefer the tactile nature of writing with paper &amp; pen.</p>
-<h3>Physical Systems</h3>
-<p>So what do we have in the non-computer/physical world?</p>
-<ul>
-<li>Bullet Journal (Popular example in our modern world)</li>
-<li><strong>Zettelkasten</strong></li>
-<li><em>I am sure there are other systems that I am not aware of.</em></li>
-</ul>
-<h2>Zettelkasten</h2>
-<p>Personally one system I found quite effective is <strong>Zettelkasten</strong>.</p>
-<h3>History</h3>
-<p><code>Zettelkasten</code> is the modern name given to the system as described by Niklas Luhmann (1927-1998), who had a very productive lifetime by publishing numerous books in record time with deep ideas and concepts.</p>
-<p>I don't think Luhmann was aware of Memex but the idea is pretty similar yet powered by analog "technologies".</p>
-<p>What I found even more interesting is that this system was "pioneered by Conrad Gessner (1516–1565) <em>(wiki quote)</em>" and there are known instances throughout the history.</p>
-<h3>Rules</h3>
-<p>Here's a bare bones summary:</p>
-<ul>
-<li>You need a stack of index cards and slip boxes to hold the cards.</li>
-<li>Every time you have an idea/thought to note, write it on an index card.</li>
-<li>Keep the text short.</li>
-<li>Write an "address" or "id" on the card based on where it sits in the hierarchy/graph/network.</li>
-<li>You can connect or refer to other notes for new insight.</li>
-</ul>
-<h3>Guides</h3>
-<p>I found two posts that explain the rules of Zettelkasten is greater detail.</p>
-<ul>
-<li><a href="https://www.lesswrong.com/posts/NfdHG6oHBJ8Qxc26s/the-zettelkasten-method-1">The Zettelkasten Method (lesswrong.com)</a></li>
-<li>
-<a href="https://luhmann.surge.sh/communicating-with-slip-boxes">Communicating with Slip Boxes by Niklaus Luhmann</a> <em>(Yes, the modern proponent of the system!)</em>
-</li>
-</ul>
-<p>I started by first reading the <em>lesswrong.com</em> article and later on made my way to the article by Luhmann.</p>
-<p>I found the method described by <em>lesswrong.com</em> a bit harder to implement when starting out. I was able to get the spirit of the system by reading Luhmann's article and thus devised my own system which I found easier to get started with.</p>
+<h3>Directory Structure</h3>
+<p>Then you need to arrange your HTML pages in following order.</p>
+<pre class="code literal-block">root
+├── index.html
+├── first
+│   └── index.html
+├── second
+│   └── index.html
+└── with-children
+    ├── index.html
+    ├── nested1
+    │   └── index.html
+    └── nested2
+        └── index.html
+</pre>
+
+<p>Note that <code>root</code> will point to <code>/</code> folder.</p>
 <p></p>
 <hr>
 <!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
@@ -191,10 +173,10 @@
 
 <!--End mc_embed_signup-->
 <hr>
-<h2>Conclusion</h2>
-<p>If you weren't aware of these systems (offline &amp; online), hope you learned something new and they help you with your merry work!</p>
-<p>So what's my system you wonder?</p>
-<p>I will get into it in a later post. :) </p>
+<h2>My New Site</h2>
+<p>You might be wondering what is this new site I have been playing around with.</p>
+<p>It's called <a href="//www.easy-zettel.com">Easy Zettel</a> and I briefly touched on it in my post <a href="https://last-ent.com/posts/mapping-thoughts/">Mapping Thoughts</a></p>
+<p>I am working on this as a fun experiment and I intend to write in greater detail about it soon.</p>
 </div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
@@ -202,10 +184,7 @@
         </ul>
 <ul class="pager hidden-print">
 <li class="previous">
-                <a href="../introducing-off-topic/" rel="prev" title="Introducing Off Topic">Previous post</a>
-            </li>
-            <li class="next">
-                <a href="../dependency-mock-server/" rel="next" title="Dependency Mock Server &amp; Black Friday Preparation">Next post</a>
+                <a href="../dependency-mock-server/" rel="prev" title="Dependency Mock Server &amp; Black Friday Preparation">Previous post</a>
             </li>
         </ul></nav></aside></article><!--End of body content--><footer id="footer">
             Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
