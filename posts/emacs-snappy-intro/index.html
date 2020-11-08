@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Ent's Quick and dirty guide to learning how to use Emacs productively. Snappy guide to start customizing it and be productive ASAP. ">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ent's snappy guide to Emacs | Last Ent's Thoughts</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link rel="canonical" href="https://last-ent.com/posts/emacs-snappy-intro/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<style>
+.center {
+  text-align: center;
+}
+</style>
+<meta name="author" content="Ent">
+<link rel="prev" href="../second-static-website/" title="Second Static Website" type="text/html">
+<meta property="og:site_name" content="Last Ent's Thoughts">
+<meta property="og:title" content="Ent's snappy guide to Emacs">
+<meta property="og:url" content="https://last-ent.com/posts/emacs-snappy-intro/">
+<meta property="og:description" content="Ent's Quick and dirty guide to learning how to use Emacs productively. Snappy guide to start customizing it and be productive ASAP. ">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-11-07T01:46:50+01:00">
+<meta property="article:tag" content="emacs">
+<meta property="article:tag" content="learnings">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">Last Ent's Thoughts</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../pages/learning-targets" class="nav-link">Learning Targets</a>
+            </li>
+<li class="nav-item dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archives</a>
+            <div class="dropdown-menu">
+                    <a href="../../archive.html" class="dropdown-item">Archive</a>
+                    <a href="../../categories/" class="dropdown-item">Tags</a>
+            </div>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about" class="nav-link">About</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Ent's snappy guide to Emacs</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Ent
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-11-07T01:46:50+01:00" itemprop="datePublished" title="2020-11-07 01:46">2020-11-07 01:46</time></a>
+            </p>
+            
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<h2>Introduction</h2>
+<p>I have used many editors over time and one "System" that I really enjoyed was Emacs. However I did not understand how it worked under the hood and it led to some fun times. This post is an attempt to log my experience with learning and understanding the "missing bits" in a single place. </p>
+<p>This guide is consolidation of knowledge &amp; experience of 2-3 days of intense focus learning &amp; modifying Emacs.</p>
+<h3>Purpose</h3>
+<p>The aim of this guide is to quickly:</p>
+<ul>
+<li>Bootstrap your understanding to a level where you can start thinking in terms Emacs' terminology and use that knowledge to searching the internet for new questions you might have. </li>
+<li>Develop a rudimentary understanding of how to customize Emacs. </li>
+<li>Setup an aesthically pleasing UI with usable setup.</li>
+</ul>
+<p>This guide IS NOT about the basics of text editors like:</p>
+<ul>
+<li>What are text editors? What is Emacs or Vim?</li>
+<li>Which editor should I use?</li>
+<li>How to navigate using either editor?</li>
+<li>How to read/write <code>elisp</code>. I have a basic understanding of lisp/clojure but otherwise I haven't bothered with learning it for this.</li>
+</ul>
+<p>
+<!-- TEASER_END -->
+</p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Interested in more posts like this?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<h4>Gradual Ramp Up</h4>
+<p>Most if not all of Emacs' instructions display commands as <code>M-x _</code>. This is meant to be the <code>Meta</code> key which you might otherwise know as <code>Alt</code> key.</p>
+<p>Early on in the guide, the instructions are going to be lot more verbose to help the reader get familiar with what to do. But as the guide progresses the information, which has already been repeated a few times, will give way to more terse instructions.</p>
+<h4>
+<code>M-x</code> is your friend</h4>
+<p>I see many guides/books teach the reader how to learn emacs using keystrokes. The idea is that you will develop muscle memory and do things automatically.</p>
+<p>Others try to force a custom configuration to make your life easier.</p>
+<p>This guide instead relies on <code>M-x</code> to teach any and all necessary commands. Whether you use Emacs mode or Evil mode, <code>M-x</code> is consistent in both modes so your won't have any issues following the instructions.</p>
+<p>Another big advantage of <code>M-x</code> is that it allows you to start exploring the available commands on your own and thus helping you learn </p>
+<h3>What's with the Greek Mythology?</h3>
+<p>Currently I am listening to <code>Stephen Fry's Mythos</code> which is about Greek Mythology and it's wonderful.</p>
+<p>Before I start with the actual guide I want to relay my experience with using Emacs in the past so that you do not make the same mistakes I did.</p>
+<p>To quickly give you a snapshot of what each section might entail, I am using references to Greek Mythos :D</p>
+<h2>Icarus' Emacs</h2>
+<blockquote>
+<p>Icarus is a tragic hero who was given a great gift. He did not respect the gift and took it for granted. This led to his downfall.</p>
+</blockquote>
+<p>By the time I decided to learn Emacs I was already a familiar with Vim and it's basic keybindings. I knew that even if I were to be using Emacs, I wanted to continue using Vim bindings, which is what Evil provides. Also I wanted a better theme than the default one.</p>
+<p>This was but the tip of the iceberg of my requirements and I was expecting a lot from Emacs.</p>
+<p>I tried doing the "right thing" by going through the Emacs tutorials and to slowly learn it but my aim to start using it for my work projects and I did not want to spend a lot of time sifting through everything the system had to offer.</p>
+<p>My solution came down to using a preconfigured emacs setup. In this case, I went with <code>Spacemacs</code>. It had everything I needed:</p>
+<ul>
+<li>Beautiful theme</li>
+<li>Evil mode</li>
+<li>Really awesome set of "Layers" (packages/extensions/plugins) enabled by default and ready to use.</li>
+<li>Really nice documentation with well thought out shortcuts etc.</li>
+</ul>
+<h3>
+<code>develop</code> branch</h3>
+<p>I am a Software Engineer by trade and unless I can use Emacs for programming, it cannot be true System/Editor/IDE. Spacemacs has lot of programming related stuff in <code>develop</code> branch as it is still being tested.</p>
+<p>The more comfortable I felt using Spacemacs the more I started adding in extra "layers" and soon started adding normal Emacs packages.</p>
+<p>At some point my thirst of themes led me to also include <code>Doom Emacs Themes</code> and by this point I had a crazy heavy setup.</p>
+<h3>The Fall</h3>
+<p>Note that I still haven't taken time to learn how Emacs and/or packages are put together. I was copy-pasting whatever I could find over the internet to make Emacs do my bidding. You could say I was building a Tower of Babel.</p>
+<p>As expected, the fateful day came when my Emacs setup had some package issues and it stopped working. It looked like I was the only one who was suffering from this. I tried to restart with vanilla spacemacs but it became impossible. I was unsure if the issue was with my system/Emacs setup or if something was broken on <code>develop</code> branch of Spacemacs as <code>master</code> is the stable branch.</p>
+<p>I could neither use Vanilla Emacs nor could I use Spacemacs and I ended up giving on Emacs altogether.</p>
+<h2>Ulysses' Emacs &amp; journey home</h2>
+<blockquote>
+<p>Ulysses is a resourceful Hero who was beset by many tragedies. Only through his sheer wit &amp; patience was he able to come out unscathed.</p>
+</blockquote>
+<p>Spacemacs is an amazing setup and I intend to go back to it. </p>
+<p>However this time around, I plan on taking my time to learn how the ecosystem works and be mindful of what I am doing.</p>
+<blockquote>
+<p>Respect your tools</p>
+</blockquote>
+<p>Thanks to Spacemacs I have a decent idea of what Emacs can do and some of the packages I want. I intend to expand on the list of packages I use but I will do so over time. </p>
+<h3>Minumum Setup</h3>
+<p>The following list might seem odd to call <em>minmum</em> but the idea is "To more likely start using it" than give up and shift back to using standard Editors/IDEs like VSCode or IntelliJ for non-work related tasks.</p>
+<h4>Setup Guide</h4>
+<ul>
+<li>
+<a href="#emacs">Emacs</a><ul>
+<li><a href="#emacs-version">Emacs Version</a></li>
+</ul>
+</li>
+<li>
+<a href="#package-management">Package Management</a><ul>
+<li><a href="#package-repositories">Package Repositories</a></li>
+<li><a href="#installing-packages">Installing Packages</a></li>
+</ul>
+</li>
+<li>
+<a href="#user-experience">User Experience</a><ul>
+<li><a href="#evil-mode">Evil Mode</a></li>
+<li><a href="#auto-complete">Auto Complete</a></li>
+<li><a href="#magit-git-client">Git client</a></li>
+<li><a href="#code-folding">Code Folding</a></li>
+</ul>
+</li>
+<li>
+<a href="#user-interface">User Interface</a><ul>
+<li><a href="#beautiful-theme">Beautiful Theme</a></li>
+<li><a href="#beautiful-fonts">Beautiful Fonts</a></li>
+<li><a href="#beautiful-org-mode">Beautiful Org Mode</a></li>
+<li><a href="#soft-wrap-lines-words">Soft Warp (Lines and Words)</a></li>
+<li><a href="#line-numbers">Line Numbers</a></li>
+<li><a href="#startup-screen">Startup Screen</a></li>
+<li><a href="#indent-guides">Indent Guides</a></li>
+</ul>
+</li>
+<li>
+<a href="#customization">Customization</a><ul>
+<li><a href="#bindings-keys">Binding Keys</a></li>
+<li><a href="#keyboard-macros">Keyboard Macros</a></li>
+</ul>
+</li>
+</ul>
+<p>In this section, I am going to go through the process of converting Vanilla Emacs which looks like this:
+<img alt="Emacs Vanilla" src="../../images/emacs/emacs-v.png"></p>
+<p>to this, which is my customized setup. <img alt="Entmacs" src="../../images/emacs/entmacs.png"></p>
+<h2>Emacs</h2>
+<p>There are different versions of Emacs that you can install but if you want to have all the features of this guide, then I would recommend installing Emacs version 27 because:</p>
+<ul>
+<li>It is the latest version (August 10, 2020)</li>
+<li>It has certain features installed by default</li>
+<li>It allows us to have ligatures (More on this later)</li>
+</ul>
+<h3>Emacs Version</h3>
+<p>Emacs27 is not yet available by default on Ubuntu via <code>apt</code> (November 7, 2020).</p>
+<pre class="code literal-block"><span class="c1"># Add repository</span>
+$ sudo add-apt-repository ppa:kelleyk/emacs
+
+<span class="c1"># Update apt</span>
+$ sudo apt update
+</pre>
+
+<blockquote>
+<p>Issue: <code>trying to overwrite '/usr/include/emacs-module.h', which is also in package emacs-common 1:26.3+1-1ubuntu2</code></p>
+</blockquote>
+<p>I have Emacs26 installed and even though I had uninstall the previous version before trying to install Emacs27, I still kept running into this issue. I was able to solve this issue by installing <code>emacs27-common</code> before installing Emacs27.</p>
+<p>So my installation had one extra step.</p>
+<pre class="code literal-block"><span class="c1"># Fixing the installation issue</span>
+$ sudo apt install emacs27-common
+
+<span class="c1"># Let's finally install it!</span>
+$ sudo apt install emacs27
+</pre>
+
+<h3>Configuring Emacs (<code>~/.emacs</code>)</h3>
+<p>The root configuration of Emacs is held by a file referred to as <code>init.el</code>.
+Depending on the version of Emacs you are using this can be referring to <code>~/.emacs.d/init.el</code> or <code>~/.emacs</code>.</p>
+<p>For the purpose of this guide, we will only be referring to and using <code>~/.emacs</code>.</p>
+<h2>Package Management</h2>
+<p>Let's dive into all things you might want to know about Package Management in Emacs. </p>
+<h3>What is a Package?</h3>
+<p>Emacs can be used in its basic form but it's power (like Vim) comes from the level of customizability it allows. These customizations can be cosmetic or functional in nature and are provided in the form of "Packages".</p>
+<p>Packages are similar to Extensions or Plug Ins in other Editors/IDEs.</p>
+<p>Packages on Emacs come under three categories:</p>
+<ul>
+<li>
+<strong>Installed &amp; Enabled Packages</strong>: These are ready to use commands when you open a file/window (called Buffer). These include ones that are available when you open Vanilla Emacs for the first time but more can be added later.</li>
+<li>
+<strong>Installed &amp; Disabled Packages</strong>: These are packages which you have installed from <code>Package Repositories</code> but haven't enabled or aren't in use.</li>
+<li>
+<strong>Available Packages</strong>: These are packages that are avaiable for installation, these can be via local system or via internet.</li>
+</ul>
+<h3>Package Repositories or, Where do Packages come from?</h3>
+<p>Package Repositories are servers that hold a list of package we can download and install.</p>
+<p>For now let's stick to three main package repositories:</p>
+<ul>
+<li>
+<p>GNU Emacs Lisp Package Archive (<strong>ELPA</strong>): This is the default repository Emacs will look at for packages. The list is decent but you will quickly find that most useful packages aren't covered by this. The packages in this repository have FSF's seal of approval.</p>
+</li>
+<li>
+<p>Milkypostman's Emacs Lisp Package Archive (<strong>MELPA</strong>): This is the most popular repository you will see most packages referring to on how to install them. It comes in two flavours.</p>
+<ul>
+<li>MELPA/Stable: Contains packages that have been tagged for releases by the maintainers. This mean you can expect more stability from them.</li>
+<li>MELPA: This is more of development branch and might include not-so-stable packages as well.</li>
+</ul>
+</li>
+</ul>
+<h4>Adding MELPA</h4>
+<p>Let's start by opening Emacs' init file, <code>~/.emacs</code>.</p>
+<ul>
+<li>Open Emacs</li>
+<li>Emacs is mouse friendly so you can use the mouse to go for the file but let's try a different approach.</li>
+<li>Press <code>&lt;Meta&gt; + x</code>, type in <code>find-file</code> and press <code>Enter</code>.</li>
+<li>You should see something like this show up at the bottom of your screen. <img alt="Find File" src="../../images/emacs/find-file.png">
+</li>
+<li>Type in <code>~/.emacs</code> and <code>Enter</code>.</li>
+<li>Add in following line. If you want to paste this, then command is <code>&lt;Ctrl&gt; + y</code>
+</li>
+</ul>
+<pre class="code literal-block"><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
+
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
+</pre>
+
+<ul>
+<li>Enter these commands followed by pressing enter<ul>
+<li>
+<em>Select above text using Mouse</em> <code>&lt;Meta&gt; + x</code>
+</li>
+<li><code>eval-region</code></li>
+<li><code>&lt;Meta&gt; + x</code></li>
+<li><code>refresh-package-contents</code></li>
+</ul>
+</li>
+</ul>
+<h3>Installing Packages</h3>
+<h4>Easy Installation</h4>
+<p>Now your Emacs has access to ELPA &amp; MELPA.</p>
+<p>You can start installing packages using following commands</p>
+<blockquote>
+<p><code>M-x package-install</code></p>
+</blockquote>
+<h4>Manual Installation</h4>
+<p>Once in a while you will come across packages that are not available on ELPA &amp; MELPA. They <em>might</em> be available on other Package Repositories.</p>
+<p>However you can also manually install them. For this purpose you would need <code>use-package</code> package. So let's install that too.</p>
+<blockquote>
+<p><code>M-x package-install &lt;ret&gt; use-package &lt;ret&gt;</code></p>
+</blockquote>
+<h2>User Experience</h2>
+<p>Let's start by looking at important packages needed to make life easier for us.</p>
+<h3>Evil Mode</h3>
+<p>To quote Emacs Manual</p>
+<blockquote>
+<p>Every buffer possesses a major mode, which determines the editing behavior of Emacs while that buffer is current.</p>
+</blockquote>
+<p>Evil is one such Major Mode which will let us start using Vim commands within Emacs.</p>
+<blockquote>
+<p><code>M-x package-install</code> <code>&lt;ret&gt;</code> <code>evil</code> <code>&lt;ret&gt;</code></p>
+</blockquote>
+<p>If you now look at your init file (<code>~/.emacs</code>), it should look similar to this.</p>
+<pre class="code literal-block"><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">custom-set-variables</span>
+ <span class="c1">;; custom-set-variables was added by Custom.</span>
+ <span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
+ <span class="c1">;; Your init file should contain only one such instance.</span>
+ <span class="c1">;; If there is more than one, they won't work right.</span>
+ <span class="o">'</span><span class="p">(</span><span class="nv">package-selected-packages</span> <span class="o">'</span><span class="p">(</span><span class="nv">evil</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">custom-set-faces</span>
+ <span class="c1">;; custom-set-faces was added by Custom.</span>
+ <span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
+ <span class="c1">;; Your init file should contain only one such instance.</span>
+ <span class="c1">;; If there is more than one, they won't work right.</span>
+ <span class="p">)</span>
+</pre>
+
+<p>We need to edit it to ensure it works without any issues but first...</p>
+<h4>Enabling Evil Mode</h4>
+<p>Let us start by enabling Evil Major Mode.</p>
+<blockquote>
+<p><code>M-x evil-mode</code></p>
+</blockquote>
+<p>Now we can start moving around the file using Vim keybindings. This is a great start! However we don't want to enable Evil Mode everytime we start emacs but enable it by default.</p>
+<p>Let's edit init file to do two things:</p>
+<ul>
+<li>Move the two <code>(custom-set-* ...)</code> functions to the start of our file. This is to ensure we don't have any issues using packages.</li>
+<li>Add <code>(evil-mode t)</code> at the bottom.</li>
+</ul>
+<p>Here's my modified init file.</p>
+<pre class="code literal-block"><span class="p">(</span><span class="nv">custom-set-variables</span>
+ <span class="c1">;; custom-set-variables was added by Custom.</span>
+ <span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
+ <span class="c1">;; Your init file should contain only one such instance.</span>
+ <span class="c1">;; If there is more than one, they won't work right.</span>
+ <span class="o">'</span><span class="p">(</span><span class="nv">package-selected-packages</span> <span class="o">'</span><span class="p">(</span><span class="nv">evil</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">custom-set-faces</span>
+ <span class="c1">;; custom-set-faces was added by Custom.</span>
+ <span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
+ <span class="c1">;; Your init file should contain only one such instance.</span>
+ <span class="c1">;; If there is more than one, they won't work right.</span>
+ <span class="p">)</span>
+
+<span class="c1">;;;;;;;;;;;;;;;;;;;;;;</span>
+<span class="c1">;;  START OF CONFIG ;;</span>
+<span class="c1">;;;;;;;;;;;;;;;;;;;;;;</span>
+
+<span class="c1">;; TOP: Initialize package repositories and packages</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
+
+
+<span class="c1">;; Evil</span>
+<span class="p">(</span><span class="nv">evil-mode</span> <span class="no">t</span><span class="p">)</span>
+</pre>
+
+<h4>Commenting Code</h4>
+<p>If you are used to using <code>gcc</code> to comment out code like I am, you will find it vexing to see that Evil mode doesn't work that way. To have same functionality use <code>evil-commentary</code>.</p>
+<blockquote>
+<p><code>M-x package-install &lt;ret&gt; evil-commentary</code></p>
+</blockquote>
+<pre class="code literal-block"><span class="c1">;; Evil</span>
+<span class="p">(</span><span class="nv">evil-mode</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">evil-commentary-mode</span><span class="p">)</span>
+</pre>
+
+<h3>Auto Complete</h3>
+<h4>Helm: Interface Auto Complete</h4>
+<p>Right now if you type <code>M-x package-</code> you don't get any suggestions, the only way to get any at this point is to press <code>&lt;tab&gt;</code>.</p>
+<p>There is no organic way to start searching for commands as we type.</p>
+<p>This is where Interface Auto Complete comes into picture. We have a few options:</p>
+<ul>
+<li>Helm</li>
+<li>Ivy</li>
+<li>Ido</li>
+</ul>
+<p>Helm is supposed to be the most heavy duty of the three but I think it is a good place to start.</p>
+<blockquote>
+<p><code>M-x package-install &lt;ret&gt; helm &lt;ret&gt;</code></p>
+</blockquote>
+<p>In order to properly use Helm, we want to do two things:
+- Replace existing <code>M-x</code> with the one provided by Helm.
+- Enable it to be used on key press.</p>
+<p>Add this to the bottom of your init file.</p>
+<pre class="code literal-block"><span class="c1">;; Helm</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"M-x"</span><span class="p">)</span> <span class="ss">'helm-M-x</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">helm-mode</span> <span class="mi">1</span><span class="p">)</span>
+</pre>
+
+<p>Once you have saved this file, we can evaluate this code to start using Helm.</p>
+<p>We already looked at selecting text + <code>M-x eval-region</code>.
+There is another neat method we can use, <code>M-x eval-buffer</code>.</p>
+<p>Press <code>M-x</code> again and observe!</p>
+<p><img alt="Helm package-install" src="../../images/emacs/package-install-helm.png"></p>
+<h4>auto-complete: Text Auto Complete</h4>
+<p>Now we have auto complete for our <code>M-x</code> and similar menus. But wouldn't it be nice to have something similar when we write in our file as well?</p>
+<blockquote>
+<p><code>M-x package-install &lt;ret&gt; auto-complete &lt;ret&gt;</code></p>
+</blockquote>
+<pre class="code literal-block"><span class="c1">;; Bottom of init file. This will enable for all buffers.</span>
+
+<span class="c1">;; Code Completion</span>
+<span class="p">(</span><span class="nv">global-auto-complete-mode</span> <span class="no">t</span><span class="p">)</span>
+</pre>
+
+<h3>Magit: Git Client</h3>
+<p>Even before Emacs, I mostly used terminal for all things git (<em>including merging conflicts</em>). I found the need to move my hands away form keyboard to reach over for a mouse + clicking menus way too annoying.</p>
+<p>Magit took my love for terminal and cranked it all the way to 11.</p>
+<blockquote>
+<p><code>M-x package-install &lt;ret&gt; magit &lt;ret&gt;</code></p>
+</blockquote>
+<h3>Code Folding</h3>
+<blockquote>
+<p>What is a Hook?</p>
+</blockquote>
+<p>To quote Emacs Manual again</p>
+<blockquote>
+<p><code>A “hook” is a variable where you can store a function or functions to be called on a particular occasion by an existing program.</code></p>
+<p>Why do I care? </p>
+</blockquote>
+<p>The only time Code Folding would make sense is if we are dealing with Source Code files. </p>
+<p>Easiest way to detect such files is to keep an eye for when Emacs enables <code>prog-mode</code>. This means we can ensure code folding is available ONLY for source code files.</p>
+<p>There are a few good packages available for Code Folding but for now I will be defaulting to in-built <code>hs-minor-mode</code>.</p>
+<p>This means we do not need to install any new package for once!</p>
+<pre class="code literal-block"><span class="c1">;; Bottom of init file</span>
+
+<span class="c1">;; Code folding</span>
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'prog-mode-hook</span> 
+      <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> 
+        <span class="p">(</span><span class="nv">hs-minor-mode</span> <span class="no">t</span><span class="p">)))</span>
+</pre>
+
+<blockquote>
+<p>Evil Keybindings</p>
+</blockquote>
+<p>Given that we are using Evil Mode. Following are the keybindings for code folding</p>
+<ul>
+<li>
+<code>zR</code> =&gt; <em>Show All</em>
+</li>
+<li>
+<code>zM</code> =&gt; <em>Hide All</em>
+</li>
+<li>
+<code>zo</code> =&gt; <em>Open Block</em>
+</li>
+<li>
+<code>zc</code> =&gt; <em>Close Block</em>
+</li>
+</ul>
+<h2>User Interface</h2>
+<p>Now onto the fun part! So far we have been looking at how to make Emacs functional but now we can concentrate on the aesthetics!</p>
+<h3>Beautiful Theme</h3>
+<p>There are three main theme packages I can recommned.</p>
+<ul>
+<li><code>spacemacs-theme</code></li>
+<li><code>doom-themes</code></li>
+<li><code>atom-one-dark</code></li>
+</ul>
+<p>A fourth one, which I haven't yet tried out is, <code>Nord Theme</code> which also looks really nice.</p>
+<p>These are packages hence can be installed as usual</p>
+<blockquote>
+<p><code>M-x package-install &lt;ret&gt; atom-one-dark &lt;ret&gt;</code></p>
+</blockquote>
+<pre class="code literal-block"><span class="c1">;; Bottom of init file</span>
+
+<span class="c1">;; Theme</span>
+<span class="p">(</span><span class="nv">load-theme</span> <span class="ss">'atom-one-dark</span> <span class="no">t</span><span class="p">)</span>
+</pre>
+
+<h3>Beautiful Fonts</h3>
+<p>We can get beautiful fonts by enabling three things:</p>
+<ul>
+<li>
+<strong>Change Font &amp; Size</strong>. For this guide I will be using <code>Fira Code-14</code>, <code>Size 14</code> but you can also use other fonts.</li>
+<li>
+<strong>Enable Prettify Symbols</strong>. This is built into Emacs so we only need to enable it.</li>
+<li>
+<strong>Install &amp; enable Ligatures</strong>. Ligatures are the true joy of life.</li>
+</ul>
+<pre class="code literal-block"><span class="c1">;; Bottom of init file</span>
+
+<span class="c1">;; Font</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'default-frame-alist</span> <span class="o">'</span><span class="p">(</span><span class="nv">font</span> <span class="o">.</span> <span class="s">"Fira Code-14"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">global-prettify-symbols-mode</span> <span class="mi">1</span><span class="p">)</span>
+</pre>
+
+<h4>Manually installing <code>ligature.el</code>
+</h4>
+<p><strong>NOTE</strong>: The font you are using should allow for ligatures. Otherwise you might spend a lot of time trying to figure out why your font doesn't look as pretty.</p>
+<p>Near the start we briefly touched on <code>use-package</code> which is useful for manual installation of packages.</p>
+<p><code>ligature.el</code> is not available on ELPA/MELPA so we will install it using <code>magit</code>! It is available at <a href="https://github.com/mickeynp/ligature.el">https://github.com/mickeynp/ligature.el</a></p>
+<p>We want to:</p>
+<ul>
+<li>Tell Magit to clone repository</li>
+<li>Paste in the URL, assuming it is copied to clipboard</li>
+<li>Point it to directory to install at</li>
+</ul>
+<blockquote>
+<p><code>M-x magit-clone &lt;ret&gt; u &lt;Shift-Insert&gt;</code></p>
+</blockquote>
+<p>Few points of note:</p>
+<ul>
+<li>
+<code>&lt;Shift-Insert&gt;</code> will paste from clipboard into the bottom area which is called <code>Mini Buffer</code>(?)</li>
+<li>It is upto you where you want to clone the package, I put it into <code>~/.emacs.d/manual/ligature/</code> as I did not want to pollute the rest of the system.</li>
+</ul>
+<h4>Using <code>use-package</code>
+</h4>
+<p>Finally we need to enable ligatures to be used in <code>prog-mode</code>. If you want to enable everywhere, then replace <code>'prog-mode</code> with <code>'t</code>.</p>
+<pre class="code literal-block"><span class="c1">;; Ligatures</span>
+<span class="p">(</span><span class="nb">use-package</span> 
+  <span class="nv">ligature</span> 
+  <span class="ss">:load-path</span> <span class="s">"~/.emacs.d/manual/ligature/"</span> 
+  <span class="ss">:config</span>
+  <span class="c1">;; Enable all Cascadia Code ligatures in programming modes</span>
+  <span class="p">(</span><span class="nv">ligature-set-ligatures</span> <span class="ss">'prog-mode</span> <span class="o">'</span><span class="p">(</span><span class="s">"|||&gt;"</span> <span class="s">"&lt;|||"</span> <span class="s">"&lt;==&gt;"</span> <span class="s">"&lt;!--"</span> <span class="s">"####"</span> <span class="s">"~~&gt;"</span> <span class="s">"***"</span> <span class="s">"||="</span> <span class="s">"||&gt;"</span>
+                       <span class="s">":::"</span> <span class="s">"::="</span> <span class="s">"=:="</span> <span class="s">"=="</span>  <span class="s">"==="</span> <span class="s">"==&gt;"</span> <span class="s">"=!="</span> <span class="s">"=&gt;&gt;"</span> <span class="s">"=&lt;&lt;"</span> <span class="s">"=/="</span>
+                       <span class="s">"!=="</span> <span class="s">"!!."</span> <span class="s">"&gt;=&gt;"</span> <span class="s">"&gt;&gt;="</span> <span class="s">"&gt;&gt;&gt;"</span> <span class="s">"&gt;&gt;-"</span> <span class="s">"&gt;-&gt;"</span> <span class="s">"-&gt;&gt;"</span> <span class="s">"--&gt;"</span> <span class="s">"---"</span>
+                       <span class="s">"-&lt;&lt;"</span> <span class="s">"&lt;~~"</span> <span class="s">"&lt;~&gt;"</span> <span class="s">"&lt;*&gt;"</span> <span class="s">"&lt;||"</span> <span class="s">"&lt;|&gt;"</span> <span class="s">"&lt;$&gt;"</span> <span class="s">"&lt;=="</span> <span class="s">"&lt;=&gt;"</span> <span class="s">"&lt;=&lt;"</span>
+                       <span class="s">"&lt;-&gt;"</span> <span class="s">"&lt;--"</span> <span class="s">"&lt;-&lt;"</span> <span class="s">"&lt;&lt;="</span> <span class="s">"&lt;&lt;-"</span> <span class="s">"&lt;&lt;&lt;"</span> <span class="s">"&lt;+&gt;"</span> <span class="s">"&lt;/&gt;"</span> <span class="s">"###"</span> <span class="s">"#_("</span>
+                       <span class="s">"..&lt;"</span> <span class="s">"..."</span> <span class="s">"+++"</span> <span class="s">"/=="</span> <span class="s">"///"</span> <span class="s">"_|_"</span> <span class="s">"www"</span> <span class="s">"&amp;&amp;"</span> <span class="s">"^="</span> <span class="s">"~~"</span> <span class="s">"~@"</span>
+                       <span class="s">"~="</span> <span class="s">"~&gt;"</span> <span class="s">"~-"</span> <span class="s">"**"</span> <span class="s">"*&gt;"</span> <span class="s">"*/"</span> <span class="s">"||"</span> <span class="s">"|}"</span> <span class="s">"|]"</span> <span class="s">"|="</span> <span class="s">"|&gt;"</span> <span class="s">"|-"</span>
+                       <span class="s">"{|"</span> <span class="s">"[|"</span> <span class="s">"]#"</span> <span class="s">"::"</span> <span class="s">":="</span> <span class="s">":&gt;"</span> <span class="s">":&lt;"</span> <span class="s">"$&gt;"</span> <span class="s">"=&gt;"</span> <span class="s">"!="</span> <span class="s">"!!"</span> <span class="s">"&gt;:"</span>
+                       <span class="s">"&gt;="</span> <span class="s">"&gt;&gt;"</span> <span class="s">"&gt;-"</span> <span class="s">"-~"</span> <span class="s">"-|"</span> <span class="s">"-&gt;"</span> <span class="s">"--"</span> <span class="s">"-&lt;"</span> <span class="s">"&lt;~"</span> <span class="s">"&lt;*"</span> <span class="s">"&lt;|"</span> <span class="s">"&lt;:"</span>
+                       <span class="s">"&lt;$"</span> <span class="s">"&lt;="</span> <span class="s">"&lt;&gt;"</span> <span class="s">"&lt;-"</span> <span class="s">"&lt;&lt;"</span> <span class="s">"&lt;+"</span> <span class="s">"&lt;/"</span> <span class="s">"#{"</span> <span class="s">"#["</span> <span class="s">"#:"</span> <span class="s">"#="</span> <span class="s">"#!"</span>
+                       <span class="s">"##"</span> <span class="s">"#("</span> <span class="s">"#?"</span> <span class="s">"#_"</span> <span class="s">"%%"</span> <span class="s">".="</span> <span class="s">".-"</span> <span class="s">".."</span> <span class="s">".?"</span> <span class="s">"+&gt;"</span> <span class="s">"++"</span> <span class="s">"?:"</span>
+                       <span class="s">"?="</span> <span class="s">"?."</span> <span class="s">"??"</span> <span class="s">";;"</span> <span class="s">"/*"</span> <span class="s">"/="</span> <span class="s">"/&gt;"</span> <span class="s">"//"</span> <span class="s">"__"</span> <span class="s">"~~"</span> <span class="s">"(*"</span> <span class="s">"*)"</span>
+                       <span class="s">"\\"</span> <span class="s">"://"</span><span class="p">))</span>
+  <span class="c1">;; Enables ligature checks globally in all buffers. You can also do it</span>
+  <span class="c1">;; per mode with `ligature-mode'.</span>
+  <span class="p">(</span><span class="nv">global-ligature-mode</span> <span class="no">t</span><span class="p">))</span>
+</pre>
+
+<p>With all of them enabled, this is what it looks like!</p>
+<p><img alt="Emacs with Theme &amp; Fonts enabled" src="../../images/emacs/ligatures.png"></p>
+<h3>Beautiful Org Mode</h3>
+<p>One of the main reasons I want to use Emacs again is how useful the <code>Org Mode</code> is.
+Compared how Org mode normally looks, Spacemacs included an extra package to make it looks better.
+I will be installing it for my current setup as well.</p>
+<blockquote>
+<p><code>M-x package-install &lt;ret&gt; org-bullets</code></p>
+</blockquote>
+<pre class="code literal-block"><span class="c1">;; Bottom of init file</span>
+
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-mode-hook</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">org-bullets-mode</span> <span class="mi">1</span><span class="p">)))</span>
+</pre>
+
+<p>This is what it would look like: <img alt="Org Bullets" src="../../images/emacs/org-bullets.png"></p>
+<h3>Soft Wrap (Lines &amp; Words)</h3>
+<h4>Definitions</h4>
+<blockquote>
+<p>Soft Wrap is visually splitting text based on conditions. It doesn't affect actual file content.</p>
+<p>Hard Wrap will actually split the text into multiple lines and it will affect file contents.</p>
+</blockquote>
+<h4>How To: Soft Wrap</h4>
+<p>Depending on the buffer size, words get wrapped midway and continue on next line. Instead it would be ideal to have the whole word wrapped onto next line. </p>
+<p>When working with free flowing text, a line can run till the end of the buffer before being wrapped onto next line. Perhaps you prefer it be wrapped after certain column length.</p>
+<p>This can be achieved by installing package <code>visual-fill-column</code>. Installation steps are left as an exercise for the reader ;)</p>
+<pre class="code literal-block"><span class="c1">;; Can you guess where to put this?</span>
+
+<span class="c1">;; Soft Wrap: Words &amp; Lines</span>
+<span class="p">(</span><span class="nv">global-visual-fill-column-mode</span> <span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">setq-default</span> <span class="nv">fill-column</span> <span class="mi">120</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">setq-default</span> <span class="nv">word-wrap</span> <span class="no">t</span><span class="p">)</span>
+</pre>
+
+<h3>Line Numbers</h3>
+<p>If you are a programmer, you know how important line numbers are.</p>
+<p>If you search the internet, you will find 2 major options:</p>
+<ul>
+<li><code>linum-mode</code></li>
+<li><code>line-number-mode</code></li>
+</ul>
+<p>However I recommend going with in-built method</p>
+<blockquote>
+<p><code>global-display-line-numbers-mode</code></p>
+</blockquote>
+<p>as it doesn't glitch with <code>Soft Wrap</code>.</p>
+<pre class="code literal-block"><span class="c1">;; Enable Line Numbers</span>
+<span class="p">(</span><span class="nv">global-display-line-numbers-mode</span> <span class="no">t</span><span class="p">)</span>
+
+<span class="c1">;; set type of line display. Options :: 'absolute 'relative 'none 'visual</span>
+<span class="p">(</span><span class="nv">menu-bar-display-line-numbers-mode</span> <span class="ss">'absolute</span><span class="p">)</span>
+</pre>
+
+<h3>Startup Screen</h3>
+<p>At this point of time, this is what the Emacs looks like. It is not a bad but it doesn't have the <strong>Wow!</strong> factor.</p>
+<p>Let's start with simple stuff first. We can</p>
+<ul>
+<li>Remove Toolbar</li>
+<li>Remove Menubar</li>
+<li>Start in Full screen</li>
+</ul>
+<pre class="code literal-block"><span class="c1">;; Remove Toolbars</span>
+<span class="p">(</span><span class="nv">tool-bar-mode</span> <span class="mi">-1</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">menu-bar-mode</span> <span class="mi">-1</span><span class="p">)</span>
+
+<span class="c1">;; Fullscreen</span>
+<span class="p">(</span><span class="nv">toggle-frame-fullscreen</span><span class="p">)</span>
+</pre>
+
+<h4>Dashboard</h4>
+<p>We can bring in a lot more finesse by using <code>emacs-dashboard</code> which is available on MELPA.</p>
+<h5>Dashboard with Centered content</h5>
+<pre class="code literal-block"><span class="c1">;; Dashboard</span>
+<span class="c1">;; Main Configuration</span>
+<span class="c1">;; - Content is not centered by default. To center, set</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">dashboard-center-content</span> <span class="no">t</span><span class="p">)</span>
+
+<span class="c1">;; - To disable shortcut "jump" indicators for each section, set</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">dashboard-show-shortcuts</span> <span class="no">nil</span><span class="p">)</span>
+
+<span class="c1">;; - Init</span>
+<span class="p">(</span><span class="nv">dashboard-setup-startup-hook</span><span class="p">)</span>
+</pre>
+
+<h5>Customizing Dashboard</h5>
+<p>Instead of showing default logo &amp; title, we can load our own stuff.</p>
+<p>If you want to do something similar, start by adding these functions.</p>
+<pre class="code literal-block"><span class="c1">;; Dashboard</span>
+<span class="c1">;; Helper Methods</span>
+<span class="p">(</span><span class="nb">defun</span> <span class="nv">slurp-splash-screen</span> <span class="p">()</span> 
+  <span class="s">"Return FILE's content as a string."</span>
+  <span class="p">(</span><span class="nv">with-temp-buffer</span> <span class="p">(</span><span class="nv">insert-file-contents</span> <span class="s">"~/.emacs.d/manual/splash.txt"</span><span class="p">)</span> 
+            <span class="p">(</span><span class="nv">buffer-string</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">defcustom</span> <span class="nv">get-logo</span> 
+  <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">"manual/logo4.png"</span> <span class="nv">user-emacs-directory</span><span class="p">)</span> 
+  <span class="s">"Get logo"</span> 
+  <span class="ss">:group</span> <span class="ss">'entmacs</span> 
+  <span class="ss">:type</span> <span class="ss">'string</span><span class="p">)</span>
+</pre>
+
+<p>With all this in place, we get!</p>
+<p><img alt="Entmacs" src="../../images/emacs/entmacs.png"></p>
+<h5>Unwanted recent files</h5>
+<p>You might notice a lot of unwanted files/folders also show up on your dashboard. The easiest way This is handled by <code>recentf</code>. So we need to let <code>recentf</code> know which folders to exclude.</p>
+<pre class="code literal-block"><span class="c1">;; - Exclude unwanted folders</span>
+<span class="p">(</span><span class="nb">require</span> <span class="ss">'recentf</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'recentf-exclude</span>
+             <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">"~/.emacs.d"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'recentf-exclude</span>
+             <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">"/usr"</span><span class="p">))</span>
+</pre>
+
+<h4>Indent Guides</h4>
+<p>Indent Guides are useful to see how many spaces a code block has been indented.</p>
+<p>For this I installed package <code>highlight-indent-guides</code></p>
+<pre class="code literal-block"><span class="c1">;; Code Indentation Guides</span>
+<span class="c1">;; - Indent Fill Type. Options :: 'fill 'column 'character 'bitmap</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">highlight-indent-guides-method</span> <span class="ss">'column</span><span class="p">)</span>
+<span class="c1">;; - Hook to enable for prog-mode</span>
+<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'prog-mode-hook</span> <span class="ss">'highlight-indent-guides-mode</span><span class="p">)</span>
+</pre>
+
+<h2>Customization</h2>
+<p>Apart from Evil mode and relying on <code>M-x</code> for executing commands. You can also create new keyboard shortcuts. Let's look at two ways of creating keyboard shortcuts</p>
+<h3>Binding Keys</h3>
+<p>One of the most frequent tasks I do is open my init file which I was doing by typing in <code>:e ~/.emacs</code>.</p>
+<p>However I can assign a set of key sequences to do the same.</p>
+<pre class="code literal-block"><span class="c1">;; My Key Bindings</span>
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-x e"</span><span class="p">)</span>
+        <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span> <span class="p">(</span><span class="nv">find-file</span> <span class="s">"~/.emacs"</span><span class="p">)))</span>
+</pre>
+
+<h3>Keyboard Macros</h3>
+<p>To be honest it took me a lot longer to figure out the right function to create the key binding. In the mean time, I figured out a more "hacky" way to do it via Keyboard Macros (<strong>kbd-macros</strong>).</p>
+<p>Basically you tell Emacs to record your keystrokes as a sequence. Then you can reuse the macro by giving it a name. A typical process might look something as follows:</p>
+<ul>
+<li>
+<code>&lt;f3&gt;</code>: <strong>Start recording keystrokes</strong>
+</li>
+<li>
+<code>&lt;f4&gt;</code>: <strong>Stop recording keystrokes</strong>
+</li>
+<li>
+<code>M-x name-last-kbd-macro</code>: <strong>Store keyboard macro with a name</strong>
+</li>
+<li>
+<code>M-x insert-kdb-macro</code>: <strong>Insert into buffer keyboard macro that was stored</strong>
+</li>
+</ul>
+<p>I was able to then reuse this macro and bind it to the key sequence.</p>
+<pre class="code literal-block"><span class="c1">;; Keyboard Macros</span>
+<span class="p">(</span><span class="nv">fset</span> <span class="ss">'ed-emacsprof</span>
+   <span class="p">(</span><span class="nv">kmacro-lambda-form</span> <span class="nv">[?:</span> <span class="nv">?e</span> <span class="nv">?</span>  <span class="nv">?~</span> <span class="nv">?/</span> <span class="nv">?.</span> <span class="nv">?e</span> <span class="nv">?m</span> <span class="nv">?a</span> <span class="nv">?c</span> <span class="nv">?s</span> <span class="nv">return]</span> <span class="mi">0</span> <span class="s">"%d"</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c e"</span><span class="p">)</span> <span class="ss">'ed-emacsprof</span><span class="p">)</span>
+</pre>
+
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Liked this and want more?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<h2>Noteworthy Mentions</h2>
+<p>Some packages &amp; commands you might want to look into</p>
+<ul>
+<li><code>restart-emacs</code></li>
+<li>
+<code>treemacs</code> or <code>neotree</code>
+</li>
+<li>Emacs' built-in help you can pull up by <code>C-h ?</code>
+</li>
+<li>Switching between buffers with <code>C-x b</code>
+</li>
+<li>Switching between split panes <code>C-x o</code>
+</li>
+<li><code>markdown-mode</code></li>
+<li><code>elisp-format</code></li>
+<li><code>display-time-mode</code></li>
+<li><code>display-battery-mode</code></li>
+</ul>
+<h3>Terra Incognita</h3>
+<p>I still have a lot more to explore. These are some of the packages:</p>
+<ul>
+<li><code>Hydra</code></li>
+<li><code>lsp/lsp-ui</code></li>
+<li><code>yas snippets</code></li>
+<li><code>projectile</code></li>
+<li><code>org-mode</code></li>
+</ul>
+<h2>Conclusion</h2>
+<p>Hope you found this guide useful. I am sure there are many things I did did not get right and I will come back to correct them in this guide.</p>
+<p>
+<script src="https://gumroad.com/js/gumroad.js"></script></p>
+<hr>
+<div class="center">
+  <b>Would you like a free ebooklet?</b>
+  <p>
+  <a class="gumroad-button" href="https://gum.co/AWmOs" target="_blank">FP for Sceptics: Algebraic Data Types</a>
+</p>
+</div>
+<hr>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/emacs/" rel="tag">emacs</a></li>
+            <li><a class="tag p-category" href="../../categories/learnings/" rel="tag">learnings</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../second-static-website/" rel="prev" title="Second Static Website">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-148031816-1');
+</script>
+</body>
+</html>

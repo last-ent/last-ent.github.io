@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 08 Nov 2020 01:15:16 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Second Static Website</title><link>https://last-ent.com/posts/second-static-website/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;h2&gt;Static Website Hosting&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 08 Nov 2020 01:19:29 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Ent's snappy guide to Emacs</title><link>https://last-ent.com/posts/emacs-snappy-intro/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;I have used many editors over time and one "System" that I really enjoyed was Emacs. However I did not understand how it worked under the hood and it led to some fun times. This post is an attempt to log my experience with learning and understanding the "missing bits" in a single place. &lt;/p&gt;
+&lt;p&gt;This guide is consolidation of knowledge &amp;amp; experience of 2-3 days of intense focus learning &amp;amp; modifying Emacs.&lt;/p&gt;
+&lt;h3&gt;Purpose&lt;/h3&gt;
+&lt;p&gt;The aim of this guide is to quickly:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Bootstrap your understanding to a level where you can start thinking in terms Emacs' terminology and use that knowledge to searching the internet for new questions you might have. &lt;/li&gt;
+&lt;li&gt;Develop a rudimentary understanding of how to customize Emacs. &lt;/li&gt;
+&lt;li&gt;Setup an aesthically pleasing UI with usable setup.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This guide IS NOT about the basics of text editors like:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;What are text editors? What is Emacs or Vim?&lt;/li&gt;
+&lt;li&gt;Which editor should I use?&lt;/li&gt;
+&lt;li&gt;How to navigate using either editor?&lt;/li&gt;
+&lt;li&gt;How to read/write &lt;code&gt;elisp&lt;/code&gt;. I have a basic understanding of lisp/clojure but otherwise I haven't bothered with learning it for this.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/emacs-snappy-intro/"&gt;Read more…&lt;/a&gt; (20 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>emacs</category><category>learnings</category><guid>https://last-ent.com/posts/emacs-snappy-intro/</guid><pubDate>Sat, 07 Nov 2020 00:46:50 GMT</pubDate></item><item><title>Second Static Website</title><link>https://last-ent.com/posts/second-static-website/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;h2&gt;Static Website Hosting&lt;/h2&gt;
 &lt;p&gt;I really like the low footprint and utility of Static Websites. This website is built using &lt;code&gt;Nikola&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;In this post I will talk about some issues I faced with deploying a second static website and how I eventually solved it.&lt;/p&gt;
 &lt;h3&gt;Github Pages&lt;/h3&gt;
@@ -106,26 +124,4 @@ I break this thread.
 &lt;li&gt;Apply equation for area of rectangle&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/introduction-to-adts/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>FP for sceptics</category><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><guid>https://last-ent.com/posts/introduction-to-adts/</guid><pubDate>Mon, 13 Apr 2020 22:31:05 GMT</pubDate></item><item><title>Elegance of Monadic Composition</title><link>https://last-ent.com/posts/elegance-of-monadic-composition/</link><dc:creator>Ent</dc:creator><description>&lt;figure&gt;&lt;img src="https://last-ent.com/images/donatron-io.png"&gt;&lt;/figure&gt; &lt;div&gt;&lt;p&gt;Functional programming has many interesting concepts but it can be hard to find practical applications for it in everyday work. In this post, I will explain how Monadic Composition can be used write elegant and easy to understand code.&lt;/p&gt;
-&lt;p&gt;Consider an API &lt;code&gt;Donatron&lt;/code&gt; that accepts donations. The API's algorithm is as follows:&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Accepts donations as list of strings&lt;/li&gt;
-&lt;li&gt;Should have a few valid integer donations&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Else&lt;/strong&gt; goto &lt;code&gt;6&lt;/code&gt;. &lt;strong&gt;Response&lt;/strong&gt;: &lt;code&gt;No Valid Ints&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Should have a few donations of value 10 or above&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Else&lt;/strong&gt; goto &lt;code&gt;6&lt;/code&gt;. &lt;strong&gt;Response&lt;/strong&gt;: &lt;code&gt;No Acceptable Donations Found&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Valid donations to external service should succeed&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Else&lt;/strong&gt; &lt;code&gt;RuntimeException&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Log all accepted submissions&lt;/li&gt;
-&lt;li&gt;Log Response&lt;/li&gt;
-&lt;li&gt;Return Response&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;End goal is to be able to execute &lt;code&gt;Donatron.donate&lt;/code&gt; function and get correct response.&lt;/p&gt;
-&lt;p&gt;
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/elegance-of-monadic-composition/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><category>type driven development</category><guid>https://last-ent.com/posts/elegance-of-monadic-composition/</guid><pubDate>Sat, 02 Nov 2019 03:19:08 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/introduction-to-adts/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>FP for sceptics</category><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><guid>https://last-ent.com/posts/introduction-to-adts/</guid><pubDate>Mon, 13 Apr 2020 22:31:05 GMT</pubDate></item></channel></rss>

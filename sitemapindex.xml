@@ -6,6 +6,10 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
+  <loc>https://last-ent.com/categories/emacs.xml</loc>
+  <lastmod>2020-11-08T01:19:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://last-ent.com/categories/enterprise-software-development.xml</loc>
   <lastmod>2020-11-08T01:15:00Z</lastmod>
  </sitemap>
@@ -16,6 +20,10 @@
  <sitemap>
   <loc>https://last-ent.com/categories/functional-programming.xml</loc>
   <lastmod>2020-11-08T01:15:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://last-ent.com/categories/learnings.xml</loc>
+  <lastmod>2020-11-08T01:19:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/musings.xml</loc>
@@ -51,10 +59,10 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/rss.xml</loc>
-  <lastmod>2020-11-08T01:15:00Z</lastmod>
+  <lastmod>2020-11-08T01:19:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/sitemap.xml</loc>
-  <lastmod>2020-11-08T01:15:00Z</lastmod>
+  <lastmod>2020-11-08T01:19:00Z</lastmod>
  </sitemap>
 </sitemapindex>

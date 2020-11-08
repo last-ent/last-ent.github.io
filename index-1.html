@@ -83,7 +83,51 @@
     
         
     <div class="postindex">
-            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/elements-of-coding-style/" class="u-url">Elements of Coding Style</a></h1>
+            <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/elegance-of-monadic-composition/" class="u-url">Elegance of Monadic Composition</a></h1>
+                <div class="metadata">
+                    <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                        Ent
+                    </span></p>
+            <p class="dateline">
+            <a href="posts/elegance-of-monadic-composition/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-11-02T04:19:08+01:00" itemprop="datePublished" title="2019-11-02 04:19">2019-11-02 04:19</time></a>
+            </p>
+                </div>
+            </header><div class="p-summary entry-summary">
+                    <div>
+<p>Functional programming has many interesting concepts but it can be hard to find practical applications for it in everyday work. In this post, I will explain how Monadic Composition can be used write elegant and easy to understand code.</p>
+<p>Consider an API <code>Donatron</code> that accepts donations. The API's algorithm is as follows:</p>
+<ol>
+<li>Accepts donations as list of strings</li>
+<li>Should have a few valid integer donations<ul>
+<li>
+<strong>Else</strong> goto <code>6</code>. <strong>Response</strong>: <code>No Valid Ints</code>
+</li>
+</ul>
+</li>
+<li>Should have a few donations of value 10 or above<ul>
+<li>
+<strong>Else</strong> goto <code>6</code>. <strong>Response</strong>: <code>No Acceptable Donations Found</code>
+</li>
+</ul>
+</li>
+<li>Valid donations to external service should succeed<ul>
+<li>
+<strong>Else</strong> <code>RuntimeException</code>
+</li>
+</ul>
+</li>
+<li>Log all accepted submissions</li>
+<li>Log Response</li>
+<li>Return Response</li>
+</ol>
+<p>End goal is to be able to execute <code>Donatron.donate</code> function and get correct response.</p>
+<p>
+</p>
+<p class="more"><a href="posts/elegance-of-monadic-composition/">Read more…</a></p>
+</div>
+                </div>
+            </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/elements-of-coding-style/" class="u-url">Elements of Coding Style</a></h1>
                 <div class="metadata">
                     <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                         Ent
