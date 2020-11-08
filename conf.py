@@ -1214,9 +1214,6 @@ EXTRA_HEAD_DATA = """
 	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
 	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
 </style>
-
-<script src="https://gumroad.com/js/gumroad.js"></script>
-
 <style>
 .center {
   text-align: center;
