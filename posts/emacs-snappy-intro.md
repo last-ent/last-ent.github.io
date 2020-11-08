@@ -7,6 +7,7 @@
 .. link: 
 .. description: Ent's Quick and dirty guide to learning how to use Emacs productively. Snappy guide to start customizing it and be productive ASAP. 
 .. type: text
+.. previewimage: /images/emacs/entmacs.png
 -->
 
 
