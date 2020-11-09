@@ -19,7 +19,7 @@ That intrigued me, to say the least.
 
 I gave it a try and `Yes, it's that simple`.
 
-[Popcorn I made](/images/popcorn.jpeg)
+![Popcorn I made](/images/popcorn.jpeg)
 
 A few things to keep in mind of course, so read on if it interests you.
 
