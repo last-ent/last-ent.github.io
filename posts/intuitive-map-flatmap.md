@@ -30,7 +30,7 @@ Though I have defined three terms it will be easier to think about them visually
 ###`Basic types` (Int, String etc) will be represented by shapes
 ![Basic Types](/images/fmap/basic-types.png).
 
-{{% promptbook %}}
+{{% promptmid %}}
 
 ### `Containers` will be represented by shapes
 
