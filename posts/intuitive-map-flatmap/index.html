@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# " lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="Intuitive guide to learning map/flatmap. Language agnostic way to understand map/flatmap. This is part of my ongoing series, FP for Sceptics.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FP for Sceptics: Intuitive guide to map/flatmap | Last Ent's Thoughts</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+<meta name="theme-color" content="#5670d4">
+<meta name="generator" content="Nikola (getnikola.com)">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link rel="canonical" href="https://last-ent.com/posts/intuitive-map-flatmap/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<style>
+.center {
+  text-align: center;
+}
+</style>
+<meta name="author" content="Ent">
+<link rel="prev" href="../my-favourite-evening-snack/" title="My Favourite Evening Snack" type="text/html">
+<meta property="og:site_name" content="Last Ent's Thoughts">
+<meta property="og:title" content="FP for Sceptics: Intuitive guide to map/flatmap">
+<meta property="og:url" content="https://last-ent.com/posts/intuitive-map-flatmap/">
+<meta property="og:description" content="Intuitive guide to learning map/flatmap. Language agnostic way to understand map/flatmap. This is part of my ongoing series, FP for Sceptics.">
+<meta property="og:image" content="https://last-ent.com/images/fmap/map.png">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2020-11-19T19:03:25+01:00">
+<meta property="article:tag" content="FP for sceptics">
+<meta property="article:tag" content="functional programming">
+<meta property="article:tag" content="programming">
+<meta property="article:tag" content="software design">
+</head>
+<body>
+<a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+<!-- Header and menu bar -->
+<div class="container">
+      <header class="blog-header py-3"><div class="row nbb-header align-items-center">
+          <div class="col-md-3 col-xs-2 col-sm-2" style="width: auto;">
+            <button class="navbar-toggler navbar-light bg-light nbb-navbar-toggler" type="button" data-toggle="collapse" data-target=".bs-nav-collapsible" aria-controls="bs-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse bs-nav-collapsible bootblog4-search-form-holder">
+                
+            </div>
+        </div>
+          <div class="col-md-6 col-xs-10 col-sm-10 bootblog4-brand" style="width: auto;">
+            <a class="navbar-brand blog-header-logo text-dark" href="../../">
+
+            <span id="blog-title">Last Ent's Thoughts</span>
+        </a>
+          </div>
+            <div class="col-md-3 justify-content-end align-items-center bs-nav-collapsible collapse flex-collapse bootblog4-right-nav">
+            <nav class="navbar navbar-light bg-white"><ul class="navbar-nav bootblog4-right-nav"></ul></nav>
+</div>
+    </div>
+</header><nav class="navbar navbar-expand-md navbar-light bg-white static-top"><div class="collapse navbar-collapse bs-nav-collapsible" id="bs-navbar">
+            <ul class="navbar-nav nav-fill d-flex w-100">
+<li class="nav-item">
+<a href="../../pages/learning-targets" class="nav-link">Learning Targets</a>
+            </li>
+<li class="nav-item dropdown">
+<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archives</a>
+            <div class="dropdown-menu">
+                    <a href="../../archive.html" class="dropdown-item">Archive</a>
+                    <a href="../../categories/" class="dropdown-item">Tags</a>
+            </div>
+                </li>
+<li class="nav-item">
+<a href="../../pages/about" class="nav-link">About</a>
+
+                
+            </li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</nav>
+</div>
+
+<div class="container" id="content" role="main">
+    <div class="body-content">
+        <!--Body content-->
+        
+        
+        
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">FP for Sceptics: Intuitive guide to map/flatmap</a></h1>
+
+        <div class="metadata">
+            <p class="byline author vcard p-author h-card"><span class="byline-name fn p-name" itemprop="author">
+                    Ent
+            </span></p>
+            <p class="dateline">
+            <a href="." rel="bookmark">
+            <time class="published dt-published" datetime="2020-11-19T19:03:25+01:00" itemprop="datePublished" title="2020-11-19 19:03">2020-11-19 19:03</time></a>
+            </p>
+            
+
+        </div>
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
+    <div>
+<h2>Backbone of Functional Programming</h2>
+<p><code>map</code> &amp; <code>flatmap</code> form the backbone of Functional Progamming. It is very important be comfortable with these two concepts and this guide will help you develop an intuition for them.</p>
+<p>This guide is language agnostic but I expect you to be familiar with basic programming concepts like functions, types, data type/objects and list. </p>
+<h3>Nomenclature</h3>
+<p>Let me introduce you to some basic terms we will be using to talk about <code>map/flatmap</code>.</p>
+<ul>
+<li>
+<code>Type</code>s are data constructs and they can be <code>Basic Types</code> like Int, String etc.</li>
+<li>
+<code>Container</code> is a special <code>type</code> which contains another <code>type</code>. For example a List of Ints.</li>
+<li>
+<code>Function</code> is a function whose input is of Type 1 and output is of Type 2. Type 1 &amp; Type 2 can be same type.</li>
+</ul>
+<h3>Visualize</h3>
+<p>Though I have defined three terms it will be easier to think about them visually.</p>
+<h4>
+<code>Basic types</code> (Int, String etc) will be represented by shapes</h4>
+<p><img alt="Basic Types" src="../../images/fmap/basic-types.png">.</p>
+<p>
+<script src="https://gumroad.com/js/gumroad.js"></script></p>
+<hr>
+<div class="center">
+  <b>Would you like a free ebooklet?</b>
+  <p>
+  <a class="gumroad-button" href="https://gum.co/AWmOs" target="_blank">FP for Sceptics: Algebraic Data Types</a>
+</p>
+</div>
+<hr>
+<h4>
+<code>Containers</code> will be represented by shapes</h4>
+<p><img alt="Empty Containers" src="../../images/fmap/empty-containers.png"></p>
+<p>In reality, we will always use</p>
+<h4><code>Container for a Type</code></h4>
+<p><img alt="Square for Triangle" src="../../images/fmap/full-containers.png"></p>
+<p>etc.</p>
+<h4>
+<code>Functions</code> will be denoted as</h4>
+<p><img alt="f : Triangle -&gt; Star" src="../../images/fmap/fun.png"></p>
+<h3>Verbalize</h3>
+<p>Let's see how to verbalize these terms:</p>
+<blockquote>
+<p><img alt="Square for Triangle" src="../../images/fmap/t-sq.png"> Container for Triangle</p>
+<p><img alt="Square for Circle for Triangle" src="../../images/fmap/t-crl-sq.png"> Square for Circle for Triangle</p>
+<p><img alt="f : Triangle -&gt; Star" src="../../images/fmap/fun.png">  f is a function from Triangle to Star</p>
+<p><img alt="g : Triangle -&gt; Square for Triangle" src="../../images/fmap/g-fun.png"> g is a function from Triangle to Container of Triangle</p>
+</blockquote>
+<h2>Fundamentals</h2>
+<p>In this section, I want to introduce one basic concept along with <code>map/flatmap</code>.</p>
+<h3>Function Composition</h3>
+<blockquote>
+<p><code>Function Composition</code> is chaining two or more functions such that output of one function feeds into to the input of second function and so on.</p>
+</blockquote>
+<p><img alt="Derivation of g . f : Triangle to Container of Reverse Triangle" src="../../images/fmap/gof-derive.png"></p>
+<h3><code>map</code></h3>
+<blockquote>
+<p><code>map</code> is a function that takes a Container (C1) &amp; a Function (F) as input and returns a new Container (C2) for Function's (F) output type.</p>
+</blockquote>
+<h4>Rules for <code>map</code>
+</h4>
+<blockquote>
+<ul>
+<li>Type contained by Container (C1) has to match Function's (F) input type.</li>
+</ul>
+</blockquote>
+<p><img alt="map : (f : Triangle -&gt; Reverse Triangle, Container for Triangle) -&gt; Container for Reverse Triangle" src="../../images/fmap/map.png"></p>
+<h3><code>flatmap</code></h3>
+<blockquote>
+<p><code>flatmap</code> is a function that takes a Container (C1) &amp; a Function (F) as input and returns a new Container (C2) for Function's (F) output type.</p>
+</blockquote>
+<h4>Rules for <code>flatmap</code>
+</h4>
+<blockquote>
+<ul>
+<li>Type contained by Container (C1) has to match Function's (F) input type.</li>
+<li>Function (F) has to return a Container (C2)</li>
+<li>C1 == C2. This is very important to remember as many people trip up on this.</li>
+</ul>
+</blockquote>
+<p><img alt="flatmap : (f : Triangle -&gt; Container for Reverse Triangle, Container for Triangle) -&gt; Container for Reverse Triangle" src="../../images/fmap/flatmap.png"></p>
+<blockquote>
+<p><strong>Note</strong>: As you can see, both <code>map</code> &amp; <code>flatmap</code> have the same written definition but the strictness is in the rules it has to adhere to.</p>
+</blockquote>
+<h2>Exercise Problems</h2>
+<p>Let's conclude with a few exercise problems.</p>
+<p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Liked this and want more?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<h3>Problem Set: Map</h3>
+<p><img alt="Problem Set: Map" src="../../images/fmap/map-problems.png"></p>
+<details><summary><b>Solutions</b></summary><p>
+
+</p>
+<ol>
+<li> <img src="../../images/fmap/t-sq.png" alt="Container for Triangle">
+</li>
+    <li> <img src="../../images/fmap/t-crl-sq.png" alt="Container for Circle for Triangle">
+</li>
+    <li> <b>Error!</b> <i>Breaks the rule for <b>map</b></i>
+</li>
+    <li> <b>Error!</b> <i><b>map</b> works on a Container, not a Basic Type</i>
+</li>
+</ol></details><hr>
+<h3>Problem Set: FLatMap</h3>
+<p><img alt="Problem Set: FlatMap" src="../../images/fmap/flatmap-problems.png"></p>
+<details><summary><b>Solutions</b></summary><p>
+</p>
+<ol start="5">
+<li> <img src="../../images/fmap/soln-5.png" alt="Container for Triangle">
+</li>
+    <li> <img src="../../images/fmap/soln-6.png" alt="Container for Circle for Triangle">
+</li>
+    <li> <b>Error!</b> <i>Breaks the 2nd Rule for <b>flatmap</b></i>
+</li>
+</ol></details><hr>
+<h3>Problem Set: Advanced FlatMap</h3>
+<p><img alt="Problem Set: Advanced FlatMap" src="../../images/fmap/adv-flatmap-problems.png"></p>
+<details><summary><b>Solutions</b></summary><p>
+</p>
+<ol start="8">
+<li> <img src="../../images/fmap/soln-8.png" alt="Triangle to Reverse Triangle">
+</li>
+    <li> <img src="../../images/fmap/soln-9.png" alt="Triangle to Container for Reverse Triangle">
+</li>
+    <li> <img src="../../images/fmap/soln-10.png" alt="Circle for Reverse Triangle to Square for Rev Triangle">
+</li>
+</ol></details><p></p>
+<hr>
+<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
+<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<label for="mce-EMAIL">Liked this and want more?</label>
+	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+<hr>
+<h2>Conclusion</h2>
+<p>I hope after going through this guide, you are more comfortable working with <code>map/flatmap</code>.</p>
+<p>If you liked this guide, have a look at the rest of my posts on FP (in Scala) - <a href="../../categories/fp-for-sceptics/">FP for Sceptics</a></p>
+<p>
+<script src="https://gumroad.com/js/gumroad.js"></script></p>
+<hr>
+<div class="center">
+  <b>Would you like a free ebooklet?</b>
+  <p>
+  <a class="gumroad-button" href="https://gum.co/AWmOs" target="_blank">FP for Sceptics: Algebraic Data Types</a>
+</p>
+</div>
+<hr>
+</div>
+    </div>
+    <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
+<li><a class="tag p-category" href="../../categories/fp-for-sceptics/" rel="tag">FP for sceptics</a></li>
+            <li><a class="tag p-category" href="../../categories/functional-programming/" rel="tag">functional programming</a></li>
+            <li><a class="tag p-category" href="../../categories/programming/" rel="tag">programming</a></li>
+            <li><a class="tag p-category" href="../../categories/software-design/" rel="tag">software design</a></li>
+        </ul>
+<ul class="pager hidden-print">
+<li class="previous">
+                <a href="../my-favourite-evening-snack/" rel="prev" title="My Favourite Evening Snack">Previous post</a>
+            </li>
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            Contents © 2020         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+            
+            
+        </footer>
+</div>
+</div>
+
+
+        <script src="../../assets/js/all-nocdn.js"></script><script>
+    baguetteBox.run('div#content', {
+        ignoreClass: 'islink',
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+    }});
+    </script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-148031816-1');
+</script>
+</body>
+</html>
