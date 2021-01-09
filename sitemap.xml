@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2020-11-07T15:44:00Z</lastmod>
+  <lastmod>2021-01-08T23:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
@@ -18,12 +18,20 @@
   <lastmod>2020-11-07T15:44:00Z</lastmod>
  </url>
  <url>
+  <loc>https://last-ent.com/2021/</loc>
+  <lastmod>2021-01-08T23:33:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2020-11-20T21:55:00Z</lastmod>
+  <lastmod>2021-01-09T00:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
-  <lastmod>2020-11-09T20:13:00Z</lastmod>
+  <lastmod>2021-01-09T00:35:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/categories/cat_productivity/</loc>
+  <lastmod>2021-01-08T23:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/emacs/</loc>
@@ -58,6 +66,10 @@
   <lastmod>2020-11-07T15:44:00Z</lastmod>
  </url>
  <url>
+  <loc>https://last-ent.com/categories/productivity/</loc>
+  <lastmod>2021-01-09T00:35:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://last-ent.com/categories/programming/</loc>
   <lastmod>2020-11-07T15:44:00Z</lastmod>
  </url>
@@ -83,7 +95,7 @@
  </url>
  <url>
   <loc>https://last-ent.com/index-1.html</loc>
-  <lastmod>2020-11-20T21:55:00Z</lastmod>
+  <lastmod>2021-01-09T00:37:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/about/</loc>
@@ -108,6 +120,10 @@
  <url>
   <loc>https://last-ent.com/posts/companies-devs-want-different-things/</loc>
   <lastmod>2020-11-07T15:44:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/completing-tasks-through-anxiety-paralysis/</loc>
+  <lastmod>2021-01-08T23:33:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/dependency-mock-server/</loc>
@@ -158,8 +174,16 @@
   <lastmod>2020-11-07T15:44:00Z</lastmod>
  </url>
  <url>
+  <loc>https://last-ent.com/posts/productivity-for-overwhelmed/</loc>
+  <lastmod>2021-01-08T23:56:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://last-ent.com/posts/second-static-website/</loc>
   <lastmod>2020-11-07T15:44:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/system-for-overwhelmed/</loc>
+  <lastmod>2021-01-08T23:55:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</loc>

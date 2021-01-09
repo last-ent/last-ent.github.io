@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2020 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Fri, 20 Nov 2020 22:04:24 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>FP for Sceptics: Intuitive guide to map/flatmap</title><link>https://last-ent.com/posts/intuitive-map-flatmap/</link><dc:creator>Ent</dc:creator><description>&lt;figure&gt;&lt;img src="https://last-ent.com/images/fmap/map.png"&gt;&lt;/figure&gt; &lt;div&gt;&lt;h2&gt;Backbone of Functional Programming&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sat, 09 Jan 2021 00:40:40 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Productivity for the Overwhelmed &amp; the Anxious</title><link>https://last-ent.com/posts/productivity-for-overwhelmed/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;h2&gt;Productivity for the Overwhelmed &amp;amp; the Anxious&lt;/h2&gt;
+&lt;p&gt;A few years back I was suffering from terrible anxiety which basically made it impossible for me to get anything done.&lt;/p&gt;
+&lt;p&gt;It was a mix between&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Fear of wasting time on wrong thing&lt;/li&gt;
+&lt;li&gt;Fear of prioritizing incorrectly&lt;/li&gt;
+&lt;li&gt;Fear of forgetting important tasks&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;the list goes on...&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Many of these were valid concerns and while I knew about a few task management systems (GTD, Pomodoro, etc) they had some strict rules (and for good reasons) but not useful when suffering from anxiety and indecision. I had to come up with a system that would work while taking my anxiety into account.&lt;/p&gt;
+&lt;p&gt;Few things the system had to do:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Let me categorize tasks in order of importance/significance.&lt;/li&gt;
+&lt;li&gt;Be flexible in case of wrong categorization.&lt;/li&gt;
+&lt;li&gt;Create a sense of progression.&lt;/li&gt;
+&lt;li&gt;Let me add new tasks when they pop in my mind during the day.&lt;/li&gt;
+&lt;li&gt;Create certainty around time spent on each task.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/productivity-for-overwhelmed/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>off-topic</category><category>productivity</category><guid>https://last-ent.com/posts/productivity-for-overwhelmed/</guid><pubDate>Fri, 08 Jan 2021 22:00:08 GMT</pubDate></item><item><title>FP for Sceptics: Intuitive guide to map/flatmap</title><link>https://last-ent.com/posts/intuitive-map-flatmap/</link><dc:creator>Ent</dc:creator><description>&lt;figure&gt;&lt;img src="https://last-ent.com/images/fmap/map.png"&gt;&lt;/figure&gt; &lt;div&gt;&lt;h2&gt;Backbone of Functional Programming&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;map&lt;/code&gt; &amp;amp; &lt;code&gt;flatmap&lt;/code&gt; form the backbone of Functional Progamming. It is very important be comfortable with these two concepts and this guide will help you develop an intuition for them.&lt;/p&gt;
 &lt;p&gt;This guide is language agnostic but I expect you to be familiar with basic programming concepts like functions, types, data type/objects and list. &lt;/p&gt;
 &lt;h3&gt;Nomenclature&lt;/h3&gt;
@@ -134,19 +153,4 @@ I break this thread.
 &lt;p&gt;In this post, we will reuse the same system but try to figure out where &lt;code&gt;Option&lt;/code&gt; type makes most sense to use.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Option Type: Where to use it?" src="https://last-ent.com/images/option-practice-title.png"&gt;&lt;/p&gt;
 &lt;p&gt;
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/option-type-in-practice/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>FP for sceptics</category><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><guid>https://last-ent.com/posts/option-type-in-practice/</guid><pubDate>Mon, 29 Jun 2020 16:00:00 GMT</pubDate></item><item><title>FP for Sceptics: Introduction to Option Type</title><link>https://last-ent.com/posts/introduction-to-option-type/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Functional Programming (FP) is based around mathematical concepts like &lt;strong&gt;Type Theory&lt;/strong&gt; - &lt;em&gt;We define our system in terms of ADTs, data flow &amp;amp; functions&lt;sup id="fnref:0"&gt;&lt;a class="footnote-ref" href="https://last-ent.com/posts/introduction-to-option-type/#fn:0"&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;We first implement "Happy Path" and then implement handlers for "Unhappy Path" (error handling). In &lt;a href="https://last-ent.com/posts/adts-in-practice"&gt;&lt;code&gt;ADTs in Practice&lt;/code&gt;&lt;/a&gt; we used "Exceptions" (&lt;code&gt;IO.raiseError&lt;/code&gt;) for error handling.&lt;/p&gt;
-&lt;p&gt;However FP promotes using types for error handling, such as:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;Option&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Either&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;Monad&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;em&gt;etc.&lt;/em&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;In this post we will start by looking at the simplest of these:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;Option&lt;/code&gt; type denotes presence (&lt;code&gt;Some(value)&lt;/code&gt;) or absence (&lt;code&gt;None&lt;/code&gt;) of a value.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&lt;img alt="Option has Some(value) &amp;amp; None. What are two ways of using it?" src="https://last-ent.com/images/option_title.png"&gt;
-
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/introduction-to-option-type/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>FP for sceptics</category><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><guid>https://last-ent.com/posts/introduction-to-option-type/</guid><pubDate>Sun, 31 May 2020 22:38:34 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/option-type-in-practice/"&gt;Read more…&lt;/a&gt; (5 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>FP for sceptics</category><category>functional programming</category><category>programming</category><category>scala</category><category>software design</category><guid>https://last-ent.com/posts/option-type-in-practice/</guid><pubDate>Mon, 29 Jun 2020 16:00:00 GMT</pubDate></item></channel></rss>
