@@ -7,6 +7,7 @@
 .. link: 
 .. description: 
 .. type: text
+.. status: draft
 -->
 
 # Hydra
@@ -54,6 +55,8 @@ Can be defined in two ways
 - Markdown mode
   - magit
 
+# Introduction
+
 In the [previous post](/posts/emacs-snappy-intro/), we looked at how to create an Emacs setup from scratch with little to no programming effort. We set up some important defaults to make the system inviting.
 
 In this post I am going to talk about **Hydra**, with which you can create your custom keybindings/shortcuts easily and never worry about forgetting them!
@@ -74,3 +77,4 @@ Let us say that you have a bunch of emacs commands you call often and would pref
 - General (in Markdown mode)
     - Info Lookup => `inf`
 
+![Hydra Posframe with General heads](/images/emacs2/menu1.png)
