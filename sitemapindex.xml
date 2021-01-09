@@ -6,10 +6,6 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <sitemap>
-  <loc>https://last-ent.com/categories/cat_productivity.xml</loc>
-  <lastmod>2021-01-09T00:34:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://last-ent.com/categories/emacs.xml</loc>
   <lastmod>2021-01-09T00:37:00Z</lastmod>
  </sitemap>
@@ -39,11 +35,11 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/off-topic.xml</loc>
-  <lastmod>2021-01-09T00:36:00Z</lastmod>
+  <lastmod>2021-01-09T12:27:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/productivity.xml</loc>
-  <lastmod>2021-01-09T00:36:00Z</lastmod>
+  <lastmod>2021-01-09T12:27:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/programming.xml</loc>
@@ -71,10 +67,10 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/rss.xml</loc>
-  <lastmod>2021-01-09T00:37:00Z</lastmod>
+  <lastmod>2021-01-09T12:27:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/sitemap.xml</loc>
-  <lastmod>2021-01-09T00:37:00Z</lastmod>
+  <lastmod>2021-01-09T12:27:00Z</lastmod>
  </sitemap>
 </sitemapindex>
