@@ -89,6 +89,16 @@ If the task isn't completed within the slot
 - Continue working on it in next slot or,
 - Pick another task for next slot
 
+## Languishing Tasks
+Some of the tasks in **Immediate** might be sitting days for more than a couple of days.
+
+**Three Day Rule**:  At this point, it is important to answer honestly if this task is really as important as you imagined it to be? In such a case, you have two options:
+
+- It isn't as high in your priority list as you initially imagined it to be and it's time to move it down by at least one category ie., **Immediate** -> **Important** -> **Bonus** -> **Back burner**.
+- If it is of high priority, you should complete it on the third day. If you still can't get to it on fourth day, you HAVE to move it down a category.
+
+Remember that even if a task is in **Important** or **Bonus**, you can still work on it within the same day. The categories are there to help you clarify your thoughts and provide a structure when you need it, they aren't meant to be dictate the order of completion.
+
 ## Next Day
 Next day take a fresh sheet of paper and start filling out the categories with tasks.
 
