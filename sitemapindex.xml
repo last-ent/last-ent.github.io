@@ -22,6 +22,14 @@
   <lastmod>2020-11-20T22:04:00Z</lastmod>
  </sitemap>
  <sitemap>
+  <loc>https://last-ent.com/categories/from-scratch.xml</loc>
+  <lastmod>2021-01-12T23:20:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://last-ent.com/categories/frontend.xml</loc>
+  <lastmod>2021-01-12T23:20:00Z</lastmod>
+ </sitemap>
+ <sitemap>
   <loc>https://last-ent.com/categories/functional-programming.xml</loc>
   <lastmod>2020-11-20T22:04:00Z</lastmod>
  </sitemap>
@@ -32,6 +40,10 @@
  <sitemap>
   <loc>https://last-ent.com/categories/musings.xml</loc>
   <lastmod>2020-11-08T01:15:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://last-ent.com/categories/nightmare.xml</loc>
+  <lastmod>2021-01-12T23:20:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/off-topic.xml</loc>
@@ -67,10 +79,10 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/rss.xml</loc>
-  <lastmod>2021-01-09T12:27:00Z</lastmod>
+  <lastmod>2021-01-12T23:20:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/sitemap.xml</loc>
-  <lastmod>2021-01-09T12:27:00Z</lastmod>
+  <lastmod>2021-01-12T23:20:00Z</lastmod>
  </sitemap>
 </sitemapindex>
