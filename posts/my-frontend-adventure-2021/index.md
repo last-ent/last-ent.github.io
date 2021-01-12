@@ -29,6 +29,8 @@ I will be honest with you, it does not feel good to create a fresh app with so m
 
 ## What did I do next?
 
+<!-- TEASER_END -->
+
 ```
 $ rm -rf my-vue-app
 ```
@@ -50,7 +52,7 @@ I think my needs are _simple enough. (famous last words)_
 
 Maybe it IS too much to ask or maybe it isn't.
 
-I did some quick look about and I check out following tools:
+I did some quick look about and I plan to check out the following tools:
 
 - `npm scripts` as build system
 - `Bulma` for lightweight CSS styling
@@ -58,6 +60,12 @@ I did some quick look about and I check out following tools:
 - `UmbrellaJS` for jquery-like interactivity & helpers
 - `Babel`/`Typescript` for sane default language. I want to use a statically typed language if I can, would make life easier.
 
+{{% promptend %}}
+
+## Conclusion
+
 So that's about it!
 
 If I ever go down this path, I will keep you posted on how I fared.
+
+If not... Then turns out that string interpolation into HTML templates with Python is lot more practical than spending time on npm stuff.
