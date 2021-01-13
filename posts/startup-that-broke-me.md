@@ -13,7 +13,7 @@ My first job was at an IT Services company.
 
 My title was Software Engineer but the work was stupid[^1] and management was even more stupid[^3]. I vowed to never work at a BigCorp again.
 
-I followed this up by working at startups but many of them failed and soon I became an expert on "This project/company is gonna die!".
+I followed this up by working at startups but many of them failed and soon I became an expert at "This project/company is gonna die!".
 
 At first I saw this as a curse but eventually I came to see this as a boon. If you can tell the future, you can avoid mental/emotional trauma[^4]. 
 
@@ -55,7 +55,7 @@ We were discussing the architecture of a working system and he remarked
 
 I thought this might be a great way to learn from the CTO and I started elaborating on REST architecture. I was hoping to hear his objections to the setup but was met with silence. Then I noticed that he basically stopped talking to me altogether.
 
-Turns out that he took offense to me talking/knowing more than him. He started spreading tales of how I am toxic and untrustworthy. In case you are wondering, this was Week 1, Day 3 of me joining the company.
+Turns out that he took offense to me talking/knowing more than him. He started spreading rumours of how I am toxic and untrustworthy. In case you are wondering this was Week 1, Day 3 of me joining the company.
 
 A month later he left the company because of office politics & ego clash within the management.
 
@@ -65,15 +65,17 @@ The management team has Microsoft background[^6]. All of the projects we were ge
 
 I pushed for Git as our Source Control tool of choice.
 
-I get called into management office one day and I was asked to justify carelessness.
+I get called into management office one day and I was asked to justify my carelessness.
 
 > Why did I create so many branches? Was I not aware that I was wasting company's money?
 
 I was confused and explained to them that branches in Git are free. Now they were confused and they went on to explain to me that in Microsoft's version control system, you had a fixed number of available branches and you had to pay for extra ones.
 
-I do not know, _nor do I care_ to check if what they were saying is true.
+I do not know, _nor do I care_ to check if what they were saying was true.
 
-What I did come to know later was that they were planning to create a fuss out of this to "put me in my place". Office politics I tell ya :)
+What I did come to know later was that they were planning to create a fuss out of this to "put me in my place". 
+
+Office politics I tell ya :)
 
 ### Get out while you can
 
