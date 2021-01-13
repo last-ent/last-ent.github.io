@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2021-01-08T23:33:00Z</lastmod>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
@@ -23,11 +23,15 @@
  </url>
  <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2021-01-12T23:20:00Z</lastmod>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
-  <lastmod>2021-01-12T23:20:00Z</lastmod>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/categories/culture/</loc>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/emacs/</loc>
@@ -56,6 +60,10 @@
  <url>
   <loc>https://last-ent.com/categories/functional-programming/</loc>
   <lastmod>2020-11-07T15:44:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/categories/horror/</loc>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/learnings/</loc>
@@ -98,12 +106,20 @@
   <lastmod>2020-11-07T15:44:00Z</lastmod>
  </url>
  <url>
+  <loc>https://last-ent.com/categories/startup/</loc>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://last-ent.com/categories/type-driven-development/</loc>
   <lastmod>2020-11-07T15:44:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/index-1.html</loc>
-  <lastmod>2021-01-12T23:20:00Z</lastmod>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/index-2.html</loc>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/about/</loc>
@@ -188,6 +204,10 @@
  <url>
   <loc>https://last-ent.com/posts/second-static-website/</loc>
   <lastmod>2020-11-07T15:44:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/posts/startup-that-broke-me/</loc>
+  <lastmod>2021-01-13T19:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</loc>
