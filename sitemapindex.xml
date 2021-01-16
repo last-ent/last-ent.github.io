@@ -55,11 +55,11 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/off-topic.xml</loc>
-  <lastmod>2021-01-13T20:17:00Z</lastmod>
+  <lastmod>2021-01-16T19:00:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/productivity.xml</loc>
-  <lastmod>2021-01-13T20:17:00Z</lastmod>
+  <lastmod>2021-01-16T19:00:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/programming.xml</loc>
@@ -68,6 +68,10 @@
  <sitemap>
   <loc>https://last-ent.com/categories/scala.xml</loc>
   <lastmod>2021-01-13T20:17:00Z</lastmod>
+ </sitemap>
+ <sitemap>
+  <loc>https://last-ent.com/categories/self.xml</loc>
+  <lastmod>2021-01-16T19:00:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/software-architecture.xml</loc>
@@ -91,10 +95,10 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/rss.xml</loc>
-  <lastmod>2021-01-13T20:17:00Z</lastmod>
+  <lastmod>2021-01-16T19:00:00Z</lastmod>
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/sitemap.xml</loc>
-  <lastmod>2021-01-13T20:17:00Z</lastmod>
+  <lastmod>2021-01-16T19:00:00Z</lastmod>
  </sitemap>
 </sitemapindex>
