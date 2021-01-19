@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sat, 16 Jan 2021 19:00:54 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Art of "Sit Down &amp; Write"</title><link>https://last-ent.com/posts/art-of-sit-down-write/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Ever been afraid to start? Maybe to start writing or working out or drawing or painting. Ever been stuck because you have no idea where to begin? I know I have been there and hated it.&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts</title><link>https://last-ent.com/</link><description>Thoughts as provided by Ent</description><atom:link href="https://last-ent.com/rss.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Tue, 19 Jan 2021 23:08:54 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Link Preview &amp; Open Graph Protocol</title><link>https://last-ent.com/posts/link-preview-open-graph-protocol/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Notice how on posting a link on some sites or some messenger apps, a link preview shows up?&lt;/p&gt;
+&lt;p&gt;One might think the site/app crawls the webpage for this information but that's not the case. There is lot more interesting tech at play here.&lt;/p&gt;
+&lt;p&gt;Simply put&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Open Graph Protocol&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Let's take a deeper look and answer three questions&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;What is Open Graph Protocol?&lt;/li&gt;
+&lt;li&gt;How can I create custom link previews?&lt;/li&gt;
+&lt;li&gt;Can I create dynamic link previews?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/link-preview-open-graph-protocol/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><guid>https://last-ent.com/posts/link-preview-open-graph-protocol/</guid><pubDate>Tue, 19 Jan 2021 19:00:45 GMT</pubDate></item><item><title>Art of "Sit Down &amp; Write"</title><link>https://last-ent.com/posts/art-of-sit-down-write/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Ever been afraid to start? Maybe to start writing or working out or drawing or painting. Ever been stuck because you have no idea where to begin? I know I have been there and hated it.&lt;/p&gt;
 &lt;p&gt;I published a technical book and when I met a friend afterwards, he asked me for my writing process - inspiration, rituals, how I kept myself going etc.&lt;/p&gt;
 &lt;p&gt;I tried not to be rude but best I could manage was to answer, "You sit down and write."&lt;/p&gt;
 &lt;p&gt;He was not pleased, to say the least, but that's the truth...&lt;/p&gt;
@@ -139,12 +152,4 @@
 &lt;p&gt;The solution I came up with and which we used was to have a Mock Server that served endpoints similar to our dependencies and return dynamic responses based on request payload.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Server with Three Dependencies" src="https://last-ent.com/images/server-3-deps.png"&gt;&lt;/p&gt;
 &lt;p&gt;
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/dependency-mock-server/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>software architecture</category><category>software design</category><guid>https://last-ent.com/posts/dependency-mock-server/</guid><pubDate>Sat, 19 Sep 2020 21:34:47 GMT</pubDate></item><item><title>OT: Mapping thoughts, Memex &amp; Zettelkasten.</title><link>https://last-ent.com/posts/mapping-thoughts/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;&lt;em&gt;&lt;a href="https://last-ent.com/posts/introducing-off-topic"&gt;Off Topic&lt;/a&gt; are posts where I talk about the human side of things.&lt;/em&gt;&lt;/p&gt;
-&lt;h2&gt;Vannevar Bush, &lt;code&gt;As We May Think&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;Have you read Vannevar Bush's article &lt;code&gt;As We May Think&lt;/code&gt;? In that article he discusses an interesting concept:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;"A System becoming an extension of human knowledge and memory which &lt;code&gt;may be consulted with exceeding speed and flexibility&lt;/code&gt;."&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Now this might not seem groundbreaking to us for we have Computers, Internet and Search Engines (Google, DDG, etc.). However it's important to know that Hypertext, which is the backbone of internet, was created thanks to the inspiration taken from &lt;em&gt;Memex&lt;/em&gt;, which is the name of the system Bush proposed. &lt;/p&gt;
-&lt;p&gt;
-&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/mapping-thoughts/"&gt;Read more…&lt;/a&gt; (2 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>off-topic</category><guid>https://last-ent.com/posts/mapping-thoughts/</guid><pubDate>Sun, 09 Aug 2020 16:30:00 GMT</pubDate></item></channel></rss>
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/dependency-mock-server/"&gt;Read more…&lt;/a&gt; (3 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>software architecture</category><category>software design</category><guid>https://last-ent.com/posts/dependency-mock-server/</guid><pubDate>Sat, 19 Sep 2020 21:34:47 GMT</pubDate></item></channel></rss>
