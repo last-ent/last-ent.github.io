@@ -116,7 +116,7 @@ If you look at [https://last-ent.com/ogp-demo.html](https://last-ent.com/ogp-dem
 ### Link Preview
 But link preview will show something else
 
-![Link preview shows the meta from page source](/images/ogp-hello.png)
+![Link preview shows the meta from page source](/images/ogp-preview.png)
 
 ### Page Source
 
