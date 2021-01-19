@@ -7,6 +7,7 @@
 .. link: 
 .. description: 
 .. type: text
+.. previewimage: /images/ogp-logo.png
 -->
 
 Notice how on posting a link on some sites or some messenger apps, a link preview shows up?
