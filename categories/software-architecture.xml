@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about software architecture)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/software-architecture.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Wed, 13 Jan 2021 20:17:44 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Dependency Mock Server &amp; Black Friday Preparation</title><link>https://last-ent.com/posts/dependency-mock-server/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Last year while preparing for Black Friday our team had an interesting challenge:&lt;/p&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about software architecture)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/software-architecture.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Tue, 19 Jan 2021 23:16:33 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>Link Preview &amp; Open Graph Protocol</title><link>https://last-ent.com/posts/link-preview-open-graph-protocol/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Notice how on posting a link on some sites or some messenger apps, a link preview shows up?&lt;/p&gt;
+&lt;p&gt;One might think the site/app crawls the webpage for this information but that's not the case. There is lot more interesting tech at play here.&lt;/p&gt;
+&lt;p&gt;Simply put&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Open Graph Protocol&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Let's take a deeper look and answer three questions&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;What is Open Graph Protocol?&lt;/li&gt;
+&lt;li&gt;How can I create custom link previews?&lt;/li&gt;
+&lt;li&gt;Can I create dynamic link previews?&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;
+&lt;/p&gt;&lt;p&gt;&lt;a href="https://last-ent.com/posts/link-preview-open-graph-protocol/"&gt;Read more…&lt;/a&gt; (4 min remaining to read)&lt;/p&gt;&lt;/div&gt;</description><category>software architecture</category><guid>https://last-ent.com/posts/link-preview-open-graph-protocol/</guid><pubDate>Tue, 19 Jan 2021 19:00:45 GMT</pubDate></item><item><title>Dependency Mock Server &amp; Black Friday Preparation</title><link>https://last-ent.com/posts/dependency-mock-server/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;p&gt;Last year while preparing for Black Friday our team had an interesting challenge:&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Some of our downstream services&lt;sup id="fnref:0"&gt;&lt;a class="footnote-ref" href="https://last-ent.com/posts/dependency-mock-server/#fn:0"&gt;1&lt;/a&gt;&lt;/sup&gt; had proper setup to provide environments/APIs to load test.&lt;/p&gt;
 &lt;/blockquote&gt;

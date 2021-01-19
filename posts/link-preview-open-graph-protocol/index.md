@@ -2,7 +2,7 @@
 .. title: Link Preview & Open Graph Protocol
 .. slug: link-preview-open-graph-protocol
 .. date: 2021-01-19 20:00:45 UTC+01:00
-.. tags: 
+.. tags: software architecture
 .. category: 
 .. link: 
 .. description: 
