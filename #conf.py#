@@ -139,7 +139,7 @@ NAVIGATION_LINKS = {
         ("/archive.html", "Archive"),
         ("/categories/", "Tags"),
     ), "Archives"), ("/pages/about", "About"),
-                   ("https://ko-fi.com/D1D53GPBW", "Ko-fi Tip")),
+                   (),
 }
 
 # NAVIGATION_LINKS = {
