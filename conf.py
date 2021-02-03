@@ -1233,6 +1233,8 @@ BODY_END = ""
 
 BODY_END = """
 
+<script src="http://localhost:8000/entlytics.js"></script>
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script>
 <script>
