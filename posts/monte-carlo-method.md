@@ -22,6 +22,7 @@ In this essay I will talk about a term you might've come across when reading sci
 5. Deterministic Computation (Function)
 6. Markov Chain
 
+{{% promptmid %}}
 
 ## Randomness in Computers
 
@@ -99,6 +100,9 @@ Put another way[^4]
 ## Markov Chain Monte Carlo Method
 
 > Markov Chain Monte Carlo method uses a random set of values generated from a markov chain as inputs for Markov Chain Method/Simulation.
+
+{{% promptend %}}
+
 
 [^1]: Most common is averaging the results.
 
