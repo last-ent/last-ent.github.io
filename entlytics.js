@@ -84,11 +84,14 @@ function postOnNavigation(url) {
                 console.log(data); // JSON data parsed by `data.json()` call
             });
 }
+function getURL() {
+    let url = document.location.origin;
+    let postUrl = "http://localhost:5000";
+    if(url.search("localhost") === -1)
+	postUrl = "https://entlytics.com";
+    return postUrl;
+}
 
 window.onload = (event) => {
-    let url = document.location.origin;
-    let postUrl = "http://localhost:5000/events";
-    if(url.search("localhost") == -1)
-	postUrl = "https://entlytics.com/events";
-    postOnNavigation(postUrl);
+    postOnNavigation(getURL() + "/events");
 };
