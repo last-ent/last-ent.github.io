@@ -88,7 +88,7 @@ function postOnNavigation(url) {
 window.onload = (event) => {
     let url = document.location.origin;
     let postUrl = "http://localhost:5000/events";
-    if(url.search("localhost") != =1)
+    if(url.search("localhost") == -1)
 	postUrl = "https://entlytics.com/events";
     postOnNavigation(postUrl);
 };
