@@ -76,13 +76,19 @@ async function postData(url = '', data = {}) {
 }
 
 function postOnNavigation(url) {
-    let perOnSafari = (window.performance.navigation && window.performance.navigation.type === 1);
+    let perfOnSafari = (window.performance.navigation && window.performance.navigation.type === 1);
     let perf = performance.getEntriesByType("navigation")[0] || { "type": "navigate" };
-    if (perOnSafari || perf.type == "navigate")
+    if (perfOnSafari || perf.type == "navigate")
         postData(url, getPayload()) // This is where the payload goes
             .then(data => {
                 console.log(data); // JSON data parsed by `data.json()` call
             });
 }
 
-window.onload = (event) => { postOnNavigation('http://localhost:5000/events'); };
+window.onload = (event) => {
+    let url = document.location.origin;
+    let postUrl = "http://localhost:5000/events";
+    if(url.search("localhost") != -1)
+	postUrl = "https://entlytics.com/events";
+    postOnNavigation(postUrl);
+};
