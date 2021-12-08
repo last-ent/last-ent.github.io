@@ -142,12 +142,12 @@
 <p>Imperative Programming Languages (Java, Python etc) express this using either <code>null</code> or an <code>Exception</code>.</p>
 <p>In Functional programming we can use <code>Option</code> type to say the value <code>may exist</code>.</p>
 <p>Is this practical? Consider retrieving a value from a HashMap or a Dictionary.</p>
-<pre class="code literal-block"><span class="k">val</span> <span class="n">hMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="nc">Map</span><span class="o">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">102</span><span class="o">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">202</span><span class="o">,</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">302</span><span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="kd">val</span> <span class="n">hMap</span><span class="p">:</span> <span class="nc">Map</span><span class="p">[</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Map</span><span class="p">(</span><span class="mi">1</span> <span class="o">-&gt;</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">2</span> <span class="o">-&gt;</span> <span class="mi">202</span><span class="p">,</span> <span class="mi">3</span> <span class="o">-&gt;</span> <span class="mi">302</span><span class="p">)</span>
 
-<span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span> 
+<span class="n">hMap</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> 
 <span class="c1">// What should be the value here?</span>
 <span class="c1">// `100` does not exist in `hMap`</span>
-</pre>
+</code></pre>
 
 <p>In non-FP languages, we need to do null check or have exception handling around <code>hMap.get</code>.</p>
 <p>In FP languages, <code>hMap.get</code> will return an <code>Option</code> and depending upon the flow of the program, we have two ways of dealing with it:</p>
@@ -166,26 +166,26 @@
 </ul>
 <h3><code>getOrElse</code></h3>
 <p><em>This is idiomatic in Scala and similar function/method is available in other imperative languages as well.</em></p>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">getFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-    <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">opt</span><span class="o">.</span><span class="n">getOrElse</span><span class="o">(</span><span class="s">"None"</span><span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">getFromOption</span><span class="p">(</span><span class="n">opt</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">String</span><span class="p">]):</span> <span class="nc">String</span> <span class="o">=</span>
+    <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">opt</span><span class="p">.</span><span class="n">getOrElse</span><span class="p">(</span><span class="s">"None"</span><span class="p">)</span>
 
-<span class="n">getFromOption</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">"100"</span><span class="o">))</span> <span class="c1">// "Got Value: 100"</span>
+<span class="n">getFromOption</span><span class="p">(</span><span class="nc">Some</span><span class="p">(</span><span class="s">"100"</span><span class="p">))</span> <span class="c1">// "Got Value: 100"</span>
 
-<span class="n">getFromOption</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// "Got Value: None" </span>
-</pre>
+<span class="n">getFromOption</span><span class="p">(</span><span class="nc">None</span><span class="p">)</span> <span class="c1">// "Got Value: None" </span>
+</code></pre>
 
 <h3>Pattern Matching</h3>
 <p><em>Pattern Matching is the "functional way" of extracting a value.<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">3</a></sup></em></p>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">extractFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-  <span class="n">opt</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
-    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
-  <span class="o">}</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">extractFromOption</span><span class="p">(</span><span class="n">opt</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">String</span><span class="p">]):</span> <span class="nc">String</span> <span class="o">=</span>
+  <span class="n">opt</span> <span class="k">match</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nc">None</span>        <span class="o">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
+  <span class="p">}</span>
 
-<span class="n">extractFromOption</span><span class="o">(</span><span class="nc">Some</span><span class="o">(</span><span class="s">"100"</span><span class="o">))</span> <span class="c1">// "Got Value: 100"</span>
+<span class="n">extractFromOption</span><span class="p">(</span><span class="nc">Some</span><span class="p">(</span><span class="s">"100"</span><span class="p">))</span> <span class="c1">// "Got Value: 100"</span>
 
-<span class="n">extractFromOption</span><span class="o">(</span><span class="nc">None</span><span class="o">)</span> <span class="c1">// "Got Value: None" </span>
-</pre>
+<span class="n">extractFromOption</span><span class="p">(</span><span class="nc">None</span><span class="p">)</span> <span class="c1">// "Got Value: None" </span>
+</code></pre>
 
 <h3>What about <code>.get</code>?</h3>
 <p><code>Option</code> type also has <code>.get</code> method but it is unsafe to use as <code>None.get</code> will throw an exception and we want to avoid running into such errors.</p>
@@ -199,22 +199,22 @@
 <p>Consider the flow:</p>
 <p><img alt="Functional flow" src="../../images/option_fcns.png"></p>
 <p>which is defined by the following functions</p>
-<pre class="code literal-block"><span class="k">val</span> <span class="n">hMap</span><span class="k">:</span> <span class="kt">Map</span><span class="o">[</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Value</span><span class="o">]</span> <span class="k">=</span> 
-  <span class="nc">Map</span><span class="o">(</span>
-    <span class="mi">1</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="o">(</span><span class="mi">102</span><span class="o">),</span>
-    <span class="mi">2</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="o">(</span><span class="mi">202</span><span class="o">),</span>
-    <span class="mi">3</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="o">(</span><span class="mi">302</span><span class="o">)</span>
-  <span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="kd">val</span> <span class="n">hMap</span><span class="p">:</span> <span class="nc">Map</span><span class="p">[</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Value</span><span class="p">]</span> <span class="o">=</span> 
+  <span class="nc">Map</span><span class="p">(</span>
+    <span class="mi">1</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="p">(</span><span class="mi">102</span><span class="p">),</span>
+    <span class="mi">2</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="p">(</span><span class="mi">202</span><span class="p">),</span>
+    <span class="mi">3</span> <span class="o">-&gt;</span> <span class="nc">Value</span><span class="p">(</span><span class="mi">302</span><span class="p">)</span>
+  <span class="p">)</span>
 
-<span class="k">def</span> <span class="n">getOptionValue</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Value</span><span class="o">]</span> <span class="k">=</span> <span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
+<span class="k">def</span> <span class="nf">getOptionValue</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nc">Int</span><span class="p">):</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">Value</span><span class="p">]</span> <span class="o">=</span> <span class="n">hMap</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="n">addTen</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Value</span><span class="o">)</span><span class="k">:</span> <span class="kt">Value10</span> <span class="o">=</span> <span class="nc">Value10</span><span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">10</span><span class="o">)</span>
+<span class="k">def</span> <span class="nf">addTen</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nc">Value</span><span class="p">):</span> <span class="nc">Value10</span> <span class="o">=</span> <span class="nc">Value10</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="n">asString</span><span class="o">(</span><span class="n">num</span><span class="k">:</span> <span class="kt">Value10</span><span class="o">)</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">s"</span><span class="si">${</span><span class="n">num</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s">"</span>
+<span class="k">def</span> <span class="nf">asString</span><span class="p">(</span><span class="n">num</span><span class="p">:</span> <span class="nc">Value10</span><span class="p">):</span> <span class="nc">String</span> <span class="o">=</span> <span class="s">s"</span><span class="si">${</span><span class="n">num</span><span class="p">.</span><span class="n">value</span><span class="si">}</span><span class="s">"</span>
 
-<span class="k">case</span> <span class="k">class</span> <span class="nc">Value</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
-<span class="k">case</span> <span class="k">class</span> <span class="nc">Value10</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
-</pre>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Value</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Value10</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">AnyVal</span>
+</code></pre>
 
 <p>There are two ways of working within <code>Option context</code></p>
 <p><img alt="Working within Option Context" src="../../images/option_context2.png"></p>
@@ -222,55 +222,55 @@
 <blockquote>
 <p><code>map</code> is useful when a function in the chain returns an <code>Option</code> and rest of functions need to be executed only if function's input is available.</p>
 </blockquote>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">mapOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
-  <span class="n">getOptionValue</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">addTen</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">asString</span><span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">mapOpt</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nc">Int</span><span class="p">):</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">String</span><span class="p">]</span> <span class="o">=</span>
+  <span class="n">getOptionValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="n">addTen</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="n">asString</span><span class="p">)</span>
 
-<span class="n">extractFromOption</span><span class="o">(</span><span class="n">mapOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
+<span class="n">extractFromOption</span><span class="p">(</span><span class="n">mapOpt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="c1">// "Got Value: 312"</span>
 
-<span class="n">extractFromOption</span><span class="o">(</span><span class="n">mapOpt</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span> <span class="c1">// "Got Value: None"</span>
+<span class="n">extractFromOption</span><span class="p">(</span><span class="n">mapOpt</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span> <span class="c1">// "Got Value: None"</span>
 
-<span class="k">def</span> <span class="n">extractFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-  <span class="n">opt</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
-    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
-  <span class="o">}</span>
-</pre>
+<span class="k">def</span> <span class="nf">extractFromOption</span><span class="p">(</span><span class="n">opt</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">String</span><span class="p">]):</span> <span class="nc">String</span> <span class="o">=</span>
+  <span class="n">opt</span> <span class="k">match</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nc">None</span>        <span class="o">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
+  <span class="p">}</span>
+</code></pre>
 
 <h3>Using <code>for-comprehension</code> or <code>flatMap</code><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">5</a></sup>
 </h3>
 <blockquote>
 <p><code>for-comprehension</code> (and <code>flatMap</code>) are useful when multiple functions in the chain return <code>Option</code> and but we only want to execute the next function if function's input is available.</p>
 </blockquote>
-<pre class="code literal-block"><span class="c1">// Using for-comprehension</span>
-<span class="k">def</span> <span class="n">forOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
-  <span class="k">for</span> <span class="o">{</span>
-    <span class="n">value</span> <span class="k">&lt;-</span> <span class="n">hMap</span><span class="o">.</span><span class="n">get</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
-    <span class="n">val10</span> <span class="k">&lt;-</span> <span class="nc">Option</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="n">addTen</span><span class="o">(</span><span class="n">value</span><span class="o">))</span>
-    <span class="n">str</span>   <span class="k">&lt;-</span> <span class="nc">Option</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="n">asString</span><span class="o">(</span><span class="n">val10</span><span class="o">))</span>
-  <span class="o">}</span> <span class="k">yield</span> <span class="n">str</span>
+<pre class="code literal-block"><span></span><code><span class="c1">// Using for-comprehension</span>
+<span class="k">def</span> <span class="nf">forOpt</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nc">Int</span><span class="p">):</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">String</span><span class="p">]</span> <span class="o">=</span>
+  <span class="k">for</span> <span class="p">{</span>
+    <span class="n">value</span> <span class="o">&lt;-</span> <span class="n">hMap</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="n">val10</span> <span class="o">&lt;-</span> <span class="nc">Option</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span><span class="n">addTen</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+    <span class="n">str</span>   <span class="o">&lt;-</span> <span class="nc">Option</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span><span class="n">asString</span><span class="p">(</span><span class="n">val10</span><span class="p">))</span>
+  <span class="p">}</span> <span class="k">yield</span> <span class="n">str</span>
 
 <span class="c1">// Using flatMap</span>
-<span class="k">def</span> <span class="n">flatMapOpt</span><span class="o">(</span><span class="n">i</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">]</span> <span class="k">=</span>
-  <span class="n">getOptionValue</span><span class="o">(</span><span class="n">i</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">valOpt</span> <span class="k">=&gt;</span> <span class="nc">Option</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="n">addTen</span><span class="o">(</span><span class="n">valOpt</span><span class="o">)))</span>
-    <span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">val10</span> <span class="k">=&gt;</span> <span class="nc">Option</span><span class="o">.</span><span class="n">apply</span><span class="o">(</span><span class="n">asString</span><span class="o">(</span><span class="n">val10</span><span class="o">)))</span>
+<span class="k">def</span> <span class="nf">flatMapOpt</span><span class="p">(</span><span class="n">i</span><span class="p">:</span> <span class="nc">Int</span><span class="p">):</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">String</span><span class="p">]</span> <span class="o">=</span>
+  <span class="n">getOptionValue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">flatMap</span><span class="p">(</span><span class="n">valOpt</span> <span class="o">=&gt;</span> <span class="nc">Option</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span><span class="n">addTen</span><span class="p">(</span><span class="n">valOpt</span><span class="p">)))</span>
+    <span class="p">.</span><span class="n">flatMap</span><span class="p">(</span><span class="n">val10</span> <span class="o">=&gt;</span> <span class="nc">Option</span><span class="p">.</span><span class="n">apply</span><span class="p">(</span><span class="n">asString</span><span class="p">(</span><span class="n">val10</span><span class="p">)))</span>
 
 <span class="c1">// for-comprehension</span>
-<span class="n">extractFromOption</span><span class="o">(</span><span class="n">forOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
-<span class="n">extractFromOption</span><span class="o">(</span><span class="n">forOpt</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span> <span class="c1">// "Got Value: None"</span>
+<span class="n">extractFromOption</span><span class="p">(</span><span class="n">forOpt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="c1">// "Got Value: 312"</span>
+<span class="n">extractFromOption</span><span class="p">(</span><span class="n">forOpt</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span> <span class="c1">// "Got Value: None"</span>
 
 <span class="c1">// flatmap</span>
-<span class="n">extractFromOption</span><span class="o">(</span><span class="n">flatMapOpt</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span> <span class="c1">// "Got Value: 312"</span>
-<span class="n">extractFromOption</span><span class="o">(</span><span class="n">flatMapOpt</span><span class="o">(</span><span class="mi">100</span><span class="o">))</span> <span class="c1">// "Got Value: None"</span>
+<span class="n">extractFromOption</span><span class="p">(</span><span class="n">flatMapOpt</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span> <span class="c1">// "Got Value: 312"</span>
+<span class="n">extractFromOption</span><span class="p">(</span><span class="n">flatMapOpt</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span> <span class="c1">// "Got Value: None"</span>
 
-<span class="k">def</span> <span class="n">extractFromOption</span><span class="o">(</span><span class="n">opt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">String</span><span class="o">])</span><span class="k">:</span> <span class="kt">String</span> <span class="o">=</span>
-  <span class="n">opt</span> <span class="k">match</span> <span class="o">{</span>
-    <span class="k">case</span> <span class="nc">None</span>        <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
-    <span class="k">case</span> <span class="nc">Some</span><span class="o">(</span><span class="n">value</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
-  <span class="o">}</span>
-</pre>
+<span class="k">def</span> <span class="nf">extractFromOption</span><span class="p">(</span><span class="n">opt</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">String</span><span class="p">]):</span> <span class="nc">String</span> <span class="o">=</span>
+  <span class="n">opt</span> <span class="k">match</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="nc">None</span>        <span class="o">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="s">"None"</span>
+    <span class="k">case</span> <span class="nc">Some</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="s">"Got Value: "</span> <span class="o">+</span> <span class="n">value</span>
+  <span class="p">}</span>
+</code></pre>
 
 <blockquote>
 <p><strong>Note</strong>: The code is a straightforward to read because we need not check for <code>None</code> at every step.</p>
@@ -360,9 +360,7 @@ Contents © 2021         <a href="https://github.com/last-ent">Ent</a>. Keep up 
         <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script><!-- <script src="http://localhost:8000/entlytics.js"></script> --><script src="https://last-ent.com/entlytics.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

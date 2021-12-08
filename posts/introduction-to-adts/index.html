@@ -144,34 +144,34 @@
 <hr>
 <h4>Types without ADTs</h4>
 <p>Base functions:</p>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">allIntegers</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">filterPositives</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]):</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=</span> <span class="n">allIntegers</span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">positiveIntegers</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">))</span>
+<span class="k">def</span> <span class="nf">toPairs</span><span class="p">(</span><span class="n">positiveIntegers</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]):</span> <span class="nc">List</span><span class="p">[(</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">)]</span> <span class="o">=</span> <span class="n">positiveIntegers</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="n">i</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairs</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">)])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">pairs</span><span class="o">.</span><span class="n">map</span><span class="o">({</span> <span class="k">case</span> <span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span> <span class="o">})</span>
-</pre>
+<span class="k">def</span> <span class="nf">toAreaList</span><span class="p">(</span><span class="n">pairs</span><span class="p">:</span> <span class="nc">List</span><span class="p">[(</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">)]):</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=</span> <span class="n">pairs</span><span class="p">.</span><span class="n">map</span><span class="p">({</span> <span class="k">case</span> <span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span> <span class="p">})</span>
+</code></pre>
 
 <p>We can express our program in terms of these functions:</p>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">program</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
-    <span class="k">val</span> <span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">program</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]):</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="n">positiveIntegers</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=</span> <span class="n">filterPositives</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">)</span>
 
-    <span class="k">val</span> <span class="n">pairsOfPositiveIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">)]</span> <span class="k">=</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="o">)</span>
+    <span class="kd">val</span> <span class="n">pairsOfPositiveIntegers</span><span class="p">:</span> <span class="nc">List</span><span class="p">[(</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">)]</span> <span class="o">=</span> <span class="n">toPairs</span><span class="p">(</span><span class="n">positiveIntegers</span><span class="p">)</span>
 
-    <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairsOfPositiveIntegers</span><span class="o">)</span>
-<span class="o">}</span>
+    <span class="n">toAreaList</span><span class="p">(</span><span class="n">pairsOfPositiveIntegers</span><span class="p">)</span>
+<span class="p">}</span>
 
 <span class="c1">// Elegant alternative</span>
 
-<span class="k">def</span> <span class="n">elegantProgram</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-    <span class="n">toAreaList</span> <span class="k">_</span> <span class="n">compose</span> <span class="n">toPairs</span> <span class="n">compose</span> <span class="n">filterPositives</span> <span class="n">apply</span> <span class="n">allIntegers</span>
-</pre>
+<span class="k">def</span> <span class="nf">elegantProgram</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]):</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=</span>
+    <span class="n">toAreaList</span> <span class="n">_</span> <span class="n">compose</span> <span class="n">toPairs</span> <span class="n">compose</span> <span class="n">filterPositives</span> <span class="n">apply</span> <span class="n">allIntegers</span>
+</code></pre>
 
 <p>That's awesome but it is not so straightforward to make sense of how or what data is flowing through where in the program:</p>
-<pre class="code literal-block"><span class="k">type</span> <span class="kt">program</span> <span class="o">=</span> 
-    <span class="o">(</span><span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span> <span class="k">=&gt;</span>               <span class="c1">// filterPositives</span>
-        <span class="o">(</span><span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">)])</span> <span class="k">=&gt;</span>    <span class="c1">// toPairs </span>
-            <span class="o">(</span><span class="nc">List</span><span class="o">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">)]</span> <span class="k">=&gt;</span> <span class="nc">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>   <span class="c1">// toAreaList</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="k">type</span> <span class="nc">program</span> <span class="o">=</span> 
+    <span class="p">(</span><span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">])</span> <span class="o">=&gt;</span>               <span class="c1">// filterPositives</span>
+        <span class="p">(</span><span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="p">[(</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">)])</span> <span class="o">=&gt;</span>    <span class="c1">// toPairs </span>
+            <span class="p">(</span><span class="nc">List</span><span class="p">[(</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">)]</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">])</span>   <span class="c1">// toAreaList</span>
+</code></pre>
 
 <h4>Types with ADTs</h4>
 <p>That is a crazy amount of <code>List</code>s, <code>Int</code>s and <code>List of Int</code>s to follow around. What makes it worse is that we have no idea about what the data types signify, for example - How does <code>List[Int]</code> used in <code>filterPositives</code> input differ from the one used by <code>toPairs</code>?</p>
@@ -204,40 +204,40 @@
 <p>ADTs are a set of data classes (<code>case class</code>es in Scala) that encapsulate our primitive types into domain specific descriptive types.</p>
 </blockquote>
 <p>Let's start by describing stages of our data:</p>
-<pre class="code literal-block"><span class="k">case</span> <span class="k">class</span> <span class="nc">AllIntegers</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
-<span class="k">case</span> <span class="k">class</span> <span class="nc">Positives</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
-<span class="k">case</span> <span class="k">class</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="o">)])</span>
-<span class="k">case</span> <span class="k">class</span> <span class="nc">Areas</span><span class="o">(</span><span class="n">values</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="k">case</span> <span class="k">class</span> <span class="nc">AllIntegers</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Positives</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">PositivePairs</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="nc">List</span><span class="p">[(</span><span class="nc">Int</span><span class="p">,</span> <span class="nc">Int</span><span class="p">)])</span>
+<span class="k">case</span> <span class="k">class</span> <span class="nc">Areas</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">])</span>
+</code></pre>
 
 <p>Now our functions change to:</p>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">filterPositives</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Positives</span> <span class="o">=</span> <span class="nc">Positives</span><span class="o">(</span><span class="n">allIntegers</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">filter</span><span class="o">(</span><span class="k">_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">))</span>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">filterPositives</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">:</span> <span class="nc">AllIntegers</span><span class="p">):</span> <span class="nc">Positives</span> <span class="o">=</span> <span class="nc">Positives</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="n">_</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="n">toPairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="k">:</span> <span class="kt">Positives</span><span class="o">)</span><span class="k">:</span> <span class="kt">PositivePairs</span> <span class="o">=</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">positiveIntegers</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">map</span><span class="o">(</span><span class="n">i</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">i</span><span class="o">,</span> <span class="n">i</span><span class="o">)))</span>
+<span class="k">def</span> <span class="nf">toPairs</span><span class="p">(</span><span class="n">positiveIntegers</span><span class="p">:</span> <span class="nc">Positives</span><span class="p">):</span> <span class="nc">PositivePairs</span> <span class="o">=</span> <span class="nc">PositivePairs</span><span class="p">(</span><span class="n">positiveIntegers</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="n">i</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">)))</span>
 
-<span class="k">def</span> <span class="n">toAreaList</span><span class="o">(</span><span class="n">pairs</span><span class="k">:</span> <span class="kt">PositivePairs</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="nc">Areas</span><span class="o">(</span><span class="n">pairs</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">map</span><span class="o">({</span> <span class="k">case</span> <span class="nc">PositivePairs</span><span class="o">(</span><span class="n">l</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">b</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span> <span class="k">=&gt;</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span> <span class="o">}))</span>
-</pre>
+<span class="k">def</span> <span class="nf">toAreaList</span><span class="p">(</span><span class="n">pairs</span><span class="p">:</span> <span class="nc">PositivePairs</span><span class="p">):</span> <span class="nc">Areas</span> <span class="o">=</span> <span class="nc">Areas</span><span class="p">(</span><span class="n">pairs</span><span class="p">.</span><span class="n">values</span><span class="p">.</span><span class="n">map</span><span class="p">({</span> <span class="k">case</span> <span class="nc">PositivePairs</span><span class="p">(</span><span class="n">l</span><span class="p">:</span> <span class="nc">Int</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nc">Int</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span> <span class="p">}))</span>
+</code></pre>
 
 <p>The data flow changes to:</p>
-<pre class="code literal-block"><span class="k">type</span> <span class="kt">program</span> <span class="o">=</span> 
-    <span class="nc">AllIntegers</span> <span class="k">=&gt;</span>
-        <span class="nc">Positives</span> <span class="k">=&gt;</span>     <span class="c1">// filterPositives</span>
-        <span class="nc">PositivePairs</span> <span class="k">=&gt;</span> <span class="c1">// toPairs</span>
+<pre class="code literal-block"><span></span><code><span class="k">type</span> <span class="nc">program</span> <span class="o">=</span> 
+    <span class="nc">AllIntegers</span> <span class="o">=&gt;</span>
+        <span class="nc">Positives</span> <span class="o">=&gt;</span>     <span class="c1">// filterPositives</span>
+        <span class="nc">PositivePairs</span> <span class="o">=&gt;</span> <span class="c1">// toPairs</span>
         <span class="nc">Areas</span>            <span class="c1">// toAreaList</span>
-</pre>
+</code></pre>
 
 <p>The program can be written as</p>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">elegantProgram</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="c1">// Note the types used for input &amp; output</span>
-    <span class="n">toAreaList</span> <span class="k">_</span> <span class="n">compose</span> <span class="n">toPairs</span> <span class="n">compose</span> <span class="n">filterPositives</span> <span class="n">apply</span> <span class="n">allIntegers</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">elegantProgram</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">:</span> <span class="nc">AllIntegers</span><span class="p">):</span> <span class="nc">Areas</span> <span class="o">=</span> <span class="c1">// Note the types used for input &amp; output</span>
+    <span class="n">toAreaList</span> <span class="n">_</span> <span class="n">compose</span> <span class="n">toPairs</span> <span class="n">compose</span> <span class="n">filterPositives</span> <span class="n">apply</span> <span class="n">allIntegers</span>
+</code></pre>
 
 <p>An important thing to appreciate here is that using ADTs now makes it harder to make mistakes with function composition. For example, when we were using primitive types, we could've easily written following code which would compile and run:</p>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">programPrimitiveTypes</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">List</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="n">allIntegers</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">programPrimitiveTypes</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]):</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=</span> <span class="n">allIntegers</span>
+</code></pre>
 
 <p>However with ADTs, we have the compiler on our side ensuring the program is typesafe and correct.</p>
-<pre class="code literal-block"><span class="k">def</span> <span class="n">programADTs</span><span class="o">(</span><span class="n">allIntegers</span><span class="k">:</span> <span class="kt">AllIntegers</span><span class="o">)</span><span class="k">:</span> <span class="kt">Areas</span> <span class="o">=</span> <span class="n">allIntegers</span> <span class="c1">// Compiler error!</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="k">def</span> <span class="nf">programADTs</span><span class="p">(</span><span class="n">allIntegers</span><span class="p">:</span> <span class="nc">AllIntegers</span><span class="p">):</span> <span class="nc">Areas</span> <span class="o">=</span> <span class="n">allIntegers</span> <span class="c1">// Compiler error!</span>
+</code></pre>
 
 <p></p>
 <hr>
@@ -297,9 +297,7 @@ Contents © 2021         <a href="https://github.com/last-ent">Ent</a>. Keep up 
         <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script><!-- <script src="http://localhost:8000/entlytics.js"></script> --><script src="https://last-ent.com/entlytics.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

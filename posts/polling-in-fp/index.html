@@ -116,9 +116,9 @@
 <ul>
 <li>We have API for a queue<sup id="fnref:0"><a class="footnote-ref" href="#fn:0">1</a></sup> that can be queried using <code>pollFn</code> function.</li>
 <li>We need to process data returned by queue using <code>process</code> function.</li>
-<li>There may or may not be data at the time of querying.
-<!-- TEASER_END -->
-</li>
+<li>There may or may not be data at the time of querying.</li>
+</ul>
+<!-- TEASER_END --><ul>
 <li>We need to continually query the API to see if any new data is available.</li>
 <li>It is possible to run into rate limiting issues.</li>
 <li>The data processing isn't time critical, so we can query after wide intervals of time (1 minute).</li>
@@ -148,65 +148,65 @@
 <!--End mc_embed_signup-->
 <hr>
 <h2>Implementation: Imperative Scala</h2>
-<pre class="code literal-block"><span class="c1">// Basic functions</span>
-<span class="k">def</span> <span class="n">pollFn</span><span class="o">()</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
-<span class="k">def</span> <span class="n">process</span><span class="o">(</span><span class="n">dataOpt</span><span class="k">:</span> <span class="kt">Option</span><span class="o">[</span><span class="kt">Int</span><span class="o">])</span><span class="k">:</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="o">???</span>
+<pre class="code literal-block"><span></span><code><span class="c1">// Basic functions</span>
+<span class="k">def</span> <span class="nf">pollFn</span><span class="p">():</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
+<span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">dataOpt</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">Int</span><span class="p">]):</span> <span class="nc">Unit</span> <span class="o">=</span> <span class="o">???</span>
 
 <span class="c1">// Single call</span>
-<span class="k">def</span> <span class="n">singlePoll</span><span class="o">()</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">val</span> <span class="n">dataOpt</span> <span class="k">=</span> <span class="n">pollFn</span><span class="o">()</span>
-  <span class="n">process</span><span class="o">(</span><span class="n">dataOpt</span><span class="o">)</span>
-<span class="o">}</span>
+<span class="k">def</span> <span class="nf">singlePoll</span><span class="p">()</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="kd">val</span> <span class="n">dataOpt</span> <span class="o">=</span> <span class="n">pollFn</span><span class="p">()</span>
+  <span class="n">process</span><span class="p">(</span><span class="n">dataOpt</span><span class="p">)</span>
+<span class="p">}</span>
 
 <span class="c1">// Repeated calls spaced for every 1 minute</span>
-<span class="k">def</span> <span class="n">continuousPoll</span><span class="o">()</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">val</span> <span class="n">dataOpt</span> <span class="k">=</span> <span class="n">pollFn</span><span class="o">()</span>
-    <span class="n">process</span><span class="o">(</span><span class="n">dataOpt</span><span class="o">)</span>
-    <span class="nc">Thread</span><span class="o">.</span><span class="n">sleep</span><span class="o">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span><span class="o">)</span> <span class="c1">// 60 * 1000 milliseconds or 1 minute</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</pre>
+<span class="k">def</span> <span class="nf">continuousPoll</span><span class="p">()</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="n">dataOpt</span> <span class="o">=</span> <span class="n">pollFn</span><span class="p">()</span>
+    <span class="n">process</span><span class="p">(</span><span class="n">dataOpt</span><span class="p">)</span>
+    <span class="nc">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="c1">// 60 * 1000 milliseconds or 1 minute</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
 
 <p>The code in <code>continuousPoll</code> is pretty straightforward.</p>
 <p>Three lines to <em>poll</em>, <em>process</em> &amp; <em>wait</em>. A fourth to <em>run it in a loop</em>.</p>
 <p>It also looks quite similar to the third diagram shown at beginning.</p>
 <h2>Implementation: FS2 Streams</h2>
 <p>Now let's implement it using <code>fs2</code>.</p>
-<pre class="code literal-block"><span class="k">import</span> <span class="nn">fs2.Stream</span>
-<span class="k">import</span> <span class="nn">cats.effect.IO</span>
-<span class="k">import</span> <span class="nn">cats.syntax.functor._</span>
+<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="nn">fs2</span><span class="p">.</span><span class="nc">Stream</span>
+<span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nn">effect</span><span class="p">.</span><span class="nc">IO</span>
+<span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nn">syntax</span><span class="p">.</span><span class="nn">functor</span><span class="p">.</span><span class="n">_</span>
 
-<span class="k">import</span> <span class="nn">cats.syntax.flatMap._</span>
-<span class="k">import</span> <span class="nn">scala.concurrent.duration._</span>
-<span class="k">import</span> <span class="nn">cats.effect.Timer</span>
+<span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nn">syntax</span><span class="p">.</span><span class="nn">flatMap</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span> <span class="nn">scala</span><span class="p">.</span><span class="nn">concurrent</span><span class="p">.</span><span class="nn">duration</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nn">effect</span><span class="p">.</span><span class="nc">Timer</span>
 
-<span class="k">import</span> <span class="nn">scala.concurrent.ExecutionContext</span>
-<span class="k">implicit</span> <span class="k">val</span> <span class="n">timer</span> <span class="k">=</span> <span class="nc">IO</span><span class="o">.</span><span class="n">timer</span><span class="o">(</span><span class="nc">ExecutionContext</span><span class="o">.</span><span class="n">global</span><span class="o">)</span>
+<span class="k">import</span> <span class="nn">scala</span><span class="p">.</span><span class="nn">concurrent</span><span class="p">.</span><span class="nc">ExecutionContext</span>
+<span class="k">implicit</span> <span class="kd">val</span> <span class="n">timer</span> <span class="o">=</span> <span class="nc">IO</span><span class="p">.</span><span class="n">timer</span><span class="p">(</span><span class="nc">ExecutionContext</span><span class="p">.</span><span class="n">global</span><span class="p">)</span>
 
 <span class="c1">// I have replaced pollFn with a Stream version pollStream.</span>
 <span class="c1">// I will cover how to convert normal or IO functions into fs2 streams separately.</span>
 <span class="c1">// For the sake of this example, I am using a predefined stream.</span>
-<span class="k">def</span> <span class="n">pollStream</span><span class="o">()</span><span class="k">:</span> <span class="kt">Stream</span><span class="o">[</span><span class="kt">IO</span><span class="p">,</span> <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="nc">Stream</span><span class="o">.</span><span class="n">emits</span><span class="o">(</span><span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">))</span> <span class="o">++</span> <span class="nc">Stream</span><span class="o">.</span><span class="n">empty</span> <span class="o">++</span> <span class="nc">Stream</span><span class="o">.</span><span class="n">emit</span><span class="o">(</span><span class="mi">100</span><span class="o">)</span>
+<span class="k">def</span> <span class="nf">pollStream</span><span class="p">():</span> <span class="nc">Stream</span><span class="p">[</span><span class="nc">IO</span><span class="p">,</span> <span class="nc">Int</span><span class="p">]</span> <span class="o">=</span>
+  <span class="nc">Stream</span><span class="p">.</span><span class="n">emits</span><span class="p">(</span><span class="nc">List</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span> <span class="o">++</span> <span class="nc">Stream</span><span class="p">.</span><span class="n">empty</span> <span class="o">++</span> <span class="nc">Stream</span><span class="p">.</span><span class="n">emit</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
-<span class="k">def</span> <span class="n">processInt</span><span class="o">(</span><span class="n">data</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Unit</span><span class="o">]</span> <span class="k">=</span> <span class="nc">IO</span><span class="o">.</span><span class="n">delay</span><span class="o">(</span><span class="n">println</span><span class="o">(</span><span class="n">data</span><span class="o">))</span>
+<span class="k">def</span> <span class="nf">processInt</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nc">Int</span><span class="p">):</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">Unit</span><span class="p">]</span> <span class="o">=</span> <span class="nc">IO</span><span class="p">.</span><span class="n">delay</span><span class="p">(</span><span class="n">println</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="n">pollStreamForever</span><span class="o">()</span><span class="k">:</span> <span class="kt">Stream</span><span class="o">[</span><span class="kt">IO</span><span class="p">,</span> <span class="kt">Int</span><span class="o">]</span> <span class="k">=</span>
-  <span class="n">pollStream</span><span class="o">()</span>
-    <span class="o">.</span><span class="n">evalTap</span><span class="o">(</span><span class="n">processInt</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">metered</span><span class="o">(</span><span class="mf">1.</span><span class="n">minute</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">repeat</span>
+<span class="k">def</span> <span class="nf">pollStreamForever</span><span class="p">():</span> <span class="nc">Stream</span><span class="p">[</span><span class="nc">IO</span><span class="p">,</span> <span class="nc">Int</span><span class="p">]</span> <span class="o">=</span>
+  <span class="n">pollStream</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">evalTap</span><span class="p">(</span><span class="n">processInt</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">metered</span><span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="n">minute</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">repeat</span>
 
-<span class="k">val</span> <span class="n">result</span> <span class="k">=</span>
-  <span class="n">pollStreamForever</span><span class="o">()</span>
-    <span class="o">.</span><span class="n">take</span><span class="o">(</span><span class="mi">5</span><span class="o">)</span>
-    <span class="o">.</span><span class="n">compile</span>
-    <span class="o">.</span><span class="n">toList</span>
-    <span class="o">.</span><span class="n">unsafeRunSync</span>
+<span class="kd">val</span> <span class="n">result</span> <span class="o">=</span>
+  <span class="n">pollStreamForever</span><span class="p">()</span>
+    <span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="p">.</span><span class="n">compile</span>
+    <span class="p">.</span><span class="n">toList</span>
+    <span class="p">.</span><span class="n">unsafeRunSync</span>
 
-<span class="n">result</span> <span class="o">==</span> <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">,</span><span class="mi">100</span><span class="o">)</span>
-</pre>
+<span class="n">result</span> <span class="o">==</span> <span class="nc">List</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
+</code></pre>
 
 <p>At first glance, it might seem like the imperative version of poll is better, because it consists of four lines of code and code will be familiar to both FP style &amp; imperative style of programmers.</p>
 <p>I admit that the FP/Stream version of code will be a bit hard for those who aren't already used to these concepts<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">2</a></sup>.</p>
@@ -322,9 +322,7 @@ Contents © 2021         <a href="https://github.com/last-ent">Ent</a>. Keep up 
         <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script><!-- <script src="http://localhost:8000/entlytics.js"></script> --><script src="https://last-ent.com/entlytics.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

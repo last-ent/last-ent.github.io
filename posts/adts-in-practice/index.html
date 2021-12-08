@@ -145,102 +145,102 @@
 <p><img alt="Overview of web api" src="../../images/adt-flow-overview.png"></p>
 <p>which is described by</p>
 <h3>Server</h3>
-<pre class="code literal-block"><span class="k">import</span> <span class="nn">cats.effect.IO</span>
+<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nn">effect</span><span class="p">.</span><span class="nc">IO</span>
 
-<span class="k">class</span> <span class="nc">Server</span><span class="o">(</span><span class="n">http</span><span class="k">:</span> <span class="kt">Http</span><span class="o">,</span> <span class="n">database</span><span class="k">:</span> <span class="kt">Database</span><span class="o">)</span> <span class="o">{</span>
+<span class="k">class</span> <span class="nc">Server</span><span class="p">(</span><span class="n">http</span><span class="p">:</span> <span class="nc">Http</span><span class="p">,</span> <span class="n">database</span><span class="p">:</span> <span class="nc">Database</span><span class="p">)</span> <span class="p">{</span>
 
-  <span class="k">def</span> <span class="n">process</span><span class="o">(</span><span class="n">request</span><span class="k">:</span> <span class="kt">Request</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span> <span class="o">{</span>
+  <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="nc">Request</span><span class="p">):</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">Response</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
 
-    <span class="k">val</span> <span class="n">respF</span> <span class="k">=</span>
-      <span class="k">for</span> <span class="o">{</span>
-        <span class="n">creds</span> <span class="k">&lt;-</span> <span class="n">request</span><span class="o">.</span><span class="n">getCredentials</span><span class="o">()</span>
-        <span class="n">authorizedCreds</span> <span class="k">&lt;-</span> <span class="n">authenticateUser</span><span class="o">(</span><span class="n">creds</span><span class="o">)</span>
-        <span class="n">userInfo</span> <span class="k">&lt;-</span> <span class="n">getUserInfo</span><span class="o">(</span><span class="n">authorizedCreds</span><span class="o">)</span>
-        <span class="n">successfulResponse</span> <span class="k">&lt;-</span> <span class="n">toSuccessfulResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="o">)</span>
-      <span class="o">}</span> <span class="k">yield</span> <span class="n">successfulResponse</span>
+    <span class="kd">val</span> <span class="n">respF</span> <span class="o">=</span>
+      <span class="k">for</span> <span class="p">{</span>
+        <span class="n">creds</span> <span class="o">&lt;-</span> <span class="n">request</span><span class="p">.</span><span class="n">getCredentials</span><span class="p">()</span>
+        <span class="n">authorizedCreds</span> <span class="o">&lt;-</span> <span class="n">authenticateUser</span><span class="p">(</span><span class="n">creds</span><span class="p">)</span>
+        <span class="n">userInfo</span> <span class="o">&lt;-</span> <span class="n">getUserInfo</span><span class="p">(</span><span class="n">authorizedCreds</span><span class="p">)</span>
+        <span class="n">successfulResponse</span> <span class="o">&lt;-</span> <span class="n">toSuccessfulResponse</span><span class="p">(</span><span class="n">userInfo</span><span class="p">)</span>
+      <span class="p">}</span> <span class="k">yield</span> <span class="n">successfulResponse</span>
 
-    <span class="n">respF</span><span class="o">.</span><span class="n">handleErrorWith</span><span class="o">(</span><span class="n">toFailedResponse</span><span class="o">)</span>
-  <span class="o">}</span>
+    <span class="n">respF</span><span class="p">.</span><span class="n">handleErrorWith</span><span class="p">(</span><span class="n">toFailedResponse</span><span class="p">)</span>
+  <span class="p">}</span>
 
-  <span class="k">def</span> <span class="n">authenticateUser</span><span class="o">(</span><span class="n">creds</span><span class="k">:</span> <span class="kt">UserCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AuthCredentials</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+  <span class="k">def</span> <span class="nf">authenticateUser</span><span class="p">(</span><span class="n">creds</span><span class="p">:</span> <span class="nc">UserCredentials</span><span class="p">):</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">AuthCredentials</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
 
-  <span class="k">def</span> <span class="n">getUserInfo</span><span class="o">(</span><span class="n">authCreds</span><span class="k">:</span> <span class="kt">AuthCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserInfo</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+  <span class="k">def</span> <span class="nf">getUserInfo</span><span class="p">(</span><span class="n">authCreds</span><span class="p">:</span> <span class="nc">AuthCredentials</span><span class="p">):</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">UserInfo</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
 
-  <span class="k">def</span> <span class="n">toFailedResponse</span><span class="o">(</span><span class="n">err</span><span class="k">:</span> <span class="kt">Throwable</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">Response</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+  <span class="k">def</span> <span class="nf">toFailedResponse</span><span class="p">(</span><span class="n">err</span><span class="p">:</span> <span class="nc">Throwable</span><span class="p">):</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">Response</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
 
-  <span class="k">def</span> <span class="n">toSuccessfulResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="k">:</span> <span class="kt">UserInfo</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserInfoResponse</span><span class="o">]</span> <span class="k">=</span> <span class="o">???</span>
+  <span class="k">def</span> <span class="nf">toSuccessfulResponse</span><span class="p">(</span><span class="n">userInfo</span><span class="p">:</span> <span class="nc">UserInfo</span><span class="p">):</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">UserInfoResponse</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
 
-<span class="o">}</span>
-</pre>
+<span class="p">}</span>
+</code></pre>
 
 <p>We have external dependencies which can be further encoded in terms of following traits &amp; <code>case class</code>es</p>
 <h3>Traits</h3>
-<pre class="code literal-block"><span class="k">trait</span> <span class="nc">Request</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="n">getCredentials</span><span class="o">()</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserCredentials</span><span class="o">]</span>
-<span class="o">}</span>
+<pre class="code literal-block"><span></span><code><span class="k">trait</span> <span class="nc">Request</span> <span class="p">{</span>
+    <span class="k">def</span> <span class="nf">getCredentials</span><span class="p">():</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">UserCredentials</span><span class="p">]</span>
+<span class="p">}</span>
 
-<span class="k">trait</span> <span class="nc">Http</span> <span class="o">{</span>
-    <span class="k">def</span> <span class="n">post</span><span class="o">(</span><span class="n">userCreds</span><span class="k">:</span> <span class="kt">UserCredentials</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">AuthCredentials</span><span class="o">]</span>
-<span class="o">}</span>
+<span class="k">trait</span> <span class="nc">Http</span> <span class="p">{</span>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="n">userCreds</span><span class="p">:</span> <span class="nc">UserCredentials</span><span class="p">):</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">AuthCredentials</span><span class="p">]</span>
+<span class="p">}</span>
 
-<span class="k">trait</span> <span class="nc">Database</span><span class="o">{</span>
-    <span class="k">def</span> <span class="n">queryUser</span><span class="o">(</span><span class="n">userName</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span><span class="k">:</span> <span class="kt">IO</span><span class="o">[</span><span class="kt">UserInfo</span><span class="o">]</span>
-<span class="o">}</span>
-</pre>
+<span class="k">trait</span> <span class="nc">Database</span><span class="p">{</span>
+    <span class="k">def</span> <span class="nf">queryUser</span><span class="p">(</span><span class="n">userName</span><span class="p">:</span> <span class="nc">String</span><span class="p">):</span> <span class="nc">IO</span><span class="p">[</span><span class="nc">UserInfo</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre>
 
 <h3>Credentials</h3>
-<pre class="code literal-block"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserCredentials</span><span class="o">(</span><span class="n">userId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">password</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserCredentials</span><span class="p">(</span><span class="n">userId</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span> <span class="n">password</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span>
 
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthCredentials</span><span class="o">(</span><span class="n">userId</span><span class="k">:</span> <span class="kt">String</span><span class="o">,</span> <span class="n">userName</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthCredentials</span><span class="p">(</span><span class="n">userId</span><span class="p">:</span> <span class="nc">String</span><span class="p">,</span> <span class="n">userName</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span>
 
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfo</span><span class="o">()</span>
-</pre>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfo</span><span class="p">()</span>
+</code></pre>
 
 <h3>Successful Response</h3>
-<pre class="code literal-block"><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Response</span>
+<pre class="code literal-block"><span></span><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">Response</span>
 
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoResponse</span><span class="o">(</span><span class="n">userInfo</span><span class="k">:</span> <span class="kt">UserInfo</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">Response</span>
-</pre>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoResponse</span><span class="p">(</span><span class="n">userInfo</span><span class="p">:</span> <span class="nc">UserInfo</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">Response</span>
+</code></pre>
 
 <h2>ADTs &amp; Flow</h2>
 <p>Previously we defined our system in terms of happy path. But in reality there are many ways in which the server can end up in an error state. </p>
 <p>For example, we know that the authentication server &amp; our own server can respond with one of the typical HTTP statuses for error (we will use a simpler set for this example). We will similarly assume smaller set of states for the database.</p>
 <p>We can define these using following top high level <code>trait</code>s.</p>
 <h3>Top level Error Traits</h3>
-<pre class="code literal-block"><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">CredentialErrorResponse</span>
+<pre class="code literal-block"><span></span><code><span class="k">sealed</span> <span class="k">trait</span> <span class="nc">CredentialErrorResponse</span>
 
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">AuthResponse</span>
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">AuthErrorResponse</span> <span class="k">extends</span> <span class="nc">AuthResponse</span>
 
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">DBResponse</span>
 <span class="k">sealed</span> <span class="k">trait</span> <span class="nc">DBErrorResponse</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
-</pre>
+</code></pre>
 
 <p>Following are examples of possible errors we will handle per domain.</p>
 <p><img alt="States of Response, Auth Server &amp; Database" src="../../images/adt-error-states.png"></p>
 <h2>Defining Error ADTs</h2>
 <p>Based on the above traits and error ADT breakdown, we can define the case classes to represent them as follows.</p>
-<pre class="code literal-block"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">CredentialsMissing</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UnauthorizedUser</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">NotFound</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Forbidden</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">InternalServerError</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
-</pre>
+<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">CredentialsMissing</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UnauthorizedUser</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">NotFound</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">Forbidden</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">InternalServerError</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="k">with</span> <span class="nc">CredentialErrorResponse</span>
+</code></pre>
 
 <p><code>AuthResponse</code> types</p>
-<pre class="code literal-block"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthCredentialsResponse</span><span class="o">(</span><span class="n">authCredentials</span><span class="k">:</span> <span class="kt">AuthCredentials</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">AuthResponse</span>
+<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthCredentialsResponse</span><span class="p">(</span><span class="n">authCredentials</span><span class="p">:</span> <span class="nc">AuthCredentials</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">AuthResponse</span>
 
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UnauthorizedAuthUser</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthUserNotFound</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthServerError</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
-</pre>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UnauthorizedAuthUser</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthUserNotFound</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">AuthServerError</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">with</span> <span class="nc">AuthErrorResponse</span>
+</code></pre>
 
 <p><code>Database</code> types</p>
-<pre class="code literal-block"><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoFound</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoNotFound</span><span class="o">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
+<pre class="code literal-block"><span></span><code><span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoFound</span><span class="p">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">UserInfoNotFound</span><span class="p">()</span> <span class="k">extends</span> <span class="nc">DBResponse</span>
 
-<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">DBError</span><span class="o">(</span><span class="n">msg</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="o">(</span><span class="n">msg</span><span class="o">)</span> <span class="k">with</span> <span class="nc">DBErrorResponse</span>
-</pre>
+<span class="k">final</span> <span class="k">case</span> <span class="k">class</span> <span class="nc">DBError</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="nc">String</span><span class="p">)</span> <span class="k">extends</span> <span class="nc">RuntimeException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="k">with</span> <span class="nc">DBErrorResponse</span>
+</code></pre>
 
 <p>Now if we look at how our system is overall designed we have a very nice diagram based around ADTs &amp; Flow.</p>
 <p><img alt="Complete flow of system that includes Request to Response &amp; possible ADTs per each intermim function call" src="../../images/adt-complete-flow.png"></p>
@@ -303,9 +303,7 @@ Contents © 2021         <a href="https://github.com/last-ent">Ent</a>. Keep up 
         <script src="../../assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script><!-- <script src="http://localhost:8000/entlytics.js"></script> --><script src="https://last-ent.com/entlytics.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}

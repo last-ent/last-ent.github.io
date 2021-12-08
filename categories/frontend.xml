@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about frontend)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/frontend.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Sun, 07 Mar 2021 15:11:12 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>My Frontend Adventure (2021)</title><link>https://last-ent.com/posts/my-frontend-adventure-2021/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;h2&gt;What is the best way to get started with Frontend development in 2021?&lt;/h2&gt;
+<?xml-stylesheet type="text/xsl" href="../assets/xml/rss.xsl" media="all"?><rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Last Ent's Thoughts (Posts about frontend)</title><link>https://last-ent.com/</link><description></description><atom:link href="https://last-ent.com/categories/frontend.xml" rel="self" type="application/rss+xml"></atom:link><language>en</language><copyright>Contents © 2021 &lt;a href="mailto:blog@last-ent.com"&gt;Ent&lt;/a&gt; </copyright><lastBuildDate>Wed, 08 Dec 2021 17:45:50 GMT</lastBuildDate><generator>Nikola (getnikola.com)</generator><docs>http://blogs.law.harvard.edu/tech/rss</docs><item><title>My Frontend Adventure (2021)</title><link>https://last-ent.com/posts/my-frontend-adventure-2021/</link><dc:creator>Ent</dc:creator><description>&lt;div&gt;&lt;h2&gt;What is the best way to get started with Frontend development in 2021?&lt;/h2&gt;
 &lt;p&gt;Every time I start looking at the current state of Frontend tools it starts to freak me out.&lt;/p&gt;
 &lt;h3&gt;The start&lt;/h3&gt;
 &lt;p&gt;I decided to bite the bullet and VueJS felt alluring.&lt;/p&gt;
-&lt;pre class="code literal-block"&gt;$ npx create-vue-app
-&lt;/pre&gt;
+&lt;pre class="code literal-block"&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;$ npx create-vue-app
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;Lo &amp;amp; Behold! I have an app with has around &lt;strong&gt;100+ vulnerabilities.&lt;/strong&gt;&lt;/p&gt;

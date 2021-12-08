@@ -148,7 +148,7 @@
             </p>
                 </div>
             </header><div class="p-summary entry-summary">
-                    <pre class="code literal-block">I miss the days of yore,
+                    <pre class="code literal-block"><span></span><code>I miss the days of yore,
 where blogs had focus broad.
 A mix of hobbies or talents varied,
 a window into a person's psyche.
@@ -162,7 +162,7 @@ I protest, I detest,
 this utilitarian web.
 `Off Topic` is where,
 I break this thread.
-</pre>
+</code></pre>
                 </div>
             </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/polling-in-fp/" class="u-url">Visual guide to polling in Functional Programming (Scala)</a></h1>
                 <div class="metadata">
@@ -182,10 +182,9 @@ I break this thread.
 <ul>
 <li>We have API for a queue<sup id="fnref:0"><a class="footnote-ref" href="posts/polling-in-fp/#fn:0">1</a></sup> that can be queried using <code>pollFn</code> function.</li>
 <li>We need to process data returned by queue using <code>process</code> function.</li>
-<li>There may or may not be data at the time of querying.
-<p class="more"><a href="posts/polling-in-fp/">Read more…</a></p>
-</li>
+<li>There may or may not be data at the time of querying.</li>
 </ul>
+<p class="more"><a href="posts/polling-in-fp/">Read more…</a></p>
 </div>
                 </div>
             </article>
@@ -210,9 +209,7 @@ Contents © 2021         <a href="https://github.com/last-ent">Ent</a>. Keep up 
         <script src="assets/js/all-nocdn.js"></script><script>
     baguetteBox.run('div#content', {
         ignoreClass: 'islink',
-        captions: function(element) {
-            return element.getElementsByTagName('img')[0].alt;
-    }});
+        captions: function(element){var i=element.getElementsByTagName('img')[0];return i===undefined?'':i.alt;}});
     </script><!-- <script src="http://localhost:8000/entlytics.js"></script> --><script src="https://last-ent.com/entlytics.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-148031816-1"></script><script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
