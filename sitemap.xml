@@ -7,238 +7,186 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2020/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2021/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/computer-science/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/categories/culture/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/emacs/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/enterprise-software-development/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/categories/food/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/fp-for-sceptics/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/from-scratch/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/frontend/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/functional-programming/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/categories/horror/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/learnings/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/musings/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/nightmare/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/off-topic/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/probability/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/productivity/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/programming/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/scala/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/categories/self/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/software-architecture/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/software-design/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/software-engineering/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/categories/startup/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/type-driven-development/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/index-1.html</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/index-2.html</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:31:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/about/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/learning-targets/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/pages/nuances-of-investment/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/adts-in-practice/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/posts/art-of-sit-down-write/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/cats-effects-io/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/posts/companies-devs-want-different-things/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/dependency-mock-server/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/elegance-of-monadic-composition/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/elements-of-coding-style/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/emacs-snappy-intro/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/posts/introducing-off-topic/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/introduction-to-adts/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/introduction-to-option-type/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/intuitive-map-flatmap/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/link-preview-open-graph-protocol/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/mapping-thoughts/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/monte-carlo-method/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/posts/my-favourite-evening-snack/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/posts/my-frontend-adventure-2021/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/option-type-in-practice/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/polling-in-fp/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/productivity-for-overwhelmed/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/second-static-website/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/posts/startup-that-broke-me/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
- </url>
- <url>
-  <loc>https://last-ent.com/posts/thoughts-on-changing-programming-languages/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/posts/type-driven-development/</loc>
-  <lastmod>2021-12-08T17:45:00Z</lastmod>
+  <lastmod>2022-08-02T08:30:00Z</lastmod>
  </url>
 </urlset>
