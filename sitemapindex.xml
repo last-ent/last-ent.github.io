@@ -22,14 +22,6 @@
   <lastmod>2022-08-02T08:30:00Z</lastmod>
  </sitemap>
  <sitemap>
-  <loc>https://last-ent.com/categories/from-scratch.xml</loc>
-  <lastmod>2022-08-02T08:30:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://last-ent.com/categories/frontend.xml</loc>
-  <lastmod>2022-08-02T08:30:00Z</lastmod>
- </sitemap>
- <sitemap>
   <loc>https://last-ent.com/categories/functional-programming.xml</loc>
   <lastmod>2022-08-02T08:30:00Z</lastmod>
  </sitemap>
@@ -39,10 +31,6 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/categories/musings.xml</loc>
-  <lastmod>2022-08-02T08:30:00Z</lastmod>
- </sitemap>
- <sitemap>
-  <loc>https://last-ent.com/categories/nightmare.xml</loc>
   <lastmod>2022-08-02T08:30:00Z</lastmod>
  </sitemap>
  <sitemap>
@@ -87,6 +75,6 @@
  </sitemap>
  <sitemap>
   <loc>https://last-ent.com/sitemap.xml</loc>
-  <lastmod>2022-08-02T08:31:00Z</lastmod>
+  <lastmod>2022-08-02T08:33:00Z</lastmod>
  </sitemap>
 </sitemapindex>
