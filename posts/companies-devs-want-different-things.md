@@ -6,6 +6,7 @@
 .. link: 
 .. description: 
 .. type: text
+.. status: draft
 
 Companies are interested in keeping the risk of their operations to a minimum.
 Software Developers want to learn and hone their craft. (This is not true for all developers and I don't speak for them.)

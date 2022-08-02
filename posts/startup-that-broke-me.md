@@ -7,6 +7,7 @@
 .. link: 
 .. description: Do you miss office politics, middle management & bureaucracy? Me neither. Turns out that even startups aren't safe from such vile creatures. Read on to hear my story and what I learned from it.
 .. type: text
+.. status: draft
 -->
 
 My first job was at an IT Services company.

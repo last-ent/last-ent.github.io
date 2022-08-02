@@ -7,6 +7,7 @@
 .. link: 
 .. description: Introducing Off Topic posts. Read why and what they are about.
 .. type: micro
+.. status: draft
 -->
 
 ```text

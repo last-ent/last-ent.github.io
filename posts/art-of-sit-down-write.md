@@ -7,6 +7,7 @@
 .. link: 
 .. description: 
 .. type: text
+.. status: draft
 -->
 
 Ever been afraid to start? Maybe to start writing or working out or drawing or painting. Ever been stuck because you have no idea where to begin? I know I have been there and hated it.

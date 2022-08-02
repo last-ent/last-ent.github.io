@@ -7,6 +7,7 @@
 .. link: 
 .. description: What is the best way to get started with Frontend development in 2021? Brief summary of what I found and what I intend to do next.
 .. type: text
+.. status: draft
 -->
 
 # What is the best way to get started with Frontend development in 2021?

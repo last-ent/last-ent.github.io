@@ -23,3 +23,6 @@ newpost:
 	
 install:
 	pipenv install $(pkgs)
+
+help:
+	less Makefile
