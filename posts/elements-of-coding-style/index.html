@@ -148,7 +148,7 @@
 <p><em>~ Structure &amp; Interpretation of Programming Languages</em></p>
 <h4>Functional Naming</h4>
 <h5>Think in terms of functionality, not types</h5>
-<pre class="code literal-block"><span class="k">trait</span> <span class="nc">CatalogMappingService</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">trait</span> <span class="nc">CatalogMappingService</span> <span class="p">{</span>
   <span class="k">def</span> <span class="nf">getMappingFor</span><span class="p">(</span><span class="n">cId</span><span class="p">:</span> <span class="nc">CatalogId</span><span class="p">):</span> <span class="nc">ProductId</span>
 <span class="p">}</span>
 
@@ -171,22 +171,25 @@
 <span class="kd">val</span> <span class="n">catalog</span><span class="p">:</span> <span class="nc">Catalog</span> <span class="o">=</span> <span class="o">???</span>
 
 <span class="kd">val</span> <span class="n">productId</span><span class="p">:</span> <span class="n">productId</span> <span class="o">=</span> <span class="n">catalog</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">catalogId</span><span class="p">)</span>
-</pre>
+</code></pre>
+
 <h5>Write in terms of verbs, not instructions</h5>
-<pre class="code literal-block"><span class="k">if</span><span class="p">(</span><span class="n">porfolioIdsByTraderId</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">trader</span><span class="p">.</span><span class="n">getId</span><span class="p">())</span>
+<pre class="code literal-block"><span></span><code><span class="k">if</span><span class="p">(</span><span class="n">porfolioIdsByTraderId</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">trader</span><span class="p">.</span><span class="n">getId</span><span class="p">())</span>
     <span class="p">.</span><span class="n">containsKey</span><span class="p">(</span><span class="n">portfolio</span><span class="p">.</span><span class="n">getId</span><span class="p">()))</span> <span class="p">{...}</span>
 
 <span class="c1">// vs</span>
 
 <span class="k">if</span><span class="p">(</span><span class="n">trader</span><span class="p">.</span><span class="n">canView</span><span class="p">(</span><span class="n">portfolio</span><span class="p">))</span> <span class="p">{...}</span>
-</pre>
+</code></pre>
+
 <h5>Don't leak implementation in names</h5>
-<pre class="code literal-block"><span class="kd">val</span> <span class="n">catalogIdToProductIdMap</span><span class="p">:</span> <span class="nc">Map</span><span class="p">[</span><span class="nc">CatalogId</span><span class="p">,</span> <span class="nc">ProductId</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
+<pre class="code literal-block"><span></span><code><span class="kd">val</span> <span class="n">catalogIdToProductIdMap</span><span class="p">:</span> <span class="nc">Map</span><span class="p">[</span><span class="nc">CatalogId</span><span class="p">,</span> <span class="nc">ProductId</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
 
 <span class="c1">// vs</span>
 
 <span class="kd">val</span> <span class="n">catalog</span><span class="p">:</span> <span class="nc">Map</span><span class="p">[</span><span class="nc">CatalogId</span><span class="p">,</span> <span class="nc">ProductId</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
-</pre>
+</code></pre>
+
 <h3>Signal to Noise ratio</h3>
 <p><img alt="Signal to Noise Ratio: Word Length vs. Understandability of Code" src="../../images/snr.png"></p>
 <h4>Readable Code</h4>
@@ -209,7 +212,7 @@
 <h5>Use traits when</h5>
 <h6>Multiple functions/methods logically make sense to be grouped together (standard use case)</h6>
 <h6>Single function call might require data that shouldn't be visible to caller</h6>
-<pre class="code literal-block"><span class="k">trait</span> <span class="nc">Catalog</span> <span class="p">{</span>
+<pre class="code literal-block"><span></span><code><span class="k">trait</span> <span class="nc">Catalog</span> <span class="p">{</span>
   <span class="k">def</span> <span class="nf">query</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="nc">CatalogId</span><span class="p">):</span> <span class="p">(</span><span class="nc">CatalogId</span><span class="p">,</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">CatalogPrice</span><span class="p">])</span>
 <span class="p">}</span>
 
@@ -224,7 +227,8 @@
 
   <span class="kd">val</span> <span class="n">query</span><span class="p">:</span> <span class="nc">QueryCatalog</span> <span class="o">=</span> <span class="o">???</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <h5>Think in terms of What &amp; Why, not How</h5>
 <p></p>
 <hr>

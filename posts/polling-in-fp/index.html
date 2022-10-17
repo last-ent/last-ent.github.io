@@ -148,7 +148,7 @@
 <!--End mc_embed_signup-->
 <hr>
 <h2>Implementation: Imperative Scala</h2>
-<pre class="code literal-block"><span class="c1">// Basic functions</span>
+<pre class="code literal-block"><span></span><code><span class="c1">// Basic functions</span>
 <span class="k">def</span> <span class="nf">pollFn</span><span class="p">():</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
 <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">dataOpt</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">Int</span><span class="p">]):</span> <span class="nc">Unit</span> <span class="o">=</span> <span class="o">???</span>
 
@@ -166,13 +166,14 @@
     <span class="nc">Thread</span><span class="p">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span> <span class="c1">// 60 * 1000 milliseconds or 1 minute</span>
   <span class="p">}</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <p>The code in <code>continuousPoll</code> is pretty straightforward.</p>
 <p>Three lines to <em>poll</em>, <em>process</em> &amp; <em>wait</em>. A fourth to <em>run it in a loop</em>.</p>
 <p>It also looks quite similar to the third diagram shown at beginning.</p>
 <h2>Implementation: FS2 Streams</h2>
 <p>Now let's implement it using <code>fs2</code>.</p>
-<pre class="code literal-block"><span class="k">import</span> <span class="nn">fs2</span><span class="p">.</span><span class="nc">Stream</span>
+<pre class="code literal-block"><span></span><code><span class="k">import</span> <span class="nn">fs2</span><span class="p">.</span><span class="nc">Stream</span>
 <span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nn">effect</span><span class="p">.</span><span class="nc">IO</span>
 <span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nn">syntax</span><span class="p">.</span><span class="nn">functor</span><span class="p">.</span><span class="n">_</span>
 
@@ -205,7 +206,8 @@
     <span class="p">.</span><span class="n">unsafeRunSync</span>
 
 <span class="n">result</span> <span class="o">==</span> <span class="nc">List</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">100</span><span class="p">)</span>
-</pre>
+</code></pre>
+
 <p>At first glance, it might seem like the imperative version of poll is better, because it consists of four lines of code and code will be familiar to both FP style &amp; imperative style of programmers.</p>
 <p>I admit that the FP/Stream version of code will be a bit hard for those who aren't already used to these concepts<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">2</a></sup>.</p>
 <h2>Visualising Streams</h2>

@@ -214,7 +214,7 @@
 <p>I will be using Scala's <code>Cats</code> library for the code demo as it allows us to use some of the concepts we need to compose our types.</p>
 <h3>Step 0: Structure</h3>
 <p>We start with four <code>object</code>s with predefined purpose as explained in the comments</p>
-<pre class="code literal-block"><span class="k">package</span> <span class="n">sandbox</span>
+<pre class="code literal-block"><span></span><code><span class="k">package</span> <span class="n">sandbox</span>
 
 <span class="c1">//Domain Models</span>
 <span class="k">object</span> <span class="nc">DataTypes</span> <span class="p">{}</span>
@@ -228,7 +228,8 @@
 <span class="c1">// We will use the above three objects and their inner components</span>
 <span class="c1">// here to prove that they will indeed work together</span>
 <span class="k">object</span> <span class="nc">Specification</span> <span class="p">{}</span>
-</pre>
+</code></pre>
+
 <h3>Step 1: Edge Behaviour: <code>List[ShoppingListItem] =&gt; F[List[ItemConfirmation]]</code>
 </h3>
 <p>Based on the flow diagram, if we think from customer's perspective we know that:</p>
@@ -237,7 +238,7 @@
 <li>Upon ordering, customer will have a <code>list</code> which <code>confirms</code> if the <code>items</code> &amp; <code>quantity</code> requested were bought.</li>
 </ul>
 <p>We can represent in code with following domain models &amp; functions.</p>
-<pre class="code literal-block"><span class="k">package</span> <span class="n">sandbox</span>
+<pre class="code literal-block"><span></span><code><span class="k">package</span> <span class="n">sandbox</span>
 
 <span class="k">import</span> <span class="nn">sandbox</span><span class="p">.</span><span class="nc">DataTypes</span><span class="p">.</span><span class="n">_</span>
 
@@ -261,7 +262,8 @@
 
   <span class="k">def</span> <span class="nf">proof</span><span class="p">[</span><span class="nc">F</span><span class="p">[</span><span class="n">_</span><span class="p">]]:</span> <span class="nc">Service</span><span class="p">[</span><span class="nc">F</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <h3>Step 2: Dependencies</h3>
 <p>We also have two external dependencies</p>
 <p><strong>Catalog</strong> let's us translate <code>ItemName</code> into <code>ItemId</code> which is available within the system. <strong>Catalog</strong> behaves as follows:</p>
@@ -282,7 +284,7 @@
 </ul>
 <p>This behaviour is encapsulated by the function type <code>OrderItems</code>.</p>
 <p>All this can be represented in the code as follows.</p>
-<pre class="code literal-block"><span class="k">package</span> <span class="n">sandbox</span>
+<pre class="code literal-block"><span></span><code><span class="k">package</span> <span class="n">sandbox</span>
 
 <span class="k">import</span> <span class="nn">scala</span><span class="p">.</span><span class="nn">annotation</span><span class="p">.</span><span class="nc">StaticAnnotation</span>
 
@@ -310,7 +312,8 @@
 
   <span class="k">type</span> <span class="nc">OrderItems</span><span class="p">[</span><span class="nc">F</span><span class="p">[</span><span class="n">_</span><span class="p">]]</span> <span class="o">=</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ShopOrderItem</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nc">F</span><span class="p">[</span><span class="nc">List</span><span class="p">[</span><span class="nc">ShopConfirmation</span><span class="p">]]</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <p>
 <!-- TEASER_END -->
 </p>
@@ -340,7 +343,7 @@
 </ul>
 <p>We are defining our external dependencies via <code>F[_]</code> because they are IO operations over the network. Furthermore, we will to qualify <code>F[_]</code> as a <code>Monad</code> because we need to wait upon the IO operation to be completed and then work with the computed value, this is done by way of <code>flatMap</code>.</p>
 <p>Let's see if we can now compose our dependencies to return <code>List[ItemConfirmation]</code></p>
-<pre class="code literal-block"><span class="k">package</span> <span class="n">sandbox</span>
+<pre class="code literal-block"><span></span><code><span class="k">package</span> <span class="n">sandbox</span>
 
 <span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nc">Monad</span>
 <span class="k">import</span> <span class="nn">cats</span><span class="p">.</span><span class="nn">implicits</span><span class="p">.</span><span class="n">_</span>
@@ -361,16 +364,18 @@
         <span class="n">orderedItems</span> <span class="o">&lt;-</span> <span class="n">orderItems</span><span class="p">(</span><span class="n">catalog</span><span class="p">)</span>
       <span class="p">}</span> <span class="k">yield</span> <span class="n">orderedItems</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <p>If we try to compile the code, we get following error.</p>
-<pre class="code literal-block"><span class="k">[error]  found   : List[sandbox.DataTypes.CatalogItem]</span>
+<pre class="code literal-block"><span></span><code><span class="k">[error]  found   : List[sandbox.DataTypes.CatalogItem]</span>
 <span class="k">[error]  required: List[sandbox.DataTypes.ShopOrderItem]</span>
 <span class="na">[error]         orderedItems &lt;- orderItems(catalog)</span>
 <span class="na">[error]                                    ^</span>
-</pre>
+</code></pre>
+
 <p>The compiler is telling us that we need to define function/behaviour with following signature <code>List[CatalogItem] =&gt; List[ShopOrderItem]</code>.</p>
 <p>Let us define such a function type, use it within our <code>proof</code> as <code>toShopOrder</code>, transform <code>catalog</code> to <code>shopItems</code> and then recompile our code.</p>
-<pre class="code literal-block"> <span class="k">package</span> <span class="n">sandbox</span>
+<pre class="code literal-block"><span></span><code> <span class="k">package</span> <span class="n">sandbox</span>
 
 <span class="c1">// ...</span>
 <span class="k">import</span> <span class="nn">sandbox</span><span class="p">.</span><span class="nc">Transformers</span><span class="p">.</span><span class="n">_</span>
@@ -393,13 +398,15 @@
         <span class="n">orderedItems</span> <span class="o">&lt;-</span> <span class="n">orderItems</span><span class="p">(</span><span class="n">shopItems</span><span class="p">)</span>
       <span class="p">}</span> <span class="k">yield</span> <span class="n">orderedItems</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <p>If we try to compile above code we get</p>
-<pre class="code literal-block"><span class="k">[error]  found   : List[sandbox.DataTypes.ShopConfirmation]</span>
+<pre class="code literal-block"><span></span><code><span class="k">[error]  found   : List[sandbox.DataTypes.ShopConfirmation]</span>
 <span class="k">[error]  required: List[sandbox.DataTypes.ItemConfirmation]</span>
 <span class="na">[error]       } yield orderedItems</span>
 <span class="na">[error]               ^</span>
-</pre>
+</code></pre>
+
 <h4>
 <code>ItemConfirmation</code> transformers</h4>
 <p>Now we know two things:</p>
@@ -409,7 +416,7 @@
 <li>We need another transformation function, <code>itemToItemConfirmation: ShoppingListItem =&gt; ItemConfirmation</code>. This is needed because we can have items not available in <strong>catalog</strong>.</li>
 </ul>
 <p><em>Minor update</em>: We need to redefine the behaviour/flow <code>toShopOrder</code> as <code>(List[ShoppingListItem], List[CatalogItem]) =&gt; List[ShopOrderItem]</code> because <code>CatalogItem</code> does not have all the information to be converted to <code>ShopOrderItem</code> so we will also need <code>ShoppingListItem</code> for complete conversion.</p>
-<pre class="code literal-block"><span class="k">package</span> <span class="n">sandbox</span>
+<pre class="code literal-block"><span></span><code><span class="k">package</span> <span class="n">sandbox</span>
 
 <span class="c1">// ...</span>
 <span class="k">import</span> <span class="nn">sandbox</span><span class="p">.</span><span class="nc">Transformers</span><span class="p">.</span><span class="n">_</span>
@@ -432,11 +439,12 @@
         <span class="c1">// ...</span>
       <span class="p">}</span> <span class="k">yield</span> <span class="n">orderedItems</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="n">shopToItemConfirmation</span><span class="p">)</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <h4>Transformers to return complete <code>List[ItemConfirmation]</code>
 </h4>
 <p>In order to complete our proof, we need to figure out how to combine the following four domain models using existing <code>Transformers</code> and creating new ones if needed.</p>
-<pre class="code literal-block"><span class="k">case</span> <span class="k">class</span> <span class="nc">ShoppingListItem</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="nc">ItemName</span><span class="p">,</span> <span class="n">quantity</span><span class="p">:</span> <span class="nc">Quantity</span><span class="p">)</span>
+<pre class="code literal-block"><span></span><code><span class="k">case</span> <span class="k">class</span> <span class="nc">ShoppingListItem</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="nc">ItemName</span><span class="p">,</span> <span class="n">quantity</span><span class="p">:</span> <span class="nc">Quantity</span><span class="p">)</span>
 
 <span class="k">case</span> <span class="k">class</span> <span class="nc">CatalogItem</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nc">ItemName</span><span class="p">,</span> <span class="n">id</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">ItemId</span><span class="p">])</span>
 
@@ -451,18 +459,20 @@
     <span class="n">quantity</span><span class="p">:</span> <span class="nc">Quantity</span><span class="p">,</span>
     <span class="n">confirmed</span><span class="p">:</span> <span class="nc">Confirmed</span>
 <span class="p">)</span>
-</pre>
+</code></pre>
+
 <p>Based on these four domain models, following is one such solution which defines two function types:</p>
-<pre class="code literal-block"><span class="k">case</span> <span class="k">class</span> <span class="nc">Pairs</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="nc">ShoppingListItem</span><span class="p">,</span> <span class="n">confirmations</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">ShopConfirmation</span><span class="p">])</span>
+<pre class="code literal-block"><span></span><code><span class="k">case</span> <span class="k">class</span> <span class="nc">Pairs</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="nc">ShoppingListItem</span><span class="p">,</span> <span class="n">confirmations</span><span class="p">:</span> <span class="nc">Option</span><span class="p">[</span><span class="nc">ShopConfirmation</span><span class="p">])</span>
 
 <span class="kd">val</span> <span class="n">toItemConfirmation</span><span class="p">:</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Pairs</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ItemConfirmation</span><span class="p">]</span>
 
 <span class="kd">val</span> <span class="n">getPairs</span><span class="p">:</span> <span class="p">(</span><span class="nc">List</span><span class="p">[</span><span class="nc">CatalogItem</span><span class="p">],</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ShoppingListItem</span><span class="p">],</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ShopConfirmation</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Pairs</span><span class="p">]</span>
-</pre>
+</code></pre>
+
 <h4>
 <code>toItemConfirmation</code> transformer</h4>
 <p>Let's conclude the spec by implementing the logic for <code>toItemConfirmation</code>.</p>
-<pre class="code literal-block"><span class="k">package</span> <span class="n">sandbox</span>
+<pre class="code literal-block"><span></span><code><span class="k">package</span> <span class="n">sandbox</span>
 
 <span class="c1">// ...</span>
 <span class="k">import</span> <span class="nn">sandbox</span><span class="p">.</span><span class="nc">DataTypes</span><span class="p">.</span><span class="n">_</span>
@@ -509,7 +519,8 @@
         <span class="n">pairs</span> <span class="o">=</span> <span class="n">getPairs</span><span class="p">(</span><span class="n">catalog</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">orderedItems</span><span class="p">)</span>
       <span class="p">}</span> <span class="k">yield</span> <span class="n">toItemConfirmation</span><span class="p">(</span><span class="n">pairs</span><span class="p">)</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <p></p>
 <hr>
 <!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
@@ -526,19 +537,20 @@
 <hr>
 <h2>Conclusion</h2>
 <p>Now if we look at complete specification, we can tell that following functions/types need to be defined.</p>
-<pre class="code literal-block"><span class="kd">val</span> <span class="n">toShopOrder</span><span class="p">:</span> <span class="p">(</span><span class="nc">List</span><span class="p">[</span><span class="nc">ShoppingListItem</span><span class="p">],</span> <span class="nc">List</span><span class="p">[</span><span class="nc">CatalogItem</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ShopOrderItem</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
+<pre class="code literal-block"><span></span><code><span class="kd">val</span> <span class="n">toShopOrder</span><span class="p">:</span> <span class="p">(</span><span class="nc">List</span><span class="p">[</span><span class="nc">ShoppingListItem</span><span class="p">],</span> <span class="nc">List</span><span class="p">[</span><span class="nc">CatalogItem</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ShopOrderItem</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
 
 <span class="kd">val</span> <span class="n">shopToItemConfirmation</span><span class="p">:</span> <span class="p">(</span><span class="nc">ItemName</span><span class="p">,</span> <span class="nc">ShopConfirmation</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nc">ItemConfirmation</span> <span class="o">=</span> <span class="o">???</span>
 
 <span class="kd">val</span> <span class="n">itemToItemConfirmation</span><span class="p">:</span> <span class="nc">ShoppingListItem</span> <span class="o">=&gt;</span> <span class="nc">ItemConfirmation</span> <span class="o">=</span> <span class="o">???</span>
 
 <span class="kd">val</span> <span class="n">getPairs</span><span class="p">:</span> <span class="p">(</span><span class="nc">List</span><span class="p">[</span><span class="nc">CatalogItem</span><span class="p">],</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ShoppingListItem</span><span class="p">],</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ShopConfirmation</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="nc">List</span><span class="p">[</span><span class="nc">Pair</span><span class="p">]</span> <span class="o">=</span> <span class="o">???</span>
-</pre>
+</code></pre>
+
 <p>I found this style of defining types &amp; "proving" the design to be quite beneficial for clarity of thought. And as I kept introducing types it was easier to see how the code would flow and whenever I felt something was unclear, I could start adding more details and thus get rid of nasty surprises at the earliest.</p>
 <p>While experimenting with this style, I came across the concept of <strong>Dependent Types</strong>. It would be interesting to see where the two concepts intersect and where they are geometrically opposed.</p>
 <h3>Complete Source Code</h3>
 <p>For the sake of completeness, I will also provide the complete code of everything I have described in this blog post in one single section.</p>
-<pre class="code literal-block"><span class="k">package</span> <span class="n">sandbox</span>
+<pre class="code literal-block"><span></span><code><span class="k">package</span> <span class="n">sandbox</span>
 
 <span class="k">import</span> <span class="nn">scala</span><span class="p">.</span><span class="nn">annotation</span><span class="p">.</span><span class="nc">StaticAnnotation</span>
 
@@ -625,7 +637,8 @@
 
   <span class="k">type</span> <span class="nc">OrderItems</span><span class="p">[</span><span class="nc">F</span><span class="p">[</span><span class="n">_</span><span class="p">]]</span> <span class="o">=</span> <span class="nc">List</span><span class="p">[</span><span class="nc">ShopOrderItem</span><span class="p">]</span> <span class="o">=&gt;</span> <span class="nc">F</span><span class="p">[</span><span class="nc">List</span><span class="p">[</span><span class="nc">ShopConfirmation</span><span class="p">]]</span>
 <span class="p">}</span>
-</pre>
+</code></pre>
+
 <p>
 <script src="https://gumroad.com/js/gumroad.js"></script></p>
 <hr>
