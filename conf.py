@@ -138,8 +138,7 @@ NAVIGATION_LINKS = {
     DEFAULT_LANG: (("/pages/learning-targets", "Learning Targets"), ((
         ("/archive.html", "Archive"),
         ("/categories/", "Tags"),
-    ), "Archives"), ("/pages/about", "About"),
-                   ("https://ko-fi.com/D1D53GPBW", "Ko-fi Tip")),
+    ), "Archives"), ("/pages/about", "About")),
 }
 
 # NAVIGATION_LINKS = {
@@ -938,10 +937,6 @@ LICENSE = ""
 # A small copyright notice for the page footer (in HTML).
 # (translatable)
 CONTENT_FOOTER = '''
-<div style="align-text: center">
-<script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Support Me on Ko-fi', '#ff5f5f', 'D1D53GPBW');kofiwidget2.draw();</script> 
-</div>
-<br>
 Contents &copy; {date}         <a href="https://github.com/last-ent">{author}</a>. Keep up to date with <a href="/rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>         {license} '''
 
 # Things that will be passed to CONTENT_FOOTER.format().  This is done
@@ -1214,12 +1209,6 @@ SHOW_SOURCELINK = False
 # before </head>
 # (translatable)
 EXTRA_HEAD_DATA = """
-<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
 <style>
 .center {
   text-align: center;

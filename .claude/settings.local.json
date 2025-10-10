@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git checkout src)",
+      "Bash(pipenv install)",
+      "Bash(make build)",
+      "Bash(make deploy)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
