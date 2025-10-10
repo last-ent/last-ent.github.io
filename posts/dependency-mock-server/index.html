@@ -11,13 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://last-ent.com/posts/dependency-mock-server/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<style>
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><style>
 .center {
   text-align: center;
 }
@@ -73,9 +67,6 @@
                 </li>
 <li class="nav-item">
 <a href="../../pages/about" class="nav-link">About</a>
-                </li>
-<li class="nav-item">
-<a href="https://ko-fi.com/D1D53GPBW" class="nav-link">Ko-fi Tip</a>
 
                 
             </li>
@@ -107,8 +98,7 @@
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<p>Last year while preparing for Black Friday our team had an interesting challenge:</p>
+    <p>Last year while preparing for Black Friday our team had an interesting challenge:</p>
 <blockquote>
 <p>Some of our downstream services<sup id="fnref:0"><a class="footnote-ref" href="#fn:0">1</a></sup> had proper setup to provide environments/APIs to load test.</p>
 </blockquote>
@@ -117,21 +107,7 @@
 <p>The solution I came up with and which we used was to have a Mock Server that served endpoints similar to our dependencies and return dynamic responses based on request payload.</p>
 <p><img alt="Server with Three Dependencies" src="../../images/server-3-deps.png"></p>
 <p>
-<!-- TEASER_END -->
-</p>
-<hr>
-<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
-<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c&amp;SIGNUP=mid" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-	<label for="mce-EMAIL">Interested in more posts like this?</label>
-	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-</div>
-
-<!--End mc_embed_signup-->
-<hr>
+<!-- TEASER_END --></p>
 <p>Next to deploy a separate server configured for load testing which would connect to the Mock Server. </p>
 <p><img alt="Server with Mocked Dependencies" src="../../images/server-with-mocks.png"></p>
 <h3>Why not use Stubs instead?</h3>
@@ -168,19 +144,6 @@
 <h2>Actual Load Tests</h2>
 <p>Later we got a chance to run a co-ordinated Load Test with all of our dependencies ready for the load. We realized that our numbers were pessimistic than how well the downstream services actually performed. This is because the teams were also working on stability and performance of their own services. Good news was that this let us set an upper bound for our SLAs and we could accordingly plan the required optimal configuration to run our production servers.</p>
 <p></p>
-<hr>
-<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
-<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c&amp;SIGNUP=End" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-	<label for="mce-EMAIL">Liked this and want more?</label>
-	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-
-</div>
-<!--End mc_embed_signup-->
-<hr>
 <h2>Conclusion</h2>
 <p>Hopefully this shed some light on how to prepare for Load Tests in case there are constraints based on downstream service's availability.</p>
 <p>
@@ -201,7 +164,6 @@
 </li>
 </ol>
 </div>
-</div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/software-architecture/" rel="tag">software architecture</a></li>
@@ -214,11 +176,9 @@
             <li class="next">
                 <a href="../second-static-website/" rel="next" title="Second Static Website">Next post</a>
             </li>
-        </ul></nav></aside></article><!--End of body content--><footer id="footer"><div style="align-text: center">
-<script type="text/javascript" src="https://ko-fi.com/widgets/widget_2.js"></script><script type="text/javascript">kofiwidget2.init('Support Me on Ko-fi', '#ff5f5f', 'D1D53GPBW');kofiwidget2.draw();</script>
-</div>
-<br>
-Contents © 2022         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            
+Contents © 2025         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
             
             
         </footer>

@@ -11,13 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://last-ent.com/posts/second-static-website/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<style>
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><style>
 .center {
   text-align: center;
 }
@@ -71,9 +65,6 @@
                 </li>
 <li class="nav-item">
 <a href="../../pages/about" class="nav-link">About</a>
-                </li>
-<li class="nav-item">
-<a href="https://ko-fi.com/D1D53GPBW" class="nav-link">Ko-fi Tip</a>
 
                 
             </li>
@@ -105,8 +96,7 @@
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<h2>Static Website Hosting</h2>
+    <h2>Static Website Hosting</h2>
 <p>I really like the low footprint and utility of Static Websites. This website is built using <code>Nikola</code>.</p>
 <p>In this post I will talk about some issues I faced with deploying a second static website and how I eventually solved it.</p>
 <h3>Github Pages</h3>
@@ -114,21 +104,7 @@
 <p>However as soon as I tried to create a second independent static website with custom domain, <code>Github</code> was having nothing of it.</p>
 <p>After spending lot of time scouring the web for how to make it work between <code>Github</code> &amp; <code>Namecheap</code>, my DNS provider, I had nothing to show for it.</p>
 <p>
-<!-- TEASER_END -->
-</p>
-<hr>
-<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
-<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c&amp;SIGNUP=offtopic" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-	<label for="mce-EMAIL">Off Topic are posts of casual nature and the only way to know about them is by signing up for my newsletter!</label>
-	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-</div>
-
-<!--End mc_embed_signup-->
-<hr>
+<!-- TEASER_END --></p>
 <h3>Netlify</h3>
 <p>Finally got around to having a look at <code>Netlify</code> and I must say it works great!</p>
 <p>It took me a while to understand how to deploy a simple HTML page as I am used to working with tools like <code>Nikola</code> or <code>Hugo</code>.</p>
@@ -148,7 +124,7 @@
 </ul>
 <h3>Directory Structure</h3>
 <p>Then you need to arrange your HTML pages in following order.</p>
-<pre class="code literal-block"><span></span><code>root
+<div class="code"><pre class="code literal-block">root
 ├── index.html
 ├── first
 │   └── index.html
@@ -160,28 +136,14 @@
     │   └── index.html
     └── nested2
         └── index.html
-</code></pre>
+</pre></div>
 
 <p>Note that <code>root</code> will point to <code>/</code> folder.</p>
 <p></p>
-<hr>
-<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
-<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c&amp;SIGNUP=End" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-	<label for="mce-EMAIL">Liked this and want more?</label>
-	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-
-</div>
-<!--End mc_embed_signup-->
-<hr>
 <h2>My New Site</h2>
 <p>You might be wondering what is this new site I have been playing around with.</p>
 <p>It's called <a href="//www.easy-zettel.com">Easy Zettel</a> and I briefly touched on it in my post <a href="https://last-ent.com/posts/mapping-thoughts/">Mapping Thoughts</a></p>
 <p>I am working on this as a fun experiment and I intend to write in greater detail about it soon.</p>
-</div>
     </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/off-topic/" rel="tag">off-topic</a></li>
@@ -193,11 +155,9 @@
             <li class="next">
                 <a href="../emacs-snappy-intro/" rel="next" title="Ent's snappy guide to Emacs">Next post</a>
             </li>
-        </ul></nav></aside></article><!--End of body content--><footer id="footer"><div style="align-text: center">
-<script type="text/javascript" src="https://ko-fi.com/widgets/widget_2.js"></script><script type="text/javascript">kofiwidget2.init('Support Me on Ko-fi', '#ff5f5f', 'D1D53GPBW');kofiwidget2.draw();</script>
-</div>
-<br>
-Contents © 2022         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            
+Contents © 2025         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
             
             
         </footer>

@@ -11,13 +11,7 @@
 <meta name="generator" content="Nikola (getnikola.com)">
 <link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
 <link rel="canonical" href="https://last-ent.com/posts/emacs-snappy-intro/">
-<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<style>
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><style>
 .center {
   text-align: center;
 }
@@ -73,9 +67,6 @@
                 </li>
 <li class="nav-item">
 <a href="../../pages/about" class="nav-link">About</a>
-                </li>
-<li class="nav-item">
-<a href="https://ko-fi.com/D1D53GPBW" class="nav-link">Ko-fi Tip</a>
 
                 
             </li>
@@ -107,8 +98,7 @@
         
 
     </header><div class="e-content entry-content" itemprop="articleBody text">
-    <div>
-<h2>Introduction</h2>
+    <h2>Introduction</h2>
 <p>I have used many editors over time and one "System" that I really enjoyed was Emacs. However I did not understand how it worked under the hood and it led to some fun times. This post is an attempt to log my experience with learning and understanding the "missing bits" in a single place. </p>
 <p>This guide is consolidation of knowledge &amp; experience of 2-3 days of intense focus learning &amp; modifying Emacs.</p>
 <h3>Purpose</h3>
@@ -126,21 +116,7 @@
 <li>How to read/write <code>elisp</code>. I have a basic understanding of lisp/clojure but otherwise I haven't bothered with learning it for this.</li>
 </ul>
 <p>
-<!-- TEASER_END -->
-</p>
-<hr>
-<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
-<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c&amp;SIGNUP=mid" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-	<label for="mce-EMAIL">Interested in more posts like this?</label>
-	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-</div>
-
-<!--End mc_embed_signup-->
-<hr>
+<!-- TEASER_END --></p>
 <h4>Gradual Ramp Up</h4>
 <p>Most if not all of Emacs' instructions display commands as <code>M-x _</code>. This is meant to be the <code>Meta</code> key which you might otherwise know as <code>Alt</code> key.</p>
 <p>Early on in the guide, the instructions are going to be lot more verbose to help the reader get familiar with what to do. But as the guide progresses the information, which has already been repeated a few times, will give way to more terse instructions.</p>
@@ -240,24 +216,24 @@
 </ul>
 <h3>Emacs Version</h3>
 <p>Emacs27 is not yet available by default on Ubuntu via <code>apt</code> (November 7, 2020).</p>
-<pre class="code literal-block"><span></span><code><span class="c1"># Add repository</span>
-$ sudo add-apt-repository ppa:kelleyk/emacs
+<div class="code"><pre class="code literal-block"><span class="c1"># Add repository</span>
+$<span class="w"> </span>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>ppa:kelleyk/emacs
 
 <span class="c1"># Update apt</span>
-$ sudo apt update
-</code></pre>
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</pre></div>
 
 <blockquote>
 <p>Issue: <code>trying to overwrite '/usr/include/emacs-module.h', which is also in package emacs-common 1:26.3+1-1ubuntu2</code></p>
 </blockquote>
 <p>I have Emacs26 installed and even though I had uninstall the previous version before trying to install Emacs27, I still kept running into this issue. I was able to solve this issue by installing <code>emacs27-common</code> before installing Emacs27.</p>
 <p>So my installation had one extra step.</p>
-<pre class="code literal-block"><span></span><code><span class="c1"># Fixing the installation issue</span>
-$ sudo apt install emacs27-common
+<div class="code"><pre class="code literal-block"><span class="c1"># Fixing the installation issue</span>
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>emacs27-common
 
 <span class="c1"># Let's finally install it!</span>
-$ sudo apt install emacs27
-</code></pre>
+$<span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>emacs27
+</pre></div>
 
 <h3>Configuring Emacs (<code>~/.emacs</code>)</h3>
 <p>The root configuration of Emacs is held by a file referred to as <code>init.el</code>.
@@ -304,12 +280,12 @@ Depending on the version of Emacs you are using this can be referring to <code>~
 <li>Add in following line. If you want to paste this, then command is <code>&lt;Ctrl&gt; + y</code>
 </li>
 </ul>
-<pre class="code literal-block"><span></span><code><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
+<div class="code"><pre class="code literal-block"><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">'package</span><span class="p">)</span>
 
-<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'package-archives</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
 
 <span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
-</code></pre>
+</pre></div>
 
 <ul>
 <li>Enter these commands followed by pressing enter<ul>
@@ -347,22 +323,22 @@ Depending on the version of Emacs you are using this can be referring to <code>~
 <p><code>M-x package-install</code> <code>&lt;ret&gt;</code> <code>evil</code> <code>&lt;ret&gt;</code></p>
 </blockquote>
 <p>If you now look at your init file (<code>~/.emacs</code>), it should look similar to this.</p>
-<pre class="code literal-block"><span></span><code><span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
+<div class="code"><pre class="code literal-block"><span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">'package</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'package-archives</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
 <span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">custom-set-variables</span>
- <span class="c1">;; custom-set-variables was added by Custom.</span>
- <span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
- <span class="c1">;; Your init file should contain only one such instance.</span>
- <span class="c1">;; If there is more than one, they won't work right.</span>
- <span class="o">'</span><span class="p">(</span><span class="nv">package-selected-packages</span> <span class="o">'</span><span class="p">(</span><span class="nv">evil</span><span class="p">)))</span>
+<span class="w"> </span><span class="c1">;; custom-set-variables was added by Custom.</span>
+<span class="w"> </span><span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
+<span class="w"> </span><span class="c1">;; Your init file should contain only one such instance.</span>
+<span class="w"> </span><span class="c1">;; If there is more than one, they won't work right.</span>
+<span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="nv">package-selected-packages</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="nv">evil</span><span class="p">)))</span>
 <span class="p">(</span><span class="nv">custom-set-faces</span>
- <span class="c1">;; custom-set-faces was added by Custom.</span>
- <span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
- <span class="c1">;; Your init file should contain only one such instance.</span>
- <span class="c1">;; If there is more than one, they won't work right.</span>
- <span class="p">)</span>
-</code></pre>
+<span class="w"> </span><span class="c1">;; custom-set-faces was added by Custom.</span>
+<span class="w"> </span><span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
+<span class="w"> </span><span class="c1">;; Your init file should contain only one such instance.</span>
+<span class="w"> </span><span class="c1">;; If there is more than one, they won't work right.</span>
+<span class="w"> </span><span class="p">)</span>
+</pre></div>
 
 <p>We need to edit it to ensure it works without any issues but first...</p>
 <h4>Enabling Evil Mode</h4>
@@ -377,42 +353,42 @@ Depending on the version of Emacs you are using this can be referring to <code>~
 <li>Add <code>(evil-mode t)</code> at the bottom.</li>
 </ul>
 <p>Here's my modified init file.</p>
-<pre class="code literal-block"><span></span><code><span class="p">(</span><span class="nv">custom-set-variables</span>
- <span class="c1">;; custom-set-variables was added by Custom.</span>
- <span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
- <span class="c1">;; Your init file should contain only one such instance.</span>
- <span class="c1">;; If there is more than one, they won't work right.</span>
- <span class="o">'</span><span class="p">(</span><span class="nv">package-selected-packages</span> <span class="o">'</span><span class="p">(</span><span class="nv">evil</span><span class="p">)))</span>
+<div class="code"><pre class="code literal-block"><span class="p">(</span><span class="nv">custom-set-variables</span>
+<span class="w"> </span><span class="c1">;; custom-set-variables was added by Custom.</span>
+<span class="w"> </span><span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
+<span class="w"> </span><span class="c1">;; Your init file should contain only one such instance.</span>
+<span class="w"> </span><span class="c1">;; If there is more than one, they won't work right.</span>
+<span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="nv">package-selected-packages</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="nv">evil</span><span class="p">)))</span>
 <span class="p">(</span><span class="nv">custom-set-faces</span>
- <span class="c1">;; custom-set-faces was added by Custom.</span>
- <span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
- <span class="c1">;; Your init file should contain only one such instance.</span>
- <span class="c1">;; If there is more than one, they won't work right.</span>
- <span class="p">)</span>
+<span class="w"> </span><span class="c1">;; custom-set-faces was added by Custom.</span>
+<span class="w"> </span><span class="c1">;; If you edit it by hand, you could mess it up, so be careful.</span>
+<span class="w"> </span><span class="c1">;; Your init file should contain only one such instance.</span>
+<span class="w"> </span><span class="c1">;; If there is more than one, they won't work right.</span>
+<span class="w"> </span><span class="p">)</span>
 
 <span class="c1">;;;;;;;;;;;;;;;;;;;;;;</span>
 <span class="c1">;;  START OF CONFIG ;;</span>
 <span class="c1">;;;;;;;;;;;;;;;;;;;;;;</span>
 
 <span class="c1">;; TOP: Initialize package repositories and packages</span>
-<span class="p">(</span><span class="nb">require</span> <span class="ss">'package</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'package-archives</span> <span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span> <span class="o">.</span> <span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">'package</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'package-archives</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="s">"melpa"</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">"https://melpa.org/packages/"</span><span class="p">))</span>
 <span class="p">(</span><span class="nv">package-initialize</span><span class="p">)</span>
 
 
 <span class="c1">;; Evil</span>
-<span class="p">(</span><span class="nv">evil-mode</span> <span class="no">t</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nv">evil-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+</pre></div>
 
 <h4>Commenting Code</h4>
 <p>If you are used to using <code>gcc</code> to comment out code like I am, you will find it vexing to see that Evil mode doesn't work that way. To have same functionality use <code>evil-commentary</code>.</p>
 <blockquote>
 <p><code>M-x package-install &lt;ret&gt; evil-commentary</code></p>
 </blockquote>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Evil</span>
-<span class="p">(</span><span class="nv">evil-mode</span> <span class="mi">1</span><span class="p">)</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Evil</span>
+<span class="p">(</span><span class="nv">evil-mode</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
 <span class="p">(</span><span class="nv">evil-commentary-mode</span><span class="p">)</span>
-</code></pre>
+</pre></div>
 
 <h3>Auto Complete</h3>
 <h4>Helm: Interface Auto Complete</h4>
@@ -432,10 +408,10 @@ Depending on the version of Emacs you are using this can be referring to <code>~
 - Replace existing <code>M-x</code> with the one provided by Helm.
 - Enable it to be used on key press.</p>
 <p>Add this to the bottom of your init file.</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Helm</span>
-<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"M-x"</span><span class="p">)</span> <span class="ss">'helm-M-x</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">helm-mode</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Helm</span>
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">"M-x"</span><span class="p">)</span><span class="w"> </span><span class="ss">'helm-M-x</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">helm-mode</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
 
 <p>Once you have saved this file, we can evaluate this code to start using Helm.</p>
 <p>We already looked at selecting text + <code>M-x eval-region</code>.
@@ -447,11 +423,11 @@ There is another neat method we can use, <code>M-x eval-buffer</code>.</p>
 <blockquote>
 <p><code>M-x package-install &lt;ret&gt; auto-complete &lt;ret&gt;</code></p>
 </blockquote>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Bottom of init file. This will enable for all buffers.</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Bottom of init file. This will enable for all buffers.</span>
 
 <span class="c1">;; Code Completion</span>
-<span class="p">(</span><span class="nv">global-auto-complete-mode</span> <span class="no">t</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nv">global-auto-complete-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+</pre></div>
 
 <h3>Magit: Git Client</h3>
 <p>Even before Emacs, I mostly used terminal for all things git (<em>including merging conflicts</em>). I found the need to move my hands away form keyboard to reach over for a mouse + clicking menus way too annoying.</p>
@@ -472,13 +448,13 @@ There is another neat method we can use, <code>M-x eval-buffer</code>.</p>
 <p>Easiest way to detect such files is to keep an eye for when Emacs enables <code>prog-mode</code>. This means we can ensure code folding is available ONLY for source code files.</p>
 <p>There are a few good packages available for Code Folding but for now I will be defaulting to in-built <code>hs-minor-mode</code>.</p>
 <p>This means we do not need to install any new package for once!</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Bottom of init file</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Bottom of init file</span>
 
 <span class="c1">;; Code folding</span>
-<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'prog-mode-hook</span> 
-      <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> 
-        <span class="p">(</span><span class="nv">hs-minor-mode</span> <span class="no">t</span><span class="p">)))</span>
-</code></pre>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">'prog-mode-hook</span><span class="w"> </span>
+<span class="w">      </span><span class="p">(</span><span class="k">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<span class="w">        </span><span class="p">(</span><span class="nv">hs-minor-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)))</span>
+</pre></div>
 
 <blockquote>
 <p>Evil Keybindings</p>
@@ -512,11 +488,11 @@ There is another neat method we can use, <code>M-x eval-buffer</code>.</p>
 <blockquote>
 <p><code>M-x package-install &lt;ret&gt; atom-one-dark &lt;ret&gt;</code></p>
 </blockquote>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Bottom of init file</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Bottom of init file</span>
 
 <span class="c1">;; Theme</span>
-<span class="p">(</span><span class="nv">load-theme</span> <span class="ss">'atom-one-dark</span> <span class="no">t</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nv">load-theme</span><span class="w"> </span><span class="ss">'atom-one-dark</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+</pre></div>
 
 <h3>Beautiful Fonts</h3>
 <p>We can get beautiful fonts by enabling three things:</p>
@@ -528,12 +504,12 @@ There is another neat method we can use, <code>M-x eval-buffer</code>.</p>
 <li>
 <strong>Install &amp; enable Ligatures</strong>. Ligatures are the true joy of life.</li>
 </ul>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Bottom of init file</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Bottom of init file</span>
 
 <span class="c1">;; Font</span>
-<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'default-frame-alist</span> <span class="o">'</span><span class="p">(</span><span class="nv">font</span> <span class="o">.</span> <span class="s">"Fira Code-14"</span><span class="p">))</span>
-<span class="p">(</span><span class="nv">global-prettify-symbols-mode</span> <span class="mi">1</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'default-frame-alist</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="nv">font</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="s">"Fira Code-14"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">global-prettify-symbols-mode</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
 
 <h4>Manually installing <code>ligature.el</code>
 </h4>
@@ -558,29 +534,29 @@ There is another neat method we can use, <code>M-x eval-buffer</code>.</p>
 <h4>Using <code>use-package</code>
 </h4>
 <p>Finally we need to enable ligatures to be used in <code>prog-mode</code>. If you want to enable everywhere, then replace <code>'prog-mode</code> with <code>'t</code>.</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Ligatures</span>
-<span class="p">(</span><span class="nb">use-package</span> 
-  <span class="nv">ligature</span> 
-  <span class="ss">:load-path</span> <span class="s">"~/.emacs.d/manual/ligature/"</span> 
-  <span class="ss">:config</span>
-  <span class="c1">;; Enable all Cascadia Code ligatures in programming modes</span>
-  <span class="p">(</span><span class="nv">ligature-set-ligatures</span> <span class="ss">'prog-mode</span> <span class="o">'</span><span class="p">(</span><span class="s">"|||&gt;"</span> <span class="s">"&lt;|||"</span> <span class="s">"&lt;==&gt;"</span> <span class="s">"&lt;!--"</span> <span class="s">"####"</span> <span class="s">"~~&gt;"</span> <span class="s">"***"</span> <span class="s">"||="</span> <span class="s">"||&gt;"</span>
-                       <span class="s">":::"</span> <span class="s">"::="</span> <span class="s">"=:="</span> <span class="s">"=="</span>  <span class="s">"==="</span> <span class="s">"==&gt;"</span> <span class="s">"=!="</span> <span class="s">"=&gt;&gt;"</span> <span class="s">"=&lt;&lt;"</span> <span class="s">"=/="</span>
-                       <span class="s">"!=="</span> <span class="s">"!!."</span> <span class="s">"&gt;=&gt;"</span> <span class="s">"&gt;&gt;="</span> <span class="s">"&gt;&gt;&gt;"</span> <span class="s">"&gt;&gt;-"</span> <span class="s">"&gt;-&gt;"</span> <span class="s">"-&gt;&gt;"</span> <span class="s">"--&gt;"</span> <span class="s">"---"</span>
-                       <span class="s">"-&lt;&lt;"</span> <span class="s">"&lt;~~"</span> <span class="s">"&lt;~&gt;"</span> <span class="s">"&lt;*&gt;"</span> <span class="s">"&lt;||"</span> <span class="s">"&lt;|&gt;"</span> <span class="s">"&lt;$&gt;"</span> <span class="s">"&lt;=="</span> <span class="s">"&lt;=&gt;"</span> <span class="s">"&lt;=&lt;"</span>
-                       <span class="s">"&lt;-&gt;"</span> <span class="s">"&lt;--"</span> <span class="s">"&lt;-&lt;"</span> <span class="s">"&lt;&lt;="</span> <span class="s">"&lt;&lt;-"</span> <span class="s">"&lt;&lt;&lt;"</span> <span class="s">"&lt;+&gt;"</span> <span class="s">"&lt;/&gt;"</span> <span class="s">"###"</span> <span class="s">"#_("</span>
-                       <span class="s">"..&lt;"</span> <span class="s">"..."</span> <span class="s">"+++"</span> <span class="s">"/=="</span> <span class="s">"///"</span> <span class="s">"_|_"</span> <span class="s">"www"</span> <span class="s">"&amp;&amp;"</span> <span class="s">"^="</span> <span class="s">"~~"</span> <span class="s">"~@"</span>
-                       <span class="s">"~="</span> <span class="s">"~&gt;"</span> <span class="s">"~-"</span> <span class="s">"**"</span> <span class="s">"*&gt;"</span> <span class="s">"*/"</span> <span class="s">"||"</span> <span class="s">"|}"</span> <span class="s">"|]"</span> <span class="s">"|="</span> <span class="s">"|&gt;"</span> <span class="s">"|-"</span>
-                       <span class="s">"{|"</span> <span class="s">"[|"</span> <span class="s">"]#"</span> <span class="s">"::"</span> <span class="s">":="</span> <span class="s">":&gt;"</span> <span class="s">":&lt;"</span> <span class="s">"$&gt;"</span> <span class="s">"=&gt;"</span> <span class="s">"!="</span> <span class="s">"!!"</span> <span class="s">"&gt;:"</span>
-                       <span class="s">"&gt;="</span> <span class="s">"&gt;&gt;"</span> <span class="s">"&gt;-"</span> <span class="s">"-~"</span> <span class="s">"-|"</span> <span class="s">"-&gt;"</span> <span class="s">"--"</span> <span class="s">"-&lt;"</span> <span class="s">"&lt;~"</span> <span class="s">"&lt;*"</span> <span class="s">"&lt;|"</span> <span class="s">"&lt;:"</span>
-                       <span class="s">"&lt;$"</span> <span class="s">"&lt;="</span> <span class="s">"&lt;&gt;"</span> <span class="s">"&lt;-"</span> <span class="s">"&lt;&lt;"</span> <span class="s">"&lt;+"</span> <span class="s">"&lt;/"</span> <span class="s">"#{"</span> <span class="s">"#["</span> <span class="s">"#:"</span> <span class="s">"#="</span> <span class="s">"#!"</span>
-                       <span class="s">"##"</span> <span class="s">"#("</span> <span class="s">"#?"</span> <span class="s">"#_"</span> <span class="s">"%%"</span> <span class="s">".="</span> <span class="s">".-"</span> <span class="s">".."</span> <span class="s">".?"</span> <span class="s">"+&gt;"</span> <span class="s">"++"</span> <span class="s">"?:"</span>
-                       <span class="s">"?="</span> <span class="s">"?."</span> <span class="s">"??"</span> <span class="s">";;"</span> <span class="s">"/*"</span> <span class="s">"/="</span> <span class="s">"/&gt;"</span> <span class="s">"//"</span> <span class="s">"__"</span> <span class="s">"~~"</span> <span class="s">"(*"</span> <span class="s">"*)"</span>
-                       <span class="s">"\\"</span> <span class="s">"://"</span><span class="p">))</span>
-  <span class="c1">;; Enables ligature checks globally in all buffers. You can also do it</span>
-  <span class="c1">;; per mode with `ligature-mode'.</span>
-  <span class="p">(</span><span class="nv">global-ligature-mode</span> <span class="no">t</span><span class="p">))</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Ligatures</span>
+<span class="p">(</span><span class="nb">use-package</span><span class="w"> </span>
+<span class="w">  </span><span class="nv">ligature</span><span class="w"> </span>
+<span class="w">  </span><span class="ss">:load-path</span><span class="w"> </span><span class="s">"~/.emacs.d/manual/ligature/"</span><span class="w"> </span>
+<span class="w">  </span><span class="ss">:config</span>
+<span class="w">  </span><span class="c1">;; Enable all Cascadia Code ligatures in programming modes</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">ligature-set-ligatures</span><span class="w"> </span><span class="ss">'prog-mode</span><span class="w"> </span><span class="o">'</span><span class="p">(</span><span class="s">"|||&gt;"</span><span class="w"> </span><span class="s">"&lt;|||"</span><span class="w"> </span><span class="s">"&lt;==&gt;"</span><span class="w"> </span><span class="s">"&lt;!--"</span><span class="w"> </span><span class="s">"####"</span><span class="w"> </span><span class="s">"~~&gt;"</span><span class="w"> </span><span class="s">"***"</span><span class="w"> </span><span class="s">"||="</span><span class="w"> </span><span class="s">"||&gt;"</span>
+<span class="w">                       </span><span class="s">":::"</span><span class="w"> </span><span class="s">"::="</span><span class="w"> </span><span class="s">"=:="</span><span class="w"> </span><span class="s">"=="</span><span class="w">  </span><span class="s">"==="</span><span class="w"> </span><span class="s">"==&gt;"</span><span class="w"> </span><span class="s">"=!="</span><span class="w"> </span><span class="s">"=&gt;&gt;"</span><span class="w"> </span><span class="s">"=&lt;&lt;"</span><span class="w"> </span><span class="s">"=/="</span>
+<span class="w">                       </span><span class="s">"!=="</span><span class="w"> </span><span class="s">"!!."</span><span class="w"> </span><span class="s">"&gt;=&gt;"</span><span class="w"> </span><span class="s">"&gt;&gt;="</span><span class="w"> </span><span class="s">"&gt;&gt;&gt;"</span><span class="w"> </span><span class="s">"&gt;&gt;-"</span><span class="w"> </span><span class="s">"&gt;-&gt;"</span><span class="w"> </span><span class="s">"-&gt;&gt;"</span><span class="w"> </span><span class="s">"--&gt;"</span><span class="w"> </span><span class="s">"---"</span>
+<span class="w">                       </span><span class="s">"-&lt;&lt;"</span><span class="w"> </span><span class="s">"&lt;~~"</span><span class="w"> </span><span class="s">"&lt;~&gt;"</span><span class="w"> </span><span class="s">"&lt;*&gt;"</span><span class="w"> </span><span class="s">"&lt;||"</span><span class="w"> </span><span class="s">"&lt;|&gt;"</span><span class="w"> </span><span class="s">"&lt;$&gt;"</span><span class="w"> </span><span class="s">"&lt;=="</span><span class="w"> </span><span class="s">"&lt;=&gt;"</span><span class="w"> </span><span class="s">"&lt;=&lt;"</span>
+<span class="w">                       </span><span class="s">"&lt;-&gt;"</span><span class="w"> </span><span class="s">"&lt;--"</span><span class="w"> </span><span class="s">"&lt;-&lt;"</span><span class="w"> </span><span class="s">"&lt;&lt;="</span><span class="w"> </span><span class="s">"&lt;&lt;-"</span><span class="w"> </span><span class="s">"&lt;&lt;&lt;"</span><span class="w"> </span><span class="s">"&lt;+&gt;"</span><span class="w"> </span><span class="s">"&lt;/&gt;"</span><span class="w"> </span><span class="s">"###"</span><span class="w"> </span><span class="s">"#_("</span>
+<span class="w">                       </span><span class="s">"..&lt;"</span><span class="w"> </span><span class="s">"..."</span><span class="w"> </span><span class="s">"+++"</span><span class="w"> </span><span class="s">"/=="</span><span class="w"> </span><span class="s">"///"</span><span class="w"> </span><span class="s">"_|_"</span><span class="w"> </span><span class="s">"www"</span><span class="w"> </span><span class="s">"&amp;&amp;"</span><span class="w"> </span><span class="s">"^="</span><span class="w"> </span><span class="s">"~~"</span><span class="w"> </span><span class="s">"~@"</span>
+<span class="w">                       </span><span class="s">"~="</span><span class="w"> </span><span class="s">"~&gt;"</span><span class="w"> </span><span class="s">"~-"</span><span class="w"> </span><span class="s">"**"</span><span class="w"> </span><span class="s">"*&gt;"</span><span class="w"> </span><span class="s">"*/"</span><span class="w"> </span><span class="s">"||"</span><span class="w"> </span><span class="s">"|}"</span><span class="w"> </span><span class="s">"|]"</span><span class="w"> </span><span class="s">"|="</span><span class="w"> </span><span class="s">"|&gt;"</span><span class="w"> </span><span class="s">"|-"</span>
+<span class="w">                       </span><span class="s">"{|"</span><span class="w"> </span><span class="s">"[|"</span><span class="w"> </span><span class="s">"]#"</span><span class="w"> </span><span class="s">"::"</span><span class="w"> </span><span class="s">":="</span><span class="w"> </span><span class="s">":&gt;"</span><span class="w"> </span><span class="s">":&lt;"</span><span class="w"> </span><span class="s">"$&gt;"</span><span class="w"> </span><span class="s">"=&gt;"</span><span class="w"> </span><span class="s">"!="</span><span class="w"> </span><span class="s">"!!"</span><span class="w"> </span><span class="s">"&gt;:"</span>
+<span class="w">                       </span><span class="s">"&gt;="</span><span class="w"> </span><span class="s">"&gt;&gt;"</span><span class="w"> </span><span class="s">"&gt;-"</span><span class="w"> </span><span class="s">"-~"</span><span class="w"> </span><span class="s">"-|"</span><span class="w"> </span><span class="s">"-&gt;"</span><span class="w"> </span><span class="s">"--"</span><span class="w"> </span><span class="s">"-&lt;"</span><span class="w"> </span><span class="s">"&lt;~"</span><span class="w"> </span><span class="s">"&lt;*"</span><span class="w"> </span><span class="s">"&lt;|"</span><span class="w"> </span><span class="s">"&lt;:"</span>
+<span class="w">                       </span><span class="s">"&lt;$"</span><span class="w"> </span><span class="s">"&lt;="</span><span class="w"> </span><span class="s">"&lt;&gt;"</span><span class="w"> </span><span class="s">"&lt;-"</span><span class="w"> </span><span class="s">"&lt;&lt;"</span><span class="w"> </span><span class="s">"&lt;+"</span><span class="w"> </span><span class="s">"&lt;/"</span><span class="w"> </span><span class="s">"#{"</span><span class="w"> </span><span class="s">"#["</span><span class="w"> </span><span class="s">"#:"</span><span class="w"> </span><span class="s">"#="</span><span class="w"> </span><span class="s">"#!"</span>
+<span class="w">                       </span><span class="s">"##"</span><span class="w"> </span><span class="s">"#("</span><span class="w"> </span><span class="s">"#?"</span><span class="w"> </span><span class="s">"#_"</span><span class="w"> </span><span class="s">"%%"</span><span class="w"> </span><span class="s">".="</span><span class="w"> </span><span class="s">".-"</span><span class="w"> </span><span class="s">".."</span><span class="w"> </span><span class="s">".?"</span><span class="w"> </span><span class="s">"+&gt;"</span><span class="w"> </span><span class="s">"++"</span><span class="w"> </span><span class="s">"?:"</span>
+<span class="w">                       </span><span class="s">"?="</span><span class="w"> </span><span class="s">"?."</span><span class="w"> </span><span class="s">"??"</span><span class="w"> </span><span class="s">";;"</span><span class="w"> </span><span class="s">"/*"</span><span class="w"> </span><span class="s">"/="</span><span class="w"> </span><span class="s">"/&gt;"</span><span class="w"> </span><span class="s">"//"</span><span class="w"> </span><span class="s">"__"</span><span class="w"> </span><span class="s">"~~"</span><span class="w"> </span><span class="s">"(*"</span><span class="w"> </span><span class="s">"*)"</span>
+<span class="w">                       </span><span class="s">"\\"</span><span class="w"> </span><span class="s">"://"</span><span class="p">))</span>
+<span class="w">  </span><span class="c1">;; Enables ligature checks globally in all buffers. You can also do it</span>
+<span class="w">  </span><span class="c1">;; per mode with `ligature-mode'.</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">global-ligature-mode</span><span class="w"> </span><span class="no">t</span><span class="p">))</span>
+</pre></div>
 
 <p>With all of them enabled, this is what it looks like!</p>
 <p><img alt="Emacs with Theme &amp; Fonts enabled" src="../../images/emacs/ligatures.png"></p>
@@ -591,10 +567,10 @@ I will be installing it for my current setup as well.</p>
 <blockquote>
 <p><code>M-x package-install &lt;ret&gt; org-bullets</code></p>
 </blockquote>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Bottom of init file</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Bottom of init file</span>
 
-<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'org-mode-hook</span> <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">org-bullets-mode</span> <span class="mi">1</span><span class="p">)))</span>
-</code></pre>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">'org-mode-hook</span><span class="w"> </span><span class="p">(</span><span class="k">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">org-bullets-mode</span><span class="w"> </span><span class="mi">1</span><span class="p">)))</span>
+</pre></div>
 
 <p>This is what it would look like: <img alt="Org Bullets" src="../../images/emacs/org-bullets.png"></p>
 <h3>Soft Wrap (Lines &amp; Words)</h3>
@@ -607,13 +583,13 @@ I will be installing it for my current setup as well.</p>
 <p>Depending on the buffer size, words get wrapped midway and continue on next line. Instead it would be ideal to have the whole word wrapped onto next line. </p>
 <p>When working with free flowing text, a line can run till the end of the buffer before being wrapped onto next line. Perhaps you prefer it be wrapped after certain column length.</p>
 <p>This can be achieved by installing package <code>visual-fill-column</code>. Installation steps are left as an exercise for the reader ;)</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Can you guess where to put this?</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Can you guess where to put this?</span>
 
 <span class="c1">;; Soft Wrap: Words &amp; Lines</span>
-<span class="p">(</span><span class="nv">global-visual-fill-column-mode</span> <span class="no">t</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">setq-default</span> <span class="nv">fill-column</span> <span class="mi">120</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">setq-default</span> <span class="nv">word-wrap</span> <span class="no">t</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nv">global-visual-fill-column-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">setq-default</span><span class="w"> </span><span class="nv">fill-column</span><span class="w"> </span><span class="mi">120</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">setq-default</span><span class="w"> </span><span class="nv">word-wrap</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
+</pre></div>
 
 <h3>Line Numbers</h3>
 <p>If you are a programmer, you know how important line numbers are.</p>
@@ -627,12 +603,12 @@ I will be installing it for my current setup as well.</p>
 <p><code>global-display-line-numbers-mode</code></p>
 </blockquote>
 <p>as it doesn't glitch with <code>Soft Wrap</code>.</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Enable Line Numbers</span>
-<span class="p">(</span><span class="nv">global-display-line-numbers-mode</span> <span class="no">t</span><span class="p">)</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Enable Line Numbers</span>
+<span class="p">(</span><span class="nv">global-display-line-numbers-mode</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 
 <span class="c1">;; set type of line display. Options :: 'absolute 'relative 'none 'visual</span>
-<span class="p">(</span><span class="nv">menu-bar-display-line-numbers-mode</span> <span class="ss">'absolute</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nv">menu-bar-display-line-numbers-mode</span><span class="w"> </span><span class="ss">'absolute</span><span class="p">)</span>
+</pre></div>
 
 <h3>Startup Screen</h3>
 <p>At this point of time, this is what the Emacs looks like. It is not a bad but it doesn't have the <strong>Wow!</strong> factor.</p>
@@ -642,76 +618,76 @@ I will be installing it for my current setup as well.</p>
 <li>Remove Menubar</li>
 <li>Start in Full screen</li>
 </ul>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Remove Toolbars</span>
-<span class="p">(</span><span class="nv">tool-bar-mode</span> <span class="mi">-1</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">menu-bar-mode</span> <span class="mi">-1</span><span class="p">)</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Remove Toolbars</span>
+<span class="p">(</span><span class="nv">tool-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">menu-bar-mode</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span>
 
 <span class="c1">;; Fullscreen</span>
 <span class="p">(</span><span class="nv">toggle-frame-fullscreen</span><span class="p">)</span>
-</code></pre>
+</pre></div>
 
 <h4>Dashboard</h4>
 <p>We can bring in a lot more finesse by using <code>emacs-dashboard</code> which is available on MELPA.</p>
 <h5>Dashboard with Centered content</h5>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Dashboard</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Dashboard</span>
 <span class="c1">;; Main Configuration</span>
 <span class="c1">;; - Content is not centered by default. To center, set</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">dashboard-center-content</span> <span class="no">t</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">dashboard-center-content</span><span class="w"> </span><span class="no">t</span><span class="p">)</span>
 
 <span class="c1">;; - To disable shortcut "jump" indicators for each section, set</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">dashboard-show-shortcuts</span> <span class="no">nil</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">dashboard-show-shortcuts</span><span class="w"> </span><span class="no">nil</span><span class="p">)</span>
 
 <span class="c1">;; - Init</span>
 <span class="p">(</span><span class="nv">dashboard-setup-startup-hook</span><span class="p">)</span>
-</code></pre>
+</pre></div>
 
 <h5>Customizing Dashboard</h5>
 <p>Instead of showing default logo &amp; title, we can load our own stuff.</p>
 <p>If you want to do something similar, start by adding these functions.</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Dashboard</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Dashboard</span>
 <span class="c1">;; Helper Methods</span>
-<span class="p">(</span><span class="nb">defun</span> <span class="nv">slurp-splash-screen</span> <span class="p">()</span> 
-  <span class="s">"Return FILE's content as a string."</span>
-  <span class="p">(</span><span class="nv">with-temp-buffer</span> <span class="p">(</span><span class="nv">insert-file-contents</span> <span class="s">"~/.emacs.d/manual/splash.txt"</span><span class="p">)</span> 
-            <span class="p">(</span><span class="nv">buffer-string</span><span class="p">)))</span>
-<span class="p">(</span><span class="nv">defcustom</span> <span class="nv">get-logo</span> 
-  <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">"manual/logo4.png"</span> <span class="nv">user-emacs-directory</span><span class="p">)</span> 
-  <span class="s">"Get logo"</span> 
-  <span class="ss">:group</span> <span class="ss">'entmacs</span> 
-  <span class="ss">:type</span> <span class="ss">'string</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nb">defun</span><span class="w"> </span><span class="nv">slurp-splash-screen</span><span class="w"> </span><span class="p">()</span><span class="w"> </span>
+<span class="w">  </span><span class="s">"Return FILE's content as a string."</span>
+<span class="w">  </span><span class="p">(</span><span class="nv">with-temp-buffer</span><span class="w"> </span><span class="p">(</span><span class="nv">insert-file-contents</span><span class="w"> </span><span class="s">"~/.emacs.d/manual/splash.txt"</span><span class="p">)</span><span class="w"> </span>
+<span class="w">            </span><span class="p">(</span><span class="nv">buffer-string</span><span class="p">)))</span>
+<span class="p">(</span><span class="nv">defcustom</span><span class="w"> </span><span class="nv">get-logo</span><span class="w"> </span>
+<span class="w">  </span><span class="p">(</span><span class="nv">expand-file-name</span><span class="w"> </span><span class="s">"manual/logo4.png"</span><span class="w"> </span><span class="nv">user-emacs-directory</span><span class="p">)</span><span class="w"> </span>
+<span class="w">  </span><span class="s">"Get logo"</span><span class="w"> </span>
+<span class="w">  </span><span class="ss">:group</span><span class="w"> </span><span class="ss">'entmacs</span><span class="w"> </span>
+<span class="w">  </span><span class="ss">:type</span><span class="w"> </span><span class="ss">'string</span><span class="p">)</span>
+</pre></div>
 
 <p>With all this in place, we get!</p>
 <p><img alt="Entmacs" src="../../images/emacs/entmacs.png"></p>
 <h5>Unwanted recent files</h5>
 <p>You might notice a lot of unwanted files/folders also show up on your dashboard. The easiest way This is handled by <code>recentf</code>. So we need to let <code>recentf</code> know which folders to exclude.</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; - Exclude unwanted folders</span>
-<span class="p">(</span><span class="nb">require</span> <span class="ss">'recentf</span><span class="p">)</span>
-<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'recentf-exclude</span>
-             <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">"~/.emacs.d"</span><span class="p">))</span>
-<span class="p">(</span><span class="nv">add-to-list</span> <span class="ss">'recentf-exclude</span>
-             <span class="p">(</span><span class="nv">expand-file-name</span> <span class="s">"/usr"</span><span class="p">))</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="c1">;; - Exclude unwanted folders</span>
+<span class="p">(</span><span class="nb">require</span><span class="w"> </span><span class="ss">'recentf</span><span class="p">)</span>
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'recentf-exclude</span>
+<span class="w">             </span><span class="p">(</span><span class="nv">expand-file-name</span><span class="w"> </span><span class="s">"~/.emacs.d"</span><span class="p">))</span>
+<span class="p">(</span><span class="nv">add-to-list</span><span class="w"> </span><span class="ss">'recentf-exclude</span>
+<span class="w">             </span><span class="p">(</span><span class="nv">expand-file-name</span><span class="w"> </span><span class="s">"/usr"</span><span class="p">))</span>
+</pre></div>
 
 <h4>Indent Guides</h4>
 <p>Indent Guides are useful to see how many spaces a code block has been indented.</p>
 <p>For this I installed package <code>highlight-indent-guides</code></p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Code Indentation Guides</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Code Indentation Guides</span>
 <span class="c1">;; - Indent Fill Type. Options :: 'fill 'column 'character 'bitmap</span>
-<span class="p">(</span><span class="k">setq</span> <span class="nv">highlight-indent-guides-method</span> <span class="ss">'column</span><span class="p">)</span>
+<span class="p">(</span><span class="k">setq</span><span class="w"> </span><span class="nv">highlight-indent-guides-method</span><span class="w"> </span><span class="ss">'column</span><span class="p">)</span>
 <span class="c1">;; - Hook to enable for prog-mode</span>
-<span class="p">(</span><span class="nv">add-hook</span> <span class="ss">'prog-mode-hook</span> <span class="ss">'highlight-indent-guides-mode</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nv">add-hook</span><span class="w"> </span><span class="ss">'prog-mode-hook</span><span class="w"> </span><span class="ss">'highlight-indent-guides-mode</span><span class="p">)</span>
+</pre></div>
 
 <h2>Customization</h2>
 <p>Apart from Evil mode and relying on <code>M-x</code> for executing commands. You can also create new keyboard shortcuts. Let's look at two ways of creating keyboard shortcuts</p>
 <h3>Binding Keys</h3>
 <p>One of the most frequent tasks I do is open my init file which I was doing by typing in <code>:e ~/.emacs</code>.</p>
 <p>However I can assign a set of key sequences to do the same.</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; My Key Bindings</span>
-<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-x e"</span><span class="p">)</span>
-        <span class="p">(</span><span class="k">lambda</span> <span class="p">()</span> <span class="p">(</span><span class="nv">interactive</span><span class="p">)</span> <span class="p">(</span><span class="nv">find-file</span> <span class="s">"~/.emacs"</span><span class="p">)))</span>
-</code></pre>
+<div class="code"><pre class="code literal-block"><span class="c1">;; My Key Bindings</span>
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">"C-x e"</span><span class="p">)</span>
+<span class="w">        </span><span class="p">(</span><span class="k">lambda</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">(</span><span class="nv">interactive</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="nv">find-file</span><span class="w"> </span><span class="s">"~/.emacs"</span><span class="p">)))</span>
+</pre></div>
 
 <h3>Keyboard Macros</h3>
 <p>To be honest it took me a lot longer to figure out the right function to create the key binding. In the mean time, I figured out a more "hacky" way to do it via Keyboard Macros (<strong>kbd-macros</strong>).</p>
@@ -731,27 +707,14 @@ I will be installing it for my current setup as well.</p>
 </li>
 </ul>
 <p>I was able to then reuse this macro and bind it to the key sequence.</p>
-<pre class="code literal-block"><span></span><code><span class="c1">;; Keyboard Macros</span>
-<span class="p">(</span><span class="nv">fset</span> <span class="ss">'ed-emacsprof</span>
-   <span class="p">(</span><span class="nv">kmacro-lambda-form</span> <span class="nv">[?:</span> <span class="nv">?e</span> <span class="nv">?</span>  <span class="nv">?~</span> <span class="nv">?/</span> <span class="nv">?.</span> <span class="nv">?e</span> <span class="nv">?m</span> <span class="nv">?a</span> <span class="nv">?c</span> <span class="nv">?s</span> <span class="nv">return]</span> <span class="mi">0</span> <span class="s">"%d"</span><span class="p">))</span>
+<div class="code"><pre class="code literal-block"><span class="c1">;; Keyboard Macros</span>
+<span class="p">(</span><span class="nv">fset</span><span class="w"> </span><span class="ss">'ed-emacsprof</span>
+<span class="w">   </span><span class="p">(</span><span class="nv">kmacro-lambda-form</span><span class="w"> </span><span class="nv">[?:</span><span class="w"> </span><span class="nv">?e</span><span class="w"> </span><span class="nv">?</span><span class="w">  </span><span class="nv">?~</span><span class="w"> </span><span class="nv">?/</span><span class="w"> </span><span class="nv">?.</span><span class="w"> </span><span class="nv">?e</span><span class="w"> </span><span class="nv">?m</span><span class="w"> </span><span class="nv">?a</span><span class="w"> </span><span class="nv">?c</span><span class="w"> </span><span class="nv">?s</span><span class="w"> </span><span class="nv">return]</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="s">"%d"</span><span class="p">))</span>
 
-<span class="p">(</span><span class="nv">global-set-key</span> <span class="p">(</span><span class="nv">kbd</span> <span class="s">"C-c e"</span><span class="p">)</span> <span class="ss">'ed-emacsprof</span><span class="p">)</span>
-</code></pre>
+<span class="p">(</span><span class="nv">global-set-key</span><span class="w"> </span><span class="p">(</span><span class="nv">kbd</span><span class="w"> </span><span class="s">"C-c e"</span><span class="p">)</span><span class="w"> </span><span class="ss">'ed-emacsprof</span><span class="p">)</span>
+</pre></div>
 
 <p></p>
-<hr>
-<!-- Begin Mailchimp Signup Form --><div id="mc_embed_signup">
-<form action="https://last-ent.us8.list-manage.com/subscribe/post?u=32b025ec5a4ac94d7ca217830&amp;id=eabef61e0c&amp;SIGNUP=End" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-    <div id="mc_embed_signup_scroll">
-	<label for="mce-EMAIL">Liked this and want more?</label>
-	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required><!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups--><div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_32b025ec5a4ac94d7ca217830_eabef61e0c" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-    </div>
-</form>
-
-</div>
-<!--End mc_embed_signup-->
-<hr>
 <h2>Noteworthy Mentions</h2>
 <p>Some packages &amp; commands you might want to look into</p>
 <ul>
@@ -792,7 +755,6 @@ I will be installing it for my current setup as well.</p>
 </div>
 <hr>
 </div>
-    </div>
     <aside class="postpromonav"><nav><ul itemprop="keywords" class="tags">
 <li><a class="tag p-category" href="../../categories/emacs/" rel="tag">emacs</a></li>
             <li><a class="tag p-category" href="../../categories/learnings/" rel="tag">learnings</a></li>
@@ -804,11 +766,9 @@ I will be installing it for my current setup as well.</p>
             <li class="next">
                 <a href="../intuitive-map-flatmap/" rel="next" title="FP for Sceptics: Intuitive guide to map/flatmap">Next post</a>
             </li>
-        </ul></nav></aside></article><!--End of body content--><footer id="footer"><div style="align-text: center">
-<script type="text/javascript" src="https://ko-fi.com/widgets/widget_2.js"></script><script type="text/javascript">kofiwidget2.init('Support Me on Ko-fi', '#ff5f5f', 'D1D53GPBW');kofiwidget2.draw();</script>
-</div>
-<br>
-Contents © 2022         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
+        </ul></nav></aside></article><!--End of body content--><footer id="footer">
+            
+Contents © 2025         <a href="https://github.com/last-ent">Ent</a>. Keep up to date with <a href="../../rss.xml">RSS feed</a> - Powered by         <a href="https://getnikola.com" rel="nofollow">Nikola</a>          
             
             
         </footer>
