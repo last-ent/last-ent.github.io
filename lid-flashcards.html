@@ -779,21 +779,21 @@
                 {
                         "id": 14,
                         "source": "lid_qb",
-                        "question": "Meinungsfreiheit in Deutschland heißt, dass ich … Passanten auf der Straße beschimpfen darf. meine Meinung im Internet äußern kann. Nazi-, Hamas- oder Islamischer Staat-Symbole öffentlich tragen darf. meine Meinung nur dann äußern darf, solange ich der Regierung nicht widerspreche. Auf gabe 15 Was verbietet das deutsche Grundgesetz?",
+                        "question": "Meinungsfreiheit in Deutschland heißt, dass ich …",
                         "options": {
-                                "A": "",
-                                "B": "",
-                                "C": "",
-                                "D": ""
+                                "A": "Passanten auf der Straße beschimpfen darf.",
+                                "B": "meine Meinung im Internet äußern kann.",
+                                "C": "Nazi-, Hamas- oder Islamischer Staat-Symbole öffentlich tragen darf.",
+                                "D": "meine Meinung nur dann äußern darf, solange ich der Regierung nicht widerspreche."
                         },
                         "correctAnswer": "B",
                         "translated": true,
-                        "questionEn": "Freedom of expression in Germany means that I can... insult passers-by on the street. can express my opinion on the internet. Can wear Nazi, Hamas or Islamic State symbols in public. I am only allowed to express my opinion as long as I do not contradict the government. Task 15 What does the German Basic Law prohibit?",
+                        "questionEn": "Freedom of expression in Germany means that I can...",
                         "optionsEn": {
-                                "A": "",
-                                "B": "",
-                                "C": "",
-                                "D": ""
+                                "A": "insult passers-by on the street.",
+                                "B": "express my opinion on the internet.",
+                                "C": "wear Nazi, Hamas or Islamic State symbols in public.",
+                                "D": "only express my opinion as long as I do not contradict the government."
                         }
                 },
                 {
@@ -7004,6 +7004,14 @@
                     feedback.className = 'feedback show correct';
                     feedback.textContent = '✓ Correct!';
                     state.failedQuestions.delete(question.id);
+
+                    // Auto-advance to next question after 1.5 seconds
+                    setTimeout(() => {
+                        const questions = getCurrentQuestions();
+                        if (state.currentIndex < questions.length - 1) {
+                            nextQuestion();
+                        }
+                    }, 1500);
                 } else {
                     state.session.incorrect++;
                     feedback.className = 'feedback show incorrect';
