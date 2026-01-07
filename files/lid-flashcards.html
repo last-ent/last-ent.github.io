@@ -327,11 +327,14 @@
             }
 
             .nav-buttons {
-                flex-direction: column;
+                flex-direction: row;
+                gap: 8px;
             }
 
             .nav-buttons .btn {
-                width: 100%;
+                flex: 1;
+                padding: 10px 8px;
+                font-size: 14px;
             }
         }
 
@@ -464,6 +467,12 @@
                 <div class="question-source" id="questionSource">Source</div>
             </div>
 
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <button class="btn btn-secondary" id="inlineToggleLangBtn" onclick="toggleLanguage()" style="padding: 6px 12px; font-size: 13px;">
+                    🌐 EN
+                </button>
+            </div>
+
             <div class="question-text" id="questionText">
                 Loading questions...
             </div>
@@ -481,7 +490,7 @@
             </div>
 
             <div class="nav-buttons">
-                <button class="btn btn-secondary" id="prevBtn">← Previous</button>
+                <button class="btn btn-secondary" id="prevBtn">← Prev</button>
                 <button class="btn btn-primary" id="nextBtn">Next →</button>
             </div>
         </div>
@@ -7067,6 +7076,12 @@
         function updateLanguageToggle() {
             const btn = document.getElementById('toggleLangBtn');
             btn.textContent = state.showEnglish ? '🇩🇪 Show German' : '🌐 Show English';
+
+            // Update inline button
+            const inlineBtn = document.getElementById('inlineToggleLangBtn');
+            if (inlineBtn) {
+                inlineBtn.textContent = state.showEnglish ? '🇩🇪 DE' : '🌐 EN';
+            }
         }
 
         // Toggle quiz/study mode
