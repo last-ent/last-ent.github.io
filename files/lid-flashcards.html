@@ -266,11 +266,21 @@
 
             .header h1 {
                 font-size: 22px;
-                margin-bottom: 12px;
+                margin-bottom: 0;
+            }
+
+            #menuToggleBtn {
+                display: block !important;
             }
 
             .controls {
                 flex-direction: column;
+                display: none;
+                margin-top: 15px;
+            }
+
+            .controls.show {
+                display: flex;
             }
 
             .btn {
@@ -379,8 +389,13 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>LID Flashcard App</h1>
-            <div class="controls">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>LID Flashcard App</h1>
+                <button class="btn btn-secondary" id="menuToggleBtn" style="display: none; padding: 8px 16px;" onclick="toggleMenu()">
+                    ☰ Menu
+                </button>
+            </div>
+            <div class="controls" id="controlsMenu">
                 <button class="btn btn-primary" id="toggleLangBtn">🌐 Show English</button>
                 <button class="btn btn-primary" id="practiceStudyModeBtn">📝 Practice Mode</button>
                 <button class="btn btn-secondary" id="studyModeBtn">📚 All Questions</button>
@@ -491,6 +506,7 @@
 
             <div class="nav-buttons">
                 <button class="btn btn-secondary" id="prevBtn">← Prev</button>
+                <button class="btn btn-secondary" id="retryBtn" onclick="resetCurrentQuestion()" style="display: none;">🔄 Try Again</button>
                 <button class="btn btn-primary" id="nextBtn">Next →</button>
             </div>
         </div>
@@ -6935,6 +6951,7 @@
             document.getElementById('prevBtn').disabled = state.currentIndex === 0;
             document.getElementById('nextBtn').textContent =
                 state.currentIndex === questions.length - 1 ? 'Finish' : 'Next →';
+            document.getElementById('retryBtn').style.display = 'none';
         }
 
         // Handle option selection
@@ -7002,6 +7019,45 @@
             state.session.answered++;
             updateStats();
             saveProgress();
+
+            // Show retry button
+            document.getElementById('retryBtn').style.display = 'block';
+        }
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            const menu = document.getElementById('controlsMenu');
+            const btn = document.getElementById('menuToggleBtn');
+
+            if (menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                btn.textContent = '☰ Menu';
+            } else {
+                menu.classList.add('show');
+                btn.textContent = '✕ Close';
+            }
+        }
+
+        // Reset current question to try again
+        function resetCurrentQuestion() {
+            // Clear answered state
+            state.answered = false;
+            state.selectedAnswer = null;
+
+            // Remove all highlighting and disabled state from options
+            const optionsContainer = document.getElementById('optionsContainer');
+            const options = optionsContainer.querySelectorAll('.option');
+            options.forEach(opt => {
+                opt.classList.remove('disabled', 'selected', 'correct', 'incorrect');
+            });
+
+            // Clear feedback
+            const feedback = document.getElementById('feedback');
+            feedback.classList.remove('show', 'correct', 'incorrect', 'no-answer');
+            feedback.textContent = '';
+
+            // Hide retry button
+            document.getElementById('retryBtn').style.display = 'none';
         }
 
         // Navigation
@@ -7162,13 +7218,15 @@
 
         // Reset progress
         function resetProgress() {
-            if (confirm('Are you sure you want to reset all progress? This will clear your session stats and failed questions list.')) {
+            if (confirm('Reset current session? This will clear your current session stats and start fresh. Your test history will be preserved.')) {
+                // Reset current session only
                 state.session = { correct: 0, incorrect: 0, answered: 0 };
-                state.failedQuestions = new Set();
                 state.currentIndex = 0;
-                localStorage.removeItem('lid_flashcard_progress');
+
+                // Keep testHistory intact - just save the reset state
+                saveProgress();
+
                 updateStats();
-                updateStudyModeButton();
                 renderQuestion();
             }
         }
