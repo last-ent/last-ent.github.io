@@ -255,6 +255,27 @@
             flex: 1;
         }
 
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
         @media (max-width: 640px) {
             body {
                 padding: 10px;
@@ -387,6 +408,9 @@
     </style>
 </head>
 <body>
+    <!-- Toast notification -->
+    <div id="toast" class="toast"></div>
+
     <div class="container">
         <div class="header">
             <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -7001,17 +7025,23 @@
 
                 if (isCorrect) {
                     state.session.correct++;
-                    feedback.className = 'feedback show correct';
-                    feedback.textContent = '✓ Correct!';
                     state.failedQuestions.delete(question.id);
 
-                    // Auto-advance to next question after 1.5 seconds
-                    setTimeout(() => {
-                        const questions = getCurrentQuestions();
-                        if (state.currentIndex < questions.length - 1) {
-                            nextQuestion();
-                        }
-                    }, 1500);
+                    // Immediately advance to next question
+                    const questions = getCurrentQuestions();
+                    if (state.currentIndex < questions.length - 1) {
+                        state.currentIndex++;
+                        updateStats();
+                        saveProgress();
+                        renderQuestion();
+
+                        // Show success toast on the new question
+                        showToast('✓ Correct!');
+                    } else {
+                        // Last question - show feedback normally
+                        feedback.className = 'feedback show correct';
+                        feedback.textContent = '✓ Correct!';
+                    }
                 } else {
                     state.session.incorrect++;
                     feedback.className = 'feedback show incorrect';
@@ -7030,6 +7060,17 @@
 
             // Show retry button
             document.getElementById('retryBtn').style.display = 'block';
+        }
+
+        // Show toast notification
+        function showToast(message, duration = 2000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
         }
 
         // Toggle mobile menu
