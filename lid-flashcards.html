@@ -83,7 +83,7 @@
 
         .stats {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-bottom: 20px;
         }
@@ -257,16 +257,16 @@
 
         .toast {
             position: fixed;
-            top: 20px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
             background: #10b981;
             color: white;
             padding: 15px 30px;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             z-index: 2000;
             opacity: 0;
             transition: opacity 0.3s ease;
@@ -366,6 +366,12 @@
                 flex: 1;
                 padding: 10px 8px;
                 font-size: 14px;
+            }
+
+            .toast {
+                bottom: 80px;
+                padding: 12px 24px;
+                font-size: 16px;
             }
         }
 
