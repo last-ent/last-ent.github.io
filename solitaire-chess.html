@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solitaire Chess — Guess the Move</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1b1b1b;
+    color: #ccc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  /* ── SETUP ── */
+  #setup {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  #setup h1 {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #eee;
+    letter-spacing: 0.02em;
+  }
+  #setup textarea {
+    width: 100%;
+    height: 200px;
+    background: #2a2a2a;
+    color: #ddd;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  #setup textarea::placeholder { color: #666; }
+  #setup textarea:focus { outline: none; border-color: #777; }
+
+  .setup-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .setup-row label {
+    font-size: 1rem;
+    color: #999;
+  }
+  .setup-row input[type="number"] {
+    width: 72px;
+    background: #2a2a2a;
+    color: #ddd;
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  .setup-row input[type="number"]:focus { outline: none; border-color: #777; }
+
+  .side-toggle {
+    display: flex;
+    gap: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #444;
+  }
+  .side-toggle button {
+    padding: 10px 28px;
+    background: #2a2a2a;
+    color: #999;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.15s, color 0.15s;
+  }
+  .side-toggle button.active {
+    background: #8a4428;
+    color: #e0ccc4;
+    font-weight: 600;
+  }
+
+  #startBtn {
+    align-self: center;
+    padding: 14px 56px;
+    background: #8a4428;
+    color: #e0ccc4;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  #startBtn:hover { opacity: 0.85; }
+
+  #setupError {
+    color: #e55;
+    font-size: 1rem;
+    text-align: center;
+    min-height: 1.2em;
+  }
+
+  /* ── PLAYING ── */
+  #playing {
+    display: none;
+    width: 100%;
+    max-width: 700px;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  #gameLayout {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  #gameMain {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  #openingName {
+    font-size: 1rem;
+    color: #888;
+    text-align: center;
+    min-height: 1.2em;
+  }
+
+  #timer {
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 3.2rem;
+    color: #eee;
+    letter-spacing: 0.08em;
+    text-align: center;
+    min-height: 3.8rem;
+  }
+  #timer.warning { color: #e88; }
+  #timer.expired { color: #e55; }
+
+  #mainPanel {
+    width: 100%;
+    min-height: 320px;
+    background: #b05530;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 32px 24px;
+    transition: background 0.2s, transform 0.08s;
+    gap: 10px;
+  }
+  #mainPanel:active { transform: scale(0.985); }
+
+  #answerLine {
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 1.6rem;
+    color: rgba(255,255,255,0.2);
+    min-height: 1.8rem;
+    text-align: center;
+    transition: opacity 0.15s;
+  }
+  #opponentLine {
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 3rem;
+    color: rgba(255,255,255,0.45);
+    font-weight: 700;
+    text-align: center;
+    transition: opacity 0.15s;
+    word-break: break-word;
+  }
+  #promptLine {
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.18);
+    font-style: italic;
+    text-align: center;
+    min-height: 1.5rem;
+    margin-top: 4px;
+  }
+
+  #moveCounter {
+    font-size: 0.95rem;
+    color: #666;
+    text-align: center;
+  }
+
+  /* ── CONTROLS ── */
+  #controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .ctrl-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .ctrl-btn {
+    padding: 10px 16px;
+    background: #2a2a2a;
+    color: #aaa;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    cursor: pointer;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+    min-width: 44px;
+    min-height: 44px;
+    text-align: center;
+  }
+  .ctrl-btn:hover { background: #383838; }
+  .ctrl-btn.active {
+    background: #555;
+    color: #eee;
+    border-color: #666;
+    font-weight: 600;
+  }
+
+  #endRunBtn {
+    padding: 10px 24px;
+    background: #3a2020;
+    color: #e88;
+    border: 1px solid #633;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    min-height: 44px;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  #endRunBtn:hover { background: #4a2828; }
+
+  /* ── END RUN ── */
+  #endRun {
+    display: none;
+    width: 100%;
+    max-width: 700px;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  #endRun h2 {
+    color: #eee;
+    font-size: 1.3rem;
+  }
+  #pgnOutput {
+    width: 100%;
+    height: 280px;
+    background: #2a2a2a;
+    color: #ddd;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 14px;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 0.95rem;
+    resize: vertical;
+  }
+  #copyBtn {
+    padding: 14px 40px;
+    background: #8a4428;
+    color: #e0ccc4;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  #copyBtn:hover { opacity: 0.85; }
+  #newGameBtn {
+    padding: 10px 28px;
+    background: #3a2a24;
+    color: #b08878;
+    border: 1px solid #5a3a2e;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  #newGameBtn:hover { background: #4a3830; }
+
+  #scoreLine {
+    font-size: 0.95rem;
+    color: #777;
+    text-align: center;
+    min-height: 1.2em;
+  }
+
+  #settingsBtn, #movesToggleBtn {
+    padding: 8px 20px;
+    background: #2a2a2a;
+    color: #888;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.12s;
+    min-height: 44px;
+  }
+  #settingsBtn:hover, #movesToggleBtn:hover { background: #383838; }
+  #movesToggleBtn.active {
+    background: #555;
+    color: #eee;
+    border-color: #666;
+  }
+
+  /* ── MOVES TABLE ── */
+  #movesPanel {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.2s ease;
+    opacity: 0;
+  }
+  #movesPanel.open {
+    max-height: 400px;
+    opacity: 1;
+    overflow-y: auto;
+  }
+  #movesTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 0.95rem;
+  }
+  #movesTable th {
+    color: #666;
+    font-weight: 400;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+    position: sticky;
+    top: 0;
+    background: #1b1b1b;
+  }
+  #movesTable td {
+    padding: 5px 12px;
+    color: #888;
+    border-bottom: 1px solid #2a2a2a;
+  }
+  #movesTable td:first-child {
+    color: #555;
+    width: 3em;
+  }
+  #movesTable tr:last-child td {
+    border-bottom: none;
+  }
+  #movesTable tr.current td {
+    color: #c08060;
+  }
+
+  /* ── HIDDEN UTILITY ── */
+  .hidden { display: none !important; }
+
+  /* ── RESPONSIVE ── */
+  @media (min-width: 768px) {
+    #mainPanel { min-height: 380px; padding: 40px 32px; }
+    #opponentLine { font-size: 3.6rem; }
+    #answerLine { font-size: 1.9rem; }
+    #promptLine { font-size: 1.4rem; }
+    #timer { font-size: 3.8rem; }
+    .ctrl-btn { padding: 12px 20px; font-size: 1.15rem; min-width: 52px; min-height: 52px; }
+    #endRunBtn { padding: 12px 28px; font-size: 1.15rem; min-height: 52px; }
+  }
+
+  @media (min-width: 1024px) {
+    #playing {
+      max-width: 1060px;
+    }
+    #gameLayout {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    #gameMain {
+      max-width: 700px;
+    }
+    #movesPanel {
+      width: 280px;
+      flex-shrink: 0;
+      border-left: 1px solid #333;
+      padding-left: 16px;
+    }
+    #movesPanel.open {
+      max-height: 600px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    body { padding: 12px; }
+    #mainPanel { min-height: 260px; padding: 24px 16px; }
+    #opponentLine { font-size: 2.4rem; }
+    #answerLine { font-size: 1.3rem; }
+    #promptLine { font-size: 1rem; }
+    #timer { font-size: 2.6rem; }
+    .ctrl-btn { padding: 10px 12px; font-size: 0.95rem; min-width: 40px; min-height: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SETUP -->
+<div id="setup">
+  <h1>Solitaire Chess</h1>
+  <textarea id="pgnInput" placeholder='Paste PGN here, e.g.:
+
+[Event "Casual Game"]
+[Opening "Sicilian Defense: Najdorf"]
+[White "Kasparov"]
+[Black "Topalov"]
+
+1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 ...'></textarea>
+  <div class="setup-row">
+    <label for="timerInput">Minutes per move <span style="color:#666;font-size:0.85em">(0 = unlimited)</span></label>
+    <input type="number" id="timerInput" value="5" min="0" max="60" step="1">
+    <span style="flex:1"></span>
+    <div class="side-toggle">
+      <button id="sideWhite" class="active" onclick="pickSide('white')">White</button>
+      <button id="sideBlack" onclick="pickSide('black')">Black</button>
+    </div>
+  </div>
+  <div id="setupError"></div>
+  <button id="startBtn" onclick="startGame()">Start</button>
+</div>
+
+<!-- PLAYING -->
+<div id="playing">
+  <div id="gameLayout">
+    <div id="gameMain">
+      <div id="scoreLine"></div>
+      <div id="openingName"></div>
+      <div id="timer"></div>
+      <div id="mainPanel" onclick="advanceMove()">
+        <div id="answerLine"></div>
+        <div id="opponentLine"></div>
+        <div id="promptLine"></div>
+      </div>
+      <div id="moveCounter"></div>
+      <div id="controls">
+        <div class="ctrl-row" id="evalRow"></div>
+        <div class="ctrl-row" id="qualRow"></div>
+        <div class="ctrl-row">
+          <button class="ctrl-btn" id="starBtn" onclick="toggleStar()">&#9733;</button>
+          <button id="movesToggleBtn" onclick="toggleMovesPanel()">Moves</button>
+          <button id="endRunBtn" onclick="endRun()">End Run</button>
+          <button id="settingsBtn" onclick="showSettings()">Settings</button>
+        </div>
+      </div>
+    </div>
+    <div id="movesPanel">
+      <table id="movesTable">
+        <thead><tr><th>#</th><th>White</th><th>Black</th></tr></thead>
+        <tbody id="movesBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- END RUN -->
+<div id="endRun">
+  <h2>Run Complete</h2>
+  <textarea id="pgnOutput" readonly></textarea>
+  <button id="copyBtn" onclick="copyPgn()">Copy PGN</button>
+  <button id="newGameBtn" onclick="newGame()">New Game</button>
+</div>
+
+<script>
+// ── State ──
+let game = null;       // { headers, moves }
+let side = 'white';    // user's side
+let timerMinutes = 5;
+let stepIndex = 0;     // which guess we're on (0-based)
+let totalSteps = 0;
+let annotations = [];  // [{eval:null, quality:null, star:false}, ...] per user move
+let timerInterval = null;
+let timerSeconds = 0;
+let timerEnabled = true;
+
+// ── PGN Parser ──
+function parsePGN(raw) {
+  const headers = {};
+  const headerRe = /\[(\w+)\s+"([^"]*)"\]/g;
+  let m;
+  while ((m = headerRe.exec(raw)) !== null) {
+    headers[m[1]] = m[2];
+  }
+
+  // Extract move text (everything after the last header line)
+  let moveText = raw.replace(/\[.*?\]\s*/g, '').trim();
+
+  // Strip comments, variations, NAGs
+  moveText = moveText.replace(/\{[^}]*\}/g, '');
+  moveText = moveText.replace(/\([^)]*\)/g, '');
+  moveText = moveText.replace(/\$\d+/g, '');
+
+  // Strip result tokens
+  moveText = moveText.replace(/\s+(1-0|0-1|1\/2-1\/2|\*)\s*$/, '');
+
+  // Tokenize
+  const tokens = moveText.split(/\s+/).filter(t => t.length > 0);
+
+  const moves = [];
+  let current = null;
+
+  for (const tok of tokens) {
+    // Move number like "1." or "1..."
+    const numMatch = tok.match(/^(\d+)\.(\.\.)?$/);
+    if (numMatch) {
+      const num = parseInt(numMatch[1], 10);
+      if (!current || current.num !== num) {
+        current = { num, white: null, black: null };
+        moves.push(current);
+      }
+      continue;
+    }
+    // Skip result tokens inline
+    if (['1-0', '0-1', '1/2-1/2', '*'].includes(tok)) continue;
+
+    // It's a move SAN
+    if (!current) {
+      current = { num: 1, white: null, black: null };
+      moves.push(current);
+    }
+    if (current.white === null) {
+      current.white = tok;
+    } else if (current.black === null) {
+      current.black = tok;
+    } else {
+      // Overflow → next move number
+      current = { num: current.num + 1, white: tok, black: null };
+      moves.push(current);
+    }
+  }
+
+  if (moves.length === 0) throw new Error('No moves found in PGN');
+  return { headers, moves };
+}
+
+// ── Side picker ──
+function pickSide(s) {
+  side = s;
+  document.getElementById('sideWhite').classList.toggle('active', s === 'white');
+  document.getElementById('sideBlack').classList.toggle('active', s === 'black');
+}
+
+// ── Start ──
+function startGame() {
+  const errEl = document.getElementById('setupError');
+
+  // If resuming, just re-apply settings and go back to playing
+  if (window._resuming && game) {
+    const newSide = side;
+    const oldSide = game._startedSide;
+    timerMinutes = Math.max(0, parseInt(document.getElementById('timerInput').value, 10) || 0);
+    timerEnabled = timerMinutes > 0;
+
+    // If side changed, restart the game entirely
+    if (newSide !== oldSide) {
+      window._resuming = false;
+      // Fall through to full restart below
+    } else {
+      window._resuming = false;
+      document.getElementById('startBtn').textContent = 'Start';
+      document.getElementById('setup').classList.add('hidden');
+      document.getElementById('playing').style.display = 'flex';
+      const timerEl = document.getElementById('timer');
+      if (timerEnabled) {
+        timerEl.classList.remove('hidden');
+        startTimer();
+      } else {
+        timerEl.classList.add('hidden');
+        stopTimer();
+      }
+      return;
+    }
+  }
+
+  const raw = document.getElementById('pgnInput').value.trim();
+  if (!raw) { errEl.textContent = 'Please paste a PGN.'; return; }
+  try {
+    game = parsePGN(raw);
+  } catch (e) {
+    errEl.textContent = e.message;
+    return;
+  }
+  errEl.textContent = '';
+  document.getElementById('startBtn').textContent = 'Start';
+
+  timerMinutes = Math.max(0, parseInt(document.getElementById('timerInput').value, 10) || 0);
+  timerEnabled = timerMinutes > 0;
+
+  // Count total user moves to guess
+  totalSteps = 0;
+  for (const mv of game.moves) {
+    if (side === 'white' && mv.white) totalSteps++;
+    if (side === 'black' && mv.black) totalSteps++;
+  }
+  // Subtract the freebie
+  if (side === 'white') totalSteps = Math.max(0, totalSteps - 1);
+  if (side === 'black' && game.moves.length > 0 && game.moves[0].white) {
+    // No freebie subtraction for black — first white move is shown, user guesses 1...
+    // Actually, for black the freebie is showing white's first move. The user still guesses all black moves.
+  }
+
+  // For white: user guesses moves 2.white, 3.white, etc. (1.white is freebie context)
+  // For black: user guesses 1...black, 2...black, etc.
+  // Let's recount properly:
+  if (side === 'white') {
+    // Freebie: move 1 pair. Guess: move 2.white, 3.white, ...
+    totalSteps = 0;
+    for (let i = 1; i < game.moves.length; i++) {
+      if (game.moves[i].white) totalSteps++;
+    }
+  } else {
+    // Freebie: 1.white shown. Guess: 1...black, 2...black, ...
+    totalSteps = 0;
+    for (const mv of game.moves) {
+      if (mv.black) totalSteps++;
+    }
+  }
+
+  if (totalSteps === 0) { errEl.textContent = 'Not enough moves to guess.'; return; }
+
+  // Init annotations
+  annotations = [];
+  for (let i = 0; i < totalSteps; i++) {
+    annotations.push({ eval: null, quality: null, star: false });
+  }
+
+  stepIndex = 0;
+
+  // Build control buttons
+  buildControls();
+
+  // Track started side for resume detection
+  game._startedSide = side;
+
+  // Show opening name
+  const opening = game.headers.Opening || game.headers.ECO || '';
+  document.getElementById('openingName').textContent = opening;
+
+  // Show score line
+  updateScoreLine();
+
+  // Switch views
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('endRun').style.display = 'none';
+  document.getElementById('playing').style.display = 'flex';
+
+  // Timer
+  const timerEl = document.getElementById('timer');
+  if (timerEnabled) {
+    timerEl.classList.remove('hidden');
+    startTimer();
+  } else {
+    timerEl.classList.add('hidden');
+  }
+
+  // Show first question
+  showQuestion();
+}
+
+// ── Build control buttons ──
+const EVALS = [
+  { label: '=',  nag: '$10' },
+  { label: '+=', nag: '$14' },
+  { label: '=+', nag: '$15' },
+  { label: '\u00b1',  nag: '$16' },
+  { label: '\u2213',  nag: '$17' },
+  { label: '+-', nag: '$18' },
+  { label: '-+', nag: '$19' },
+];
+const QUALS = ['!', '!!', '?', '??', '!?', '?!'];
+
+function buildControls() {
+  const evalRow = document.getElementById('evalRow');
+  evalRow.innerHTML = '';
+  for (const ev of EVALS) {
+    const btn = document.createElement('button');
+    btn.className = 'ctrl-btn';
+    btn.textContent = ev.label;
+    btn.dataset.nag = ev.nag;
+    btn.onclick = () => toggleEval(ev.nag, btn);
+    evalRow.appendChild(btn);
+  }
+
+  const qualRow = document.getElementById('qualRow');
+  qualRow.innerHTML = '';
+  for (const q of QUALS) {
+    const btn = document.createElement('button');
+    btn.className = 'ctrl-btn';
+    btn.textContent = q;
+    btn.dataset.qual = q;
+    btn.onclick = () => toggleQuality(q, btn);
+    qualRow.appendChild(btn);
+  }
+}
+
+// ── Annotations ──
+function currentAnnotation() {
+  // Annotations apply to the last revealed user move.
+  // After a click, stepIndex has been incremented, so the just-revealed move is stepIndex - 1.
+  const idx = stepIndex - 1;
+  if (idx < 0 || idx >= annotations.length) return null;
+  return annotations[idx];
+}
+
+function toggleEval(nag, btn) {
+  const ann = currentAnnotation();
+  if (!ann) return;
+  // Clear all eval active states
+  document.querySelectorAll('#evalRow .ctrl-btn').forEach(b => b.classList.remove('active'));
+  if (ann.eval === nag) {
+    ann.eval = null;
+  } else {
+    ann.eval = nag;
+    btn.classList.add('active');
+  }
+}
+
+function toggleQuality(q, btn) {
+  const ann = currentAnnotation();
+  if (!ann) return;
+  document.querySelectorAll('#qualRow .ctrl-btn').forEach(b => b.classList.remove('active'));
+  if (ann.quality === q) {
+    ann.quality = null;
+  } else {
+    ann.quality = q;
+    btn.classList.add('active');
+  }
+}
+
+function toggleStar() {
+  const ann = currentAnnotation();
+  if (!ann) return;
+  ann.star = !ann.star;
+  document.getElementById('starBtn').classList.toggle('active', ann.star);
+}
+
+function syncControlHighlights() {
+  const ann = currentAnnotation();
+  document.querySelectorAll('#evalRow .ctrl-btn').forEach(b => {
+    b.classList.toggle('active', ann && ann.eval === b.dataset.nag);
+  });
+  document.querySelectorAll('#qualRow .ctrl-btn').forEach(b => {
+    b.classList.toggle('active', ann && ann.quality === b.dataset.qual);
+  });
+  document.getElementById('starBtn').classList.toggle('active', ann && ann.star);
+}
+
+// ── Timer ──
+function startTimer() {
+  stopTimer();
+  timerSeconds = timerMinutes * 60;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timerSeconds--;
+    updateTimerDisplay();
+    if (timerSeconds <= 0) {
+      stopTimer();
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function updateTimerDisplay() {
+  const el = document.getElementById('timer');
+  if (!timerEnabled) return;
+  const mins = Math.max(0, Math.floor(timerSeconds / 60));
+  const secs = Math.max(0, timerSeconds % 60);
+  el.textContent = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+  el.classList.toggle('warning', timerSeconds <= 30 && timerSeconds > 0);
+  el.classList.toggle('expired', timerSeconds <= 0);
+}
+
+// ── Prompt helper ──
+function getMovePrompt(idx) {
+  // Returns e.g. "2. Your Move?" for white or "1... Your Move?" for black
+  const step = getStepMoves(idx);
+  if (!step) return '';
+  if (side === 'white') {
+    return step.answer ? (game.moves[step.moveIdx].num + '. Your Move?') : '';
+  } else {
+    return step.answer ? (game.moves[step.moveIdx].num + '... Your Move?') : '';
+  }
+}
+
+// ── Move display helpers ──
+
+// Get the user's move (answer) and the next opponent move for a given step index
+function getStepMoves(idx) {
+  // Returns { answer: "Nf3", answerLabel: "2. Nf3", opponent: "d6", opponentLabel: "2... d6", answerMoveIdx, answerSide }
+  if (side === 'white') {
+    // step 0 → game.moves[1].white (answer) + game.moves[1].black (opponent)
+    // step 1 → game.moves[2].white (answer) + game.moves[2].black (opponent)
+    const mi = idx + 1; // move index (0-based into game.moves)
+    if (mi >= game.moves.length) return null;
+    const mv = game.moves[mi];
+    const answer = mv.white;
+    const answerLabel = mv.num + '. ' + (answer || '');
+    const opponent = mv.black;
+    const opponentLabel = opponent ? (mv.num + '... ' + opponent) : null;
+    // Check if there's a next move's opponent (for the last step, opponent might be from next move)
+    // Actually: each click shows THIS move's answer (white) + THIS move's opponent (black)
+    // But if black is null (last move of game), opponent is null → end run
+    return { answer, answerLabel, opponent, opponentLabel, moveIdx: mi, answerSide: 'white' };
+  } else {
+    // Black guessing
+    // step 0 → game.moves[0].black (answer) + game.moves[1].white (opponent)
+    // step 1 → game.moves[1].black (answer) + game.moves[2].white (opponent)
+    const mi = idx; // move index for the answer (black's move)
+    if (mi >= game.moves.length) return null;
+    const mv = game.moves[mi];
+    const answer = mv.black;
+    const answerLabel = mv.num + '... ' + (answer || '');
+
+    // Next opponent move is the NEXT move's white
+    const nextMi = mi + 1;
+    let opponent = null;
+    let opponentLabel = null;
+    if (nextMi < game.moves.length && game.moves[nextMi].white) {
+      opponent = game.moves[nextMi].white;
+      opponentLabel = game.moves[nextMi].num + '. ' + opponent;
+    }
+    return { answer, answerLabel, opponent, opponentLabel, moveIdx: mi, answerSide: 'black' };
+  }
+}
+
+function updateScoreLine() {
+  const parts = [];
+  const w = game.headers.White;
+  const b = game.headers.Black;
+  if (w || b) parts.push((w || '?') + ' vs ' + (b || '?'));
+  const r = game.headers.Result;
+  if (r) parts.push(r);
+  // Show moves played so far
+  const movesPlayed = side === 'white'
+    ? Math.min(stepIndex + 1, game.moves.length)
+    : Math.min(stepIndex, game.moves.length);
+  parts.push('Move ' + movesPlayed + '/' + game.moves.length);
+  document.getElementById('scoreLine').textContent = parts.join('  \u2022  ');
+}
+
+function showSettings() {
+  stopTimer();
+  document.getElementById('playing').style.display = 'none';
+  document.getElementById('setup').classList.remove('hidden');
+  document.getElementById('startBtn').textContent = 'Resume';
+  window._resuming = true;
+}
+
+function toggleMovesPanel() {
+  const panel = document.getElementById('movesPanel');
+  const btn = document.getElementById('movesToggleBtn');
+  const isOpen = panel.classList.toggle('open');
+  btn.classList.toggle('active', isOpen);
+  if (isOpen) updateMovesTable();
+}
+
+function updateMovesTable() {
+  const body = document.getElementById('movesBody');
+  if (!game) return;
+  body.innerHTML = '';
+
+  // Figure out how far we've revealed
+  // For white: step 0 reveals game.moves[1].white, so after stepIndex clicks we've shown up to game.moves[stepIndex].white
+  // For black: step 0 reveals game.moves[0].black, so after stepIndex clicks we've shown up to game.moves[stepIndex-1].black
+  let revealedWhite, revealedBlack;
+  if (side === 'white') {
+    // Freebie: move 0 pair. After N clicks: moves[1..N].white + moves[0..N-1].black (opponent)
+    revealedWhite = stepIndex; // game.moves index up to which white is revealed (inclusive, 0 = freebie)
+    revealedBlack = stepIndex > 0 ? stepIndex : 0; // black revealed through opponent display
+  } else {
+    revealedWhite = stepIndex > 0 ? stepIndex : 0; // opponent moves revealed
+    revealedBlack = stepIndex - 1; // user's moves revealed (-1 = none yet)
+  }
+
+  for (let i = 0; i < game.moves.length; i++) {
+    const mv = game.moves[i];
+    const showWhite = i <= revealedWhite;
+    const showBlack = i <= revealedBlack;
+    if (!showWhite && !showBlack) break;
+
+    const tr = document.createElement('tr');
+    const isCurrent = (side === 'white' && i === revealedWhite && stepIndex > 0)
+                   || (side === 'black' && i === revealedBlack && stepIndex > 0);
+    if (isCurrent) tr.className = 'current';
+
+    const tdNum = document.createElement('td');
+    tdNum.textContent = mv.num + '.';
+    tr.appendChild(tdNum);
+
+    const tdW = document.createElement('td');
+    tdW.textContent = showWhite && mv.white ? mv.white : '';
+    tr.appendChild(tdW);
+
+    const tdB = document.createElement('td');
+    tdB.textContent = showBlack && mv.black ? mv.black : '';
+    tr.appendChild(tdB);
+
+    body.appendChild(tr);
+  }
+
+  // Auto-scroll to bottom
+  const panel = document.getElementById('movesPanel');
+  if (panel.classList.contains('open')) {
+    panel.scrollTop = panel.scrollHeight;
+  }
+}
+
+function showQuestion() {
+  const answerEl = document.getElementById('answerLine');
+  const opponentEl = document.getElementById('opponentLine');
+  const counterEl = document.getElementById('moveCounter');
+
+  if (stepIndex >= totalSteps) {
+    endRun();
+    return;
+  }
+
+  const step = getStepMoves(stepIndex);
+  if (!step) { endRun(); return; }
+
+  const promptEl = document.getElementById('promptLine');
+
+  if (stepIndex === 0) {
+    // First question: show freebie context in answer line, opponent move as main
+    if (side === 'white') {
+      const mv = game.moves[0];
+      answerEl.textContent = mv.num + '. ' + (mv.white || '');
+      opponentEl.textContent = mv.num + '... ' + (mv.black || '');
+    } else {
+      answerEl.textContent = '';
+      const mv = game.moves[0];
+      opponentEl.textContent = mv.num + '. ' + (mv.white || '');
+    }
+    promptEl.textContent = getMovePrompt(stepIndex);
+  }
+  // else: question is already displayed from the previous advanceMove call
+
+  counterEl.textContent = 'Move ' + (stepIndex + 1) + ' of ' + totalSteps;
+}
+
+function advanceMove() {
+  if (stepIndex >= totalSteps) {
+    endRun();
+    return;
+  }
+
+  const step = getStepMoves(stepIndex);
+  if (!step) { endRun(); return; }
+
+  const answerEl = document.getElementById('answerLine');
+  const opponentEl = document.getElementById('opponentLine');
+  const promptEl = document.getElementById('promptLine');
+
+  // Show the answer (user's correct move) at half size
+  answerEl.textContent = step.answerLabel;
+
+  stepIndex++;
+
+  // Show next opponent move (the next question) at full size
+  if (step.opponent && stepIndex < totalSteps) {
+    opponentEl.textContent = step.opponentLabel;
+    promptEl.textContent = getMovePrompt(stepIndex);
+  } else if (stepIndex < totalSteps) {
+    // Still have steps but no opponent move from this pair — get from next step
+    const nextStep = getStepMoves(stepIndex);
+    if (nextStep) {
+      if (side === 'white') {
+        opponentEl.textContent = step.opponentLabel || '';
+      } else {
+        opponentEl.textContent = nextStep.opponentLabel || '';
+      }
+      promptEl.textContent = getMovePrompt(stepIndex);
+    }
+  } else {
+    // Last move — show just the answer
+    opponentEl.textContent = '';
+    promptEl.textContent = '';
+  }
+
+  // Sync annotation highlights for the just-revealed move
+  syncControlHighlights();
+
+  // Update counter, score, and moves table
+  document.getElementById('moveCounter').textContent = 'Move ' + (stepIndex) + ' of ' + totalSteps;
+  updateScoreLine();
+  if (document.getElementById('movesPanel').classList.contains('open')) updateMovesTable();
+
+  // Restart timer
+  if (timerEnabled && stepIndex < totalSteps) {
+    startTimer();
+  } else if (timerEnabled) {
+    stopTimer();
+  }
+
+  // If that was the last step, auto-end after showing the answer briefly
+  if (stepIndex >= totalSteps) {
+    document.getElementById('moveCounter').textContent = 'Complete!';
+    if (timerEnabled) stopTimer();
+    // Brief delay so user can see the final answer
+    setTimeout(() => endRun(), 1500);
+  }
+}
+
+// ── End Run ──
+function endRun() {
+  stopTimer();
+  document.getElementById('playing').style.display = 'none';
+  document.getElementById('endRun').style.display = 'flex';
+  document.getElementById('pgnOutput').value = exportPGN();
+}
+
+function exportPGN() {
+  let out = '';
+
+  // Headers
+  for (const key of ['Event', 'Site', 'Date', 'Round', 'White', 'Black', 'Result', 'ECO', 'Opening']) {
+    if (game.headers[key]) {
+      out += '[' + key + ' "' + game.headers[key] + '"]\n';
+    }
+  }
+  // Any remaining headers
+  for (const key in game.headers) {
+    if (!['Event', 'Site', 'Date', 'Round', 'White', 'Black', 'Result', 'ECO', 'Opening'].includes(key)) {
+      out += '[' + key + ' "' + game.headers[key] + '"]\n';
+    }
+  }
+  out += '\n';
+
+  // Moves with annotations
+  let annIdx = 0;
+  for (let i = 0; i < game.moves.length; i++) {
+    const mv = game.moves[i];
+    out += mv.num + '. ';
+
+    // White move
+    if (mv.white) {
+      let whiteAnn = '';
+      if (side === 'white' && i >= 1) {
+        // This white move corresponds to annotation index (i - 1)
+        const a = annotations[i - 1];
+        if (a) {
+          if (a.quality) whiteAnn += a.quality;
+          if (a.eval) whiteAnn += ' ' + a.eval;
+          if (a.star) whiteAnn += ' {★}';
+        }
+      }
+      out += mv.white + (whiteAnn ? whiteAnn : '') + ' ';
+    }
+
+    // Black move
+    if (mv.black) {
+      let blackAnn = '';
+      if (side === 'black') {
+        const a = annotations[i];
+        if (a) {
+          if (a.quality) blackAnn += a.quality;
+          if (a.eval) blackAnn += ' ' + a.eval;
+          if (a.star) blackAnn += ' {★}';
+        }
+      }
+      out += mv.black + (blackAnn ? blackAnn : '') + ' ';
+    }
+  }
+
+  // Result
+  if (game.headers.Result) {
+    out += game.headers.Result;
+  }
+
+  return out.trim();
+}
+
+function copyPgn() {
+  const text = document.getElementById('pgnOutput').value;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = 'Copy PGN'; }, 1500);
+  });
+}
+
+function newGame() {
+  stopTimer();
+  game = null;
+  stepIndex = 0;
+  annotations = [];
+  window._resuming = false;
+  document.getElementById('startBtn').textContent = 'Start';
+  document.getElementById('endRun').style.display = 'none';
+  document.getElementById('playing').style.display = 'none';
+  document.getElementById('setup').classList.remove('hidden');
+}
+</script>
+</body>
+</html>

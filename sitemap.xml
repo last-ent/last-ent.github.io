@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2026-01-07T16:10:00Z</lastmod>
+  <lastmod>2026-04-01T12:35:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
@@ -172,5 +172,9 @@
  <url>
   <loc>https://last-ent.com/posts/type-driven-development/</loc>
   <lastmod>2026-01-07T16:10:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://last-ent.com/solitaire-chess.html</loc>
+  <lastmod>2026-04-01T12:32:00Z</lastmod>
  </url>
 </urlset>
