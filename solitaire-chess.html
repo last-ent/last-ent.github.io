@@ -543,6 +543,8 @@ let totalSteps = 0;
 let annotations = [];  // [{eval:null, quality:null, star:false}, ...] per user move
 let opponentAnnotations = []; // same structure, per opponent move
 let annotatingOpponent = false; // which move the controls target
+let currentAnswerLabel = '';    // base text for answerLine (without annotations)
+let currentOpponentLabel = '';  // base text for opponentLine (without annotations)
 let timerInterval = null;
 let timerSeconds = 0;
 let timerEnabled = true;
@@ -807,6 +809,7 @@ function toggleEval(nag, btn) {
     ann.eval = nag;
     btn.classList.add('active');
   }
+  updateMainPanelText();
   if (document.getElementById('movesPanel').classList.contains('open')) updateMovesTable();
 }
 
@@ -820,6 +823,7 @@ function toggleQuality(q, btn) {
     ann.quality = q;
     btn.classList.add('active');
   }
+  updateMainPanelText();
   if (document.getElementById('movesPanel').classList.contains('open')) updateMovesTable();
 }
 
@@ -828,6 +832,7 @@ function toggleStar() {
   if (!ann) return;
   ann.star = !ann.star;
   document.getElementById('starBtn').classList.toggle('active', ann.star);
+  updateMainPanelText();
   if (document.getElementById('movesPanel').classList.contains('open')) updateMovesTable();
 }
 
@@ -848,6 +853,13 @@ function selectAnnotationTarget(isOpponent) {
   document.getElementById('selAnswer').classList.toggle('active', !isOpponent);
   document.getElementById('selOpponent').classList.toggle('active', isOpponent);
   syncControlHighlights();
+}
+
+function updateMainPanelText() {
+  const idx = stepIndex - 1;
+  if (idx < 0) return;
+  document.getElementById('answerLine').textContent = currentAnswerLabel + formatAnn(annotations[idx]);
+  document.getElementById('opponentLine').textContent = currentOpponentLabel + formatAnn(opponentAnnotations[idx]);
 }
 
 function updateMoveSelector() {
@@ -1107,27 +1119,31 @@ function advanceMove() {
   const promptEl = document.getElementById('promptLine');
 
   // Show the answer (user's correct move) at half size
-  answerEl.textContent = step.answerLabel;
+  currentAnswerLabel = step.answerLabel;
+  answerEl.textContent = currentAnswerLabel;
 
   stepIndex++;
 
   // Show next opponent move (the next question) at full size
   if (step.opponent && stepIndex < totalSteps) {
-    opponentEl.textContent = step.opponentLabel;
+    currentOpponentLabel = step.opponentLabel;
+    opponentEl.textContent = currentOpponentLabel;
     promptEl.textContent = getMovePrompt(stepIndex);
   } else if (stepIndex < totalSteps) {
     // Still have steps but no opponent move from this pair — get from next step
     const nextStep = getStepMoves(stepIndex);
     if (nextStep) {
       if (side === 'white') {
-        opponentEl.textContent = step.opponentLabel || '';
+        currentOpponentLabel = step.opponentLabel || '';
       } else {
-        opponentEl.textContent = nextStep.opponentLabel || '';
+        currentOpponentLabel = nextStep.opponentLabel || '';
       }
+      opponentEl.textContent = currentOpponentLabel;
       promptEl.textContent = getMovePrompt(stepIndex);
     }
   } else {
     // Last move — show just the answer
+    currentOpponentLabel = '';
     opponentEl.textContent = '';
     promptEl.textContent = '';
   }
