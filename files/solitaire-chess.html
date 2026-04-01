@@ -208,6 +208,39 @@
     text-align: center;
   }
 
+  /* ── MOVE SELECTOR ── */
+  #moveSelector {
+    display: none;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+  #moveSelector.visible { display: flex; }
+  #moveSelector .sel-label {
+    font-size: 0.8rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .sel-btn {
+    padding: 6px 14px;
+    background: #2a2a2a;
+    color: #777;
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.12s, color 0.12s, border-color 0.12s;
+    min-height: 36px;
+  }
+  .sel-btn:hover { background: #383838; }
+  .sel-btn.active {
+    background: #444;
+    color: #ddd;
+    border-color: #666;
+  }
+
   /* ── CONTROLS ── */
   #controls {
     width: 100%;
@@ -467,6 +500,11 @@
         <div id="promptLine"></div>
       </div>
       <div id="moveCounter"></div>
+      <div id="moveSelector">
+        <span class="sel-label">Annotate:</span>
+        <button id="selAnswer" class="sel-btn active" onclick="selectAnnotationTarget(false)"></button>
+        <button id="selOpponent" class="sel-btn" onclick="selectAnnotationTarget(true)"></button>
+      </div>
       <div id="controls">
         <div class="ctrl-row" id="evalRow"></div>
         <div class="ctrl-row" id="qualRow"></div>
@@ -503,6 +541,8 @@ let timerMinutes = 5;
 let stepIndex = 0;     // which guess we're on (0-based)
 let totalSteps = 0;
 let annotations = [];  // [{eval:null, quality:null, star:false}, ...] per user move
+let opponentAnnotations = []; // same structure, per opponent move
+let annotatingOpponent = false; // which move the controls target
 let timerInterval = null;
 let timerSeconds = 0;
 let timerEnabled = true;
@@ -654,8 +694,10 @@ function startGame() {
 
   // Init annotations
   annotations = [];
+  opponentAnnotations = [];
   for (let i = 0; i < totalSteps; i++) {
     annotations.push({ eval: null, quality: null, star: false });
+    opponentAnnotations.push({ eval: null, quality: null, star: false });
   }
 
   stepIndex = 0;
@@ -728,12 +770,30 @@ function buildControls() {
 }
 
 // ── Annotations ──
+function formatAnn(a) {
+  if (!a) return '';
+  let s = '';
+  if (a.quality) s += a.quality;
+  if (a.eval) { const e = EVALS.find(x => x.nag === a.eval); if (e) s += ' ' + e.label; }
+  if (a.star) s += ' \u2605';
+  return s;
+}
+
+function formatPgnAnn(a) {
+  if (!a) return '';
+  let s = '';
+  if (a.quality) s += a.quality;
+  if (a.eval) s += ' ' + a.eval;
+  if (a.star) s += ' {★}';
+  return s;
+}
+
 function currentAnnotation() {
-  // Annotations apply to the last revealed user move.
+  // Annotations apply to the last revealed move.
   // After a click, stepIndex has been incremented, so the just-revealed move is stepIndex - 1.
   const idx = stepIndex - 1;
   if (idx < 0 || idx >= annotations.length) return null;
-  return annotations[idx];
+  return annotatingOpponent ? opponentAnnotations[idx] : annotations[idx];
 }
 
 function toggleEval(nag, btn) {
@@ -780,6 +840,42 @@ function syncControlHighlights() {
     b.classList.toggle('active', ann && ann.quality === b.dataset.qual);
   });
   document.getElementById('starBtn').classList.toggle('active', ann && ann.star);
+}
+
+// ── Move selector ──
+function selectAnnotationTarget(isOpponent) {
+  annotatingOpponent = isOpponent;
+  document.getElementById('selAnswer').classList.toggle('active', !isOpponent);
+  document.getElementById('selOpponent').classList.toggle('active', isOpponent);
+  syncControlHighlights();
+}
+
+function updateMoveSelector() {
+  const sel = document.getElementById('moveSelector');
+  const idx = stepIndex - 1;
+  if (idx < 0) {
+    sel.classList.remove('visible');
+    return;
+  }
+  const step = getStepMoves(idx);
+  if (!step) { sel.classList.remove('visible'); return; }
+
+  const ansBtn = document.getElementById('selAnswer');
+  const oppBtn = document.getElementById('selOpponent');
+  ansBtn.textContent = step.answerLabel || '';
+
+  if (step.opponent) {
+    oppBtn.textContent = step.opponentLabel;
+    oppBtn.style.display = '';
+  } else {
+    oppBtn.style.display = 'none';
+    // Force back to answer if opponent not available
+    if (annotatingOpponent) selectAnnotationTarget(false);
+  }
+
+  sel.classList.add('visible');
+  // Reset to user's move on each new advance
+  selectAnnotationTarget(false);
 }
 
 // ── Timer ──
@@ -934,12 +1030,9 @@ function updateMovesTable() {
     if (showWhite && mv.white) {
       let wText = mv.white;
       if (side === 'white' && i >= 1) {
-        const a = annotations[i - 1];
-        if (a) {
-          if (a.quality) wText += a.quality;
-          if (a.eval) { const e = EVALS.find(x => x.nag === a.eval); if (e) wText += ' ' + e.label; }
-          if (a.star) wText += ' \u2605';
-        }
+        wText += formatAnn(annotations[i - 1]);
+      } else if (side === 'black' && i >= 1) {
+        wText += formatAnn(opponentAnnotations[i - 1]);
       }
       tdW.textContent = wText;
     }
@@ -949,12 +1042,9 @@ function updateMovesTable() {
     if (showBlack && mv.black) {
       let bText = mv.black;
       if (side === 'black') {
-        const a = annotations[i];
-        if (a) {
-          if (a.quality) bText += a.quality;
-          if (a.eval) { const e = EVALS.find(x => x.nag === a.eval); if (e) bText += ' ' + e.label; }
-          if (a.star) bText += ' \u2605';
-        }
+        bText += formatAnn(annotations[i]);
+      } else if (side === 'white' && i >= 1) {
+        bText += formatAnn(opponentAnnotations[i - 1]);
       }
       tdB.textContent = bText;
     }
@@ -1043,7 +1133,7 @@ function advanceMove() {
   }
 
   // Sync annotation highlights for the just-revealed move
-  syncControlHighlights();
+  updateMoveSelector();
 
   // Update counter, score, and moves table
   document.getElementById('moveCounter').textContent = 'Move ' + (stepIndex) + ' of ' + totalSteps;
@@ -1101,29 +1191,22 @@ function exportPGN() {
     if (mv.white) {
       let whiteAnn = '';
       if (side === 'white' && i >= 1) {
-        // This white move corresponds to annotation index (i - 1)
-        const a = annotations[i - 1];
-        if (a) {
-          if (a.quality) whiteAnn += a.quality;
-          if (a.eval) whiteAnn += ' ' + a.eval;
-          if (a.star) whiteAnn += ' {★}';
-        }
+        whiteAnn = formatPgnAnn(annotations[i - 1]);
+      } else if (side === 'black' && i >= 1) {
+        whiteAnn = formatPgnAnn(opponentAnnotations[i - 1]);
       }
-      out += mv.white + (whiteAnn ? whiteAnn : '') + ' ';
+      out += mv.white + whiteAnn + ' ';
     }
 
     // Black move
     if (mv.black) {
       let blackAnn = '';
       if (side === 'black') {
-        const a = annotations[i];
-        if (a) {
-          if (a.quality) blackAnn += a.quality;
-          if (a.eval) blackAnn += ' ' + a.eval;
-          if (a.star) blackAnn += ' {★}';
-        }
+        blackAnn = formatPgnAnn(annotations[i]);
+      } else if (side === 'white' && i >= 1) {
+        blackAnn = formatPgnAnn(opponentAnnotations[i - 1]);
       }
-      out += mv.black + (blackAnn ? blackAnn : '') + ' ';
+      out += mv.black + blackAnn + ' ';
     }
   }
 
@@ -1149,6 +1232,8 @@ function newGame() {
   game = null;
   stepIndex = 0;
   annotations = [];
+  opponentAnnotations = [];
+  annotatingOpponent = false;
   window._resuming = false;
   document.getElementById('startBtn').textContent = 'Start';
   document.getElementById('endRun').style.display = 'none';
