@@ -414,6 +414,146 @@
     color: #c08060;
   }
 
+  /* ── HISTORY ── */
+  #history {
+    display: none;
+    width: 100%;
+    max-width: 700px;
+    flex-direction: column;
+    gap: 14px;
+  }
+  #history.visible { display: flex; }
+  .history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .history-header h2 { color: #eee; font-size: 1.3rem; }
+  .history-controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .history-controls button {
+    padding: 8px 16px;
+    background: #2a2a2a;
+    color: #999;
+    border: 1px solid #444;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    min-height: 40px;
+    transition: background 0.12s;
+  }
+  .history-controls button:hover { background: #383838; }
+  .history-controls button.primary {
+    background: #8a4428;
+    color: #e0ccc4;
+    border-color: #8a4428;
+    font-weight: 600;
+  }
+  .history-controls button.primary:hover { opacity: 0.85; }
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .history-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #2a2a2a;
+    border-radius: 8px;
+    border: 1px solid #333;
+  }
+  .history-check {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    accent-color: #8a4428;
+  }
+  .history-info {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+  }
+  .history-info:hover .history-title { color: #e0ccc4; }
+  .history-title {
+    color: #ccc;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.12s;
+  }
+  .history-meta {
+    color: #666;
+    font-size: 0.8rem;
+    margin-top: 2px;
+  }
+  .history-meta .in-progress { color: #c08060; }
+  .history-meta .complete { color: #6a6; }
+  .history-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .history-load {
+    padding: 6px 12px;
+    background: #3a3020;
+    color: #c09060;
+    border: 1px solid #5a4a2e;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  .history-load:hover { background: #4a3828; }
+  .history-delete {
+    padding: 6px 12px;
+    background: #2a2020;
+    color: #a66;
+    border: 1px solid #4a2828;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  .history-delete:hover { background: #3a2828; }
+  .history-delete.confirming {
+    background: #5a2020;
+    color: #e88;
+    border-color: #833;
+  }
+  #historyEmpty {
+    color: #555;
+    text-align: center;
+    padding: 32px;
+    font-style: italic;
+  }
+  .setup-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+  }
+  .history-btn {
+    padding: 10px 28px;
+    background: #3a2a24;
+    color: #b08878;
+    border: 1px solid #5a3a2e;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.12s;
+    min-height: 44px;
+  }
+  .history-btn:hover { background: #4a3830; }
+
   /* ── HIDDEN UTILITY ── */
   .hidden { display: none !important; }
 
@@ -484,7 +624,10 @@
     </div>
   </div>
   <div id="setupError"></div>
-  <button id="startBtn" onclick="startGame()">Start</button>
+  <div class="setup-actions">
+    <button id="startBtn" onclick="startGame()">Start</button>
+    <button class="history-btn" onclick="showHistory('setup')">History</button>
+  </div>
 </div>
 
 <!-- PLAYING -->
@@ -530,7 +673,25 @@
   <h2>Run Complete</h2>
   <textarea id="pgnOutput" readonly></textarea>
   <button id="copyBtn" onclick="copyPgn()">Copy PGN</button>
-  <button id="newGameBtn" onclick="newGame()">New Game</button>
+  <div class="setup-actions">
+    <button id="newGameBtn" onclick="newGame()">New Game</button>
+    <button class="history-btn" onclick="showHistory('endRun')">History</button>
+  </div>
+</div>
+
+<!-- HISTORY -->
+<div id="history">
+  <div class="history-header">
+    <h2>Game History</h2>
+    <button class="history-btn" onclick="hideHistory()">Back</button>
+  </div>
+  <div class="history-controls">
+    <button onclick="selectAllHistory(true)">Select All</button>
+    <button onclick="selectAllHistory(false)">Select None</button>
+    <button class="primary" onclick="exportSelected()">Export PGN</button>
+  </div>
+  <div class="history-list" id="historyList"></div>
+  <div id="historyEmpty">No saved games yet.</div>
 </div>
 
 <script>
@@ -545,6 +706,9 @@ let opponentAnnotations = []; // same structure, per opponent move
 let annotatingOpponent = false; // which move the controls target
 let currentAnswerLabel = '';    // base text for answerLine (without annotations)
 let currentOpponentLabel = '';  // base text for opponentLine (without annotations)
+let currentGameId = null;       // localStorage ID for current game
+let rawPgn = '';                // original PGN text for saving
+let historyReturnTo = 'setup';  // where to go back from history
 let timerInterval = null;
 let timerSeconds = 0;
 let timerEnabled = true;
@@ -658,6 +822,8 @@ function startGame() {
   }
   errEl.textContent = '';
   document.getElementById('startBtn').textContent = 'Start';
+  rawPgn = raw;
+  currentGameId = Date.now();
 
   timerMinutes = Math.max(0, parseInt(document.getElementById('timerInput').value, 10) || 0);
   timerEnabled = timerMinutes > 0;
@@ -1156,6 +1322,9 @@ function advanceMove() {
   updateScoreLine();
   if (document.getElementById('movesPanel').classList.contains('open')) updateMovesTable();
 
+  // Auto-save every 2 moves
+  if (stepIndex % 2 === 0 || stepIndex >= totalSteps) saveCurrentGame();
+
   // Restart timer
   if (timerEnabled && stepIndex < totalSteps) {
     startTimer();
@@ -1175,62 +1344,44 @@ function advanceMove() {
 // ── End Run ──
 function endRun() {
   stopTimer();
+  saveCurrentGame();
   document.getElementById('playing').style.display = 'none';
   document.getElementById('endRun').style.display = 'flex';
   document.getElementById('pgnOutput').value = exportPGN();
 }
 
 function exportPGN() {
-  let out = '';
+  return exportPGNWith(game, side, annotations, opponentAnnotations);
+}
 
-  // Headers
-  for (const key of ['Event', 'Site', 'Date', 'Round', 'White', 'Black', 'Result', 'ECO', 'Opening']) {
-    if (game.headers[key]) {
-      out += '[' + key + ' "' + game.headers[key] + '"]\n';
-    }
+function exportPGNWith(g, s, anns, oppAnns) {
+  let out = '';
+  const hdrOrder = ['Event', 'Site', 'Date', 'Round', 'White', 'Black', 'Result', 'ECO', 'Opening'];
+  for (const key of hdrOrder) {
+    if (g.headers[key]) out += '[' + key + ' "' + g.headers[key] + '"]\n';
   }
-  // Any remaining headers
-  for (const key in game.headers) {
-    if (!['Event', 'Site', 'Date', 'Round', 'White', 'Black', 'Result', 'ECO', 'Opening'].includes(key)) {
-      out += '[' + key + ' "' + game.headers[key] + '"]\n';
-    }
+  for (const key in g.headers) {
+    if (!hdrOrder.includes(key)) out += '[' + key + ' "' + g.headers[key] + '"]\n';
   }
   out += '\n';
 
-  // Moves with annotations
-  let annIdx = 0;
-  for (let i = 0; i < game.moves.length; i++) {
-    const mv = game.moves[i];
+  for (let i = 0; i < g.moves.length; i++) {
+    const mv = g.moves[i];
     out += mv.num + '. ';
-
-    // White move
     if (mv.white) {
-      let whiteAnn = '';
-      if (side === 'white' && i >= 1) {
-        whiteAnn = formatPgnAnn(annotations[i - 1]);
-      } else if (side === 'black' && i >= 1) {
-        whiteAnn = formatPgnAnn(opponentAnnotations[i - 1]);
-      }
-      out += mv.white + whiteAnn + ' ';
+      let ann = '';
+      if (s === 'white' && i >= 1) ann = formatPgnAnn(anns[i - 1]);
+      else if (s === 'black' && i >= 1) ann = formatPgnAnn(oppAnns[i - 1]);
+      out += mv.white + ann + ' ';
     }
-
-    // Black move
     if (mv.black) {
-      let blackAnn = '';
-      if (side === 'black') {
-        blackAnn = formatPgnAnn(annotations[i]);
-      } else if (side === 'white' && i >= 1) {
-        blackAnn = formatPgnAnn(opponentAnnotations[i - 1]);
-      }
-      out += mv.black + blackAnn + ' ';
+      let ann = '';
+      if (s === 'black') ann = formatPgnAnn(anns[i]);
+      else if (s === 'white' && i >= 1) ann = formatPgnAnn(oppAnns[i - 1]);
+      out += mv.black + ann + ' ';
     }
   }
-
-  // Result
-  if (game.headers.Result) {
-    out += game.headers.Result;
-  }
-
+  if (g.headers.Result) out += g.headers.Result;
   return out.trim();
 }
 
@@ -1250,11 +1401,295 @@ function newGame() {
   annotations = [];
   opponentAnnotations = [];
   annotatingOpponent = false;
+  currentGameId = null;
+  rawPgn = '';
   window._resuming = false;
   document.getElementById('startBtn').textContent = 'Start';
   document.getElementById('endRun').style.display = 'none';
   document.getElementById('playing').style.display = 'none';
+  document.getElementById('history').classList.remove('visible');
   document.getElementById('setup').classList.remove('hidden');
+}
+
+// ── Storage ──
+const STORAGE_KEY = 'solitaire_chess_games';
+
+function loadAllGames() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveAllGames(games) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(games));
+}
+
+function saveCurrentGame() {
+  if (!game || !currentGameId) return;
+  const games = loadAllGames();
+  const save = {
+    id: currentGameId,
+    lastModified: new Date().toISOString(),
+    rawPgn: rawPgn,
+    headers: game.headers,
+    side: side,
+    timerMinutes: timerMinutes,
+    stepIndex: stepIndex,
+    totalSteps: totalSteps,
+    annotations: JSON.parse(JSON.stringify(annotations)),
+    opponentAnnotations: JSON.parse(JSON.stringify(opponentAnnotations)),
+    completed: stepIndex >= totalSteps
+  };
+  const idx = games.findIndex(g => g.id === currentGameId);
+  if (idx >= 0) {
+    save.savedAt = games[idx].savedAt;
+    games[idx] = save;
+  } else {
+    save.savedAt = save.lastModified;
+    games.unshift(save);
+  }
+  saveAllGames(games);
+}
+
+// ── History UI ──
+function hideAllViews() {
+  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('playing').style.display = 'none';
+  document.getElementById('endRun').style.display = 'none';
+  document.getElementById('history').classList.remove('visible');
+}
+
+function showHistory(returnTo) {
+  historyReturnTo = returnTo || 'setup';
+  stopTimer();
+  hideAllViews();
+  renderHistory();
+  document.getElementById('history').classList.add('visible');
+}
+
+function hideHistory() {
+  document.getElementById('history').classList.remove('visible');
+  if (historyReturnTo === 'endRun') {
+    document.getElementById('endRun').style.display = 'flex';
+  } else {
+    document.getElementById('setup').classList.remove('hidden');
+  }
+}
+
+function renderHistory() {
+  const games = loadAllGames();
+  const list = document.getElementById('historyList');
+  const empty = document.getElementById('historyEmpty');
+  const controls = document.querySelector('.history-controls');
+  list.innerHTML = '';
+
+  if (games.length === 0) {
+    empty.style.display = '';
+    controls.style.display = 'none';
+    return;
+  }
+  empty.style.display = 'none';
+  controls.style.display = '';
+
+  for (const g of games) {
+    const div = document.createElement('div');
+    div.className = 'history-item';
+
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.className = 'history-check';
+    cb.checked = true;
+    cb.dataset.id = g.id;
+    div.appendChild(cb);
+
+    const info = document.createElement('div');
+    info.className = 'history-info';
+    info.onclick = () => loadGame(g.id);
+
+    const title = document.createElement('div');
+    title.className = 'history-title';
+    const w = g.headers.White || '?';
+    const b = g.headers.Black || '?';
+    title.textContent = w + ' vs ' + b;
+    info.appendChild(title);
+
+    const meta = document.createElement('div');
+    meta.className = 'history-meta';
+    const status = g.completed
+      ? '<span class="complete">Complete</span>'
+      : '<span class="in-progress">Move ' + g.stepIndex + '/' + g.totalSteps + '</span>';
+    const opening = g.headers.Opening || g.headers.ECO || '';
+    const date = new Date(g.savedAt).toLocaleDateString();
+    meta.innerHTML = (opening ? opening + ' &middot; ' : '') + status + ' &middot; ' + date;
+    info.appendChild(meta);
+    div.appendChild(info);
+
+    const actions = document.createElement('div');
+    actions.className = 'history-actions';
+
+    const loadBtn = document.createElement('button');
+    loadBtn.className = 'history-load';
+    loadBtn.textContent = 'Load';
+    loadBtn.onclick = () => loadGame(g.id);
+    actions.appendChild(loadBtn);
+
+    const delBtn = document.createElement('button');
+    delBtn.className = 'history-delete';
+    delBtn.textContent = 'Delete';
+    delBtn.onclick = () => confirmDelete(g.id, delBtn);
+    actions.appendChild(delBtn);
+
+    div.appendChild(actions);
+    list.appendChild(div);
+  }
+}
+
+function selectAllHistory(checked) {
+  document.querySelectorAll('.history-check').forEach(cb => { cb.checked = checked; });
+}
+
+// ── Delete with double confirm ──
+let deleteConfirmId = null;
+let deleteConfirmTimer = null;
+
+function confirmDelete(id, btn) {
+  if (deleteConfirmId === id) {
+    // Second click — delete
+    clearTimeout(deleteConfirmTimer);
+    deleteConfirmId = null;
+    const games = loadAllGames().filter(g => g.id !== id);
+    saveAllGames(games);
+    if (currentGameId === id) currentGameId = null;
+    renderHistory();
+  } else {
+    // First click — ask confirm
+    if (deleteConfirmTimer) clearTimeout(deleteConfirmTimer);
+    // Reset previous confirm button if any
+    document.querySelectorAll('.history-delete.confirming').forEach(b => {
+      b.classList.remove('confirming');
+      b.textContent = 'Delete';
+    });
+    deleteConfirmId = id;
+    btn.classList.add('confirming');
+    btn.textContent = 'Confirm?';
+    deleteConfirmTimer = setTimeout(() => {
+      btn.classList.remove('confirming');
+      btn.textContent = 'Delete';
+      deleteConfirmId = null;
+    }, 3000);
+  }
+}
+
+// ── Load / Resume game ──
+function loadGame(id) {
+  const games = loadAllGames();
+  const save = games.find(g => g.id === id);
+  if (!save) return;
+
+  stopTimer();
+
+  try {
+    game = parsePGN(save.rawPgn);
+  } catch (e) {
+    alert('Failed to load game: ' + e.message);
+    return;
+  }
+
+  side = save.side;
+  timerMinutes = save.timerMinutes;
+  timerEnabled = timerMinutes > 0;
+  stepIndex = save.stepIndex;
+  totalSteps = save.totalSteps;
+  annotations = JSON.parse(JSON.stringify(save.annotations));
+  opponentAnnotations = JSON.parse(JSON.stringify(save.opponentAnnotations));
+  currentGameId = save.id;
+  rawPgn = save.rawPgn;
+  game._startedSide = side;
+
+  // Update setup form
+  document.getElementById('pgnInput').value = save.rawPgn;
+  document.getElementById('timerInput').value = timerMinutes;
+  pickSide(side);
+
+  hideAllViews();
+
+  if (save.completed || stepIndex >= totalSteps) {
+    document.getElementById('endRun').style.display = 'flex';
+    document.getElementById('pgnOutput').value = exportPGN();
+    return;
+  }
+
+  // Show playing
+  buildControls();
+  const opening = game.headers.Opening || game.headers.ECO || '';
+  document.getElementById('openingName').textContent = opening;
+  updateScoreLine();
+  document.getElementById('playing').style.display = 'flex';
+
+  const timerEl = document.getElementById('timer');
+  if (timerEnabled) {
+    timerEl.classList.remove('hidden');
+    startTimer();
+  } else {
+    timerEl.classList.add('hidden');
+  }
+
+  if (stepIndex === 0) {
+    showQuestion();
+  } else {
+    // Resume mid-game
+    const prevStep = getStepMoves(stepIndex - 1);
+    const answerEl = document.getElementById('answerLine');
+    const opponentEl = document.getElementById('opponentLine');
+    const promptEl = document.getElementById('promptLine');
+
+    currentAnswerLabel = prevStep ? prevStep.answerLabel : '';
+    if (prevStep && prevStep.opponent && stepIndex < totalSteps) {
+      currentOpponentLabel = prevStep.opponentLabel;
+    } else if (stepIndex < totalSteps) {
+      const nextStep = getStepMoves(stepIndex);
+      currentOpponentLabel = (side === 'white')
+        ? (prevStep ? (prevStep.opponentLabel || '') : '')
+        : (nextStep ? (nextStep.opponentLabel || '') : '');
+    } else {
+      currentOpponentLabel = '';
+    }
+
+    updateMainPanelText();
+    promptEl.textContent = stepIndex < totalSteps ? getMovePrompt(stepIndex) : '';
+    document.getElementById('moveCounter').textContent = 'Move ' + stepIndex + ' of ' + totalSteps;
+    updateMoveSelector();
+  }
+}
+
+// ── Export selected games ──
+function exportSelected() {
+  const games = loadAllGames();
+  const checks = document.querySelectorAll('.history-check:checked');
+  const ids = new Set([...checks].map(c => Number(c.dataset.id)));
+  const selected = games.filter(g => ids.has(g.id));
+
+  if (selected.length === 0) return;
+
+  let pgn = '';
+  for (const save of selected) {
+    try {
+      const parsed = parsePGN(save.rawPgn);
+      const text = exportPGNWith(parsed, save.side, save.annotations, save.opponentAnnotations);
+      pgn += text + '\n\n';
+    } catch (e) { /* skip bad entries */ }
+  }
+  pgn = pgn.trim();
+  if (!pgn) return;
+
+  const blob = new Blob([pgn], { type: 'application/x-chess-pgn' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'solitaire-chess-export.pgn';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 </script>
 </body>
