@@ -937,6 +937,7 @@ function updateMovesTable() {
         const a = annotations[i - 1];
         if (a) {
           if (a.quality) wText += a.quality;
+          if (a.eval) { const e = EVALS.find(x => x.nag === a.eval); if (e) wText += ' ' + e.label; }
           if (a.star) wText += ' \u2605';
         }
       }
@@ -951,6 +952,7 @@ function updateMovesTable() {
         const a = annotations[i];
         if (a) {
           if (a.quality) bText += a.quality;
+          if (a.eval) { const e = EVALS.find(x => x.nag === a.eval); if (e) bText += ' ' + e.label; }
           if (a.star) bText += ' \u2605';
         }
       }
