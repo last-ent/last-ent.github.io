@@ -151,7 +151,7 @@
   #timer {
     font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
     font-size: 3.2rem;
-    color: #eee;
+    color: rgba(255,255,255,0.45);
     letter-spacing: 0.08em;
     text-align: center;
     min-height: 3.8rem;
@@ -186,7 +186,7 @@
   #opponentLine {
     font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
     font-size: 3rem;
-    color: rgba(255,255,255,0.45);
+    color: #eee;
     font-weight: 700;
     text-align: center;
     transition: opacity 0.15s;
@@ -747,6 +747,7 @@ function toggleEval(nag, btn) {
     ann.eval = nag;
     btn.classList.add('active');
   }
+  if (document.getElementById('movesPanel').classList.contains('open')) updateMovesTable();
 }
 
 function toggleQuality(q, btn) {
@@ -759,6 +760,7 @@ function toggleQuality(q, btn) {
     ann.quality = q;
     btn.classList.add('active');
   }
+  if (document.getElementById('movesPanel').classList.contains('open')) updateMovesTable();
 }
 
 function toggleStar() {
@@ -766,6 +768,7 @@ function toggleStar() {
   if (!ann) return;
   ann.star = !ann.star;
   document.getElementById('starBtn').classList.toggle('active', ann.star);
+  if (document.getElementById('movesPanel').classList.contains('open')) updateMovesTable();
 }
 
 function syncControlHighlights() {
@@ -928,11 +931,31 @@ function updateMovesTable() {
     tr.appendChild(tdNum);
 
     const tdW = document.createElement('td');
-    tdW.textContent = showWhite && mv.white ? mv.white : '';
+    if (showWhite && mv.white) {
+      let wText = mv.white;
+      if (side === 'white' && i >= 1) {
+        const a = annotations[i - 1];
+        if (a) {
+          if (a.quality) wText += a.quality;
+          if (a.star) wText += ' \u2605';
+        }
+      }
+      tdW.textContent = wText;
+    }
     tr.appendChild(tdW);
 
     const tdB = document.createElement('td');
-    tdB.textContent = showBlack && mv.black ? mv.black : '';
+    if (showBlack && mv.black) {
+      let bText = mv.black;
+      if (side === 'black') {
+        const a = annotations[i];
+        if (a) {
+          if (a.quality) bText += a.quality;
+          if (a.star) bText += ' \u2605';
+        }
+      }
+      tdB.textContent = bText;
+    }
     tr.appendChild(tdB);
 
     body.appendChild(tr);
