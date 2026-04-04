@@ -581,6 +581,14 @@
   #commentBox::placeholder { color: #555; }
   #commentBox:focus { outline: none; border-color: #666; }
 
+  /* ── ANNOTATION PANEL ── */
+  #annotationPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+
   /* ── HIDDEN UTILITY ── */
   .hidden { display: none !important; }
 
@@ -596,25 +604,38 @@
   }
 
   @media (min-width: 1024px) {
-    #playing {
-      max-width: 1060px;
+    #gameLayout { flex-direction: row; align-items: flex-start; }
+
+    /* Zen mode */
+    #playing.zen-mode { max-width: 1100px; }
+    .zen-mode #gameMain { flex: 1; max-width: 700px; }
+    .zen-mode #annotationPanel {
+      width: 240px; flex-shrink: 0;
+      border-left: 1px solid #333; padding-left: 16px;
     }
-    #gameLayout {
-      flex-direction: row;
-      align-items: flex-start;
+    .zen-mode #movesPanel {
+      width: 250px; flex-shrink: 0;
+      border-left: 1px solid #333; padding-left: 16px;
     }
-    #gameMain {
-      max-width: 700px;
+    .zen-mode #movesPanel.open { max-height: 600px; }
+
+    /* Max mode */
+    #playing.max-mode { max-width: 1300px; }
+    .max-mode #movesPanel {
+      order: -1;
+      width: 240px; flex-shrink: 0;
+      max-height: none !important; opacity: 1 !important;
+      overflow-y: auto;
+      border-right: 1px solid #333; padding-right: 16px;
+      border-left: none; padding-left: 0;
     }
-    #movesPanel {
-      width: 280px;
-      flex-shrink: 0;
-      border-left: 1px solid #333;
-      padding-left: 16px;
+    .max-mode #gameMain { flex: 1; min-width: 0; }
+    .max-mode #annotationPanel {
+      width: 280px; flex-shrink: 0;
+      border-left: 1px solid #333; padding-left: 16px;
     }
-    #movesPanel.open {
-      max-height: 600px;
-    }
+    .max-mode #annotationPanel #controls { width: 100%; }
+    .max-mode #annotationPanel .ctrl-row { width: 100%; }
   }
 
   @media (max-width: 420px) {
@@ -651,9 +672,15 @@
     </div>
   </div>
   <div class="setup-row">
+    <label>Layout</label>
+    <div class="side-toggle">
+      <button id="modeZen" class="active" onclick="pickMode('zen')">Zen</button>
+      <button id="modeMax" onclick="pickMode('max')">Max</button>
+    </div>
+    <span style="flex:1"></span>
     <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
       <input type="checkbox" id="commentToggle" checked style="width:18px; height:18px; accent-color:#8a4428;">
-      Show comment box
+      Comments
     </label>
   </div>
   <div id="setupError"></div>
@@ -681,9 +708,6 @@
         <button id="selAnswer" class="sel-btn active" onclick="selectAnnotationTarget(false)"></button>
         <button id="selOpponent" class="sel-btn" onclick="selectAnnotationTarget(true)"></button>
       </div>
-      <div id="commentWrap">
-        <textarea id="commentBox" placeholder="Your thoughts on this move..." oninput="onCommentInput()"></textarea>
-      </div>
       <div id="controls">
         <div class="ctrl-row" id="evalRow"></div>
         <div class="ctrl-row" id="qualRow"></div>
@@ -692,7 +716,13 @@
           <button id="movesToggleBtn" onclick="toggleMovesPanel()">Moves</button>
           <button id="endRunBtn" onclick="endRun()">End Run</button>
           <button id="settingsBtn" onclick="showSettings()">Settings</button>
+          <button class="ctrl-btn" id="modeBtn" onclick="toggleMode()">Max</button>
         </div>
+      </div>
+    </div>
+    <div id="annotationPanel">
+      <div id="commentWrap">
+        <textarea id="commentBox" placeholder="Your thoughts on this move..." oninput="onCommentInput()"></textarea>
       </div>
     </div>
     <div id="movesPanel">
@@ -745,6 +775,7 @@ let currentOpponentLabel = '';  // base text for opponentLine (without annotatio
 let currentGameId = null;       // localStorage ID for current game
 let rawPgn = '';                // original PGN text for saving
 let historyReturnTo = 'setup';  // where to go back from history
+let displayMode = localStorage.getItem('solitaire_chess_mode') || 'zen';
 let timerInterval = null;
 let timerSeconds = 0;
 let timerEnabled = true;
@@ -816,6 +847,55 @@ function pickSide(s) {
   document.getElementById('sideBlack').classList.toggle('active', s === 'black');
 }
 
+// ── Mode picker ──
+function pickMode(mode) {
+  displayMode = mode;
+  localStorage.setItem('solitaire_chess_mode', mode);
+  document.getElementById('modeZen').classList.toggle('active', mode === 'zen');
+  document.getElementById('modeMax').classList.toggle('active', mode === 'max');
+}
+
+function toggleMode() {
+  pickMode(displayMode === 'zen' ? 'max' : 'zen');
+  applyMode();
+}
+
+function applyMode() {
+  const playing = document.getElementById('playing');
+  const gameMain = document.getElementById('gameMain');
+  const annPanel = document.getElementById('annotationPanel');
+  const moveSelector = document.getElementById('moveSelector');
+  const controls = document.getElementById('controls');
+  const commentWrap = document.getElementById('commentWrap');
+  const movesPanel = document.getElementById('movesPanel');
+  const movesBtn = document.getElementById('movesToggleBtn');
+  const moveCounter = document.getElementById('moveCounter');
+
+  playing.classList.remove('zen-mode', 'max-mode');
+  playing.classList.add(displayMode + '-mode');
+
+  if (displayMode === 'max') {
+    // Move annotation controls to side panel
+    annPanel.insertBefore(moveSelector, commentWrap);
+    annPanel.insertBefore(controls, commentWrap);
+    // Force moves panel open, hide toggle
+    movesPanel.classList.add('open');
+    movesBtn.style.display = 'none';
+    if (game) updateMovesTable();
+  } else {
+    // Move controls back to gameMain after moveCounter
+    moveCounter.after(moveSelector);
+    moveSelector.after(controls);
+    movesBtn.style.display = '';
+  }
+
+  // Update toggle button text
+  document.getElementById('modeBtn').textContent = displayMode === 'zen' ? 'Max' : 'Zen';
+
+  // Comment box visibility
+  commentWrap.classList.toggle('visible', document.getElementById('commentToggle').checked);
+}
+
 // ── Start ──
 function startGame() {
   const errEl = document.getElementById('setupError');
@@ -844,7 +924,7 @@ function startGame() {
         timerEl.classList.add('hidden');
         stopTimer();
       }
-      document.getElementById('commentWrap').classList.toggle('visible', document.getElementById('commentToggle').checked);
+      applyMode();
       syncControlHighlights();
       return;
     }
@@ -935,9 +1015,8 @@ function startGame() {
     timerEl.classList.add('hidden');
   }
 
-  // Comment box
-  const commentWrap = document.getElementById('commentWrap');
-  commentWrap.classList.toggle('visible', document.getElementById('commentToggle').checked);
+  // Apply layout mode (moves comment box + DOM arrangement)
+  applyMode();
 
   // Show first question
   showQuestion();
@@ -1687,7 +1766,7 @@ function loadGame(id) {
     timerEl.classList.add('hidden');
   }
 
-  document.getElementById('commentWrap').classList.toggle('visible', document.getElementById('commentToggle').checked);
+  applyMode();
 
   if (stepIndex === 0) {
     showQuestion();
@@ -1747,6 +1826,12 @@ function exportSelected() {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+
+// ── Init mode from localStorage ──
+(function() {
+  document.getElementById('modeZen').classList.toggle('active', displayMode === 'zen');
+  document.getElementById('modeMax').classList.toggle('active', displayMode === 'max');
+})();
 </script>
 </body>
 </html>
