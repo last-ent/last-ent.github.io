@@ -631,11 +631,11 @@
     }
     .max-mode #gameMain { flex: 1; min-width: 0; }
     .max-mode #annotationPanel {
-      width: 280px; flex-shrink: 0;
+      width: 300px; flex-shrink: 0;
       border-left: 1px solid #333; padding-left: 16px;
     }
-    .max-mode #annotationPanel #controls { width: 100%; }
-    .max-mode #annotationPanel .ctrl-row { width: 100%; }
+    .max-mode #commentWrap.visible { display: flex; flex-direction: column; flex: 1; }
+    .max-mode #commentBox { flex: 1; min-height: 300px; max-height: none; }
   }
 
   @media (max-width: 420px) {
@@ -874,18 +874,16 @@ function applyMode() {
   playing.classList.remove('zen-mode', 'max-mode');
   playing.classList.add(displayMode + '-mode');
 
+  // Controls always stay in gameMain
+  moveCounter.after(moveSelector);
+  moveSelector.after(controls);
+
   if (displayMode === 'max') {
-    // Move annotation controls to side panel
-    annPanel.insertBefore(moveSelector, commentWrap);
-    annPanel.insertBefore(controls, commentWrap);
     // Force moves panel open, hide toggle
     movesPanel.classList.add('open');
     movesBtn.style.display = 'none';
     if (game) updateMovesTable();
   } else {
-    // Move controls back to gameMain after moveCounter
-    moveCounter.after(moveSelector);
-    moveSelector.after(controls);
     movesBtn.style.display = '';
   }
 
