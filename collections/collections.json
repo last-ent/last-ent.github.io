@@ -1,0 +1,9 @@
+{
+  "_note": "Fallback for hosts without directory listings (e.g. GitHub Pages). Local `python3 -m http.server` serving the parent folder lists .pgn files automatically and takes priority over this file. When you drop new .pgn files here and deploy to the static host, add the filename (without .pgn) to this list: {\"collections\":[\"Name A\",\"Name B\"]}.",
+  "collections": [
+    "Spassky",
+    "Stein",
+    "St Petersburg 1914 Finals",
+    "St Petersburg 1914 Prelims"
+  ]
+}

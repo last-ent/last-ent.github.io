@@ -1,0 +1,990 @@
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.21"]
+[Round "1"]
+[White "Blackburne, Joseph Henry"]
+[Black "Lasker, Emanuel"]
+[Result "0-1"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "C45"]
+[Opening "Scotch Game: Meitner Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Blackburne, Joseph Henry - Lasker, Emanuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/TDQgGVyB"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Nxd4 Bc5 5. Be3 Qf6 6. c3 Nge7 7. Nc2 b6 8. Nd2 Qg6 9. Bxc5 bxc5 10. Ne3 Rb8 11. b3 O-O 12. Bc4 d6 13. f4 Qf6 14. O-O Qxc3 15. Rf3 Qd4 16. Kh1 Be6 17. Rc1 Bxc4 18. Rxc4 Qb2 19. Rc2 Qf6 20. Ng4 Qg6 21. Rg3 f5 22. Ne5 Qe6 23. Nxc6 Nxc6 24. e5 Nb4 25. Rc4 dxe5 26. Qa1 Qd7 27. Nf3 exf4 28. Ne5 Qe7 29. Rxf4 Rbe8 30. Nc4 Qe1+ 31. Rf1 Qxa1 32. Rxa1 Nxa2 33. h3 f4 34. Rd3 Nb4 35. Rd7 f3 36. gxf3 Rxf3 37. Rxa7 Nd3 38. Ra1 Ne1 39. Nd2 Rxh3+ 40. Kg1 Rg3+ 41. Kh2 Rd3 42. Rxe1 Rxd2+ 43. Rxd2 Rxe1 44. Rd7 Re3 45. Rxc7 Rxb3 46. Rxc5 h6 47. Rc6 Kh7 48. Kg2 h5 49. Ra6 g6 50. Ra4 Kh6 51. Rc4 Rb5 52. Kg3 Kg5 53. Rc3 h4+ 54. Kh3 Kh5 55. Rc4 Rb3+ 56. Kh2 g5 57. Ra4 Rb2+ 58. Kh1 h3 59. Rc4 g4 60. Kg1 g3 61. Rc5+ Kg6 62. Rc1 Kf5 63. Ra1 Rd2 64. Re1 Kf4 65. Ra1 Ke3 66. Ra3+ Rd3 67. Ra1 Ke2 { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.21"]
+[Round "1"]
+[White "Gunsberg, Isidor"]
+[Black "Alekhine, Alexander"]
+[Result "0-1"]
+[Annotator "Reinfeld,Fred"]
+[Variant "Standard"]
+[ECO "C53"]
+[Opening "Italian Game: Classical Variation, Closed Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Gunsberg, Isidor - Alekhine, Alexander"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/EcgZXP0Z"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 4. c3 Qe7 5. O-O d6 6. d4 Bb6 7. a4 a6 8. a5 Nxa5 9. Rxa5 Bxa5 10. Qa4+ b5 11. Qxa5 bxc4 12. dxe5 dxe5 13. b3 f6 14. Rd1 Be6 15. Ba3 Rd8 16. Nbd2 Qd7 17. Re1 Ne7 18. Qb4 a5 19. Qc5 cxb3 20. Nf1 Qd6 21. Qxa5 Qb6 22. Qa4+ Kf7 23. Bxe7 Kxe7 24. Qa3+ c5 25. c4 Ra8 26. Qc1 b2 27. Qc2 Ra1 28. N1d2 Rxe1+ 29. Nxe1 Rd8 30. Nd3 Qd6 { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.21"]
+[Round "1"]
+[White "Janowski, Dawid Markelowicz"]
+[Black "Bernstein, Ossip Samuel"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D02"]
+[Opening "Queen's Pawn Game: Zukertort Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Janowski, Dawid Markelowicz - Bernstein, Ossip Samuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/bfj2UDd6"]
+
+1. d4 d5 2. Nf3 c6 3. Bf4 Bf5 4. e3 e6 5. Bd3 Bd6 6. Bxd6 Qxd6 7. Bxf5 exf5 8. Qd3 Ne7 9. c4 dxc4 10. Qxc4 Nd7 11. Nc3 O-O 12. O-O Nb6 13. Qd3 Rad8 14. Rae1 Nbd5 15. Kh1 a6 16. Rg1 Qb4 17. Qc2 c5 18. g4 cxd4 19. Nxd4 f4 20. Nf5 fxe3 21. fxe3 Nxf5 22. gxf5 Nxc3 23. bxc3 Qc4 24. e4 Rd3 25. e5 Qc6+ 26. Rg2 Rfd8 27. Qf2 Rd2 28. Qg3 Rxg2 29. Qxg2 Qxc3 30. Qg3 Rd3 31. Qh4 Rd4 32. Qg3 Qc6+ 33. Kg1 h5 34. h3 Re4 35. e6 fxe6 36. fxe6 Qxe6 37. Rf1 Re3 38. Rf3 Re1+ 39. Kg2 Qxa2+ { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.21"]
+[Round "1"]
+[White "Marshall, Frank James"]
+[Black "Rubinstein, Akiba"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D63"]
+[Opening "Queen's Gambit Declined: Orthodox Defense, Main Line"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Marshall, Frank James - Rubinstein, Akiba"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/yPmde0d8"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. e3 Nbd7 6. Nf3 O-O 7. Rc1 Re8 8. a3 dxc4 9. Bxc4 c5 10. dxc5 Nxc5 11. O-O a6 12. b4 Nce4 13. Nxe4 Nxe4 14. Bxe7 Qxe7 15. Qd4 Nd6 16. Rfd1 Nxc4 17. Rxc4 b5 18. Qc5 Bb7 19. Qxe7 Rxe7 20. Rcd4 f6 21. Rd8+ Rxd8 22. Rxd8+ Kf7 23. Nd4 Rc7 24. f3 Ke7 25. Rg8 Kd6 26. Kf2 Bc8 27. Rd8+ Ke7 28. Rh8 Rc3 29. Rxh7 Kf7 30. Rh8 Bd7 31. Rd8 Ke7 32. Rg8 Kf7 33. Rd8 Ke7 34. Rg8 Kf7 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.21"]
+[Round "1"]
+[White "Nimzowitsch, Aron"]
+[Black "Capablanca, Jose Raul"]
+[Result "0-1"]
+[Annotator "Kasparov,Garry"]
+[Variant "Standard"]
+[ECO "C62"]
+[Opening "Ruy Lopez: Steinitz Defense, Nimzowitsch Attack"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Nimzowitsch, Aron - Capablanca, Jose Raul"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/TpvNG5Km"]
+
+1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 d6 5. d4 Bd7 6. Bxc6 Bxc6 7. Qd3 exd4 8. Nxd4 g6 9. Nxc6 bxc6 10. Qa6 Qd7 11. Qb7 Rc8 12. Qxa7 Bg7 13. O-O O-O 14. Qa6 Rfe8 15. Qd3 Qe6 16. f3 Nd7 17. Bd2 Ne5 18. Qe2 Nc4 19. Rab1 Ra8 20. a4 Nxd2 21. Qxd2 Qc4 22. Rfd1 Reb8 23. Qe3 Rb4 24. Qg5 Bd4+ 25. Kh1 Rab8 26. Rxd4 Qxd4 27. Rd1 Qc4 28. h4 Rxb2 29. Qd2 Qc5 30. Re1 Qh5 31. Ra1 Qxh4+ 32. Kg1 Qh5 33. a5 Ra8 34. a6 Qc5+ 35. Kh1 Qc4 36. a7 Qc5 37. e5 Qxe5 38. Ra4 Qh5+ 39. Kg1 Qc5+ 40. Kh2 d5 41. Rh4 Rxa7 42. Nd1 { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.22"]
+[Round "2"]
+[White "Alekhine, Alexander"]
+[Black "Blackburne, Joseph Henry"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C61"]
+[Opening "Ruy Lopez: Bird Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Alekhine, Alexander - Blackburne, Joseph Henry"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/xEJ6dJee"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nd4 4. Nxd4 exd4 5. O-O g6 6. d3 Bg7 7. f4 c6 8. Bc4 d5 9. exd5 cxd5 10. Bb5+ Kf8 11. Nd2 Qa5 12. a4 a6 13. Nb3 Qd8 14. Bd2 axb5 15. axb5 Rxa1 16. Bb4+ Ne7 17. Qxa1 Bf6 18. Qa7 b6 19. Re1 Be6 20. Kh1 h5 21. Bxe7+ Qxe7 22. Qxb6 Qb4 23. Qc5+ Qxc5 24. Nxc5 Bd8 25. Nxe6+ fxe6 26. Rxe6 Kf7 27. Rd6 Be7 28. Rxd5 Rc8 29. c4 dxc3 30. bxc3 Rxc3 31. Kg1 Ke6 32. Re5+ Kd6 33. Re3 Rb3 34. Kf1 Rb4 35. Re4 Rb2 36. Re3 h4 37. Re4 Bf6 38. b6 Kd5 39. Re8 Rxb6 40. Kf2 Rb3 41. Rg8 Rxd3 42. Rxg6 Ke6 43. g4 hxg3+ 44. hxg3 Kf5 45. Rg8 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.22"]
+[Round "2"]
+[White "Bernstein, Ossip Samuel"]
+[Black "Gunsberg, Isidor"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C87"]
+[Opening "Ruy Lopez: Closed, Averbakh Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Bernstein, Ossip Samuel - Gunsberg, Isidor"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/nscBbISo"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Be7 6. Re1 d6 7. Bxc6+ bxc6 8. d4 exd4 9. Nxd4 Bd7 10. Nc3 O-O 11. Bg5 Ne8 12. Bxe7 Qxe7 13. Qd3 Qe5 14. Rad1 Qc5 15. e5 d5 16. Nb3 Qb4 17. a3 Qg4 18. Qe3 g6 19. Rd4 Qf5 20. Nc5 Be6 21. g4 Qxc2 22. Rd2 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.22"]
+[Round "2"]
+[White "Capablanca, Jose Raul"]
+[Black "Marshall, Frank James"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C42"]
+[Opening "Petrov's Defense: Classical Attack, Marshall Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Capablanca, Jose Raul - Marshall, Frank James"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/Mmiri86X"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6 4. Nf3 Nxe4 5. d4 d5 6. Bd3 Bd6 7. c4 Bb4+ 8. Nbd2 O-O 9. O-O Nxd2 10. Bxd2 Bxd2 11. Qxd2 Nc6 12. Rfe1 Bg4 13. Ne5 Nxe5 14. Rxe5 dxc4 15. Bxc4 Qf6 16. Rae1 Rad8 17. Re7 Be6 18. R7xe6 fxe6 19. Rxe6 Qxd4 20. Re8+ Qxc4 21. Rxd8 Rxd8 22. Qxd8+ Kf7 23. Qd7+ Kf6 24. g4 Qxa2 25. Qd8+ Kg6 26. Qd3+ Kf7 27. Qf3+ Ke7 28. Qxb7 Qc4 29. h3 Kd6 30. b3 Qd4 31. Qa6+ c6 32. Qb7 a5 33. Qb8+ Kd7 34. Qb7+ Kd6 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.22"]
+[Round "2"]
+[White "Lasker, Emanuel"]
+[Black "Nimzowitsch, Aron"]
+[Result "1/2-1/2"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "B16"]
+[Opening "Caro-Kann Defense: Bronstein-Larsen Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Lasker, Emanuel - Nimzowitsch, Aron"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/IXNOm8qe"]
+
+1. e4 c6 2. d4 d5 3. Nc3 dxe4 4. Nxe4 Nf6 5. Nxf6+ gxf6 6. Be2 Bf5 7. Bf3 Qa5+ 8. c3 h5 9. Bxh5 Nd7 10. Bg4 Bxg4 11. Qxg4 O-O-O 12. Ne2 e6 13. Bf4 Qb5 14. O-O-O Nb6 15. Ng3 Qd5 16. Kb1 Qxg2 17. Rdg1 Qxf2 18. Ne4 Qh4 19. Qf3 Nc4 20. Ka1 f5 21. Ng5 Bd6 22. Bc1 Rd7 23. Rg2 Bc7 24. Rhg1 Nd6 25. Qe2 Ne4 26. Nf3 Qh3 27. a3 a6 28. Be3 Rhd8 29. Ka2 Rh8 30. Ka1 Rhd8 31. Ka2 Re8 32. Rg8 Rxg8 33. Rxg8+ Rd8 34. Rg7 Rd7 35. Rg8+ Rd8 36. Rg7 Rf8 37. c4 Nf6 38. Bg5 Nh5 39. Rxf7 Rxf7 40. Qxe6+ Rd7 41. Ne5 Bxe5 42. Qe8+ { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.22"]
+[Round "2"]
+[White "Tarrasch, Siegbert"]
+[Black "Janowski, Dawid Markelowicz"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C84"]
+[Opening "Ruy Lopez: Closed, Morphy Attack"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Tarrasch, Siegbert - Janowski, Dawid Markelowicz"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/C0AisY9X"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. Nc3 Be7 6. O-O b5 7. Bb3 d6 8. a4 b4 9. Nd5 Bg4 10. Nxf6+ gxf6 11. c3 Rg8 12. Bd5 Qd7 13. Kh1 Rb8 14. d3 Nd8 15. Rg1 c6 16. Bc4 Qb7 17. h3 Bh5 18. cxb4 d5 19. Ba2 Bxb4 20. Qe2 Ne6 21. Be3 d4 22. Bc1 Be7 23. g4 Bg6 24. Nh4 Rh8 25. a5 Kd7 26. Bc4 Ng5 27. Bxg5 fxg5 28. Nf3 f6 29. b3 h5 30. Kg2 Bb4 31. Qa2 Ke7 32. Rh1 Rh7 33. Rh2 Rbh8 34. Rah1 Be8 35. Ng1 c5 36. Ne2 h4 37. Ra1 Bb5 38. Rhh1 Rf8 39. Kh2 Bc6 40. Qc2 Qc8 41. Rhf1 Rg7 42. f3 Kd6 43. Ra2 Ra7 44. Raa1 Qd7 45. Kg2 Rb8 46. Rfb1 Bb5 47. Ra2 Rab7 48. Bd5 Ra7 49. Kf1 Qd8 50. Rba1 Qc7 51. Kg2 Rd8 52. Kf1 Ke7 53. Bc4 Rb7 54. Kf2 Bxc4 55. bxc4 Rdb8 56. Kg2 Qd8 57. Rb1 Ke6 58. Qa4 Qc7 59. Rab2 Ke7 60. Kf2 Bd2 61. Rxb7 Rxb7 62. Qa2 Be3+ 63. Kf1 Qb8 64. Rxb7+ Qxb7 65. Qc2 Qb4 66. Qa2 Kd6 67. Kg2 Kc7 68. Kf1 Kc8 69. Kg2 Qe1 70. Qb2 Qf2+ 71. Kh1 Qxf3+ 72. Kh2 Qf2+ 73. Kh1 Bf4 { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.24"]
+[Round "3"]
+[White "Blackburne, Joseph Henry"]
+[Black "Bernstein, Ossip Samuel"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C77"]
+[Opening "Ruy Lopez: Morphy Defense, Anderssen Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Blackburne, Joseph Henry - Bernstein, Ossip Samuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/GKQZCssA"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. d3 d6 6. c3 g6 7. Nbd2 Bg7 8. Nf1 O-O 9. Bg5 h6 10. Bh4 d5 11. Qe2 Qd6 12. Bg3 b5 13. Bb3 d4 14. cxd4 Nxd4 15. Nxd4 Qxd4 16. Ne3 Nd7 17. O-O Nc5 18. Bd5 Rb8 19. Rfd1 Bb7 20. Bxb7 Rxb7 21. f3 Rd8 22. Bf2 Qd6 23. Nd5 c6 24. Rac1 Ne6 25. Nc3 Bf8 26. Rc2 Be7 27. Be3 Bg5 28. g3 Bxe3+ 29. Qxe3 Qd4 30. Kf2 Qxe3+ 31. Kxe3 Nd4 32. Rcc1 Rd6 33. Ne2 Ne6 34. Nc3 Nd4 35. Ne2 Ne6 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.24"]
+[Round "3"]
+[White "Gunsberg, Isidor"]
+[Black "Tarrasch, Siegbert"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "A00"]
+[Opening "Van't Kruijs Opening"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Gunsberg, Isidor - Tarrasch, Siegbert"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/uvdZM17B"]
+
+1. e3 d5 2. b3 Bf5 3. Bb2 e6 4. Ne2 Nf6 5. Ng3 Bg6 6. f4 c5 7. d3 Bd6 8. Qf3 Qc7 9. Nc3 h5 10. O-O-O a6 11. f5 Bxg3 12. fxg6 Be5 13. gxf7+ Qxf7 14. d4 Bd6 15. h3 Nbd7 16. Bd3 O-O-O 17. Rhf1 Qe7 18. Qe2 Nb6 19. a4 Qc7 20. dxc5 Bxc5 21. Na2 e5 22. Bf5+ Kb8 23. e4 d4 24. Rd3 h4 25. a5 Nc8 26. b4 Be7 27. g4 Qc4 28. Kb1 Bxb4 29. Nxb4 Qxb4 30. Qh2 Rhe8 31. Rfd1 Nd6 32. Bg6 Re7 33. Rxd4 exd4 34. e5 Nd5 35. exd6 Re2 { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.24"]
+[Round "3"]
+[White "Marshall, Frank James"]
+[Black "Lasker, Emanuel"]
+[Result "1/2-1/2"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "D53"]
+[Opening "Queen's Gambit Declined"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Marshall, Frank James - Lasker, Emanuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/2p4Ap4Wc"]
+
+1. d4 d5 2. c4 e6 3. Nc3 Nf6 4. Bg5 Be7 5. e3 Nbd7 6. Nf3 c6 7. Bd3 dxc4 8. Bxc4 b5 9. Bd3 a6 10. O-O c5 11. Qe2 O-O 12. Rad1 c4 13. Bb1 Nd5 14. Bxe7 Qxe7 15. e4 N5b6 16. e5 Bb7 17. Rfe1 Rfd8 18. Nd2 Rac8 19. Nde4 Bxe4 20. Nxe4 Rc7 21. Qh5 Nf8 22. Re3 Nd5 23. Rf3 f5 24. exf6 gxf6 25. Re1 Qb4 26. Kf1 Qxb2 27. Nxf6+ Nxf6 28. Rxf6 Qxd4 29. Qf3 Rg7 30. h3 Qd6 31. Bf5 Re8 32. Bxe6+ Rxe6 33. Rxf8+ Qxf8 34. Qd5 Qd6 35. Qxe6+ Qxe6 36. Rxe6 Rc7 37. Ke1 c3 38. Kd1 Rd7+ 39. Kc1 Rd2 40. Rxa6 Rxf2 41. Rb6 Rxa2 42. Rxb5 Rxg2 43. Rc5 Rg3 44. h4 Kg7 45. Kc2 Kg6 46. Rxc3 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.24"]
+[Round "3"]
+[White "Nimzowitsch, Aron"]
+[Black "Alekhine, Alexander"]
+[Result "1/2-1/2"]
+[Annotator "Marten,Gero"]
+[Variant "Standard"]
+[ECO "C02"]
+[Opening "French Defense: Advance Variation, Steinitz Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Nimzowitsch, Aron - Alekhine, Alexander"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/3UDy43bs"]
+
+1. e4 e6 2. d4 d5 3. e5 c5 4. dxc5 Nc6 5. Nf3 Bxc5 6. Bd3 Nge7 7. O-O Ng6 8. Re1 Bd7 9. c3 Bb6 10. Na3 a6 11. Nc2 Bc7 12. Bxg6 hxg6 13. Bf4 Qe7 14. Ncd4 Rc8 15. Qd3 Bb6 16. Nxc6 Rxc6 17. Be3 Qd8 18. Bxb6 Qxb6 19. Nd4 Rc4 20. b3 Rc8 21. Re3 Rh5 22. Rae1 Qa5 23. Qd2 Qa3 24. h3 Qe7 25. g4 Rh8 26. f4 Kd8 27. Qh2 Kc7 28. f5 gxf5 29. gxf5 Qh4 30. Qg3 Qh6 31. Rf1 Kb8 32. Qf4 exf5 33. Qxh6 Rxh6 34. Nxf5 Rg6+ 35. Kh2 Bxf5 36. Rxf5 d4 37. cxd4 Rc2+ 38. Kh1 Rc1+ { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.24"]
+[Round "3"]
+[White "Rubinstein, Akiba"]
+[Black "Capablanca, Jose Raul"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D63"]
+[Opening "Queen's Gambit Declined: Orthodox Defense, Main Line"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Rubinstein, Akiba - Capablanca, Jose Raul"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/u9oSW8wn"]
+
+1. d4 d5 2. Nf3 Nf6 3. c4 e6 4. Nc3 Nbd7 5. Bg5 Be7 6. e3 O-O 7. Rc1 Re8 8. Qc2 c6 9. Bd3 dxc4 10. Bxc4 b5 11. Bd3 a6 12. Ne5 Bb7 13. Nxd7 Qxd7 14. Bxf6 Bxf6 15. Bxh7+ Kh8 16. Be4 e5 17. dxe5 Rxe5 18. O-O Qe7 19. Bf3 Rc5 20. Qe2 Bxc3 21. Rxc3 Rxc3 22. bxc3 Rd8 23. Rd1 Rxd1+ 24. Qxd1 Kg8 25. h4 c5 26. Bxb7 Qxb7 27. Qd6 b4 28. Qxc5 bxc3 29. Qxc3 Qb1+ 30. Kh2 Qxa2 31. Qc8+ Kh7 32. Qf5+ g6 33. Qf6 a5 34. g4 a4 35. h5 gxh5 36. Qf5+ Kg7 37. Qg5+ Kh7 38. Qxh5+ Kg7 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.26"]
+[Round "4"]
+[White "Alekhine, Alexander"]
+[Black "Marshall, Frank James"]
+[Result "1-0"]
+[Annotator "Alekhine,Alexander"]
+[Variant "Standard"]
+[ECO "C42"]
+[Opening "Petrov's Defense: Classical Attack, Marshall Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Alekhine, Alexander - Marshall, Frank James"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/d0g7uvS6"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6 4. Nf3 Nxe4 5. d4 d5 6. Bd3 Bd6 7. c4 Bb4+ 8. Nbd2 Nxd2 9. Bxd2 Qe7+ 10. Qe2 Qxe2+ 11. Kxe2 Bxd2 12. Kxd2 Be6 13. cxd5 Bxd5 14. Rhe1+ Kd8 15. Be4 Bxe4 16. Rxe4 Re8 17. Rae1 Rxe4 18. Rxe4 Nc6 19. Rg4 g6 20. Rh4 Ke7 21. Rxh7 Rd8 22. Rh4 Rd5 23. Re4+ Kf8 24. Kc3 Rf5 25. Re2 a6 26. a3 Ne7 27. Re5 Rf6 28. Kd3 b6 29. Re2 Nd5 30. Ke4 Nf4 31. Rc2 Nxg2 32. Ne5 Ke8 33. Rxc7 Rxf2 34. Nc4 b5 35. Nd6+ Kf8 36. d5 f6 37. Nb7 Nf4 38. b4 g5 39. d6 Ne6 40. Kd5 Nf4+ 41. Kc6 Rxh2 42. Nc5 Rd2 43. Rc8+ Kf7 44. d7 Ne6 45. Nxe6 Kxe6 46. d8=Q Rxd8 47. Rxd8 g4 48. Re8+ Kf7 49. Re2 f5 50. Kd5 Kf6 51. Kd4 f4 52. Ke4 Kg5 53. Rc2 f3 54. Rd2 Kh4 55. Kf4 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.26"]
+[Round "4"]
+[White "Bernstein, Ossip Samuel"]
+[Black "Nimzowitsch, Aron"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "E12"]
+[Opening "Queen's Indian Defense: Kasparov Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Bernstein, Ossip Samuel - Nimzowitsch, Aron"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/umGjth6Q"]
+
+1. d4 Nf6 2. Nf3 e6 3. c4 b6 4. Nc3 Bb7 5. e3 Bb4 6. Qb3 Qe7 7. a3 Bxc3+ 8. Qxc3 d6 9. b4 Nbd7 10. Bb2 a5 11. Be2 axb4 12. axb4 Rxa1+ 13. Bxa1 O-O 14. O-O Ne4 15. Qc2 f5 16. Nd2 Nxd2 17. Qxd2 Ra8 18. Bc3 Qe8 19. d5 e5 20. f4 Bc8 21. Qb2 Qe7 22. fxe5 Nxe5 23. Bd4 Bd7 24. Ra1 Re8 25. Ra7 Qd8 26. Qa1 f4 27. exf4 Ng6 28. Bf3 Nxf4 29. Bxg7 Qg5 30. Bh8 Nd3 31. h4 Qg3 32. Ra8 Bc8 33. Be4 Qf2+ 34. Kh2 Qxh4+ 35. Kg1 Ne5 36. Bxe5 Qxe4 37. Bh8 Qe3+ 38. Kh2 Qf4+ 39. Kg1 Qg3 40. Bc3 Qe3+ 41. Kh1 Qf4 42. Qd1 Qh6+ 43. Kg1 Qe3+ 44. Kh1 Qh6+ 45. Kg1 Qe3+ 46. Kh1 Qxc3 47. Rxc8 Rxc8 48. Qg4+ Kf7 49. Qxc8 Qxc4 50. Qf5+ { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.26"]
+[Round "4"]
+[White "Janowski, Dawid Markelowicz"]
+[Black "Gunsberg, Isidor"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D55"]
+[Opening "Queen's Gambit Declined: Modern Variation, Normal Line"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Janowski, Dawid Markelowicz - Gunsberg, Isidor"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/0Rkhl3L3"]
+
+1. d4 d5 2. Nf3 Nf6 3. c4 e6 4. Bg5 Be7 5. e3 O-O 6. Nc3 c6 7. Bd3 Nbd7 8. O-O dxc4 9. Bxc4 Nd5 10. Bxe7 Qxe7 11. Qd2 Nxc3 12. Qxc3 c5 13. Rad1 b6 14. e4 cxd4 15. Qxd4 Nc5 16. b4 Nb7 17. Bb5 Rd8 18. Qb2 Nd6 19. Nd4 Qf6 20. Bc6 Rb8 21. f4 e5 22. Ne2 Nc4 23. Rxd8+ Qxd8 24. Qc3 b5 25. Bd5 Be6 26. Bxe6 Qb6+ 27. Kh1 Qxe6 28. f5 Qb6 29. Qg3 f6 30. Nc3 Nd2 31. Rd1 Qd4 32. Qe1 Qxc3 33. Qxd2 Qxd2 34. Rxd2 Rc8 35. Kg1 h6 36. Kf2 Rc4 37. a3 Rc3 38. Ra2 Rb3 39. Ke2 a6 40. Kd2 Kh7 41. Ke2 h5 42. h4 Kh6 43. Kf2 g6 44. Rc2 gxf5 45. exf5 Rxa3 46. Rc6 Kg7 47. Rc7+ Kg8 48. Rc8+ Kg7 49. Rc7+ { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.26"]
+[Round "4"]
+[White "Lasker, Emanuel"]
+[Black "Rubinstein, Akiba"]
+[Result "1-0"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "C82"]
+[Opening "Ruy Lopez: Open, St. Petersburg Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Lasker, Emanuel - Rubinstein, Akiba"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/q1d3ty06"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Nxe4 6. d4 b5 7. Bb3 d5 8. dxe5 Be6 9. c3 Bc5 10. Nbd2 O-O 11. Bc2 Nxd2 12. Qxd2 f6 13. exf6 Rxf6 14. Nd4 Nxd4 15. cxd4 Bb6 16. a4 Rb8 17. axb5 axb5 18. Qc3 Qd6 19. Be3 Bf5 20. Rfc1 Bxc2 21. Rxc2 Re8 22. Rac1 Rfe6 23. h3 Re4 24. Qd2 R8e6 25. Rc6 Qd7 26. Rxe6 Qxe6 27. Qd3 Qe8 28. Qc3 Kf7 29. Qd3 Kg8 30. Qc3 Qe6 31. Ra1 Qe8 32. Kf1 h6 33. Qd3 Kf7 34. Rc1 Kg8 35. Qb3 Qf7 36. Rd1 c6 37. f3 Qf6 38. Qd3 Re7 39. Bf2 Qd6 40. Qc2 Kf7 41. Rc1 Re6 42. Qf5+ Rf6 43. Qe5 Re6 44. Qxd6 Rxd6 45. Ke2 Ke7 46. Kd3 Rg6 47. g3 Rf6 48. f4 Kd7 49. Re1 Rf8 50. Ra1 h5 51. Be3 g6 52. Rf1 Kd6 53. g4 hxg4 54. hxg4 c5 55. dxc5+ Bxc5 56. Bxc5+ Kxc5 57. f5 gxf5 58. gxf5 Rf6 59. Rf4 b4 60. b3 Rf7 61. f6 Kd6 62. Kd4 Ke6 63. Rf2 Kd6 64. Ra2 Rc7 65. Ra6+ Kd7 66. Rb6 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.26"]
+[Round "4"]
+[White "Tarrasch, Siegbert"]
+[Black "Blackburne, Joseph Henry"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C61"]
+[Opening "Ruy Lopez: Bird Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Tarrasch, Siegbert - Blackburne, Joseph Henry"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/6nWgDwZ1"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nd4 4. Nxd4 exd4 5. d3 g6 6. c3 Bg7 7. O-O Ne7 8. cxd4 Bxd4 9. Nc3 c6 10. Bc4 d6 11. Be3 Bg7 12. Qf3 O-O 13. Bb3 Kh8 14. Qg3 Be6 15. Bxe6 fxe6 16. Qh3 e5 17. Bg5 Bf6 18. Bh6 Bg7 19. Bxg7+ Kxg7 20. Rad1 c5 21. Ne2 Nc6 22. f4 Qe7 23. f5 Nd4 24. Nc3 Qg5 25. fxg6 hxg6 26. Qd7+ Kh6 27. Qxd6 Rad8 28. Qxf8+ Rxf8 29. Rxf8 Kg7 30. Rf2 Qh5 31. Rdf1 g5 32. h3 Ne6 33. Rf7+ Qxf7 34. Rxf7+ Kxf7 35. Nd5 b5 36. Kf2 Nd4 37. Ne3 Ke6 38. Ke1 a5 39. Kd2 a4 40. Nc2 Nc6 41. Ne1 Nd4 42. Ke3 Kf6 43. Nf3 Ne6 44. g3 Nf8 45. Ng1 Nd7 46. Ne2 b4 47. Ng1 Nb6 48. Nf3 c4 49. d4 c3 50. dxe5+ Kg6 51. bxc3 b3 52. axb3 axb3 53. Nd2 b2 54. Kd3 Kf7 55. Kc2 Ke6 56. Kxb2 Kxe5 57. Kc2 Nd7 58. Kd3 Nc5+ 59. Ke3 Ne6 60. Nf3+ Kf6 61. e5+ Kf5 62. Nd4+ Kxe5 63. Nxe6 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.28"]
+[Round "5"]
+[White "Blackburne, Joseph Henry"]
+[Black "Janowski, Dawid Markelowicz"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C45"]
+[Opening "Scotch Game: Tartakower Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Blackburne, Joseph Henry - Janowski, Dawid Markelowicz"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/DOJjp36I"]
+
+1. e4 e5 2. Nf3 Nc6 3. d4 exd4 4. Nxd4 Nf6 5. Nxc6 bxc6 6. Nd2 d5 7. exd5 cxd5 8. Bb5+ Bd7 9. Qe2+ Be7 10. O-O c6 11. Bd3 O-O 12. Nf3 Re8 13. c3 Bg4 14. Qc2 Qd6 15. Nd4 c5 16. Nf5 Bxf5 17. Bxf5 g6 18. Bh3 Bf8 19. g3 Qa6 20. Be3 Rab8 21. Rfd1 Qb7 22. Rab1 Ne4 23. Bg2 f5 24. Bf4 Rbd8 25. f3 Nf6 26. Bg5 Bg7 27. b4 c4 28. Rd2 h6 29. Bxf6 Bxf6 30. Rbd1 Re3 31. Re2 Rxc3 32. Qa4 Qb6+ 33. Kf1 Re3 34. Rde1 d4 35. f4 Kg7 36. Bc6 Rxe2 37. Rxe2 d3 38. Re6 d2 39. Qd1 c3 40. Bd5 Qb5+ { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.28"]
+[Round "5"]
+[White "Capablanca, Jose Raul"]
+[Black "Lasker, Emanuel"]
+[Result "1/2-1/2"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "C49"]
+[Opening "Four Knights Game: Spanish Variation, Symmetrical Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Capablanca, Jose Raul - Lasker, Emanuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/8nQOg0Oo"]
+
+1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Bb4 5. O-O O-O 6. d3 d6 7. Bg5 Bxc3 8. bxc3 h6 9. Bh4 Bg4 10. h3 Bxf3 11. Qxf3 g5 12. Bg3 Nd7 13. d4 f6 14. Qg4 Kh8 15. h4 Rf7 16. hxg5 hxg5 17. f3 Nf8 18. Kf2 Rh7 19. Rh1 Qe7 20. Qf5 Rd8 21. Rxh7+ Nxh7 22. Rh1 Rg8 23. Bxc6 bxc6 24. Rb1 Kg7 25. Rb7 Ra8 26. Kg1 Nf8 27. d5 c5 28. Bf2 Qd8 29. g3 Rb8 30. Rb3 Rxb3 31. cxb3 Qd7 32. Qxd7+ Nxd7 33. Kf1 Kg6 34. Ke2 f5 35. g4 fxe4 36. fxe4 Nf6 37. Kf3 Kf7 38. Be3 Nh7 39. b4 cxb4 40. cxb4 a6 41. a4 Ke7 42. b5 axb5 43. axb5 Kd7 44. Bf2 Kc8 45. Be3 Kd7 46. Bf2 Kc8 47. Be3 Kd7 48. Bf2 Kc8 49. Be3 Kd7 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.28"]
+[Round "5"]
+[White "Marshall, Frank James"]
+[Black "Bernstein, Ossip Samuel"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D10"]
+[Opening "Slav Defense"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Marshall, Frank James - Bernstein, Ossip Samuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/2Ch50ABJ"]
+
+1. d4 d5 2. c4 c6 3. Nc3 Nf6 4. cxd5 cxd5 5. Nf3 e6 6. Bg5 Qb6 7. Qc2 Nc6 8. e3 Bd7 9. a3 Rc8 10. Bd3 Bb4 11. O-O Bxc3 12. bxc3 Na5 13. Rab1 Qc6 14. Rfc1 Qa4 15. Qa2 Ne4 16. Bxe4 dxe4 17. Ne5 f6 18. Rb4 Rxc3 19. Qd2 Rxc1+ 20. Qxc1 O-O 21. Rxa4 Bxa4 22. Qc7 b6 23. Bf4 fxe5 24. Bxe5 Rf7 25. Qb8+ Rf8 26. Qxa7 Rf7 27. Qb8+ Rf8 28. Qc7 Rf7 29. Qc8+ Rf8 30. Qxe6+ { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.28"]
+[Round "5"]
+[White "Nimzowitsch, Aron"]
+[Black "Tarrasch, Siegbert"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D30"]
+[Opening "Queen's Gambit Declined: Tarrasch Defense, Pseudo-Tarrasch"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Nimzowitsch, Aron - Tarrasch, Siegbert"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/STd44ydj"]
+
+1. d4 d5 2. Nf3 c5 3. c4 e6 4. e3 Nf6 5. Bd3 Nc6 6. O-O Bd6 7. b3 O-O 8. Bb2 b6 9. Nbd2 Bb7 10. Rc1 Qe7 11. cxd5 exd5 12. Nh4 g6 13. Nhf3 Rad8 14. dxc5 bxc5 15. Bb5 Ne4 16. Bxc6 Bxc6 17. Qc2 Nxd2 18. Nxd2 d4 19. exd4 Bxh2+ 20. Kxh2 Qh4+ 21. Kg1 Bxg2 22. f3 Rfe8 23. Ne4 Qh1+ 24. Kf2 Bxf1 25. d5 f5 26. Qc3 Qg2+ 27. Ke3 Rxe4+ 28. fxe4 f4+ 29. Kxf4 Rf8+ 30. Ke5 Qh2+ 31. Ke6 Re8+ 32. Kd7 Bb5# { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.28"]
+[Round "5"]
+[White "Rubinstein, Akiba"]
+[Black "Alekhine, Alexander"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "E43"]
+[Opening "Nimzo-Indian Defense: St. Petersburg Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Rubinstein, Akiba - Alekhine, Alexander"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/Fy8WgBaz"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. e3 b6 5. Bd3 Bb7 6. f3 c5 7. a3 Bxc3+ 8. bxc3 d5 9. Ne2 O-O 10. O-O Nbd7 11. Ng3 Qc7 12. cxd5 exd5 13. e4 cxd4 14. cxd4 Qc3 15. Be3 dxe4 16. fxe4 Ba6 17. Bxa6 Qxe3+ 18. Kh1 Nxe4 19. Nf5 Nf2+ 20. Rxf2 Qxf2 21. Qg4 g6 22. Rf1 Qb2 23. Nh6+ Kg7 24. Nxf7 Qb3 25. d5 Nf6 26. Qd4 Rxf7 27. Bc4 Qa4 28. g4 Rc8 { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.29"]
+[Round "6"]
+[White "Alekhine, Alexander"]
+[Black "Capablanca, Jose Raul"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C62"]
+[Opening "Ruy Lopez: Steinitz Defense"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Alekhine, Alexander - Capablanca, Jose Raul"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/aSGZl3FM"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 d6 4. d4 exd4 5. Nxd4 Bd7 6. Nc3 Nf6 7. O-O Be7 8. Nf5 Bxf5 9. exf5 O-O 10. Re1 Nd7 11. Nd5 Bf6 12. c3 Nb6 13. Nxf6+ Qxf6 14. Bxc6 bxc6 15. Qf3 Rfe8 16. Be3 c5 17. Re2 Re5 18. Rae1 Rae8 19. Qb7 Qxf5 20. Qxc7 Qe6 21. Qxa7 Nd5 22. Kf1 Nf4 23. Rd2 Nxg2 24. Kxg2 Qg4+ 25. Kf1 Qh3+ 26. Ke2 Rxe3+ 27. fxe3 Qxe3+ 28. Kd1 Qxe1+ 29. Kc2 Qe4+ 30. Kb3 Qc6 31. a4 d5 32. a5 Qb5+ 33. Ka3 Rb8 34. Ka2 h6 35. a6 Qb3+ { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.29"]
+[Round "6"]
+[White "Bernstein, Ossip Samuel"]
+[Black "Rubinstein, Akiba"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C48"]
+[Opening "Four Knights Game: Spanish Variation, Rubinstein Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Bernstein, Ossip Samuel - Rubinstein, Akiba"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/Eekd37yc"]
+
+1. e4 e5 2. Nf3 Nc6 3. Nc3 Nf6 4. Bb5 Nd4 5. Ba4 Bc5 6. d3 O-O 7. Ne2 d5 8. Nexd4 exd4 9. e5 Ne8 10. Bxe8 Rxe8 11. O-O Bg4 12. h3 Bxf3 13. Qxf3 Rxe5 14. Bf4 Re6 15. Rae1 Qd7 16. Rxe6 fxe6 17. Be5 Bb6 18. Qg4 c5 19. f4 Rf8 20. Rf3 Bd8 21. Rg3 Bf6 22. Qe2 Qf7 23. Rf3 h6 24. Rf1 b6 25. Re1 Bh4 26. Rf1 Qg6 27. Rf3 h5 28. g3 Bf6 29. Kg2 Qf5 30. Bxf6 Rxf6 31. h4 Kh7 32. Rf2 Kg6 33. Qe1 Kf7 34. Re2 Qg6 35. Re5 Rf5 36. Kf2 a5 37. Re2 Qf6 38. Kg2 Ke7 39. Qd2 Kf7 40. Qe1 g6 41. Qd2 Qe7 42. Qe1 Qd6 43. Qf2 Qc6 44. Re1 a4 45. Kh3 Qd6 46. Qd2 Ke7 47. Kg2 Kd7 48. Qe2 Qe7 49. Qd2 Kd6 50. Qf2 Qf6 51. Qf1 Qg7 52. Qf2 Qf6 53. Qf1 Qe7 54. Qf2 e5 55. fxe5+ Qxe5 56. Qd2 Qf6 57. Qh6 Rf2+ 58. Kg1 Rf3 59. Kg2 Rf2+ 60. Kg1 Kc6 61. Re6+ Qxe6 62. Kxf2 Qf5+ 63. Kg2 c4 64. Qh8 cxd3 65. Qe8+ Kd6 66. Qd8+ Kc6 67. Qe8+ Kd6 68. Qd8+ Kc5 69. Qe7+ Kc4 70. Qc7+ Kb5 71. cxd3 Qe6 72. Qc2 Qe1 73. Kh2 Ka5 74. Kg2 Qb4 75. a3 Qe1 76. Kh2 Kb5 77. Kg2 Qe7 78. Qd2 Kc6 79. Kf3 Qe3+ 80. Qxe3 dxe3 81. Kxe3 Kc5 82. Kd2 Kd4 83. Ke2 Ke5 84. Ke3 d4+ 85. Kf2 Kf6 86. Kg2 Ke5 87. Kf2 Kf5 88. Kf3 g5 89. hxg5 Kxg5 90. Kf2 Kf5 91. Kf3 Kg5 92. Kf2 Kf6 93. Kf3 Kf5 94. Kf2 Kg4 95. Kg2 Kf5 96. Kf3 Kg5 97. Kf2 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.29"]
+[Round "6"]
+[White "Gunsberg, Isidor"]
+[Black "Blackburne, Joseph Henry"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "A00"]
+[Opening "Van't Kruijs Opening"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Gunsberg, Isidor - Blackburne, Joseph Henry"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/7TfNmPa9"]
+
+1. e3 g6 2. d4 Bg7 3. Nf3 d6 4. Bc4 e6 5. O-O Ne7 6. Nc3 O-O 7. e4 d5 8. Bb3 Nbc6 9. e5 h6 10. Ne2 Na5 11. c3 Nxb3 12. Qxb3 b6 13. Ng3 c5 14. Be3 c4 15. Qd1 b5 16. Qd2 Kh7 17. h3 Nf5 18. Nxf5 gxf5 19. Nh2 Rg8 20. f4 Bf8 21. Kh1 Be7 22. Qe2 Qf8 23. Qh5 Qg7 24. g4 Qg6 25. Qxg6+ fxg6 26. Rg1 Bd7 27. gxf5 gxf5 28. Nf3 a5 29. Rxg8 Rxg8 30. Rg1 Be8 31. Rxg8 Kxg8 32. Bd2 Bh5 33. Kg2 Kf7 34. Be1 Ke8 35. a3 Kd7 36. Kf2 Kc6 37. Ke3 b4 38. axb4 axb4 39. Bh4 bxc3 40. bxc3 Ba3 41. Ne1 Bc1+ 42. Kf2 Bxf4 43. Be7 Kb5 44. Nc2 Bd2 45. Bb4 Ka4 46. Na3 f4 47. Nb1 Be3+ 48. Ke1 f3 49. Be7 f2+ { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.29"]
+[Round "6"]
+[White "Janowski, Dawid Markelowicz"]
+[Black "Nimzowitsch, Aron"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "E43"]
+[Opening "Nimzo-Indian Defense: St. Petersburg Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Janowski, Dawid Markelowicz - Nimzowitsch, Aron"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/ZIjp5xLY"]
+
+1. d4 Nf6 2. c4 e6 3. Nc3 Bb4 4. e3 b6 5. Bd3 Bb7 6. Nf3 Bxc3+ 7. bxc3 d6 8. Qc2 Nbd7 9. e4 e5 10. O-O O-O 11. Bg5 h6 12. Bd2 Re8 13. Rae1 Nh7 14. h3 Nhf8 15. Nh2 Ne6 16. Be3 c5 17. d5 Nf4 18. Be2 Nf8 19. Bg4 Bc8 20. Qd2 Ba6 21. g3 N4g6 22. Be2 Nh7 23. h4 Nf6 24. Bd3 Rb8 25. Qe2 Rb7 26. Bc1 Rbe7 27. Kh1 Bc8 28. Rg1 Kf8 29. h5 Nh8 30. g4 Nh7 31. Bc2 Rb7 32. f4 f6 33. fxe5 dxe5 34. Nf3 Nf7 35. Ref1 Kg8 36. Nh4 Nd6 37. Nf5 Bxf5 38. gxf5 Ng5 39. Bxg5 hxg5 40. Ba4 Rf8 41. Bc6 Rb8 42. a4 Kf7 43. Kg2 Rh8 44. Rh1 Rh6 45. Ra1 Qc7 46. Kf2 Rbh8 47. Ke3 Kg8 48. Kd3 Qf7 49. a5 Rxh5 50. Rxh5 Rxh5 51. axb6 Rh3+ 52. Kc2 axb6 53. Ra8+ Kh7 54. Rd8 Qa7 55. Ra8 Qf7 56. Kb3 Qh5 57. Qxh5+ Rxh5 58. Be8 Nxe8 59. Rxe8 Rh2 60. Ra8 g4 61. Ra1 Kh6 62. Ka4 Kg5 63. Kb5 Kf4 64. Rg1 Kxe4 65. Rxg4+ Kxf5 66. Rxg7 Rb2+ 67. Kc6 e4 68. d6 Rd2 69. d7 e3 70. Kxb6 e2 71. Re7 Rxd7 72. Rxe2 Rd3 73. Rc2 Rd8 74. Rc1 Rb8+ 75. Kc7 Re8 76. Kd6 Rd8+ 77. Kxc5 Rc8+ 78. Kd6 Rxc4 79. Kd5 Rc8 80. c4 Rd8+ 81. Kc6 Kg4 82. Rg1+ Kh3 83. c5 f5 84. Kc7 Rf8 85. c6 f4 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.04.29"]
+[Round "6"]
+[White "Tarrasch, Siegbert"]
+[Black "Marshall, Frank James"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C42"]
+[Opening "Petrov's Defense: Classical Attack, Marshall Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Tarrasch, Siegbert - Marshall, Frank James"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/7dgjM0ca"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6 4. Nf3 Nxe4 5. d4 d5 6. Bd3 Bd6 7. c4 Bb4+ 8. Nbd2 Bxd2+ 9. Bxd2 O-O 10. O-O Bg4 11. Bf4 Nc6 12. Re1 Nxd4 13. Bxe4 dxe4 14. Qxd4 exf3 15. Qxd8 Rfxd8 16. Bxc7 Rd2 17. b3 fxg2 18. Kxg2 h6 19. Bf4 Rd3 20. Re3 Rxe3 21. Bxe3 a6 22. Kg3 Bd7 23. Rd1 Bc6 24. Bb6 Re8 25. Rd8 Rxd8 26. Bxd8 Be4 27. b4 Bd3 28. b5 Bxc4 29. bxa6 Bxa6 30. a3 f6 31. Kg2 Kf7 32. Kg1 Ke6 33. Ba5 g5 34. Bb4 h5 35. Bc3 h4 36. Ba5 g4 37. Bd8 Be2 38. Kh1 h3 39. Kg1 f5 40. Bc7 Kd5 41. Bb8 Ke4 42. Bc7 Bf3 43. Bd6 Bg2 44. Bc7 f4 45. Bd6 Kf3 46. Bc7 b5 47. Bd6 Ke4 48. Bc7 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.01"]
+[Round "7"]
+[White "Capablanca, Jose Raul"]
+[Black "Bernstein, Ossip Samuel"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D37"]
+[Opening "Queen's Gambit Declined: Barmen Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Capablanca, Jose Raul - Bernstein, Ossip Samuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/5zZVhwTv"]
+
+1. d4 d5 2. Nf3 Nf6 3. c4 e6 4. Nc3 Nbd7 5. Bg5 Be7 6. e3 c6 7. Bd3 dxc4 8. Bxc4 b5 9. Bd3 a6 10. e4 e5 11. dxe5 Ng4 12. Bf4 Bc5 13. O-O Qc7 14. Rc1 f6 15. Bg3 fxe5 16. b4 Ba7 17. Bxb5 axb5 18. Nxb5 Qd8 19. Nd6+ Kf8 20. Rxc6 Nb6 21. Bh4 Qd7 22. Nxc8 Qxc6 23. Qd8+ Qe8 24. Be7+ Kf7 25. Nd6+ Kg6 26. Nh4+ Kh5 27. Nxe8 Rxd8 28. Nxg7+ Kh6 29. Ngf5+ Kh5 30. h3 Nc8 31. hxg4+ Kxg4 32. Bxd8 Rxd8 33. g3 Rd2 34. Kg2 Re2 35. a4 Nb6 36. Ne3+ Kh5 37. a5 Nd7 38. Nhf5 Nf6 39. b5 Bd4 40. Kf3 Ra2 41. a6 Ba7 42. Rc1 Rb2 43. g4+ Kg6 44. Rc7 Rxf2+ 45. Kxf2 Nxg4+ 46. Kf3 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.01"]
+[Round "7"]
+[White "Lasker, Emanuel"]
+[Black "Alekhine, Alexander"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "B01"]
+[Opening "Scandinavian Defense: Modern Variation, Gipslis Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Lasker, Emanuel - Alekhine, Alexander"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/CDZ5WpvI"]
+
+1. e4 d5 2. exd5 Nf6 3. d4 Nxd5 4. Nf3 Bg4 5. c4 Nb6 6. Nc3 e5 7. c5 exd4 8. Ne4 N6d7 9. Qxd4 Qe7 10. Bb5 Nc6 11. Bxc6 bxc6 12. O-O Bxf3 13. gxf3 O-O-O 14. Qa4 Ne5 15. Kg2 Qe6 16. Qxa7 Qf5 17. Qa8+ Kd7 18. Rd1+ Ke6 19. Qxd8 Qxf3+ 20. Kg1 Be7 21. Qd4 Qg4+ 22. Kh1 Qf3+ 23. Kg1 Qg4+ 24. Kh1 Qf3+ { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.01"]
+[Round "7"]
+[White "Marshall, Frank James"]
+[Black "Janowski, Dawid Markelowicz"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D25"]
+[Opening "Queen's Gambit Accepted: Janowski-Larsen Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Marshall, Frank James - Janowski, Dawid Markelowicz"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/GTPqEQXB"]
+
+1. d4 Nf6 2. Nf3 d5 3. c4 dxc4 4. e3 Bg4 5. Bxc4 e6 6. Qb3 Nbd7 7. Ne5 Nxe5 8. dxe5 Nd7 9. O-O Bc5 10. Qxb7 O-O 11. Qe4 Bf5 12. Qf4 Rb8 13. Nc3 Qe7 14. a3 a5 15. b3 Bc2 16. Ne4 Ba7 17. Bb2 Nc5 18. Nf6+ Kh8 19. Rfc1 Bg6 20. Bd4 gxf6 21. exf6 Qd6 22. b4 Rg8 23. bxc5 Qc6 24. f3 a4 25. Ra2 Rbd8 26. Rb2 Bh5 27. Be2 Qd5 28. Kf2 Bg6 29. Qe5 Qd7 30. Rb7 Bb8 31. Bb5 Qc8 32. Bc6 Bd3 33. Rc3 Ba6 34. Rb4 Rg6 35. Be4 c6 36. Qh5 e5 37. Rxb8 Qxb8 38. Bxg6 fxg6 39. Qxe5 Qxe5 40. Bxe5 Rd2+ 41. Kg3 Kg8 42. e4 Kf7 43. Rc1 Bb5 44. h4 Ke6 45. Bc3 Rd3 46. Kg4 Bc4 47. Kg5 Bb3 48. Kh6 Rd7 49. h5 Kf7 50. Kxh7 gxh5 51. Kh6 h4 52. Be5 Rd2 53. Rg1 Rd8 54. Rh1 Ke6 55. Bc3 Rg8 56. Rxh4 Kf7 57. Rg4 Rh8+ 58. Kg5 Be6 59. Rg3 Rb8 60. Kf4 Rb3 61. Rg7+ Kf8 62. Be5 Bf7 63. Bd6+ Ke8 64. e5 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.01"]
+[Round "7"]
+[White "Nimzowitsch, Aron"]
+[Black "Gunsberg, Isidor"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C46"]
+[Opening "Three Knights Opening: Steinitz-Rosenthal Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Nimzowitsch, Aron - Gunsberg, Isidor"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/oyVy3lWh"]
+
+1. e4 e5 2. Nf3 Nc6 3. Nc3 g6 4. d4 exd4 5. Nd5 Bg7 6. Bg5 Nce7 7. Bc4 c6 8. Nxe7 Nxe7 9. O-O d6 10. Nxd4 O-O 11. Qd2 Kh8 12. Rad1 f6 13. Bh6 d5 14. exd5 Nxd5 15. Rfe1 Bg4 16. f3 Bd7 17. Bxd5 Bxh6 18. Qxh6 cxd5 19. c3 Rf7 20. Re2 Qb6 21. Rde1 Qd6 22. Qh4 Rg8 23. Qg3 Qxg3 24. hxg3 Rd8 25. Kf2 Kg7 26. Ke3 Re7+ 27. Kd3 Rxe2 28. Rxe2 Kf7 29. b3 h5 30. a4 a6 31. a5 Rh8 32. c4 dxc4+ 33. bxc4 h4 34. gxh4 Rxh4 35. Rb2 Bc8 36. c5 Ke7 37. g4 Rh1 38. Kc4 Ra1 39. Kd5 f5 40. g5 Rg1 41. Rh2 Rxg5 42. Rh7+ Kf6 43. f4 Rh5 44. Rc7 Rh8 45. c6 bxc6+ 46. Rxc6+ Kg7 47. Rc7+ Kf6 48. Kc5 Rd8 49. Rc6+ Kg7 50. Nf3 Kh6 51. Ne5 Rg8 52. Kb6 Kh5 53. Kc7 Kh6 54. Nxg6 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.01"]
+[Round "7"]
+[White "Rubinstein, Akiba"]
+[Black "Tarrasch, Siegbert"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "A29"]
+[Opening "English Opening: King's English Variation, Four Knights Variation, Fianchetto Line"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Rubinstein, Akiba - Tarrasch, Siegbert"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/w4ZTNB1H"]
+
+1. c4 e5 2. Nc3 Nf6 3. Nf3 Nc6 4. g3 g6 5. Bg2 Bg7 6. d4 exd4 7. Nxd4 O-O 8. O-O Re8 9. e3 Ne5 10. b3 d6 11. Bb2 Bg4 12. f3 Bd7 13. h3 Nc6 14. Nc2 Ne7 15. e4 Nh5 16. Kh2 Nc6 17. Qd2 f5 18. exf5 Bxf5 19. Rae1 Qf6 20. f4 Bxc2 21. Qxc2 Kh8 22. Nd1 Qf7 23. Ne3 Nf6 24. Nd5 Nxd5 25. cxd5 Nd4 26. Qf2 Nf5 27. g4 Bxb2 28. Qxb2+ Ng7 29. Qd4 Rxe1 30. Rxe1 Rf8 31. Kg3 a5 32. Re4 Kg8 33. Qc3 b6 34. Rc4 Ne8 35. a4 Nf6 36. Bf3 c6 37. Qd2 cxd5 38. Rc6 Ne4+ 39. Bxe4 dxe4 40. Qxd6 Qxb3+ 41. Kh4 Qf7 42. Kg5 e3 43. Rc7 Qxf4+ 44. Qxf4 h6+ 45. Kxh6 Rxf4 46. Re7 Rf3 47. h4 Rf4 48. Kg5 Rxa4 49. Rxe3 Rb4 50. Re6 Kh7 51. Re7+ Kg8 52. Re6 Kh7 53. Re7+ Kg8 54. h5 gxh5 55. gxh5 Rc4 56. Re6 b5 57. Rb6 b4 58. Rb5 a4 59. h6 a3 60. Rb8+ { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.02"]
+[Round "8"]
+[White "Bernstein, Ossip Samuel"]
+[Black "Lasker, Emanuel"]
+[Result "1-0"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "C66"]
+[Opening "Ruy Lopez: Berlin Defense, Hedgehog Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Bernstein, Ossip Samuel - Lasker, Emanuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/bBg7RF12"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. O-O d6 5. d4 Bd7 6. Nc3 Be7 7. Re1 exd4 8. Nxd4 O-O 9. Bxc6 bxc6 10. Bg5 h6 11. Bh4 Re8 12. e5 Nh7 13. Bg3 a5 14. Qd3 Bf8 15. exd6 cxd6 16. Rxe8 Qxe8 17. Nf3 Bg4 18. Rd1 d5 19. h3 Bxf3 20. Qxf3 Ng5 21. Qd3 a4 22. Kf1 Qc8 23. Ne2 Qb7 24. b3 Ne4 25. Bf4 Bc5 26. Be3 Bxe3 27. Qxe3 axb3 28. axb3 Ra2 29. f3 Ng5 30. Qd3 Ne6 31. Nc3 Ra8 32. Re1 Qb4 33. Ne2 Qc5 34. c3 Qd6 35. Nd4 Qh2 36. Nxe6 Ra2 37. Re2 Ra1+ 38. Kf2 fxe6 39. Qg6 Qc7 40. Qxe6+ Kh8 41. b4 Ra8 42. Qe3 Qd8 43. Qd4 Kh7 44. h4 Qd7 45. Qd3+ Kh8 46. Qe3 Rc8 47. Qe7 Qf5 48. Qe6 Qf8 49. Qd7 c5 50. b5 d4 51. cxd4 Rd8 52. Qe7 Qxe7 53. Rxe7 Rxd4 54. b6 Rb4 55. b7 Kh7 56. h5 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.02"]
+[Round "8"]
+[White "Blackburne, Joseph Henry"]
+[Black "Nimzowitsch, Aron"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "A00"]
+[Opening "Van't Kruijs Opening"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Blackburne, Joseph Henry - Nimzowitsch, Aron"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/J2jLn1rJ"]
+
+1. e3 d6 2. f4 e5 3. fxe5 dxe5 4. Nc3 Bd6 5. e4 Be6 6. Nf3 f6 7. d3 Ne7 8. Be3 c5 9. Qd2 Nbc6 10. Be2 Nd4 11. O-O O-O 12. Nd1 Nec6 13. c3 Nxe2+ 14. Qxe2 Re8 15. Nh4 Bf8 16. Nf5 Kh8 17. g4 Qd7 18. Nf2 a5 19. a3 b5 20. Rad1 Rab8 21. Rd2 b4 22. axb4 axb4 23. c4 Ra8 24. Qf3 Ra2 25. g5 g6 26. Ng4 gxf5 27. Nxf6 Nd4 28. Qf2 Qc6 29. Nxe8 Qxe8 30. Bxd4 exd4 31. exf5 Bd7 32. Re1 Qf7 33. Qh4 Ra8 34. Rf2 Bc6 35. Qg4 Re8 36. Rxe8 Qxe8 37. Re2 Qd7 38. Re6 Ba8 39. g6 hxg6 40. Rxg6 Qh7 41. Qg3 Qh5 42. Rg4 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.02"]
+[Round "8"]
+[White "Gunsberg, Isidor"]
+[Black "Marshall, Frank James"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C49"]
+[Opening "Four Knights Game: Spanish Variation, Svenonius Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Gunsberg, Isidor - Marshall, Frank James"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/XpUdiSnk"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nc3 Nc6 4. Bb5 Bb4 5. O-O O-O 6. d3 Bxc3 7. bxc3 d5 8. exd5 Qxd5 9. c4 Qd6 10. Bxc6 bxc6 11. Bb2 Re8 12. Nd2 Rb8 13. Bc3 Bf5 14. f3 Rbd8 15. Qe1 Nd5 16. Ne4 Bxe4 17. fxe4 Nf4 18. g3 Ne6 19. Qf2 f6 20. Rfb1 a6 21. Rb3 Rb8 22. Rab1 Rxb3 23. axb3 c5 24. Ra1 Ng5 25. Qe3 Rf8 26. Ra5 Ne6 27. Qf2 Qc6 28. Qe3 h6 29. Qe1 Ng5 30. Qe3 Ne6 31. Ra1 Ng5 32. Rf1 Ra8 33. Ra1 Ne6 34. Qf2 Rf8 35. Rf1 Qd6 36. Qe3 Qd7 37. Qf2 Ra8 38. Ra1 Qc6 39. Bd2 Rf8 40. Be3 Qd6 41. Ra5 Nd4 42. Bxd4 cxd4 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.02"]
+[Round "8"]
+[White "Janowski, Dawid Markelowicz"]
+[Black "Rubinstein, Akiba"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "D30"]
+[Opening "Queen's Gambit Declined: Tarrasch Defense, Pseudo-Tarrasch"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Janowski, Dawid Markelowicz - Rubinstein, Akiba"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/Whb6ZiAu"]
+
+1. d4 d5 2. Nf3 c5 3. c4 e6 4. e3 Nf6 5. Bd3 Nc6 6. O-O dxc4 7. Bxc4 a6 8. Nc3 b5 9. Bd3 cxd4 10. exd4 Nb4 11. Bb1 Nbd5 12. Qe2 Bb7 13. Ne5 Qb6 14. Bg5 Bd6 15. Re1 Rd8 16. Qd2 Be7 17. a3 O-O 18. Qd3 g6 19. Ba2 Rfe8 20. Qh3 Nh5 21. Bxe7 Rxe7 22. Bxd5 Bxd5 23. Qh4 f6 24. Nxd5 Rxd5 25. Nf3 Kg7 26. Qe4 Kf7 27. Rac1 Ng7 28. g4 Qd6 29. Rc8 Re8 30. Rec1 Rxc8 31. Rxc8 Ne8 32. g5 fxg5 33. Ne5+ Ke7 34. Qf3 Nf6 35. Ra8 Rxe5 36. Ra7+ Nd7 37. dxe5 Qxe5 38. Qd1 Qd6 39. Qxd6+ Kxd6 40. Rxa6+ Kd5 41. Kf1 g4 42. Ra7 Kd6 43. Ke2 h5 44. Ra8 Ne5 45. Ra6+ Kd7 46. Rb6 Nf3 47. h3 Nd4+ 48. Kf1 gxh3 49. Rb7+ Kd6 50. Rg7 Nf3 51. Rf7 Nd2+ 52. Kg1 g5 53. Rh7 Nf3+ 54. Kh1 h4 55. Rf7 Ne5 56. Rg7 Nf3 57. b3 e5 58. a4 bxa4 59. bxa4 Kc5 60. Rf7 e4 61. Re7 Kd4 62. a5 g4 63. Rg7 g3 64. fxg3 e3 { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.02"]
+[Round "8"]
+[White "Tarrasch, Siegbert"]
+[Black "Capablanca, Jose Raul"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C77"]
+[Opening "Ruy Lopez: Morphy Defense, Tarrasch Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Tarrasch, Siegbert - Capablanca, Jose Raul"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/2VZ0ui8O"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. Nc3 Be7 6. d3 d6 7. d4 Bd7 8. Bxc6 Bxc6 9. Qd3 exd4 10. Nxd4 Bd7 11. O-O O-O 12. Re1 Re8 13. h3 h6 14. Qg3 Kh8 15. Bd2 Bf8 16. Qd3 c6 17. Rad1 Qe7 18. Nf3 Be6 19. Bf4 Rad8 20. Qe3 d5 21. exd5 Nxd5 22. Nxd5 Bxd5 23. Qxe7 Bxe7 24. Rxe7 Rxe7 25. c4 Re4 26. Be3 Rxc4 27. Ne5 Rb8 28. Nxc4 Bxc4 29. a3 Bd5 30. Re1 Rd8 31. Bb6 Rd7 32. Re8+ Kh7 33. Kh2 Bc4 34. Rd8 Re7 35. Rd4 Bd5 36. a4 Re2 37. b4 a5 38. bxa5 Rc2 39. Rb4 c5 40. Rf4 Be6 41. Rf3 c4 42. Bd4 Ra2 43. Kg1 Rxa4 44. Bc3 Ra2 45. Rg3 g5 46. Re3 Rc2 47. Bd4 Rc1+ 48. Kh2 Kg6 49. Kg3 Rd1 50. Bc3 Bd5 51. f3 Rc1 52. Bd4 Rc2 53. Ra3 f5 54. a6 f4+ 55. Kh2 bxa6 56. Rxa6+ Kf7 57. Kg1 h5 58. Rf6+ Ke7 59. Rf5 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.03"]
+[Round "9"]
+[White "Alekhine, Alexander"]
+[Black "Bernstein, Ossip Samuel"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C66"]
+[Opening "Ruy Lopez: Berlin Defense, Closed Showalter Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Alekhine, Alexander - Bernstein, Ossip Samuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/nEgBjsyx"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nf6 4. O-O d6 5. d4 Bd7 6. Nc3 Be7 7. Bxc6 Bxc6 8. Qd3 exd4 9. Nxd4 O-O 10. Bg5 Nd7 11. Bxe7 Qxe7 12. Rae1 Rfe8 13. f4 Nc5 14. Qc4 Qd7 15. e5 Rad8 16. Rd1 Ne6 17. Nf5 Nf8 18. Qd3 g6 19. Nh6+ Kg7 20. f5 Rxe5 21. Ng4 Rxf5 22. Qd4+ f6 23. Nxf6 Ne6 24. Qh4 Qf7 25. Rxf5 gxf5 26. Ncd5 Bxd5 27. Nxd5 Kh8 28. Re1 Rf8 29. Qh3 c6 30. Qc3+ Kg8 31. Qg3+ Ng7 32. Ne7+ Kh8 33. Qxd6 Re8 34. Kf2 Qc4 35. Kg1 Qf7 36. Kf2 Qc4 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.03"]
+[Round "9"]
+[White "Capablanca, Jose Raul"]
+[Black "Janowski, Dawid Markelowicz"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C68"]
+[Opening "Ruy Lopez: Exchange Variation, Keres Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Capablanca, Jose Raul - Janowski, Dawid Markelowicz"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/eR7MBDyo"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Bxc6 dxc6 5. Nc3 Bc5 6. d3 Bg4 7. Be3 Bxe3 8. fxe3 Qe7 9. O-O O-O-O 10. Qe1 Nh6 11. Rb1 f6 12. b4 Nf7 13. a4 Bxf3 14. Rxf3 b6 15. b5 cxb5 16. axb5 a5 17. Nd5 Qc5 18. c4 Ng5 19. Rf2 Ne6 20. Qc3 Rd7 21. Rd1 Kb7 22. d4 Qd6 23. Rc2 exd4 24. exd4 Nf4 25. c5 Nxd5 26. exd5 Qxd5 27. c6+ Kb8 28. cxd7 Qxd7 29. d5 Re8 30. d6 cxd6 31. Qc6 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.03"]
+[Round "9"]
+[White "Lasker, Emanuel"]
+[Black "Tarrasch, Siegbert"]
+[Result "1/2-1/2"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "C83"]
+[Opening "Ruy Lopez: Open, Classical Defense"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Lasker, Emanuel - Tarrasch, Siegbert"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/GYM2czml"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Nxe4 6. d4 b5 7. Bb3 d5 8. dxe5 Be6 9. c3 Be7 10. Nbd2 O-O 11. Re1 Nc5 12. Bc2 d4 13. cxd4 Nxd4 14. Nxd4 Qxd4 15. Nb3 Nxb3 16. axb3 Qxd1 17. Rxd1 c5 18. Bd2 Rfd8 19. Ba5 Rxd1+ 20. Rxd1 f6 21. Bc3 fxe5 22. Bxe5 Rd8 23. Rxd8+ Bxd8 24. f4 Kf7 25. Kf2 Bf6 26. Bd6 Bd4+ 27. Kf3 Bd5+ 28. Kg4 Ke6 29. Bf8 Kf7 30. Bd6 Bxg2 31. Bxh7 Ke6 32. Bf8 Kd5 33. Kg5 Bf6+ 34. Kg6 Be4+ 35. f5 Ke5 36. Bxg7 Bxf5+ 37. Kf7 Bxg7 38. Bxf5 Kxf5 39. Kxg7 a5 40. h4 Kg4 41. Kg6 Kxh4 42. Kf5 Kg3 43. Ke4 Kf2 44. Kd5 Ke3 45. Kxc5 Kd3 46. Kxb5 Kc2 47. Kxa5 Kxb3 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.03"]
+[Round "9"]
+[White "Marshall, Frank James"]
+[Black "Blackburne, Joseph Henry"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "A53"]
+[Opening "Old Indian Defense: Czech Variation, with Nf3"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Marshall, Frank James - Blackburne, Joseph Henry"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/PySSYeod"]
+
+1. d4 Nf6 2. Nf3 c6 3. c4 d6 4. Nc3 Qc7 5. Bf4 Nh5 6. Bg5 h6 7. Bh4 g5 8. Bg3 Bg7 9. e3 Nd7 10. Be2 Nxg3 11. hxg3 Nf6 12. Qc2 Bg4 13. O-O-O a6 14. Kb1 Qa5 15. Nd2 Bxe2 16. Nxe2 O-O 17. Nb3 Qa4 18. Nbc1 Qa5 19. Nb3 Qa4 20. c5 dxc5 21. Nc3 Qc4 22. Nxc5 Nd5 23. Nxd5 Qxc2+ 24. Kxc2 cxd5 25. Nxb7 Rfc8+ 26. Kb1 Rab8 27. Nc5 Rc6 28. Rc1 Rb5 29. Nd3 Rc4 30. Rc2 Rxc2 31. Kxc2 e6 32. b4 Bf8 33. a3 Kg7 34. Kb3 Rb6 35. Ka4 Be7 36. Rc1 h5 37. Rc8 g4 38. Ne5 f6 39. Rc6 Rb8 40. Nd3 Rh8 41. Rxe6 Kf7 42. Nf4 h4 43. gxh4 Bd8 44. g3 Bc7 45. Rxa6 Bxf4 46. exf4 Re8 47. f5 Re2 48. Ra7+ Kf8 49. b5 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.03"]
+[Round "9"]
+[White "Rubinstein, Akiba"]
+[Black "Gunsberg, Isidor"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "A40"]
+[Opening "Queen's Pawn Game"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Rubinstein, Akiba - Gunsberg, Isidor"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/RXWgfqu7"]
+
+1. d4 a6 2. e4 d5 3. exd5 Qxd5 4. Nc3 Qa5 5. Nf3 e6 6. Bd3 c6 7. O-O Nf6 8. Qe2 Be7 9. Ne5 Qd8 10. Be3 Nbd7 11. Rad1 O-O 12. f4 Re8 13. Rf3 Nf8 14. Rh3 g6 15. g4 Nd5 16. g5 f6 17. gxf6 Bxf6 18. Ne4 Bg7 19. Bc1 Ne7 20. c3 Nf5 21. Qg4 Re7 22. b3 Rc7 23. Ba3 b6 24. Ng5 Raa7 25. Be4 Qe8 26. Qg2 Bb7 27. c4 Ba8 28. d5 exd5 29. cxd5 Bxe5 30. fxe5 cxd5 31. Bxf5 gxf5 32. Nxh7+ Rg7 33. Nf6+ { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.05"]
+[Round "10"]
+[White "Blackburne, Joseph Henry"]
+[Black "Rubinstein, Akiba"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C01"]
+[Opening "French Defense: Exchange Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Blackburne, Joseph Henry - Rubinstein, Akiba"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/gndPzrSH"]
+
+1. e4 e6 2. d4 d5 3. exd5 exd5 4. Nf3 Bd6 5. Bd3 Bg4 6. O-O Nc6 7. Re1+ Nge7 8. c3 Qd7 9. Nbd2 f6 10. Nf1 O-O 11. Ne3 Bh5 12. Bd2 Rae8 13. Nf1 Nd8 14. Ng3 Bg6 15. Qc2 Nf7 16. Bxg6 hxg6 17. Nh4 Nh8 18. Qd3 Kf7 19. f4 Qg4 20. Qe2 Qc8 21. Qf3 c6 22. Re2 Ng8 23. Rae1 Rxe2 24. Qxe2 Re8 25. Qxe8+ Qxe8 26. Rxe8 Kxe8 27. Ne2 Ne7 28. Nf3 Nf7 29. g4 Bc7 30. Be3 Nd6 31. Nd2 Kd7 32. Kg2 Ke6 33. h3 Nc4 34. Nxc4 dxc4 35. Kf3 a5 36. Ng3 f5 37. g5 Nd5 38. Bd2 b5 39. Ne2 Nb6 40. h4 Bd6 41. a3 Na4 42. Bc1 Be7 43. Ke3 Bf8 44. Ng1 Nc5 45. dxc5 Bxc5+ 46. Kf3 Bxg1 47. Be3 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.05"]
+[Round "10"]
+[White "Gunsberg, Isidor"]
+[Black "Capablanca, Jose Raul"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C33"]
+[Opening "King's Gambit Accepted: Bishop's Gambit, Paulsen Attack"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Gunsberg, Isidor - Capablanca, Jose Raul"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/N7Mg58be"]
+
+1. e4 e5 2. f4 exf4 3. Bc4 Nf6 4. Nc3 Bb4 5. e5 d5 6. Bb3 Ne4 7. Nf3 c6 8. Qe2 Bxc3 9. dxc3 g5 10. Nd2 Bf5 11. Nxe4 Bxe4 12. Bd2 Nd7 13. c4 Qe7 14. cxd5 cxd5 15. Bc3 O-O-O 16. e6 Nf6 17. exf7 Qxf7 18. O-O-O Rhe8 19. h4 h6 20. hxg5 hxg5 21. Rh6 Re6 22. Bxf6 Rxf6 23. Qg4+ Rf5 24. Rdh1 f3 25. Rh7 fxg2 26. R1h6 g1=Q+ { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.05"]
+[Round "10"]
+[White "Janowski, Dawid Markelowicz"]
+[Black "Lasker, Emanuel"]
+[Result "0-1"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "D30"]
+[Opening "Queen's Gambit Declined: Tarrasch Defense, Pseudo-Tarrasch"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Janowski, Dawid Markelowicz - Lasker, Emanuel"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/JNIJefmD"]
+
+1. d4 d5 2. Nf3 c5 3. c4 e6 4. e3 Nc6 5. Bd3 Nf6 6. O-O Bd6 7. b3 O-O 8. Bb2 b6 9. Nbd2 Bb7 10. Ne5 Qe7 11. a3 Rad8 12. Qc2 dxc4 13. Ndxc4 cxd4 14. exd4 Rc8 15. Qe2 Bb8 16. f4 Nd5 17. Rae1 f5 18. Qd2 Nxe5 19. Nxe5 a6 20. Bb1 Bd6 21. Nc4 b5 22. Na5 Ba8 23. b4 Nb6 24. Nb3 Bd5 25. Nc5 Nc4 26. Qc3 Rf6 27. Bc1 a5 28. Rf2 axb4 29. axb4 Ra8 30. Ba2 Qf7 31. Bxc4 Bxc4 32. Bb2 Rg6 33. Ra1 Rxa1+ 34. Bxa1 Qc7 35. Qe3 Rg4 36. g3 g5 37. d5 Bxd5 38. Qd4 gxf4 39. Qh8+ Kf7 40. Qxh7+ Ke8 41. Qh8+ Bf8 42. Be5 Qf7 43. Rxf4 Rxf4 44. Bxf4 Qg7 45. Qh5+ Kd8 46. Bg5+ Kc7 47. Bf4+ Bd6 48. Bxd6+ Kxd6 49. Qh4 Qa1+ 50. Kf2 Qb2+ 51. Ke1 Qc1+ 52. Ke2 Bc4+ { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.05"]
+[Round "10"]
+[White "Nimzowitsch, Aron"]
+[Black "Marshall, Frank James"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C42"]
+[Opening "Petrov's Defense: Nimzowitsch Attack"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Nimzowitsch, Aron - Marshall, Frank James"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/6PMAxNiw"]
+
+1. e4 e5 2. Nf3 Nf6 3. Nxe5 d6 4. Nf3 Nxe4 5. Nc3 Nxc3 6. dxc3 Be7 7. Be3 Nc6 8. Qd2 Bg4 9. Be2 Qd7 10. O-O-O O-O 11. Rhe1 Rae8 12. h3 Bxf3 13. Bxf3 Bf6 14. Bg4 Qd8 15. g3 Re7 16. f4 Rfe8 17. Bf2 Rxe1 18. Rxe1 Rxe1+ 19. Qxe1 g6 20. Bf3 Qd7 21. Bg4 Qd8 22. Bf3 Qd7 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.05"]
+[Round "10"]
+[White "Tarrasch, Siegbert"]
+[Black "Alekhine, Alexander"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C01"]
+[Opening "French Defense: Exchange Variation, Monte Carlo Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Tarrasch, Siegbert - Alekhine, Alexander"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/gquCK0YV"]
+
+1. d4 d5 2. c4 e5 3. e3 exd4 4. exd4 Nf6 5. Nc3 Be7 6. Nf3 O-O 7. Be2 Be6 8. Ng5 Bf5 9. O-O Nc6 10. Be3 Nb4 11. Rc1 dxc4 12. Bxc4 c6 13. Nf3 Nbd5 14. Ne5 Nxc3 15. bxc3 Bd6 16. Re1 Qc7 17. Bf4 Nd5 18. Bg3 Rae8 19. Bd3 Bxd3 20. Qxd3 f6 21. Nf3 Bxg3 22. hxg3 Qa5 23. c4 Nb6 24. Qb3 Qa4 25. Qxa4 Nxa4 26. c5 Rxe1+ 27. Nxe1 Re8 28. Kf1 Re4 29. Rc4 Nb2 30. Rc2 Na4 31. Rc4 b5 32. cxb6 Nxb6 33. Rxc6 Rxd4 34. Rc7 Rd7 35. Rc2 Rd4 36. Rc7 Rd7 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.06"]
+[Round "11"]
+[White "Bernstein, Ossip Samuel"]
+[Black "Tarrasch, Siegbert"]
+[Result "0-1"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C83"]
+[Opening "Ruy Lopez: Open, Classical Defense"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Bernstein, Ossip Samuel - Tarrasch, Siegbert"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/NyJHQMNU"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O Nxe4 6. d4 b5 7. Bb3 d5 8. dxe5 Be6 9. Nbd2 Nc5 10. c3 Be7 11. Qe2 d4 12. Bxe6 fxe6 13. cxd4 Nxd4 14. Nxd4 Qxd4 15. Nb3 Nxb3 16. axb3 O-O 17. Rd1 Rxf2 18. Be3 Rxe2 19. Bxd4 c5 20. Bc3 b4 21. Kf1 Re4 22. Be1 Rxe5 23. Bg3 Rd5 24. Rxd5 exd5 25. Rd1 c4 26. Rxd5 cxb3 27. Rd3 a5 28. Rxb3 a4 29. Re3 Bf6 30. Re2 a3 31. bxa3 bxa3 32. Ra2 Bb2 33. Bd6 Kf7 34. Ke2 Ra6 35. Bc5 Ra5 36. Bb4 Ra4 37. Bc5 Ke6 38. Kd3 Kf5 39. Bf8 Kg4 40. Ke3 Ra6 41. Bc5 h5 42. Ke4 h4 43. Ke3 Ra4 44. Bd6 h3 45. gxh3+ Kxh3 46. Kf3 Kh4 47. Be7+ Kh5 48. Ke3 g5 49. Bc5 Kg6 50. Bd6 Kf5 51. Bc5 Ke6 52. Kf3 Kf5 53. Ke3 Re4+ 54. Kf2 Ra4 55. Ke3 Rh4 56. Bd6 Rh3+ 57. Bg3 Be5 58. Kf3 g4+ 59. Kg2 Bb2 60. Kf2 Ke4 61. Ke2 Rh6 62. Kd2 Rh8 63. Bc7 Rf8 64. Bg3 Rf3 65. Bb8 Kd5 66. Kc2 Kc4 67. Bg3 Rc3+ 68. Kd2 Kb3 69. Rxb2+ axb2 { 0-1 Black wins. } 0-1
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.06"]
+[Round "11"]
+[White "Capablanca, Jose Raul"]
+[Black "Blackburne, Joseph Henry"]
+[Result "1-0"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C61"]
+[Opening "Ruy Lopez: Bird Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Capablanca, Jose Raul - Blackburne, Joseph Henry"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/e1VIk76L"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 Nd4 4. Nxd4 exd4 5. O-O g6 6. d3 Bg7 7. Nd2 Ne7 8. f4 c6 9. Bc4 d5 10. Bb3 O-O 11. Nf3 c5 12. e5 b5 13. c3 c4 14. Bc2 dxc3 15. bxc3 Qa5 16. Bd2 Bg4 17. d4 Qb6 18. Rb1 a6 19. h3 Bf5 20. g4 Bxc2 21. Qxc2 f5 22. Kh2 Nc6 23. Rg1 Nd8 24. gxf5 Rxf5 25. Nh4 Rh5 26. Nxg6 hxg6 27. Rxg6 Qb8 28. Rxg7+ Kxg7 29. Rg1+ Kf8 30. Qg6 Rxh3+ 31. Kxh3 { 1-0 White wins. } 1-0
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.06"]
+[Round "11"]
+[White "Rubinstein, Akiba"]
+[Black "Nimzowitsch, Aron"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "A46"]
+[Opening "Indian Defense: London System"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Rubinstein, Akiba - Nimzowitsch, Aron"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/NXcY5DIV"]
+
+1. d4 Nf6 2. Nf3 e6 3. Bf4 c5 4. c3 cxd4 5. Nxd4 Nc6 6. e3 d5 7. Nd2 Bd6 8. Nb5 Bb8 9. Bxb8 Rxb8 10. Be2 a6 11. Nd4 e5 12. N4b3 Bf5 13. O-O O-O 14. Bf3 Qe7 15. Qe1 Bd3 16. Be2 Bg6 17. f4 exf4 18. exf4 Be4 19. Qf2 Rfe8 20. Rfe1 Qc7 21. Nc5 Re7 22. Nf1 Rbe8 23. Ng3 g6 24. Rad1 h5 25. h4 Qc8 26. Ngxe4 dxe4 27. Rd6 Kg7 28. Red1 Ng4 29. Qg3 Nh6 30. Qg5 Qf5 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.07"]
+[Round "11"]
+[White "Alekhine, Alexander"]
+[Black "Janowski, Dawid Markelowicz"]
+[Result "1/2-1/2"]
+[Annotator "Tarrasch,Siegbert"]
+[Variant "Standard"]
+[ECO "C01"]
+[Opening "French Defense: Exchange Variation"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Alekhine, Alexander - Janowski, Dawid Markelowicz"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/5xGSnFvi"]
+
+1. e4 e6 2. d4 d5 3. exd5 exd5 4. Nf3 Nf6 5. Bd3 Bd6 6. O-O O-O 7. Bg5 Bg4 8. Nbd2 c6 9. c3 Nbd7 10. Qc2 h6 11. Bh4 Re8 12. Rfe1 Qc7 13. Bg3 Bxg3 14. hxg3 Re6 15. Rxe6 Bxe6 16. Re1 Ng4 17. Bf5 Qd6 18. Bh7+ Kf8 19. Bf5 Bxf5 20. Qxf5 Ngf6 21. Qf4 Qxf4 22. gxf4 Re8 23. Ne5 Nb6 24. Kf1 Nfd7 25. g3 f6 26. Nxd7+ Nxd7 27. Rxe8+ Kxe8 28. Ke2 Ke7 29. Ke3 Ke6 { 1/2-1/2  } 1/2-1/2
+
+
+[Event "St Petersburg International Preliminary"]
+[Site "St Petersburg"]
+[Date "1914.05.07"]
+[Round "11"]
+[White "Lasker, Emanuel"]
+[Black "Gunsberg, Isidor"]
+[Result "1-0"]
+[Annotator "Stohl,Igor"]
+[Variant "Standard"]
+[ECO "C79"]
+[Opening "Ruy Lopez: Morphy Defense, Steinitz Deferred"]
+[StudyName "St Petersburg 1914 Preliminary"]
+[ChapterName "Lasker, Emanuel - Gunsberg, Isidor"]
+[ChapterURL "https://lichess.org/study/UCjSJyF2/Kln8nm23"]
+
+1. e4 e5 2. Nf3 Nc6 3. Bb5 a6 4. Ba4 Nf6 5. O-O d6 6. Re1 Bd7 7. c3 Be7 8. d4 O-O 9. Nbd2 b5 10. Bb3 exd4 11. cxd4 Bg4 12. Nf1 d5 13. e5 Ne4 14. Ne3 Be6 15. Qc2 Nb4 16. Qb1 f5 17. a3 Nc6 18. Qa2 Ng5 19. Nxg5 Bxg5 20. Bxd5 Bxd5 21. Nxd5 Kh8 22. f4 Bh4 23. Rd1 Qe8 24. Be3 Rd8 25. Nxc7 Qh5 26. b4 { 1-0 White wins. } 1-0
+
+
