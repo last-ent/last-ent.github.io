@@ -3894,12 +3894,20 @@ const state = {
   stripOpen: false,
   userAnns: {},               // ply index → {eval: symbol|null, qual: glyph|null}
 };
-// Pure fn for tests: ply annotations keyed by ply index; a is {eval, qual}.
+// Pure fns: `annTextFor` emits PGN NAG tokens (for export splicing);
+// `annDisplayFor` emits the display symbols/glyphs (for button + move list).
 function annTextFor(a) {
   if (!a) return '';
   const parts = [];
   if (a.qual) parts.push(a.qual);
   if (a.eval) parts.push(NAG_FROM_SYM[a.eval] || '');
+  return parts.filter(Boolean).join(' ');
+}
+function annDisplayFor(a) {
+  if (!a) return '';
+  const parts = [];
+  if (a.qual) parts.push(a.qual);
+  if (a.eval) parts.push(a.eval);
   return parts.filter(Boolean).join(' ');
 }
 function fmtAnn(plyIdx) {
@@ -4295,8 +4303,9 @@ function plyDisp(p) {
   let s = `${p.n}${p.turn === 'w' ? '. ' : '... '}${p.san}`;
   if (p.srcQual) s += ' ' + p.srcQual;
   if (p.srcEval) s += (p.srcQual ? ' ' : '') + p.srcEval;
+  if (p.srcUnknown) s += (p.srcQual || p.srcEval ? ' ' : '') + p.srcUnknown;
   const u = state.userAnns[p.pi];
-  if (u) s += annTextFor(u) ? ' ' + annTextFor(u) : '';
+  if (u) s += annDisplayFor(u) ? ' ' + annDisplayFor(u) : '';
   return s;
 }
 function promptText(i) {
@@ -4485,10 +4494,10 @@ function renderMoves() {
 function cellHtml(p) {
   const esc = (s) => String(s).replace(/[<>&]/g, (ch) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[ch]));
   const u = state.userAnns[p.pi];
-  const src = (p.srcQual || p.srcEval)
-    ? `<span class="src">${(p.srcQual ? ' ' + esc(p.srcQual) : '') + (p.srcEval ? ' ' + esc(p.srcEval) : '')}</span>`
+  const src = (p.srcQual || p.srcEval || p.srcUnknown)
+    ? `<span class="src">${(p.srcQual ? ' ' + esc(p.srcQual) : '') + (p.srcEval ? ' ' + esc(p.srcEval) : '') + (p.srcUnknown ? ' ' + esc(p.srcUnknown) : '')}</span>`
     : '';
-  const q = u ? `<span class="q"> ${esc(annTextFor(u))}</span>` : '';
+  const q = u ? `<span class="q"> ${esc(annDisplayFor(u))}</span>` : '';
   const cm = p.comment ? `<span class="cm">\u201C${esc(p.comment.slice(0, 60))}\u2026\u201D</span>` : '';
   return `<span class="mv-cell" data-pi="${p.pi}">${esc(p.san)}${src}${q}${cm}</span>`;
 }
