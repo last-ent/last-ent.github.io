@@ -187,13 +187,6 @@
     color: #bbb; font-size: 0.88rem; line-height: 1.45; max-width: min(74vmin, 380px);
     max-height: 20vh; overflow-y: auto; font-style: italic;
   }
-  .pos-ann {
-    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
-    font-size: 0.9rem; text-align: center; max-width: min(74vmin, 380px);
-  }
-  .pos-ann .src { color: #9a9a9a; font-weight: 600; }
-  .pos-ann .q { color: #c8825f; font-weight: 600; }
-  .pos-ann .dot { color: #555; margin: 0 2px; }
   .pos-hint { color: #666; font-size: 0.8rem; text-align: center; }
 
   .side-title { color: #bbb; font-size: 0.95rem; text-align: center; max-width: 88vw; line-height: 1.4; }
@@ -3837,7 +3830,6 @@ class Chess {
 <div class="pos-overlay" id="posModal" hidden onclick="if(event.target===this) closePos()">
   <div class="pos-caption" id="posCaption"></div>
   <div id="posBoard" onclick="closePos()"></div>
-  <div class="pos-ann" id="posAnn" hidden></div>
   <div class="pos-comment" id="posComment" hidden></div>
   <div class="pos-hint">tap the board to close</div>
 </div>
@@ -4515,21 +4507,9 @@ function cellHtml(p) {
 function openPos(pi) {
   const p = state.game.plies[pi];
   if (!p) return;
-  el('posCaption').textContent = `after ${shortLabel(p)}`;
+  // Standard PGN look: the move line with its annotation suffixes at the end.
+  el('posCaption').textContent = `after ${plyDisp(p)}`;
   el('posBoard').innerHTML = boardSVG(p.fen);
-  // annotations on THIS ply: source (muted) + yours (accent), matching the move list
-  const ann = el('posAnn');
-  const bits = [];
-  const srcBits = [p.srcQual, p.srcEval, p.srcUnknown].filter(Boolean);
-  if (srcBits.length) bits.push(`<span class="src">source: ${escHtml(srcBits.join(' '))}</span>`);
-  const usr = annDisplayFor(state.userAnns[p.pi]);
-  if (usr) bits.push(`<span class="q">yours: ${escHtml(usr)}</span>`);
-  if (bits.length) {
-    ann.innerHTML = bits.join(' <span class="dot">\u00B7</span> ');
-    ann.hidden = false;
-  } else {
-    ann.hidden = true; ann.replaceChildren(); ann.textContent = '';
-  }
   const cmt = plyComment(p);
   if (cmt) { el('posComment').textContent = cmt; el('posComment').hidden = false; }
   else el('posComment').hidden = true;
