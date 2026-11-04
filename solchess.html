@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Solitaire Chess</title>
+<meta name="theme-color" content="#b05530">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -4779,6 +4783,14 @@ function boot() {
   buildControls();
   show('view-collections');
   loadCollections();
+  // Offline (PWA): the service worker precaches the shell + collections.json
+  // + every .pgn listed there, and serves them cache-first. HTTPS (or
+  // localhost) only — file:// pages cannot register a worker.
+  if ('serviceWorker' in navigator &&
+      (location.protocol === 'https:' ||
+       location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+    navigator.serviceWorker.register('/sw.js').catch(() => { /* offline later */ });
+  }
 }
 
 if (typeof window !== 'undefined') boot();
