@@ -60,6 +60,30 @@
   .g-row.broken { border-color: #7a3333; }
   .g-row.broken .g-meta { color: #c07a6a; }
   .chev { color: #555; font-size: 1.2rem; flex-shrink: 0; }
+  .mini-toggle {
+    padding: 6px 10px; background: #2a2a2a; color: #999; border: 1px solid #444; border-radius: 8px;
+    font-size: 0.76rem; min-height: 34px; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+    font-family: inherit;
+  }
+  .mini-toggle:hover { background: #383838; }
+  .games-tools {
+    position: sticky; top: 0; z-index: 5; background: #1b1b1b;
+    padding: 2px 0 8px; flex: 0 0 auto;
+  }
+  .search {
+    width: 100%; background: #242424; color: #ddd; border: 1px solid #3a3a3a; border-radius: 10px;
+    padding: 10px 14px; font-size: 1rem; min-height: 44px; font-family: inherit;
+  }
+  .search::placeholder { color: #666; }
+  .search:focus { outline: none; border-color: #666; }
+  .games-sub { color: #777; font-size: 0.8rem; margin: 2px 0 10px; text-align: center; flex: 0 0 auto; min-height: 1.1em; }
+  .g-group {
+    display: flex; align-items: baseline; gap: 6px; padding: 12px 4px 6px;
+    color: #c8825f; font-weight: 700; font-size: 0.92rem;
+    border-bottom: 1px solid #333; margin-top: 4px;
+  }
+  .g-group .yr { color: #777; font-weight: 500; font-size: 0.8rem; }
+  .g-row[hidden], .g-group[hidden] { display: none; }
   .empty { color: #666; font-size: 0.9rem; text-align: center; padding: 32px 12px; line-height: 1.6; }
   .err { color: #e88; font-size: 0.9rem; text-align: center; padding: 20px 12px; line-height: 1.5; }
 
@@ -3753,7 +3777,13 @@ class Chess {
       <button class="back-btn" onclick="show('view-collections')">&#8592; Collections</button>
       <span class="title" id="gamesTitle"></span>
       <span class="spacer"></span>
+      <button class="mini-toggle" id="orderToggle" onclick="toggleOrder()"></button>
     </div>
+    <div class="games-tools">
+      <input class="search" id="gamesSearch" type="search" autocomplete="off" autocapitalize="off"
+             placeholder="Search player &hellip;" oninput="applyQuery()" onsearch="applyQuery()">
+    </div>
+    <div class="games-sub" id="gamesMeta"></div>
     <div class="card-list" id="gameList"></div>
     <div class="err" id="gamesError" hidden></div>
   </section>
@@ -3882,7 +3912,12 @@ const state = {
   collections: null,          // [{id,title}] (per listing; refetch-friendly)
   collCache: new Map(),       // id → raw collection text (in-memory, MUST)
   currentCollectionName: null,
-  games: null,                // [{title, meta, raw}] for the open collection
+  games: null,                // open collection: [{raw, idx, rowTitle, event, year, roundNum, hay, tournamentKey, ...}]
+  orderMode: 'round',         // 'round' (tournament → round) | 'file'
+  query: '',
+  rows: [],                   // buildGamesList row cache for live filtering
+  headers: [],                // group-header cache ({el, key})
+  singleEvent: '',            // single-tournament label for the games-view meta
   pendingGame: null,          // {title, raw} awaiting side pick
   game: null,                 // open game: {title, raw, headers, result, plies, positions, pairs, ...}
   side: 'white',
@@ -3977,16 +4012,89 @@ function readTags(block) {
   return tags;
 }
 const cleanTag = (v) => (typeof v === 'string' ? v.trim() : '');
-function gameTitle(block, idx) {
-  const tags = readTags(block);
+function titleFromTags(tags, idx) {
   const chapter = cleanTag(tags.ChapterName);
   const w = cleanTag(tags.White);
   const b = cleanTag(tags.Black);
-  const title = (chapter && chapter !== '?') ? chapter
+  return (chapter && chapter !== '?') ? chapter
     : (w || b) ? `${w || '?'} vs ${b || '?'}` : `Game ${idx}`;
+}
+function gameTitle(block, idx) {
+  const tags = readTags(block);
+  const title = titleFromTags(tags, idx);
   const ev = cleanTag(tags.Event);
   const full = (ev && ev !== '?') ? `${title} \u00b7 ${ev}` : title;
   return { title, full };
+}
+
+// ── Collection features: fuzzy player search + tournament/round ordering ──
+// Normalized text key: lowercase, accents stripped, whitespace collapsed.
+const stripAccents = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const normKey = (s) => stripAccents(String(s || '').toLowerCase()).replace(/\s+/g, ' ').trim();
+
+// Header-only metadata per game (no move replay): search haystack, round
+// number, year, and tournament identity (Event + year — recurring event names
+// like "Moscow"/"URS-chT" split across years instead of merging).
+function enrichGame(block, idx) {
+  const tags = readTags(block);
+  const val = (k) => cleanTag(tags[k]);
+  const roundRaw = val('Round');
+  const nm = /\d+/.exec(roundRaw);
+  const roundNum = nm ? parseInt(nm[0], 10) : null;
+  const ym = /^\d{4}/.exec(val('Date'));
+  const year = ym ? ym[0] : null;
+  const event = val('Event');
+  return {
+    idx,
+    rowTitle: titleFromTags(tags, idx),
+    event: event !== '?' ? event : '',
+    year,
+    roundRaw: roundRaw !== '?' ? roundRaw : '',
+    roundNum,
+    site: val('Site'),
+    eco: val('ECO'),
+    // search haystack: white + black + chapterName + event (normalized)
+    hay: normKey(`${val('White')} ${val('Black')} ${val('ChapterName')} ${event}`),
+    tournamentKey: normKey(event) + '\u0000' + (year || ''),
+  };
+}
+
+// Fuzzy player search: every query token must be a case/accent-insensitive
+// substring of the haystack ('tarr' → Tarrasch, 'ssky' → Spassky).
+function matchesQuery(meta, query) {
+  const toks = normKey(query).split(' ').filter(Boolean);
+  if (!toks.length) return true;
+  return toks.every((t) => meta.hay.includes(t));
+}
+
+// Tournament grouping WITHOUT round-interleaving: groups in file order of
+// first appearance; rounds ascend within each group; Round "?" games last in
+// their group; file order as the final tiebreak.
+function orderGames(games) {
+  const seen = new Map();
+  let seq = 0;
+  for (const g of games) {
+    if (!seen.has(g.tournamentKey)) { seen.set(g.tournamentKey, seq); seq++; }
+  }
+  return games
+    .map((g, i) => ({ g, i, seq: seen.get(g.tournamentKey) }))
+    .sort((a, b) => {
+      if (a.seq !== b.seq) return a.seq - b.seq;
+      const ra = a.g.roundNum == null ? Number.MAX_SAFE_INTEGER : a.g.roundNum;
+      const rb = b.g.roundNum == null ? Number.MAX_SAFE_INTEGER : b.g.roundNum;
+      return (ra - rb) || (a.i - b.i);
+    })
+    .map((x) => x.g);
+}
+
+// Labels (mode-aware: group headers already carry the event in round mode).
+function groupLabel(g) { return (g.event || 'Tournament') + (g.year ? ` (${g.year})` : ''); }
+function rowMeta(g, mode) {
+  const bits = [];
+  if (g.roundRaw) bits.push(`Rd ${g.roundRaw}`);
+  if (mode === 'file' && g.event) bits.push(g.event + (g.year ? ` (${g.year})` : ''));
+  if (g.eco && g.eco !== '?') bits.push(g.eco);
+  return bits.join(' \u00b7 ');
 }
 
 // ── Directory-listing scraper (works on python http.server + friends) ──
@@ -4076,10 +4184,13 @@ async function openCollection(id) {
       state.collCache.set(id, raw);
     }
     games = splitGames(raw).map((g, i) => {
-      const { title, full } = gameTitle(g, i + 1);
-      return { title: full, base: title, raw: g };
+      const meta = enrichGame(g, i + 1);
+      return { raw: g, ...meta, title: meta.rowTitle };
     });
   } catch (e) {
+    state.games = null;
+    state.rows = [];
+    state.headers = [];
     row.classList.remove('loading');
     row.classList.add('broken');
     row.querySelector('.g-title').textContent = 'Unreachable';
@@ -4087,35 +4198,102 @@ async function openCollection(id) {
     row.insertAdjacentHTML('beforeend', `<div class="g-meta">cannot read ${id}.pgn (${e.message})</div>`);
     return;
   }
+  const si = el('gamesSearch');
+  if (si) si.value = '';
+  state.query = '';
   renderGames(games);
 }
 
 function renderGames(games) {
   state.games = games;
-  const list = el('gameList');
-  list.replaceChildren();
   if (!games.length) {
     el('gamesError').textContent = 'No games found in this collection.';
     el('gamesError').hidden = false;
     return;
   }
   el('gamesError').hidden = true;
-  for (const g of games) {
-    const row = document.createElement('div');
-    row.className = 'g-row';
-    const info = document.createElement('div');
-    info.style.cssText = 'flex:1;min-width:0;';
-    const t = document.createElement('div'); t.className = 'g-title'; t.textContent = g.title;
-    const m = document.createElement('div'); m.className = 'g-meta';
-    info.appendChild(t); info.appendChild(m);
-    const tags = readTags(g.raw);
-    const eco = cleanTag(tags.ECO), date = cleanTag(tags.Date);
-    m.textContent = [eco !== '?' ? eco : '', date && date !== '????.??.??' ? date : ''].filter(Boolean).join(' \u00b7 ');
-    const c = document.createElement('span'); c.className = 'chev'; c.textContent = '\u203a';
-    row.appendChild(info); row.appendChild(c);
-    row.onclick = () => promptSide(g);
+  syncOrderToggle();
+  // single-tournament collection: the event shows once in the meta line
+  const unique = new Set(games.map((g) => g.tournamentKey));
+  state.singleEvent = unique.size === 1 ? groupLabel(games[0]) : '';
+  buildGamesList();
+  applyQuery();
+}
+
+// Rows built ONCE per collection/open-toggle (order mode); search then filters
+// live over the cached rows so typing stays instant even for 2231 games.
+function buildGamesList() {
+  const list = el('gameList');
+  list.replaceChildren();
+  const ordered = state.orderMode === 'round' ? orderGames(state.games) : state.games;
+  const multi = state.orderMode === 'round' &&
+    new Set(state.games.map((g) => g.tournamentKey)).size > 1;
+  let lastKey = null;
+  state.rows = [];
+  state.headers = [];
+  for (const g of ordered) {
+    if (multi && g.tournamentKey !== lastKey) {
+      lastKey = g.tournamentKey;
+      const hdr = document.createElement('div');
+      hdr.className = 'g-group';
+      hdr.innerHTML = '<span class="ev"></span><span class="yr"></span>';
+      hdr.querySelector('.ev').textContent = g.event || 'Tournament';
+      hdr.querySelector('.yr').textContent = g.year || '';
+      list.appendChild(hdr);
+      state.headers.push({ el: hdr, key: g.tournamentKey });
+    }
+    const row = makeGameRow(g);
     list.appendChild(row);
+    state.rows.push({ row, game: g });
   }
+}
+
+function makeGameRow(g) {
+  const row = document.createElement('div');
+  row.className = 'g-row';
+  const info = document.createElement('div');
+  info.style.cssText = 'flex:1;min-width:0;';
+  const t = document.createElement('div'); t.className = 'g-title'; t.textContent = g.rowTitle;
+  const m = document.createElement('div'); m.className = 'g-meta'; m.textContent = rowMeta(g, state.orderMode);
+  info.appendChild(t); info.appendChild(m);
+  const c = document.createElement('span'); c.className = 'chev'; c.textContent = '\u203a';
+  row.appendChild(info); row.appendChild(c);
+  row.onclick = () => promptSide(g);
+  return row;
+}
+
+// Live filter over the built rows; hides empty group headers too.
+function applyQuery() {
+  if (!state.games) return;
+  const inp = el('gamesSearch');
+  state.query = inp ? inp.value : '';
+  let shown = 0;
+  const visByKey = new Map();
+  for (const { row, game } of state.rows) {
+    const ok = matchesQuery(game, state.query);
+    row.hidden = !ok;
+    if (ok) {
+      shown++;
+      visByKey.set(game.tournamentKey, (visByKey.get(game.tournamentKey) || 0) + 1);
+    }
+  }
+  for (const h of state.headers) h.el.hidden = !(visByKey.get(h.key) > 0);
+  const total = state.rows.length;
+  const parts = [];
+  if (total) parts.push(shown === total ? `${total} games` : `${shown} / ${total} games`);
+  if (state.singleEvent) parts.push(state.singleEvent);
+  el('gamesMeta').textContent = parts.join(' \u00b7 ');
+}
+
+function syncOrderToggle() {
+  el('orderToggle').textContent = state.orderMode === 'round' ? '\u21c4 File order' : '\u21c4 Round order';
+}
+function toggleOrder() {
+  if (!state.games) return;
+  state.orderMode = state.orderMode === 'round' ? 'file' : 'round';
+  syncOrderToggle();
+  buildGamesList();
+  applyQuery();
 }
 
 function backToGames() { show('view-games'); }
@@ -4357,7 +4535,7 @@ function startGame(g, side, keepAnns = false) {
   }
   if (!keepAnns) state.userAnns = {};
   const pairs = buildPairs(parsed.plies);
-  state.game = { ...parsed, title: g.title, base: g.base, raw: g.raw, pairs };
+  state.game = { ...parsed, title: g.title, raw: g.raw, pairs };
   const { steps } = buildSteps(pairs, side);
   if (!steps.length) {
     show('view-games');
@@ -4383,7 +4561,7 @@ function startGame(g, side, keepAnns = false) {
   if (parsed.result !== '*') parts.push(parsed.result);
   el('scoreLine').textContent = parts.join('  \u00b7  ');
   const opening = [cleanTag(parsed.headers.ECO), cleanTag(parsed.headers.Opening)]
-    .filter((x) => x && x !== '?').join('  \u00b7  ') || parsed.base;
+    .filter((x) => x && x !== '?').join('  \u00b7  ') || state.game.title;
   el('openingName').textContent = opening;
   show('view-play');
   renderPlay();
@@ -4571,7 +4749,7 @@ function downloadPgn() {
   URL.revokeObjectURL(url);
 }
 function safePgnFilename() {
-  const title = (state.game && state.game.base) || 'solchess';
+  const title = (state.game && state.game.title) || 'solchess';
   return title.replace(/[^\w\-]+/g, '_').slice(0, 60) + '.pgn';
 }
 
