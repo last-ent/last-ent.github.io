@@ -222,6 +222,10 @@
   .side-btn { padding: 16px; font-size: 1.2rem; font-weight: 700; border-radius: 12px; border: 1px solid #444; cursor: pointer; }
   .side-btn.white { background: #e6d8c8; color: #2a1a10; border-color: #c5a076; }
   .side-btn.black { background: #202020; color: #ddd; border-color: #555; }
+  .pw-actions { gap: 10px; }
+  .pw-err { color: #e88; font-size: 0.82rem; text-align: center; }
+  .pw-btns { display: flex; gap: 8px; }
+  .pw-btns .side-btn { padding: 10px 16px; font-size: 1rem; flex: 1; }
 
   .credit { margin-top: 8px; color: #3c3c3c; font-size: 0.66rem; text-align: center; line-height: 1.5; }
 </style>
@@ -3766,12 +3770,12 @@ class Chess {
   <!-- VIEW 1: COLLECTIONS -->
   <section class="view" id="view-collections">
     <h1>Solitaire Chess</h1>
-    <div class="sub" id="collSub">collections/ &middot; one .pgn file = one collection</div>
+    <div class="sub" id="collSub">collections/ &middot; one .pgn or &#128274; .pgn.enc file = one collection</div>
     <div class="card-list" id="collList"></div>
     <div class="empty" id="collEmpty" hidden>No collections found.<br>
-      <span style="color:#555">Drop <code>.pgn</code> files into <code>collections/</code> next to this page.<br>
+      <span style="color:#555">Drop <code>.pgn</code> files (or password-protected <code>.pgn.enc</code>) into <code>collections/</code> next to this page.<br>
       On hosts without directory listings, keep <code>collections/collections.json</code> updated:</span><br>
-      <code style="font-size:0.75rem">{"collections": ["Name"]}</code></div>
+      <code style="font-size:0.75rem">{"collections":["Name"], "encrypted":["Secret Name"]}</code></div>
     <div class="err" id="collError" hidden></div>
   </section>
 
@@ -3879,6 +3883,22 @@ class Chess {
   <div class="pos-hint">tap outside to cancel</div>
 </div>
 
+<!-- PASSWORD PROMPT -->
+<div class="pos-overlay" id="pwPrompt" hidden onclick="if(event.target===this) hidePwPrompt()">
+  <div class="pos-caption">&#128274; Password</div>
+  <div class="side-title" id="pwTitle"></div>
+  <form class="side-actions pw-actions" onsubmit="return submitPw(event)">
+    <input class="search" id="pwInput" type="password" autocomplete="off" autocapitalize="off"
+           placeholder="collection password &hellip;">
+    <div class="pw-err" id="pwError" hidden></div>
+    <div class="pw-btns">
+      <button type="submit" class="side-btn white">Unlock</button>
+      <button type="button" class="side-btn black" onclick="hidePwPrompt()">Cancel</button>
+    </div>
+  </form>
+  <div class="pos-hint">tap outside to cancel</div>
+</div>
+
 <script>
 'use strict';
 // ─────────────────────────────────────────────────────────────────────────────
@@ -3886,6 +3906,9 @@ class Chess {
 // Reads `.pgn` collections from a folder next to this file (directory listing
 // with a collections.json fallback), replays mainlines through chess.js, and
 // exports the ORIGINAL PGN with the user's NAG annotations spliced in.
+// Password-protected collections: `.pgn.enc` envelopes (PBKDF2 → AES-256-GCM,
+// produced by scripts/encrypt-pgn.mjs) are decrypted in-browser after a
+// password prompt; the password is never stored or sent anywhere.
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── Constants ──
@@ -3923,6 +3946,7 @@ const state = {
   headers: [],                // group-header cache ({el, key})
   singleEvent: '',            // single-tournament label for the games-view meta
   pendingGame: null,          // {title, raw} awaiting side pick
+  pendingEnc: null,           // encrypted collection id awaiting password unlock
   game: null,                 // open game: {title, raw, headers, result, plies, positions, pairs, ...}
   side: 'white',
   stepIndex: 0,
@@ -4101,6 +4125,37 @@ function rowMeta(g, mode) {
   return bits.join(' \u00b7 ');
 }
 
+// ── Encrypted-collection crypto (decrypt side; encrypt via scripts/encrypt-pgn.mjs) ──
+// Envelope: {"v":1,"kdf":"PBKDF2-SHA256","iter":N,"salt":b64,
+//            "alg":"AES-256-GCM","iv":b64,"ct":b64}
+// The password is never stored; a wrong guess fails AES-GCM authentication
+// (decrypt rejects), which is the whole "correct password?" test.
+const ENC_KDF = 'PBKDF2-SHA256';
+const ENC_ALG = 'AES-256-GCM';
+
+function b64decode(s) {
+  const bin = atob(String(s));
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+async function decryptPgn(env, password) {
+  if (!env || env.v !== 1 || env.kdf !== ENC_KDF || env.alg !== ENC_ALG ||
+      !env.salt || !env.iv || !env.ct || !(Number(env.iter) > 0)) {
+    throw new Error('unsupported encrypted-collection format');
+  }
+  const pw = new TextEncoder().encode(String(password));
+  const baseKey = await crypto.subtle.importKey('raw', pw, 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', hash: 'SHA-256', salt: b64decode(env.salt), iterations: Number(env.iter) },
+    baseKey, 256);
+  const key = await crypto.subtle.importKey('raw', bits, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64decode(env.iv) }, key, b64decode(env.ct));
+  return new TextDecoder().decode(plain);
+}
+// ── end encrypted-collection crypto ──
+
 // ── Directory-listing scraper (works on python http.server + friends) ──
 function listFromListing(html) {
   const out = [];
@@ -4113,11 +4168,12 @@ function listFromListing(html) {
     let name;
     try { name = decodeURIComponent(href); } catch { name = href; }
     const base = name.split('/').pop();
-    if (!/\.pgn$/i.test(base)) continue;
-    const id = base.slice(0, -4);
+    const isEnc = /\.pgn\.enc$/i.test(base);
+    if (!isEnc && !/\.pgn$/i.test(base)) continue;
+    const id = isEnc ? base.replace(/\.pgn\.enc$/i, '') : base.slice(0, -4);
     if (!id || seen.has(id)) continue;
     seen.add(id);
-    out.push({ id, title: id });
+    out.push({ id, title: id, encrypted: isEnc });
   }
   return out;
 }
@@ -4139,7 +4195,12 @@ async function loadCollections() {
       if (res.ok) {
         const data = JSON.parse(await res.text());
         const arr = Array.isArray(data) ? data : data.collections;
-        if (Array.isArray(arr)) names = arr.map((n) => ({ id: String(n), title: String(n) }));
+        const plain = Array.isArray(arr) ? arr : [];
+        const encs = (!Array.isArray(data) && Array.isArray(data.encrypted)) ? data.encrypted : [];
+        if (plain.length || encs.length) {
+          names = plain.map((n) => ({ id: String(n), title: String(n) }))
+            .concat(encs.map(String).map((id) => ({ id, title: id, encrypted: true })));
+        }
       }
     } catch { /* no fallback either */ }
   }
@@ -4160,15 +4221,26 @@ function renderCollections() {
   for (const c of names) {
     const card = document.createElement('div');
     card.className = 'card';
-    card.innerHTML = `<div class="c-title"></div><div class="c-meta">${c.id.replace(/</g, '&lt;')}.pgn</div>`;
-    card.querySelector('.c-title').textContent = c.title;
-    card.onclick = () => openCollection(c.id);
+    const meta = `${c.id.replace(/</g, '&lt;')}.pgn${c.encrypted ? '.enc' : ''}`;
+    card.innerHTML = `<div class="c-title"></div><div class="c-meta">${meta}</div>`;
+    card.querySelector('.c-title').textContent = (c.encrypted ? '\ud83d\udd12 ' : '') + c.title;
+    card.onclick = () => openCollection(c.id, !!c.encrypted);
     list.appendChild(card);
   }
 }
 
-async function openCollection(id) {
-  state.currentCollectionName = id;
+async function openCollection(id, encrypted) {
+  if (encrypted) {
+    const cached = state.collCache.get(id);
+    if (cached !== undefined) return openFromRaw(id, cached);   // unlocked once → in-memory only
+    state.pendingEnc = id;
+    el('pwTitle').textContent = id;
+    el('pwError').hidden = true;
+    el('pwInput').value = '';
+    el('pwPrompt').hidden = false;
+    el('pwInput').focus();
+    return;
+  }
   show('view-games');
   el('gamesTitle').textContent = id;
   el('gamesError').hidden = true;
@@ -4178,19 +4250,15 @@ async function openCollection(id) {
   row.className = 'g-row loading';
   row.innerHTML = `<div class="g-title">Loading&hellip;</div>`;
   list.appendChild(row);
-  let games;
+  let raw;
   try {
-    let raw = state.collCache.get(id);
+    raw = state.collCache.get(id);
     if (raw === undefined) {
       const res = await fetch(state.collectionsBase + encodeURIComponent(id) + '.pgn');
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       raw = await res.text();
       state.collCache.set(id, raw);
     }
-    games = splitGames(raw).map((g, i) => {
-      const meta = enrichGame(g, i + 1);
-      return { raw: g, ...meta, title: meta.rowTitle };
-    });
   } catch (e) {
     state.games = null;
     state.rows = [];
@@ -4202,10 +4270,65 @@ async function openCollection(id) {
     row.insertAdjacentHTML('beforeend', `<div class="g-meta">cannot read ${id}.pgn (${e.message})</div>`);
     return;
   }
+  openFromRaw(id, raw);
+}
+
+// Shared continuation once a collection's PGN text is in hand (plain fetch,
+// cached, or freshly decrypted): switches to the games view and lists games.
+function openFromRaw(id, raw) {
+  state.currentCollectionName = id;
+  show('view-games');
+  el('gamesTitle').textContent = id;
+  const games = splitGames(raw).map((g, i) => {
+    const meta = enrichGame(g, i + 1);
+    return { raw: g, ...meta, title: meta.rowTitle };
+  });
   const si = el('gamesSearch');
   if (si) si.value = '';
   state.query = '';
   renderGames(games);
+}
+
+// ── Password prompt for encrypted collections ──
+async function submitPw(ev) {
+  ev.preventDefault();
+  const id = state.pendingEnc;
+  const errEl = el('pwError');
+  if (!id) { el('pwPrompt').hidden = true; return false; }
+  const pw = el('pwInput').value;
+  if (!pw) {
+    errEl.textContent = 'Enter the collection password.';
+    errEl.hidden = false;
+    return false;
+  }
+  errEl.hidden = true;
+  let env, text;
+  try {
+    const res = await fetch(state.collectionsBase + encodeURIComponent(id) + '.pgn.enc');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    env = JSON.parse(await res.text());
+    text = await decryptPgn(env, pw);   // rejects (GCM auth) on a wrong password
+  } catch (e) {
+    errEl.textContent = /unsupported encrypted-collection/.test(e.message)
+      ? `cannot read ${id}.pgn.enc (${e.message})`
+      : 'Wrong password (or the file is corrupt).';
+    errEl.hidden = false;
+    return false;
+  }
+  state.collCache.set(id, text);        // unlock lives in memory only (until reload)
+  state.pendingEnc = null;
+  el('pwPrompt').hidden = true;
+  el('pwError').hidden = true;
+  el('pwInput').value = '';
+  openFromRaw(id, text);
+  return false;
+}
+
+function hidePwPrompt() {
+  state.pendingEnc = null;
+  el('pwPrompt').hidden = true;
+  el('pwError').hidden = true;
+  el('pwInput').value = '';
 }
 
 function renderGames(games) {

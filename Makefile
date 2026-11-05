@@ -24,5 +24,12 @@ newpost:
 install:
 	pipenv install $(pkgs)
 
+# ── solchess encrypted collections ──
+# Wrap a plaintext PGN in a password-protected envelope served by files/solchess.html:
+#   make encrypt IN=local-pgn/Secret.pgn OUT=files/collections/Secret.pgn.enc PASSWORD=hunter2
+# PASSWORD unset → the script prompts on stdin. Also honored: SOLCHESS_PASSWORD directly.
+encrypt:
+	SOLCHESS_PASSWORD="$(PASSWORD)" node scripts/encrypt-pgn.mjs "$(IN)" "$(OUT)"
+
 help:
 	less Makefile
