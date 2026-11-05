@@ -1,7 +1,9 @@
 // Solitaire Chess service worker — offline shell + precached PGN collections.
 // Scope: site root. Precache list comes from collections/collections.json, so
-// adding a game = adding one entry to that file (plus a deploy).
-const VERSION = 'v1';
+// adding a game = adding one entry to that file (plus a deploy). Encrypted
+// collections (.pgn.enc, listed under "encrypted") are precached too — the
+// ciphertext is safe to cache; decryption stays in the browser.
+const VERSION = 'v2';
 const CACHE = 'solchess-' + VERSION;
 const SHELL = ['solchess.html'];
 const JSON_URL = 'collections/collections.json';
@@ -13,16 +15,24 @@ self.addEventListener('install', (event) => {
     // Read the collection list and precache every .pgn file.
     // allSettled so a single missing file can never fail the install.
     let names = [];
+    let encNames = [];
     try {
       const res = await fetch(JSON_URL, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         const arr = Array.isArray(data) ? data : data.collections;
         if (Array.isArray(arr)) names = arr.filter((n) => typeof n === 'string');
+        if (!Array.isArray(data) && Array.isArray(data.encrypted)) {
+          encNames = data.encrypted.filter((n) => typeof n === 'string');
+        }
       }
     } catch (e) { /* json unreachable — it is precached directly below */ }
     const base = JSON_URL.slice(0, JSON_URL.lastIndexOf('/') + 1);
-    const urls = [JSON_URL, ...names.map((n) => base + encodeURIComponent(n) + '.pgn')];
+    const urls = [
+      JSON_URL,
+      ...names.map((n) => base + encodeURIComponent(n) + '.pgn'),
+      ...encNames.map((n) => base + encodeURIComponent(n) + '.pgn.enc'),
+    ];
     await Promise.allSettled(urls.map((u) => cache.add(u)));
     self.skipWaiting();
   })());
@@ -41,7 +51,7 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   const path = new URL(req.url).pathname;
   const isShell = path.endsWith('/solchess.html');
-  const isData = /\/[^/]*\.pgn$/i.test(path) || /\/collections\.json$/i.test(path);
+  const isData = /\/[^/]*\.pgn(\.enc)?$/i.test(path) || /\/collections\.json$/i.test(path);
   if (!isShell && !isData) return;
 
   if (isShell) {

@@ -167,7 +167,7 @@
 <h3>What about <code>.get</code>?</h3>
 <p><code>Option</code> type also has <code>.get</code> method but it is unsafe to use as <code>None.get</code> will throw an exception and we want to avoid running into such errors.</p>
 <blockquote>
-<p><strong>Note</strong>: <code>Option</code> ensures that we will never run into <code>NullPointerException</code> (NPE) thanks to <code>.getOrElse</code> &amp; pattern matching<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">5</a></sup>. </p>
+<p><strong>Note</strong>: <code>Option</code> ensures that we will never run into <code>NullPointerException</code> (NPE) thanks to <code>.getOrElse</code> &amp; pattern matching<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">4</a></sup>. </p>
 </blockquote>
 <h2>Work within Option context</h2>
 <blockquote>
@@ -215,7 +215,7 @@
 <span class="w">  </span><span class="p">}</span>
 </pre></div>
 
-<h3>Using <code>for-comprehension</code> or <code>flatMap</code><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>
+<h3>Using <code>for-comprehension</code> or <code>flatMap</code><sup id="fnref:4"><a class="footnote-ref" href="#fn:4">5</a></sup>
 </h3>
 <blockquote>
 <p><code>for-comprehension</code> (and <code>flatMap</code>) are useful when multiple functions in the chain return <code>Option</code> and but we only want to execute the next function if function's input is available.</p>
@@ -285,11 +285,11 @@
 <li id="fn:2">
 <p>Pattern Matching is quite versatile as we will see in case of <code>Either</code>. I plan on writing a separate post about its versatility. <a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 3 in the text">↩</a></p>
 </li>
-<li id="fn:4">
-<p>If you are unfamiliar with how <code>flatMap</code> or <code>for-comprehension</code> works, you can ignore <code>for-comprehension</code> for now. I will be covering <code>map/flatMap</code> in a future post. <a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">↩</a></p>
-</li>
 <li id="fn:3">
-<p>The caveat is that if we have <code>Option[None]</code> then we risk NPE at next level. However <code>Option[None]</code> is a code smell and needs to be fixed. <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 5 in the text">↩</a></p>
+<p>The caveat is that if we have <code>Option[None]</code> then we risk NPE at next level. However <code>Option[None]</code> is a code smell and needs to be fixed. <a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 4 in the text">↩</a></p>
+</li>
+<li id="fn:4">
+<p>If you are unfamiliar with how <code>flatMap</code> or <code>for-comprehension</code> works, you can ignore <code>for-comprehension</code> for now. I will be covering <code>map/flatMap</code> in a future post. <a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 5 in the text">↩</a></p>
 </li>
 </ol>
 </div>

@@ -104,7 +104,7 @@
 <p>To make it easier/interesting, I will explain it using a visual approach.</p>
 <p>Let's use the following problem statement.</p>
 <ul>
-<li>We have API for a queue<sup id="fnref:0"><a class="footnote-ref" href="#fn:0">2</a></sup> that can be queried using <code>pollFn</code> function.</li>
+<li>We have API for a queue<sup id="fnref:0"><a class="footnote-ref" href="#fn:0">1</a></sup> that can be queried using <code>pollFn</code> function.</li>
 <li>We need to process data returned by queue using <code>process</code> function.</li>
 <li>There may or may not be data at the time of querying.</li>
 </ul>
@@ -185,7 +185,7 @@
 </pre></div>
 
 <p>At first glance, it might seem like the imperative version of poll is better, because it consists of four lines of code and code will be familiar to both FP style &amp; imperative style of programmers.</p>
-<p>I admit that the FP/Stream version of code will be a bit hard for those who aren't already used to these concepts<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>I admit that the FP/Stream version of code will be a bit hard for those who aren't already used to these concepts<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">2</a></sup>.</p>
 <h2>Visualising Streams</h2>
 <p>Before we jump to conclusions, let's try to visualize what the code is doing to see if this might improve our intuition of the code.</p>
 <p>We will start with the basic stream <code>pollStream</code> and build upon it by adding each stream function and looking at how it modifies the stream.</p>
@@ -247,11 +247,11 @@
 <div class="footnote">
 <hr>
 <ol>
-<li id="fn:1">
-<p>See <a href="https://fs2.io/guide.html">https://fs2.io/guide.html</a> <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">↩</a></p>
-</li>
 <li id="fn:0">
-<p>I was dealing with Amazon SQS but for this example I am adding extra constraints to make it more interesting and easier to gr0k. <a class="footnote-backref" href="#fnref:0" title="Jump back to footnote 2 in the text">↩</a></p>
+<p>I was dealing with Amazon SQS but for this example I am adding extra constraints to make it more interesting and easier to gr0k. <a class="footnote-backref" href="#fnref:0" title="Jump back to footnote 1 in the text">↩</a></p>
+</li>
+<li id="fn:1">
+<p>See <a href="https://fs2.io/guide.html">https://fs2.io/guide.html</a> <a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 2 in the text">↩</a></p>
 </li>
 </ol>
 </div>
