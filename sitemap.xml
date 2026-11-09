@@ -7,7 +7,7 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://last-ent.com/</loc>
-  <lastmod>2026-11-05T18:42:00Z</lastmod>
+  <lastmod>2026-11-09T19:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/2019/</loc>
@@ -23,7 +23,7 @@
  </url>
  <url>
   <loc>https://last-ent.com/archive.html</loc>
-  <lastmod>2026-11-05T18:41:00Z</lastmod>
+  <lastmod>2026-11-09T19:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/categories/</loc>
@@ -91,7 +91,7 @@
  </url>
  <url>
   <loc>https://last-ent.com/index-1.html</loc>
-  <lastmod>2026-11-05T18:41:00Z</lastmod>
+  <lastmod>2026-11-09T19:57:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/lid-flashcards.html</loc>
@@ -174,8 +174,12 @@
   <lastmod>2026-11-05T18:42:00Z</lastmod>
  </url>
  <url>
+  <loc>https://last-ent.com/solchess-wireframe.html</loc>
+  <lastmod>2026-11-06T00:55:00Z</lastmod>
+ </url>
+ <url>
   <loc>https://last-ent.com/solchess.html</loc>
-  <lastmod>2026-11-05T18:14:00Z</lastmod>
+  <lastmod>2026-11-09T19:52:00Z</lastmod>
  </url>
  <url>
   <loc>https://last-ent.com/solitaire-chess.html</loc>
