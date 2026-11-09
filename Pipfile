@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 nikola = "*"
+jinja2 = "*"
 aiohttp = "*"
 watchdog = "*"
 ghp-import = "*"
@@ -12,4 +13,4 @@ ghp-import = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.11"

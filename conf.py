@@ -651,8 +651,11 @@ GITHUB_DEPLOY_BRANCH = 'master'
 GITHUB_REMOTE_NAME = 'origin'
 
 # Whether or not github_deploy should commit to the source branch automatically
-# before deploying.
-GITHUB_COMMIT_SOURCE = True
+# before deploying. Keep False: auto-commit runs `git add .`, which sweeps
+# untracked junk (drafts, doit.cfg, doit cache DB) into src/ and, for anything
+# under files/, publishes it to master. Commit source explicitly instead —
+# see Makefile deploy target.
+GITHUB_COMMIT_SOURCE = False
 
 # Where the output site should be located
 # If you don't use an absolute path, it will be considered as relative
