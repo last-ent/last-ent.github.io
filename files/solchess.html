@@ -4571,8 +4571,12 @@ function skipVariation(text, i) {
   return n;
 }
 
-// ── Step model (side-aware; port of logic.js buildStepMovesFor semantics) ──
-const offsetFor = (side) => (side === 'white' ? 1 : 0);
+// ── Step model (side-aware) ──
+// Guessing starts at START_MOVE (full move number): moves before it are shown
+// as given opening context (movelist + reveal display), the user guesses from
+// move START_MOVE onward. Each step = { answer: user's move N, after: reply } —
+// for White the reply is Black's move N, for Black it's White's move N+1.
+const START_MOVE = 7;
 function flatPlies(pairs) {
   const out = [];
   for (const p of pairs) { if (p.w) out.push(p.w); if (p.b) out.push(p.b); }
@@ -4595,11 +4599,12 @@ function buildSteps(pairs, side) {
   const turn = side === 'white' ? 'w' : 'b';
   const user = all.filter((p) => p.turn === turn);
   const opp = all.filter((p) => p.turn !== turn);
-  const offset = offsetFor(side);
-  const total = Math.max(0, user.length - offset);
+  const oppByN = new Map(opp.map((q) => [q.n, q]));
   const steps = [];
-  for (let i = 0; i < total; i++) {
-    steps.push({ answer: user[offset + i] || null, after: opp[i + 1] || null });
+  for (const p of user) {
+    if (p.n < START_MOVE) continue;
+    const replyN = side === 'white' ? p.n : p.n + 1;
+    steps.push({ answer: p, after: oppByN.get(replyN) || null });
   }
   return { all, user, opp, steps };
 }
@@ -4707,15 +4712,15 @@ function renderPlay() {
   }
   opp.classList.remove('finished-msg');
   if (state.stepIndex === 0) {
-    const turn = state.side === 'white' ? 'w' : 'b';
-    const oppFirst = state.game.plies.find((p) => p.turn !== turn);
+    const plyAt = (n, t) => state.game.plies.find((p) => p.n === n && p.turn === t) || null;
     if (state.side === 'white') {
-      const freebie = state.game.plies.find((p) => p.turn === turn);
-      ans.textContent = freebie ? '\u25B8 ' + plyDisp(freebie) : '';
-      opp.textContent = plyDisp(oppFirst);
+      // opening given: show the last pre-revealed full move, then ask for 7.
+      ans.textContent = '\u25B8 ' + plyDisp(plyAt(START_MOVE - 1, 'w'));
+      opp.textContent = plyDisp(plyAt(START_MOVE - 1, 'b'));
     } else {
+      // White's START_MOVE-th move just landed; Black is to guess its own.
       ans.textContent = '';
-      opp.textContent = plyDisp(oppFirst);
+      opp.textContent = plyDisp(plyAt(START_MOVE, 'w'));
     }
     prompt.textContent = promptText(0);
   } else {
@@ -4782,12 +4787,13 @@ function renderMoves() {
   body.replaceChildren();
   const pairs = state.game.pairs;
   const k = state.stepIndex;
+  const pre = START_MOVE - 1;   // opening moves shown as given, before any guess
   for (let i = 0; i < pairs.length; i++) {
-    const showW = i <= k;
-    const showB = state.side === 'white' ? i <= k : i <= k - 1;
+    const showW = i < pre + k + (state.side === 'black' ? 1 : 0);
+    const showB = i < pre + k;
     if (!showW && !showB) break;
     const tr = document.createElement('tr');
-    if ((state.side === 'white' && i === k && k > 0) || (state.side === 'black' && i === k - 1 && k > 0)) tr.className = 'current';
+    if (k > 0 && i === pre + k - 1) tr.className = 'current';
     const n = document.createElement('td'); n.textContent = pairs[i].n + '.'; tr.appendChild(n);
     const tdW = document.createElement('td'); if (showW && pairs[i].w) tdW.innerHTML = cellHtml(pairs[i].w); tr.appendChild(tdW);
     const tdB = document.createElement('td'); if (showB && pairs[i].b) tdB.innerHTML = cellHtml(pairs[i].b); tr.appendChild(tdB);
