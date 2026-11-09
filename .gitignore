@@ -15,3 +15,4 @@ output
 # plaintext PGN sources waiting to be encrypted into collections/*.pgn.enc —
 # never commit these; only the .enc envelopes are public
 local-pgn/
+doit.cfg
