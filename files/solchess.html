@@ -135,23 +135,23 @@
   /* ── annotate dock ── */
   .dock {
     flex: 0 0 auto;
-    background: #232323; border: 1px solid #3a3a3a; border-radius: 10px; padding: 8px 10px;
-    display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px;
+    background: #232323; border: 1px solid #3a3a3a; border-radius: 10px; padding: 10px 12px;
+    display: flex; flex-direction: column; gap: 6px; margin-bottom: 6px;
   }
-  .dock-head { font-size: 0.72rem; color: #999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .dock-head { font-size: 0.95rem; color: #999; font-weight: 600; }
   .target-row { display: flex; gap: 6px; }
   .tgt {
     flex: 1; background: #2d2d2d; color: #999; border: 1px solid #3d3d3d; border-radius: 6px;
     font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 0.82rem;
-    padding: 5px 8px; min-height: 30px; cursor: pointer; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    padding: 5px 8px; min-height: 36px; cursor: pointer; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .tgt.active { background: #c05530; color: #f0e0d6; border-color: #c05530; }
   .ann-rows { display: flex; flex-direction: column; gap: 4px; }
   .ann-row { display: flex; gap: 5px; flex-wrap: nowrap; align-items: center; }
   .tbtn {
     background: #2d2d2d; color: #999; border: 1px solid #3d3d3d; border-radius: 6px;
-    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 0.92rem;
-    padding: 5px 9px; cursor: pointer; flex: 1 1 auto; min-height: 32px; min-width: 0;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 1.05rem;
+    padding: 8px 10px; cursor: pointer; flex: 1 1 auto; min-height: 40px; min-width: 0;
   }
   .tbtn.active { background: #c05530; color: #f0e0d6; border-color: #c05530; }
   .ann-src {
@@ -225,9 +225,9 @@
     width: 100%; display: block; border-radius: 6px;
     touch-action: manipulation; -webkit-user-select: none; user-select: none;
   }
-  .bnav { display: flex; gap: 8px; margin-top: 10px; flex: 0 0 auto; }
+  .bnav { display: flex; gap: 6px; margin-top: 10px; flex: 0 0 auto; justify-content: center; }
   .nbtn {
-    flex: 1; min-height: 48px; background: #2a2a2a; color: #ccc; border: 1px solid #444;
+    flex: 0 0 auto; width: 44px; min-height: 44px; background: #2a2a2a; color: #ccc; border: 1px solid #444;
     border-radius: 10px; cursor: pointer; font-family: inherit;
     -webkit-user-select: none; user-select: none; touch-action: manipulation;
     display: flex; align-items: center; justify-content: center;
@@ -240,11 +240,12 @@
   .nbtn svg { pointer-events: none; }
   .nbtn.on { background: #3a4d3a; color: #c9e6c9; border-color: #507150; }
   .bbar {
-    display: flex; gap: 8px; margin-top: 10px; flex: 0 0 auto;
+    display: flex; gap: 6px; margin-top: 10px; flex: 0 0 auto; justify-content: center;
     position: sticky; bottom: 0; z-index: 6; background: #1b1b1b;
+    padding: 6px 0 2px; border-top: 1px solid #2a2a2a;
   }
   .bbtn {
-    flex: 1; min-height: 44px; background: #2a2a2a; color: #999; border: 1px solid #444;
+    flex: 0 0 auto; width: 44px; min-height: 44px; background: #2a2a2a; color: #999; border: 1px solid #444;
     border-radius: 10px; cursor: pointer; touch-action: manipulation;
     display: flex; align-items: center; justify-content: center;
     -webkit-user-select: none; user-select: none;
@@ -282,8 +283,19 @@
     font-size: 0.78rem; color: #999; text-align: center; margin-top: 3px;
     font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; min-height: 1em;
   }
-  .bc-move { color: #c8825f; text-transform: none; letter-spacing: 0; }
-  .bc-pre { font-style: italic; color: #8a8a8a; font-size: 0.8rem; line-height: 1.4; }
+  .evline {
+    display: inline-block; margin: 3px 4px 0 0; padding: 5px 10px; min-height: 34px;
+    background: #2d2d2d; color: #bbb; border: 1px solid #3d3d3d; border-radius: 6px;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 0.9rem;
+    cursor: pointer; touch-action: manipulation;
+  }
+  .evline:hover { background: #383838; }
+  .evline:active { background: #444; }
+  .moveline {
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 1rem;
+    font-weight: 600; color: #ddd; text-align: center; min-height: 1.4em; margin-bottom: 4px; flex: 0 0 auto;
+  }
+  .bc-pre { font-style: italic; color: #8a8a8a; font-size: 0.8rem; line-height: 1.4; text-align: center; }
   .bc-post {
     width: 100%; margin-top: 4px; background: #242424; color: #ddd; border: 1px solid #3a3a3a;
     border-radius: 8px; padding: 8px 10px; font-size: 1rem; font-family: inherit; resize: vertical; min-height: 44px;
@@ -333,8 +345,8 @@
   }
   .pos-hint { color: #666; font-size: 0.8rem; text-align: center; }
 
-  /* comment modal: contents capped to the board width for a tidy column */
-  #commentModal .target-row, #commentModal .bc-post { width: min(74vmin, 380px); }
+  /* annotate modal: contents capped to the board width for a tidy column */
+  #commentModal .target-row, #commentModal .ann-rows, #commentModal .bc-post { width: min(74vmin, 380px); }
 
   /* sync toast: launch/re-sync status pill (top, pointer-transparent) */
   .sync-toast {
@@ -4008,6 +4020,9 @@ class Chess {
 
     <div class="bboard" id="browseBoard"></div>
 
+    <div class="moveline" id="moveLine"></div>
+    <div class="bc-pre" id="bcPre" hidden></div>
+
     <div class="evalwrap" id="evalWrap" hidden>
       <div class="evalbar"><div class="evalfill" id="evalFill"></div></div>
       <div class="evaltext" id="evalText"></div>
@@ -4024,15 +4039,6 @@ class Chess {
     </div>
 
     <div class="vchips" id="vChips" hidden></div>
-
-    <div class="dock">
-      <div class="dock-head"><span class="bc-move" id="bcMoveLabel"></span></div>
-      <div class="bc-pre" id="bcPre" hidden></div>
-      <div class="ann-rows">
-        <div class="ann-row" id="bEvalRow"></div>
-        <div class="ann-row" id="bQualRow"></div>
-      </div>
-    </div>
 
     <div class="moves-strip" id="browseMovesStrip">
       <div class="moves-head" onclick="toggleBrowseMoves()">
@@ -4108,12 +4114,16 @@ class Chess {
 
 <!-- COMMENT MODAL (bottom-bar comment button): board + comment box + save/cancel -->
 <div class="pos-overlay" id="commentModal" hidden onclick="if(event.target===this) closeCommentModal()">
-  <div class="pos-caption">Comment</div>
+  <div class="pos-caption">Annotate</div>
   <div class="target-row" id="cmTargets">
     <button class="tgt" id="cmWhite" onclick="pickCommentTarget(false)"></button>
     <button class="tgt" id="cmBlack" onclick="pickCommentTarget(true)"></button>
   </div>
   <div id="cmBoard"></div>
+  <div class="ann-rows">
+    <div class="ann-row" id="mEvalRow"></div>
+    <div class="ann-row" id="mQualRow"></div>
+  </div>
   <textarea class="bc-post" id="cmBox" rows="3" placeholder="comment on this move &hellip;"></textarea>
   <div class="pw-btns">
     <button type="button" class="side-btn white" onclick="saveCommentModal()">Save</button>
@@ -4158,8 +4168,11 @@ class Chess {
 // v2.3 = polish (label cleanup, caret arrows, sticky bottom bar, progressive
 // move reveal, variation chips, engine config long-press, sync toast),
 // v2.4 = terminal "game ended" label + keyboard navigation (←/→ Home End f
-// Esc). Rendered into #verLine by boot() so a deploy can be verified.
-const SOLCHESS_VERSION = 'v2.4';
+// Esc),
+// v2.5 = annotate modal (glyphs/eval live), clickable engine lines, compact
+// nav/bottom bar, Stockfish switched to the WASM build + boot watchdog.
+// Rendered into #verLine by boot() so a deploy can be verified.
+const SOLCHESS_VERSION = 'v2.5';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -5410,7 +5423,7 @@ function startBrowse(g, side) {
   el('browsePlayers').textContent = parts.join('  \u00b7  ');
   el('browseMovesStrip').classList.remove('open');
   el('bmCaret').textContent = '\u25BC show';
-  buildBrowseControls();
+  renderThemeBtn();
   show('view-browse');
   renderBrowse();
   if (tree.error) toastBrowse('stopped: ' + tree.error);
@@ -5540,6 +5553,13 @@ function gameEndLabel(node, result) {
   }
   return why + who + ' \u00b7 ' + result;
 }
+// Move-line label: the current move with any attached glyphs/eval.
+function moveLineLabel(node) {
+  let s = `${node.n}${node.turn === 'w' ? '.' : '...'} ${node.san}`;
+  const bits = [node.srcQual, node.srcEval, node.srcUnknown].filter(Boolean);
+  if (bits.length) s += ' ' + bits.join(' ');
+  return s;
+}
 function renderBrowseInfo() {
   const node = bNode();
   let label;
@@ -5547,10 +5567,9 @@ function renderBrowseInfo() {
   else {
     const r = state.browse.game.result;
     const ended = node === mainlineEnd() && r && r !== '*';
-    label = ended ? gameEndLabel(node, r)
-      : `${node.n}${node.turn === 'w' ? '.' : '...'} ${node.san}`;
+    label = ended ? gameEndLabel(node, r) : moveLineLabel(node);
   }
-  el('bcMoveLabel').textContent = label;
+  el('moveLine').textContent = label;
   const pre = node.preComment || '';
   const preEl = el('bcPre');
   preEl.textContent = pre;
@@ -5577,6 +5596,7 @@ function openCommentModal() {
   if (!state.browse) return;
   const cur = bNode();
   if (!cur || !cur.san) { toastBrowse('Nothing to comment on yet'); return; }
+  buildModalControls();
   const { w, b } = commentPair();
   state.browse.cmNode = cur.turn === 'b' ? (b || w) : (w || b);
   syncCommentModal();
@@ -5600,6 +5620,7 @@ function syncCommentModal() {
   tB.classList.toggle('active', node === b);
   el('cmBoard').innerHTML = boardSVG(node.fen);
   el('cmBox').value = node.comment || '';
+  syncModalAnn();
 }
 function saveCommentModal() {
   const node = state.browse.cmNode;
@@ -5612,44 +5633,44 @@ function saveCommentModal() {
 }
 function closeCommentModal() { el('commentModal').hidden = true; }
 
-// ── Glyph dock for the current node (edits write onto the node directly) ──
-function buildBrowseControls() {
-  renderThemeBtn();
-  if (el('bEvalRow').querySelector('.tbtn')) return;
-  const evRow = el('bEvalRow'), qlRow = el('bQualRow');
+// ── Annotation controls (inside the Annotate modal; edits write to the
+// TARGET node live — glyphs/eval reflect in the move line + list instantly;
+// the comment text itself commits on Save) ──
+function buildModalControls() {
+  if (el('mEvalRow').querySelector('.tbtn')) return;
+  const evRow = el('mEvalRow'), qlRow = el('mQualRow');
   for (const e of EVALS) {
     const b = document.createElement('button');
     b.className = 'tbtn ev'; b.dataset.eval = e.sym; b.textContent = e.sym;
-    b.onclick = () => pickBrowseEval(e.sym);
+    b.onclick = () => pickModalEval(e.sym);
     evRow.appendChild(b);
   }
   for (const q of QUALS) {
     const b = document.createElement('button');
     b.className = 'tbtn ql'; b.dataset.qual = q; b.textContent = q;
-    b.onclick = () => pickBrowseQual(q);
+    b.onclick = () => pickModalQual(q);
     qlRow.appendChild(b);
   }
 }
-function pickBrowseEval(sym) {
-  const n = bNode();
+function pickModalEval(sym) {
+  const n = state.browse.cmNode;
   if (!n || !n.san) return;
   n.srcEval = n.srcEval === sym ? null : sym;
-  syncBrowseDock(); renderBrowseMoves();
+  syncCommentModal(); renderBrowseMoves(); renderBrowseInfo();
 }
-function pickBrowseQual(glyph) {
-  const n = bNode();
+function pickModalQual(glyph) {
+  const n = state.browse.cmNode;
   if (!n || !n.san) return;
   n.srcQual = n.srcQual === glyph ? null : glyph;
-  syncBrowseDock(); renderBrowseMoves();
+  syncCommentModal(); renderBrowseMoves(); renderBrowseInfo();
 }
-function syncBrowseDock() {
-  const n = bNode();
-  const a = n && n.san ? n : null;
-  for (const b of document.querySelectorAll('#bEvalRow .tbtn')) {
-    b.classList.toggle('active', !!a && a.srcEval === b.dataset.eval);
+function syncModalAnn() {
+  const n = state.browse.cmNode;
+  for (const b of document.querySelectorAll('#mEvalRow .tbtn')) {
+    b.classList.toggle('active', !!n && n.srcEval === b.dataset.eval);
   }
-  for (const b of document.querySelectorAll('#bQualRow .tbtn')) {
-    b.classList.toggle('active', !!a && a.srcQual === b.dataset.qual);
+  for (const b of document.querySelectorAll('#mQualRow .tbtn')) {
+    b.classList.toggle('active', !!n && n.srcQual === b.dataset.qual);
   }
 }
 
@@ -5780,19 +5801,23 @@ function renderBrowse() {
   syncVariationChips();
   renderBrowseMoves();
   renderBrowseInfo();
-  syncBrowseDock();
   SF.evalCurrent();
 }
 function toastBrowse(msg) {
-  const t = el('bcMoveLabel');
+  const t = el('moveLine');
   if (!t) return;
   const prev = t.textContent;
   t.textContent = msg;
   setTimeout(() => { if (t.textContent === msg) t.textContent = prev; }, 1800);
 }
 
-// ── Stockfish (web asm.js build via CDN, blob-worker; toggle-on demand) ──
-const SF_URL = 'https://cdn.jsdelivr.net/npm/stockfish.js@10.0.2/stockfish.js';
+// ── Stockfish (WASM build via CDN, blob-worker; toggle-on demand) ──
+// stockfish.wasm.js is the Emscripten glue: a preset Module.locateFile points
+// it at the CDN for stockfish.wasm (CORS *). The 20s watchdog guarantees a
+// dead/slow engine surfaces as "engine unavailable" instead of an eternal
+// "loading engine…" (the 1.6MB asm.js build hung phones exactly like that).
+const SF_BASE = 'https://cdn.jsdelivr.net/npm/stockfish.js@10.0.2/';
+const SF_URL = SF_BASE + 'stockfish.wasm.js';
 // Engine config (long-press the CPU button): search depth + MultiPV lines,
 // persisted; applied after 'uciok' and live via applyConfig().
 const SF_CFG = {
@@ -5801,30 +5826,39 @@ const SF_CFG = {
 };
 const SF = {
   worker: null, ready: false, starting: false, on: false,
-  searching: false, pending: false, fen: null, lineScores: {},
+  searching: false, pending: false, fen: null, lineScores: {}, bootTimer: null,
   ensure() {
     if (this.worker || this.starting) return;
     this.starting = true;
     let w;
     try {
-      const blob = new Blob(["importScripts('" + SF_URL + "');"], { type: 'application/javascript' });
+      const blob = new Blob([
+        "var Module = { locateFile: function (f) { return '" + SF_BASE + "' + f; } };\n" +
+        "importScripts('" + SF_URL + "');",
+      ], { type: 'application/javascript' });
       w = new Worker(URL.createObjectURL(blob));
     } catch { this.fail(); return; }
     w.onmessage = (e) => this.onMsg(String(e.data ?? ''));
     w.onerror = () => this.fail();
     this.worker = w;
     w.postMessage('uci');
+    clearTimeout(this.bootTimer);
+    this.bootTimer = setTimeout(() => {
+      if (!this.ready) this.fail('engine did not start (slow or offline device)');
+    }, 20000);
   },
-  fail() {
+  fail(msg) {
+    clearTimeout(this.bootTimer);
     this.starting = false;
     if (this.worker) { try { this.worker.terminate(); } catch { /* done */ } this.worker = null; }
     this.on = false;
     const btn = el('navEngine');
     if (btn) btn.classList.remove('on');
-    setEvalText('engine unavailable (offline?)');
+    setEvalText(msg || 'engine unavailable (offline?)');
   },
   onMsg(line) {
     if (line.startsWith('uciok')) {
+      clearTimeout(this.bootTimer);
       this.worker.postMessage('setoption name MultiPV value ' + SF_CFG.lines);
       this.worker.postMessage('isready');
       return;
@@ -5871,16 +5905,33 @@ const SF = {
   collectScore(idx, kind, v, bestUci) {
     if (idx < 1 || idx > SF_CFG.lines) return;
     this.lineScores[idx] = { kind, v, bestUci };
-    const parts = [];
-    let top = null;
+    this.renderLines();
+  },
+  // MultiPV lines as clickable chips — tap to play that move on the board and
+  // re-analyse (guided click-through of the engine's suggested line).
+  renderLines() {
+    const e = el('evalText');
+    e.replaceChildren();
     for (let i = 1; i <= SF_CFG.lines; i++) {
       const s = this.lineScores[i];
       if (!s) continue;
-      if (!top) top = s;
-      parts.push('#' + i + ' ' + this.scoreStr(s) + this.bestSan(s));
+      const b = document.createElement('button');
+      b.className = 'evline';
+      b.textContent = '#' + i + ' ' + this.scoreStr(s) + this.bestSan(s);
+      b.title = 'play this move';
+      b.onclick = () => this.playLine(i);
+      e.appendChild(b);
     }
-    if (parts.length) setEvalText(parts.join('   '));
+    const top = this.lineScores[1];
     if (top) el('evalFill').style.width = this.barPct(top) + '%';
+  },
+  playLine(i) {
+    const s = this.lineScores[i];
+    if (!s || !s.bestUci || s.bestUci.length < 4) return;
+    bPlayMove({
+      from: s.bestUci.slice(0, 2), to: s.bestUci.slice(2, 4),
+      promotion: s.bestUci.length > 4 ? s.bestUci[4] : undefined,
+    });
   },
   applyConfig() {
     if (!this.worker || !this.ready) return;
@@ -5908,6 +5959,7 @@ function toggleEngine() {
   const btn = el('navEngine');
   if (SF.on) {
     SF.on = false; SF.pause();
+    clearTimeout(SF.bootTimer);
     if (SF.worker) { try { SF.worker.terminate(); } catch { /* done */ } SF.worker = null; }
     SF.ready = false; SF.starting = false;
     el('evalWrap').hidden = true;
