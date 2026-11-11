@@ -239,6 +239,21 @@
   .nbtn:disabled { opacity: 0.35; cursor: default; }
   .nbtn:disabled:active { transform: none; background: #2a2a2a; }
   .nbtn svg { pointer-events: none; }
+  .nbtn.on { background: #3a4d3a; color: #c9e6c9; border-color: #507150; }
+  .bbar { display: flex; gap: 8px; margin-top: 10px; flex: 0 0 auto; }
+  .bbtn {
+    flex: 1; min-height: 44px; background: #2a2a2a; color: #999; border: 1px solid #444;
+    border-radius: 10px; cursor: pointer; touch-action: manipulation;
+    display: flex; align-items: center; justify-content: center;
+    -webkit-user-select: none; user-select: none;
+    transition: background 0.12s;
+  }
+  .bbtn:hover { background: #383838; }
+  .bbtn:active { background: #444; }
+  .bbtn svg { pointer-events: none; }
+  .title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; min-height: 38px; flex: 0 0 auto; }
+  .title-block { min-width: 0; }
+  .title-row .title { display: block; font-size: 1rem; color: #ddd; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tool-btn {
     display: inline-flex; align-items: center; justify-content: center;
     width: 38px; height: 36px; padding: 0; flex: 0 0 auto;
@@ -262,16 +277,16 @@
     width: 100%; margin-top: 4px; background: #242424; color: #ddd; border: 1px solid #3a3a3a;
     border-radius: 8px; padding: 8px 10px; font-size: 1rem; font-family: inherit; resize: vertical; min-height: 44px;
   }
-  .b-actions { display: flex; gap: 6px; margin-top: 8px; }
-  .b-actions .chip { font-size: 0.78rem; min-height: 36px; padding: 6px 8px; }
-  .b-actions .chip.on { background: #3a4d3a; color: #c9e6c9; border-color: #507150; }
-  #delBtn.armed { background: #6b3a3a; color: #f0c0b0; border-color: #8a5040; }
 
-  /* browse move list: book-style paired flow + variation blocks */
-  .bm-stream {
-    padding: 8px 10px; font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
-    font-size: 0.92rem; line-height: 1.9; color: #999;
+  /* browse move list: lichess-style pair rows (mainline) + inline variation blocks */
+  .bm-pairs {
+    padding: 6px 10px; font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 0.92rem; line-height: 1.7; color: #999;
   }
+  .bm-prow { display: flex; align-items: baseline; gap: 2px; padding: 1px 0; }
+  .bm-prow .bm-num { flex: 0 0 2.6em; color: #5f5f5f; text-align: right; }
+  .bm-prow .bm-cell { flex: 1 1 0; min-width: 0; }
+  .bm-slot { flex: 1 1 0; min-width: 0; }
   .bm-no { color: #5f5f5f; }
   .bm-cell {
     display: inline; cursor: pointer; border-radius: 4px; padding: 2px 3px; color: #bbb;
@@ -293,7 +308,6 @@
     display: block; border-left: 2px solid #4a4a4a; margin: 3px 0 3px 12px; padding-left: 8px;
     color: #888; font-size: 0.88em;
   }
-  .bm-row { display: block; }
   .bm-cmt {
     display: block; border: 1px solid #333; background: #1d1d1d; border-radius: 6px;
     padding: 3px 8px; margin: 3px 0; color: #777; font-style: italic; font-size: 0.82em; line-height: 1.5;
@@ -313,6 +327,9 @@
     max-height: 20vh; overflow-y: auto; font-style: italic;
   }
   .pos-hint { color: #666; font-size: 0.8rem; text-align: center; }
+
+  /* comment modal: contents capped to the board width for a tidy column */
+  #commentModal .target-row, #commentModal .bc-post { width: min(74vmin, 380px); }
 
   .side-title { color: #bbb; font-size: 0.95rem; text-align: center; max-width: 88vw; line-height: 1.4; }
   .side-actions { display: flex; flex-direction: column; gap: 12px; width: min(300px, 84vw); }
@@ -3962,17 +3979,16 @@ class Chess {
 
   <!-- VIEW 4: BROWSE (full-variation tree reader + authoring + engine) -->
   <section class="view" id="view-browse" hidden>
-    <div class="backbar">
-      <button class="back-btn" onclick="backToGames()">&#8592; Games</button>
-      <span class="title" id="browseTitle"></span>
-      <span class="spacer"></span>
-      <span class="mini" id="browseSide"></span>
-      <button class="tool-btn" id="flipBtn" onclick="bFlip()" aria-label="flip board" title="Flip board">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+    <!-- title row: lichess-style single back arrow — no toolbar -->
+    <div class="title-row">
+      <button class="tool-btn" id="backBtn" onclick="backToGames()" aria-label="back to games" title="Back to games">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
       </button>
-      <button class="tool-btn" id="themeBtn" onclick="cycleTheme()" aria-label="board colour theme" title="Board theme"></button>
+      <div class="title-block">
+        <span class="title" id="browseTitle"></span>
+        <div class="mini" id="browsePlayers"></div>
+      </div>
     </div>
-    <div class="meta"><span class="score" id="browsePlayers"></span></div>
 
     <div class="bboard" id="browseBoard"></div>
 
@@ -3981,18 +3997,22 @@ class Chess {
       <div class="evaltext" id="evalText"></div>
     </div>
 
+    <div class="bnav">
+      <button class="nbtn" id="navFirst" onclick="bNav('first')" aria-label="first move" title="First move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19 5.5 19 18.5 9 12Z"/><rect x="5" y="5" width="2.5" height="14" rx="1.25"/></svg></button>
+      <button class="nbtn" id="navPrev" onclick="bNav('prev')" aria-label="previous move" title="Previous move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17 5.5 17 18.5 7 12Z"/></svg></button>
+      <button class="nbtn" id="navEngine" onclick="toggleEngine()" aria-label="toggle engine" title="Stockfish">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>
+      </button>
+      <button class="nbtn" id="navNext" onclick="bNav('next')" aria-label="next move" title="Next move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 5.5 7 18.5 17 12Z"/></svg></button>
+      <button class="nbtn" id="navLast" onclick="bNav('last')" aria-label="last move" title="Last move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 5.5 5 18.5 15 12Z"/><rect x="16.5" y="5" width="2.5" height="14" rx="1.25"/></svg></button>
+    </div>
+
     <div class="dock">
       <div class="dock-head">Move <span class="bc-move" id="bcMoveLabel"></span></div>
       <div class="bc-pre" id="bcPre" hidden></div>
-      <textarea class="bc-post" id="bcPost" rows="2" placeholder="comment on this move &hellip;" onchange="commitComment()"></textarea>
       <div class="ann-rows">
         <div class="ann-row" id="bEvalRow"><span class="lbl">Eval</span></div>
         <div class="ann-row" id="bQualRow"><span class="lbl">Glyph</span></div>
-      </div>
-      <div class="b-actions">
-        <button class="chip" id="evalToggle" onclick="toggleEngine()">&#128202; Stockfish: off</button>
-        <button class="chip" id="delBtn" onclick="browseDeleteTap()">&#9003; Delete move</button>
-        <button class="chip" onclick="shareBrowse()">&#8599; PGN</button>
       </div>
     </div>
 
@@ -4002,17 +4022,21 @@ class Chess {
         <span class="caret" id="bmCaret">&#9650; show</span>
       </div>
       <div class="moves-scroll" id="bmScroll">
-        <div class="bm-stream" id="bmList"></div>
+        <div class="bm-pairs" id="bmList"></div>
       </div>
     </div>
 
-    <!-- bottom nav (lichess-mobile style): move stepping only — flip + theme
-         live in the top bar so the centre row stays clean -->
-    <div class="bnav">
-      <button class="nbtn" id="navFirst" onclick="bNav('first')" aria-label="first move" title="First move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19 5.5 19 18.5 9 12Z"/><rect x="5" y="5" width="2.5" height="14" rx="1.25"/></svg></button>
-      <button class="nbtn" id="navPrev" onclick="bNav('prev')" aria-label="previous move" title="Previous move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17 5.5 17 18.5 7 12Z"/></svg></button>
-      <button class="nbtn" id="navNext" onclick="bNav('next')" aria-label="next move" title="Next move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 5.5 7 18.5 17 12Z"/></svg></button>
-      <button class="nbtn" id="navLast" onclick="bNav('last')" aria-label="last move" title="Last move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 5.5 5 18.5 15 12Z"/><rect x="16.5" y="5" width="2.5" height="14" rx="1.25"/></svg></button>
+    <div class="bbar">
+      <button class="bbtn" id="themeBtn" onclick="cycleTheme()" aria-label="board colour theme" title="Board theme"></button>
+      <button class="bbtn" id="flipBtn" onclick="bFlip()" aria-label="flip board" title="Flip board">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+      </button>
+      <button class="bbtn" id="commentBtn" onclick="openCommentModal()" aria-label="comment" title="Comment">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+      <button class="bbtn" id="shareBtn" onclick="shareBrowse()" aria-label="share PGN" title="Share PGN">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></svg>
+      </button>
     </div>
 
     <div class="credit">Pieces: Wikimedia Commons (Cburnett &amp; Rfc1394) &mdash; CC BY-SA 3.0 via cm-chessboard. Replay: chess.js (MIT).</div>
@@ -4064,6 +4088,21 @@ class Chess {
   <div class="pos-hint">tap outside to cancel</div>
 </div>
 
+<!-- COMMENT MODAL (bottom-bar comment button): board + comment box + save/cancel -->
+<div class="pos-overlay" id="commentModal" hidden onclick="if(event.target===this) closeCommentModal()">
+  <div class="pos-caption">Comment</div>
+  <div class="target-row" id="cmTargets">
+    <button class="tgt" id="cmWhite" onclick="pickCommentTarget(false)"></button>
+    <button class="tgt" id="cmBlack" onclick="pickCommentTarget(true)"></button>
+  </div>
+  <div id="cmBoard"></div>
+  <textarea class="bc-post" id="cmBox" rows="3" placeholder="comment on this move &hellip;"></textarea>
+  <div class="pw-btns">
+    <button type="button" class="side-btn white" onclick="saveCommentModal()">Save</button>
+    <button type="button" class="side-btn black" onclick="closeCommentModal()">Cancel</button>
+  </div>
+</div>
+
 <script>
 'use strict';
 // ─────────────────────────────────────────────────────────────────────────────
@@ -4080,9 +4119,11 @@ class Chess {
 // App version, bumped per shipped change: v1.x = guess-the-move only,
 // v2.0 = browse mode (tree, authoring, engine, themes),
 // v2.1 = usability pass (moves box closed by default, player-name side
-// buttons, wider app, bottom nav bar). Rendered into
+// buttons, wider app, bottom nav bar),
+// v2.2 = browse redesign (no top bar, lichess-style pair move list, CPU
+// engine toggle in the nav row, bottom tool bar, comment modal). Rendered into
 // #verLine by boot() so a deploy can be verified on the page itself.
-const SOLCHESS_VERSION = 'v2.1';
+const SOLCHESS_VERSION = 'v2.2';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -4128,7 +4169,7 @@ const state = {
   stripOpen: false,
   userAnns: {},               // ply index → {eval: symbol|null, qual: glyph|null}
   pickMode: 'gtm',            // open-game prompt: 'gtm' | 'browse'
-  browse: null,               // browse session: {game, root, path, side, flip, sel, chess, delArm, error}
+  browse: null,               // browse session: {game, root, path, side, flip, sel, chess, error}
   boardTheme: (function () {  // persisted display preference; safe in any sandbox
     try { return localStorage.getItem('solchess-theme') || 'wood'; } catch { return 'wood'; }
   })(),
@@ -5256,27 +5297,6 @@ function attachTreeQual(node, glyph) {
   if (node && !node.srcQual) node.srcQual = glyph;
 }
 
-// ── flatten (render order for the move list) ──
-// Mainline spine at depth 0; each ply followed by the alternative lines that
-// replace it (one level deeper, each a full sub-line), then the continuation
-// — book order. A line's co-alternatives are passed in by the parent loop and
-// never re-emitted by the line itself.
-function flattenTree(root) {
-  const out = [];
-  const emitLine = (first, altsToFirst, depth) => {
-    let node = first;
-    let alts = altsToFirst;
-    while (node) {
-      out.push({ node, depth });
-      for (const alt of alts) emitLine(alt, [], depth + 1);
-      alts = node.children.slice(1);
-      node = node.children[0] ?? null;
-    }
-  };
-  emitLine(root.children[0] ?? null, root.children.slice(1), 0);
-  return out;
-}
-
 // ── Navigation ──
 function bNode() { return state.browse.path[state.browse.path.length - 1]; }
 function pathOfNode(node) {
@@ -5285,7 +5305,6 @@ function pathOfNode(node) {
   return p;
 }
 function bSetPath(path) {
-  commitComment();                       // flush any uncommitted comment edit
   state.browse.path = path;
   state.browse.sel = null;
   renderBrowse();
@@ -5319,7 +5338,7 @@ function startBrowse(g, side) {
     game: { title: g.title, headers: tree.headers, result: tree.result },
     root: tree.root, path: [tree.root], side,
     flip: side === 'black', sel: null, chess: new Chess(),
-    delArm: false, error: tree.error,
+    error: tree.error,
   };
   el('browseTitle').textContent = g.title;
   const h = tree.headers;
@@ -5327,7 +5346,6 @@ function startBrowse(g, side) {
   if (h.White || h.Black) parts.push(`${h.White || '?'} vs ${h.Black || '?'}`);
   if (tree.result !== '*') parts.push(tree.result);
   el('browsePlayers').textContent = parts.join('  \u00b7  ');
-  el('browseSide').textContent = 'Side: ' + (side === 'white' ? 'White' : 'Black');
   el('browseMovesStrip').classList.remove('open');
   el('bmCaret').textContent = '\u25B2 show';
   buildBrowseControls();
@@ -5432,76 +5450,81 @@ function bAddPly(cur, mv) {
   cur.children.push(node);
   return node;
 }
-// Pure: splice node + its whole subtree out of parent.children (root untouched).
-function bRemovePly(node) {
-  const parent = node && node.parent;
-  if (!parent) return null;
-  const i = parent.children.indexOf(node);
-  if (i >= 0) parent.children.splice(i, 1);
-  return parent;
-}
 function bPlayMove(mv) {
   const node = bAddPly(bNode(), mv);
   if (!node) return;
   bSetPath([...state.browse.path, node]);
 }
 
-// ── Delete (two-press confirm; navigation disarms) ──
-let delTimer = null;
-function browseDeleteTap() {
-  if (!state.browse) return;
-  const cur = bNode();
-  if (!cur.parent) { toastBrowse('Nothing to delete'); return; }
-  const btn = el('delBtn');
-  if (!state.browse.delArm) {
-    state.browse.delArm = true;
-    btn.classList.add('armed');
-    btn.textContent = '\u232B Sure? Tap again';
-    clearTimeout(delTimer);
-    delTimer = setTimeout(disarmDel, 3000);
-    return;
-  }
-  disarmDel();
-  const parent = bRemovePly(cur);
-  bSetPath(pathOfNode(parent));
-  toastBrowse('Move deleted');
-}
-function disarmDel() {
-  clearTimeout(delTimer);
-  if (!state.browse) return;
-  state.browse.delArm = false;
-  const btn = el('delBtn');
-  if (btn) { btn.classList.remove('armed'); btn.textContent = '\u232B Delete move'; }
-}
-
-// ── Comment box (post-comment editable; pre-comment display-only) ──
-// Commits target the node the textarea was LAST RENDERED for (taNode) — not
-// the current navigation node — so a late blur/change event can never bleed
-// one move's comment into another.
-function commitComment() {
-  if (!state.browse) return;
-  const node = state.browse.taNode;
-  const ta = el('bcPost');
-  if (!ta || !node || !node.san) return;
-  const v = ta.value.trim() || null;
-  if (v !== (node.comment || null)) node.comment = v;
-}
 function renderBrowseInfo() {
   const node = bNode();
-  state.browse.taNode = node;
   el('bcMoveLabel').textContent = node.san
     ? `${node.n}${node.turn === 'w' ? '.' : '...'} ${node.san}` : 'start position';
   const pre = node.preComment || '';
   const preEl = el('bcPre');
   preEl.textContent = pre;
   preEl.hidden = !pre;
-  el('bcPost').value = node.comment || '';
 }
+
+// ── Comment modal (bottom-bar button → white/black target, board, save/cancel) ──
+// A comment lives on ONE ply of the current move-number pair; the selector
+// picks which. Save writes node.comment; Cancel discards.
+function nodeLabel(node) {
+  return node ? `${node.n}${node.turn === 'w' ? '.' : '...'} ${node.san}` : '';
+}
+function commentPair() {
+  const cur = bNode();
+  if (!cur || !cur.san) return { w: null, b: null };
+  if (cur.turn === 'w') {
+    const c0 = cur.children[0];
+    return { w: cur, b: (c0 && c0.turn === 'b' && c0.n === cur.n) ? c0 : null };
+  }
+  const p = cur.parent;
+  return { b: cur, w: (p && p.san && p.turn === 'w' && p.n === cur.n) ? p : null };
+}
+function openCommentModal() {
+  if (!state.browse) return;
+  const cur = bNode();
+  if (!cur || !cur.san) { toastBrowse('Nothing to comment on yet'); return; }
+  const { w, b } = commentPair();
+  state.browse.cmNode = cur.turn === 'b' ? (b || w) : (w || b);
+  syncCommentModal();
+  el('commentModal').hidden = false;
+}
+function pickCommentTarget(isBlack) {
+  const { w, b } = commentPair();
+  const node = isBlack ? (b || w) : (w || b);
+  if (node) state.browse.cmNode = node;
+  syncCommentModal();
+}
+function syncCommentModal() {
+  const node = state.browse.cmNode;
+  const { w, b } = commentPair();
+  const tW = el('cmWhite'), tB = el('cmBlack');
+  tW.textContent = nodeLabel(w) || '\u2014';
+  tB.textContent = nodeLabel(b) || '\u2014';
+  tW.hidden = !w;
+  tB.hidden = !b;
+  tW.classList.toggle('active', node === w);
+  tB.classList.toggle('active', node === b);
+  el('cmBoard').innerHTML = boardSVG(node.fen);
+  el('cmBox').value = node.comment || '';
+}
+function saveCommentModal() {
+  const node = state.browse.cmNode;
+  if (node) {
+    const v = el('cmBox').value.trim() || null;
+    if (v !== (node.comment || null)) node.comment = v;
+  }
+  el('commentModal').hidden = true;
+  renderBrowse();
+}
+function closeCommentModal() { el('commentModal').hidden = true; }
 
 // ── Glyph dock for the current node (edits write onto the node directly) ──
 function buildBrowseControls() {
   renderThemeBtn();
-  if (el('bEvalRow').childElementCount) return;
+  if (el('bEvalRow').querySelector('.tbtn')) return;
   const evRow = el('bEvalRow'), qlRow = el('bQualRow');
   for (const e of EVALS) {
     const b = document.createElement('button');
@@ -5539,94 +5562,119 @@ function syncBrowseDock() {
   }
 }
 
-// ── Move list: book-style paired flow with nested variation blocks ──
+// ── Move list: lichess-style pair rows for the mainline + inline variation blocks ──
+// Mainline = rows of `N. | white | black`; a ply's alternatives render as
+// indented book-style blocks right after the row carrying that ply. Comments
+// are full-width rows that break the numbering flow (book convention).
 const QUAL_CLASS = { '!': 'good', '!!': 'brill', '?': 'mist', '??': 'blund', '!?': 'inacc', '?!': 'interest' };
 function renderBrowseMoves() {
   const wrap = el('bmList');
   wrap.replaceChildren();
   const escH = (s) => String(s).replace(/[<>&]/g, (ch) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[ch]));
-  const flat = flattenTree(state.browse.root);
   const pathSet = new Set(state.browse.path);
   const cur = bNode();
-  const main = document.createElement('div');
-  main.className = 'bm-stream';
-  wrap.appendChild(main);
+  let curEl = null;         // current-move cell (for auto-scroll)
+
   if (state.browse.error) {
     const warn = document.createElement('div');
     warn.className = 'bm-cmt';
     warn.textContent = 'stopped: ' + state.browse.error;
-    main.appendChild(warn);
+    wrap.appendChild(warn);
   }
-  let varStack = [];        // [d-1] = block element rendering depth d
-  let curVarRow = null, curVarCont = null;
-  let prevEntry = null;     // {depth} of the previous flatten entry
-  let prevCell = null;      // {n, turn} of the last emitted cell (numbering)
-  let curEl = null;         // current-move cell (for auto-scroll)
-  for (const { node, depth } of flat) {
-    const isAlt = node.parent && node.parent.children[0] !== node;
-    let cont;
-    if (depth === 0) {
-      if (varStack.length) { varStack = []; prevCell = null; }   // back to mainline → renumber
-      cont = main;
-    } else {
-      while (depth > varStack.length) {
-        const parentCont = varStack.length ? varStack[varStack.length - 1] : main;
-        const blk = document.createElement('div');
-        blk.className = 'bm-var';
-        parentCont.appendChild(blk);
-        varStack.push(blk);
-      }
-      if (depth < varStack.length) varStack = varStack.slice(0, depth);
-      cont = varStack[depth - 1];
-    }
-    // row breaks: every alternative line is its own row; a depth change
-    // (block entry or resume past a deeper block) breaks too. The mainline
-    // spine is ONE wrapping inline stream.
-    let row;
-    if (depth === 0) {
-      row = cont;
-    } else {
-      const breakRow = !prevEntry || isAlt || depth !== prevEntry.depth;
-      if (cont !== curVarCont || breakRow || !curVarRow) {
-        row = document.createElement('div');
-        row.className = 'bm-row';
-        cont.appendChild(row);
-        curVarRow = row; curVarCont = cont;
-      } else {
-        row = curVarRow;
-      }
-    }
-    // numbering: white plies always carry N.; black plies carry N... unless
-    // they directly follow their white partner in the same flow
-    const showNum = node.turn === 'w' || !prevCell
-      || prevCell.n !== node.n || prevCell.turn === 'b';
-    const cell = document.createElement('span');
-    cell.className = 'bm-cell' + (pathSet.has(node) ? ' onpath' : '') + (node === cur ? ' cur' : '');
-    let html = '';
-    if (showNum) html += `<span class="bm-no">${node.n}${node.turn === 'w' ? '.' : '...'}&nbsp;</span>`;
-    html += escH(node.san);
-    if (node.srcQual) {
-      html += `<span class="bm-g q-${QUAL_CLASS[node.srcQual] || 'eval'}">${escH(node.srcQual)}</span>`;
-    }
+
+  const makeCell = (node) => {
+    const c = document.createElement('span');
+    c.className = 'bm-cell' + (pathSet.has(node) ? ' onpath' : '') + (node === cur ? ' cur' : '');
+    let html = escH(node.san);
+    if (node.srcQual) html += `<span class="bm-g q-${QUAL_CLASS[node.srcQual] || 'eval'}">${escH(node.srcQual)}</span>`;
     if (node.srcEval) html += `<span class="bm-g q-eval">${escH(node.srcEval)}</span>`;
     if (node.srcUnknown) html += `<span class="bm-g q-eval">${escH(node.srcUnknown)}</span>`;
     if (node.comment) html += `<span class="bm-cmk">&nbsp;\u2026</span>`;
-    cell.innerHTML = html;
-    cell.onclick = () => bSetPath(pathOfNode(node));
-    row.appendChild(cell);
-    if (node === cur) curEl = cell;
-    prevCell = { n: node.n, turn: node.turn };
-    // comments render as full-width bordered rows; they break the flow, so
-    // the following ply renumbers (book convention)
-    if (node.comment) {
-      const c = document.createElement('div');
-      c.className = 'bm-cmt';
-      c.textContent = node.comment;
-      cont.appendChild(c);
-      prevCell = null;
+    c.innerHTML = html;
+    c.onclick = () => bSetPath(pathOfNode(node));
+    if (node === cur) curEl = c;
+    return c;
+  };
+  const numSpan = (text) => {
+    const s = document.createElement('span');
+    s.className = 'bm-no';
+    s.textContent = text + ' ';
+    return s;
+  };
+  const addComment = (text, container) => {
+    const c = document.createElement('div');
+    c.className = 'bm-cmt';
+    c.textContent = text;
+    container.appendChild(c);
+  };
+
+  // One ALTERNATIVE line as an indented inline block; deeper branches nest
+  // as blocks inside it.
+  const renderAlt = (alt, container) => {
+    const blk = document.createElement('div');
+    blk.className = 'bm-var';
+    container.appendChild(blk);
+    let prevCell = null;
+    let node = alt;
+    while (node) {
+      const showNum = node.turn === 'w' || !prevCell
+        || prevCell.n !== node.n || prevCell.turn === 'b';
+      if (showNum) blk.appendChild(numSpan(node.n + (node.turn === 'w' ? '.' : '...')));
+      blk.appendChild(makeCell(node));
+      for (const sub of node.children.slice(1)) renderAlt(sub, blk);
+      prevCell = { n: node.n, turn: node.turn };
+      if (node.comment) { addComment(node.comment, blk); prevCell = null; }
+      node = node.children[0] ?? null;
     }
-    prevEntry = { depth };
-  }
+  };
+
+  // The MAINLINE as pair rows: N. | white | black.
+  const renderLine = (first, container) => {
+    let node = first;
+    while (node) {
+      const prow = document.createElement('div');
+      prow.className = 'bm-prow';
+      if (node.turn === 'w') {
+        const num = document.createElement('span');
+        num.className = 'bm-num';
+        num.textContent = node.n + '.';
+        prow.appendChild(num);
+        prow.appendChild(makeCell(node));
+        let partner = null;
+        const c0 = node.children[0];
+        if (c0 && c0.turn === 'b' && c0.n === node.n) {
+          partner = c0;
+          prow.appendChild(makeCell(partner));
+        } else {
+          prow.appendChild(document.createElement('span')).className = 'bm-slot';
+        }
+        container.appendChild(prow);
+        for (const alt of node.children.slice(1)) renderAlt(alt, container);
+        if (node.comment) addComment(node.comment, container);
+        if (partner) {
+          for (const alt of partner.children.slice(1)) renderAlt(alt, container);
+          if (partner.comment) addComment(partner.comment, container);
+          node = partner.children[0] ?? null;
+        } else {
+          node = null;   // game ended on white's move
+        }
+      } else {
+        // defensive: a mainline opening on a black ply (never for standard PGN)
+        const num = document.createElement('span');
+        num.className = 'bm-num';
+        num.textContent = node.n + '...';
+        prow.appendChild(num);
+        prow.appendChild(document.createElement('span')).className = 'bm-slot';
+        prow.appendChild(makeCell(node));
+        container.appendChild(prow);
+        for (const alt of node.children.slice(1)) renderAlt(alt, container);
+        if (node.comment) addComment(node.comment, container);
+        node = node.children[0] ?? null;
+      }
+    }
+  };
+
+  renderLine(state.browse.root.children[0] ?? null, wrap);
   if (curEl && el('browseMovesStrip').classList.contains('open')) {
     curEl.scrollIntoView({ block: 'nearest' });
   }
@@ -5657,7 +5705,6 @@ function renderBrowse() {
   renderBrowseMoves();
   renderBrowseInfo();
   syncBrowseDock();
-  disarmDel();
   SF.evalCurrent();
 }
 function toastBrowse(msg) {
@@ -5690,8 +5737,8 @@ const SF = {
     this.starting = false;
     if (this.worker) { try { this.worker.terminate(); } catch { /* done */ } this.worker = null; }
     this.on = false;
-    const btn = el('evalToggle');
-    if (btn) { btn.classList.remove('on'); btn.textContent = '\uD83D\uDCCA Stockfish: off'; }
+    const btn = el('navEngine');
+    if (btn) btn.classList.remove('on');
     setEvalText('engine unavailable (offline?)');
   },
   onMsg(line) {
@@ -5754,19 +5801,17 @@ const SF = {
 };
 function setEvalText(t) { const e = el('evalText'); if (e) e.textContent = t; }
 function toggleEngine() {
-  const btn = el('evalToggle');
+  const btn = el('navEngine');
   if (SF.on) {
     SF.on = false; SF.pause();
     if (SF.worker) { try { SF.worker.terminate(); } catch { /* done */ } SF.worker = null; }
     SF.ready = false; SF.starting = false;
     el('evalWrap').hidden = true;
     btn.classList.remove('on');
-    btn.textContent = '\uD83D\uDCCA Stockfish: off';
     return;
   }
   SF.on = true;
   btn.classList.add('on');
-  btn.textContent = '\uD83D\uDCCA Stockfish: on';
   el('evalWrap').hidden = false;
   setEvalText('loading engine\u2026');
   SF.ensure();
