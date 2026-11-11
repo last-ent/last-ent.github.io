@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Solitaire Chess</title>
 <meta name="theme-color" content="#b05530">
 <link rel="manifest" href="/manifest.json">
@@ -10,6 +10,7 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  button, .card, .g-row { touch-action: manipulation; }   /* no double-tap zoom on rapid taps */
 
   body {
     background: #0d0d0d;
@@ -20,7 +21,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   .app {
-    width: 100%; max-width: 480px; margin: 0 auto;
+    width: 100%; max-width: 900px; margin: 0 auto;
     min-height: 100vh; min-height: 100dvh;
     background: #1b1b1b; padding: 12px 14px 18px;
     display: flex; flex-direction: column;
@@ -225,13 +226,29 @@
     width: 100%; display: block; border-radius: 6px;
     touch-action: manipulation; -webkit-user-select: none; user-select: none;
   }
-  .bnav { display: flex; gap: 6px; margin-bottom: 6px; flex: 0 0 auto; }
+  .bnav { display: flex; gap: 8px; margin-top: 10px; flex: 0 0 auto; }
   .nbtn {
-    flex: 1; min-height: 44px; background: #2a2a2a; color: #ccc; border: 1px solid #444;
-    border-radius: 8px; font-size: 1.05rem; cursor: pointer; font-family: inherit;
-    -webkit-user-select: none; user-select: none;
+    flex: 1; min-height: 48px; background: #2a2a2a; color: #ccc; border: 1px solid #444;
+    border-radius: 10px; cursor: pointer; font-family: inherit;
+    -webkit-user-select: none; user-select: none; touch-action: manipulation;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.12s, border-color 0.12s;
   }
-  .nbtn:active { background: #383838; }
+  .nbtn:hover { background: #383838; }
+  .nbtn:active { background: #444; border-color: #555; transform: scale(0.98); }
+  .nbtn:disabled { opacity: 0.35; cursor: default; }
+  .nbtn:disabled:active { transform: none; background: #2a2a2a; }
+  .nbtn svg { pointer-events: none; }
+  .tool-btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 36px; padding: 0; flex: 0 0 auto;
+    background: #2a2a2a; color: #999; border: 1px solid #444; border-radius: 8px;
+    cursor: pointer; touch-action: manipulation;
+    -webkit-user-select: none; user-select: none;
+    transition: background 0.12s;
+  }
+  .tool-btn:hover { background: #383838; }
+  .tool-btn:active { background: #444; }
   .evalwrap { margin-bottom: 6px; flex: 0 0 auto; }
   .evalbar { height: 10px; background: #161616; border: 1px solid #333; border-radius: 5px; overflow: hidden; }
   .evalfill { height: 100%; background: #e6d8c8; width: 50%; transition: width 0.25s; }
@@ -3950,19 +3967,14 @@ class Chess {
       <span class="title" id="browseTitle"></span>
       <span class="spacer"></span>
       <span class="mini" id="browseSide"></span>
+      <button class="tool-btn" id="flipBtn" onclick="bFlip()" aria-label="flip board" title="Flip board">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+      </button>
+      <button class="tool-btn" id="themeBtn" onclick="cycleTheme()" aria-label="board colour theme" title="Board theme"></button>
     </div>
     <div class="meta"><span class="score" id="browsePlayers"></span></div>
 
     <div class="bboard" id="browseBoard"></div>
-
-    <div class="bnav">
-      <button class="nbtn" onclick="bNav('first')" aria-label="first move">&#9198;</button>
-      <button class="nbtn" onclick="bNav('prev')" aria-label="previous move">&#9664;</button>
-      <button class="nbtn" onclick="bNav('next')" aria-label="next move">&#9654;</button>
-      <button class="nbtn" onclick="bNav('last')" aria-label="last move">&#9197;</button>
-      <button class="nbtn" onclick="bFlip()" aria-label="flip board">&#8646;</button>
-      <button class="nbtn" id="themeBtn" onclick="cycleTheme()" aria-label="board colour theme"></button>
-    </div>
 
     <div class="evalwrap" id="evalWrap" hidden>
       <div class="evalbar"><div class="evalfill" id="evalFill"></div></div>
@@ -3984,14 +3996,23 @@ class Chess {
       </div>
     </div>
 
-    <div class="moves-strip open" id="browseMovesStrip">
+    <div class="moves-strip" id="browseMovesStrip">
       <div class="moves-head" onclick="toggleBrowseMoves()">
         <span class="h">Moves</span>
-        <span class="caret" id="bmCaret">&#9660; hide</span>
+        <span class="caret" id="bmCaret">&#9650; show</span>
       </div>
       <div class="moves-scroll" id="bmScroll">
         <div class="bm-stream" id="bmList"></div>
       </div>
+    </div>
+
+    <!-- bottom nav (lichess-mobile style): move stepping only — flip + theme
+         live in the top bar so the centre row stays clean -->
+    <div class="bnav">
+      <button class="nbtn" id="navFirst" onclick="bNav('first')" aria-label="first move" title="First move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19 5.5 19 18.5 9 12Z"/><rect x="5" y="5" width="2.5" height="14" rx="1.25"/></svg></button>
+      <button class="nbtn" id="navPrev" onclick="bNav('prev')" aria-label="previous move" title="Previous move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17 5.5 17 18.5 7 12Z"/></svg></button>
+      <button class="nbtn" id="navNext" onclick="bNav('next')" aria-label="next move" title="Next move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 5.5 7 18.5 17 12Z"/></svg></button>
+      <button class="nbtn" id="navLast" onclick="bNav('last')" aria-label="last move" title="Last move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 5.5 5 18.5 15 12Z"/><rect x="16.5" y="5" width="2.5" height="14" rx="1.25"/></svg></button>
     </div>
 
     <div class="credit">Pieces: Wikimedia Commons (Cburnett &amp; Rfc1394) &mdash; CC BY-SA 3.0 via cm-chessboard. Replay: chess.js (MIT).</div>
@@ -4021,8 +4042,8 @@ class Chess {
     <button class="mode-btn" id="modeBrowse" onclick="pickMode('browse')"><span class="m-ico">&#128214;</span><span class="m-lbl">Browse &amp; Study</span></button>
   </div>
   <div class="side-actions">
-    <button class="side-btn white" onclick="chooseSide('white')">&#9812; White</button>
-    <button class="side-btn black" onclick="chooseSide('black')">&#9818; Black</button>
+    <button class="side-btn white" id="sideWhiteBtn" onclick="chooseSide('white')">&#9812; White</button>
+    <button class="side-btn black" id="sideBlackBtn" onclick="chooseSide('black')">&#9818; Black</button>
   </div>
   <div class="pos-hint">pick a mode &middot; then a side &middot; tap outside to cancel</div>
 </div>
@@ -4057,9 +4078,11 @@ class Chess {
 
 // ── Constants ──
 // App version, bumped per shipped change: v1.x = guess-the-move only,
-// v2.0 = browse mode (tree, authoring, engine, themes). Rendered into
+// v2.0 = browse mode (tree, authoring, engine, themes),
+// v2.1 = usability pass (moves box closed by default, player-name side
+// buttons, wider app, bottom nav bar). Rendered into
 // #verLine by boot() so a deploy can be verified on the page itself.
-const SOLCHESS_VERSION = 'v2.0';
+const SOLCHESS_VERSION = 'v2.1';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -4196,6 +4219,14 @@ function readTags(block) {
   return tags;
 }
 const cleanTag = (v) => (typeof v === 'string' ? v.trim() : '');
+// Side-picker label: the player's LAST name ("Garry Kasparov" → "Kasparov",
+// "Kasparov, Garry" → "Kasparov"); null when the tag is missing or "?".
+function lastNameOf(name) {
+  const s = cleanTag(name);
+  if (!s || s === '?') return null;
+  if (s.includes(',')) return s.split(',')[0].trim();
+  return s.split(/\s+/).pop();
+}
 function titleFromTags(tags, idx) {
   const chapter = cleanTag(tags.ChapterName);
   const w = cleanTag(tags.White);
@@ -4586,6 +4617,12 @@ function promptSide(g) {
   state.pendingGame = g;
   state.pickMode = 'gtm';
   el('sideGameTitle').textContent = g.title;
+  // Side buttons carry the players' names (last names), not generic labels.
+  const tags = readTags(g.raw);
+  const wName = lastNameOf(tags.White) || 'White';
+  const bName = lastNameOf(tags.Black) || 'Black';
+  el('sideWhiteBtn').innerHTML = '&#9812; ' + escHtml(wName);
+  el('sideBlackBtn').innerHTML = '&#9818; ' + escHtml(bName);
   syncModeButtons();
   el('sidePrompt').hidden = false;
 }
@@ -5291,8 +5328,8 @@ function startBrowse(g, side) {
   if (tree.result !== '*') parts.push(tree.result);
   el('browsePlayers').textContent = parts.join('  \u00b7  ');
   el('browseSide').textContent = 'Side: ' + (side === 'white' ? 'White' : 'Black');
-  el('browseMovesStrip').classList.add('open');
-  el('bmCaret').textContent = '\u25BC hide';
+  el('browseMovesStrip').classList.remove('open');
+  el('bmCaret').textContent = '\u25B2 show';
   buildBrowseControls();
   show('view-browse');
   renderBrowse();
@@ -5603,9 +5640,20 @@ function toggleBrowseMoves() {
 }
 
 // ── Master render ──
+// End-state awareness for the bottom nav: first/prev are dead at the root,
+// next/last are dead on a leaf (no continuation to follow).
+function syncNavButtons() {
+  const atStart = state.browse.path.length <= 1;
+  const atEnd = !bNode().children.length;
+  for (const [id, dis] of [['navFirst', atStart], ['navPrev', atStart], ['navNext', atEnd], ['navLast', atEnd]]) {
+    const b = el(id);
+    if (b) b.disabled = dis;
+  }
+}
 function renderBrowse() {
   if (!state.browse) return;
   renderBrowseBoard();
+  syncNavButtons();
   renderBrowseMoves();
   renderBrowseInfo();
   syncBrowseDock();
