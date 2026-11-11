@@ -3983,6 +3983,7 @@ const el = (id) => document.getElementById(id);
 // ── View switching ──
 function show(id) {
   for (const v of document.querySelectorAll('.view')) v.hidden = (v.id !== id);
+  if (id === 'view-collections') loadCollections();   // re-check remote on every visit
 }
 
 // ── Board rendering (64 squares + inline Wikimedia piece sprite) ──
@@ -4910,8 +4911,7 @@ function boot() {
   const dirOverride = params.get('dir');
   if (dirOverride) state.collectionsBase = dirOverride.endsWith('/') ? dirOverride : dirOverride + '/';
   buildControls();
-  show('view-collections');
-  loadCollections();
+  show('view-collections');   // loads collections (show re-checks on every visit)
   // Offline (PWA): the service worker precaches the shell + collections.json
   // + every .pgn listed there, and serves them cache-first. HTTPS (or
   // localhost) only — file:// pages cannot register a worker.
