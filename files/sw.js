@@ -7,7 +7,9 @@
 // Encrypted collections (.pgn.enc) are precached too — the ciphertext is
 // safe to cache; decryption stays in the browser. Bump VERSION only when the
 // worker's own logic changes.
-const VERSION = 'v4';
+// v5: manifest offline-fallback responses are tagged 'x-solchess-cache' so
+// the page's sync toast can tell a fresh sync from a cached one.
+const VERSION = 'v5';
 const CACHE = 'solchess-' + VERSION;
 const SHELL = ['solchess.html'];
 const JSON_URL = 'collections/collections.json';
@@ -79,6 +81,14 @@ self.addEventListener('activate', (event) => {
   })());
 });
 
+// Tag cache-served responses so the page can tell an offline fallback from a
+// fresh network sync (used by the sync toast on the collections manifest).
+function withCacheTag(res) {
+  const out = new Response(res.body, { status: res.status, statusText: res.statusText, headers: res.headers });
+  out.headers.set('x-solchess-cache', '1');
+  return out;
+}
+
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
@@ -115,7 +125,7 @@ self.addEventListener('fetch', (event) => {
       const cached = await cache.match(req);
       try {
         const fresh = await fetch(req, { cache: 'no-store' });
-        if (!fresh || !fresh.ok) return cached || fresh;
+        if (!fresh || !fresh.ok) return cached ? withCacheTag(cached) : fresh;
         const freshClone = fresh.clone();
         const newData = await freshClone.json().catch(() => null);
         if (newData) {
@@ -125,7 +135,7 @@ self.addEventListener('fetch', (event) => {
         }
         return fresh;
       } catch (e) {
-        return cached || Response.error();
+        return cached ? withCacheTag(cached) : Response.error();
       }
     })());
     return;

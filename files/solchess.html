@@ -148,7 +148,6 @@
   .tgt.active { background: #c05530; color: #f0e0d6; border-color: #c05530; }
   .ann-rows { display: flex; flex-direction: column; gap: 4px; }
   .ann-row { display: flex; gap: 5px; flex-wrap: nowrap; align-items: center; }
-  .ann-row .lbl { flex: 0 0 auto; font-size: 0.68rem; color: #555; text-transform: uppercase; letter-spacing: 0.05em; width: 38px; }
   .tbtn {
     background: #2d2d2d; color: #999; border: 1px solid #3d3d3d; border-radius: 6px;
     font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 0.92rem;
@@ -187,7 +186,7 @@
   .moves-head .h { color: #888; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
   .moves-head .caret { margin-left: auto; color: #666; font-size: 0.8rem; }
   .moves-scroll { display: none; }
-  .moves-strip.open .moves-scroll { display: block; max-height: 26dvh; overflow-y: auto; border-top: 1px solid #2d2d2d; }
+  .moves-strip.open .moves-scroll { display: block; max-height: 26vh; max-height: 26dvh; overflow-y: auto; border-top: 1px solid #2d2d2d; }
   .mv-table { width: 100%; border-collapse: collapse; font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 0.9rem; }
   .mv-table th {
     position: sticky; top: 0; background: #1b1b1b; color: #555; font-size: 0.68rem; font-weight: 500;
@@ -240,7 +239,10 @@
   .nbtn:disabled:active { transform: none; background: #2a2a2a; }
   .nbtn svg { pointer-events: none; }
   .nbtn.on { background: #3a4d3a; color: #c9e6c9; border-color: #507150; }
-  .bbar { display: flex; gap: 8px; margin-top: 10px; flex: 0 0 auto; }
+  .bbar {
+    display: flex; gap: 8px; margin-top: 10px; flex: 0 0 auto;
+    position: sticky; bottom: 0; z-index: 6; background: #1b1b1b;
+  }
   .bbtn {
     flex: 1; min-height: 44px; background: #2a2a2a; color: #999; border: 1px solid #444;
     border-radius: 10px; cursor: pointer; touch-action: manipulation;
@@ -251,6 +253,15 @@
   .bbtn:hover { background: #383838; }
   .bbtn:active { background: #444; }
   .bbtn svg { pointer-events: none; }
+  .vchips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; flex: 0 0 auto; }
+  .vchips .vchip {
+    background: #2a2a2a; color: #bbb; border: 1px solid #444; border-radius: 8px;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 0.9rem;
+    padding: 6px 12px; min-height: 34px; cursor: pointer; touch-action: manipulation;
+  }
+  .vchips .vchip:hover { background: #383838; }
+  .vchips .vchip:active { background: #444; }
+  .vchips .vchip.main { border-color: #6a5a3a; color: #d8c8b0; }   /* mainline continuation */
   .title-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; min-height: 38px; flex: 0 0 auto; }
   .title-block { min-width: 0; }
   .title-row .title { display: block; font-size: 1rem; color: #ddd; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -287,13 +298,11 @@
   .bm-prow .bm-num { flex: 0 0 2.6em; color: #5f5f5f; text-align: right; }
   .bm-prow .bm-cell { flex: 1 1 0; min-width: 0; }
   .bm-slot { flex: 1 1 0; min-width: 0; }
-  .bm-no { color: #5f5f5f; }
   .bm-cell {
     display: inline; cursor: pointer; border-radius: 4px; padding: 2px 3px; color: #bbb;
     -webkit-user-select: none; user-select: none;
   }
   .bm-cell:hover { color: #e0ccc4; }
-  .bm-cell.onpath { color: #c8825f; }
   .bm-cell.cur { background: #c05530; color: #f5e8e0; }
   .bm-g { font-weight: 600; }
   .bm-cmk { color: #5f5f5f; font-size: 0.8em; }
@@ -304,10 +313,6 @@
   .q-inacc { color: #b0a040; }
   .q-interest { color: #a080c0; }
   .q-eval { color: #c8825f; }
-  .bm-var {
-    display: block; border-left: 2px solid #4a4a4a; margin: 3px 0 3px 12px; padding-left: 8px;
-    color: #888; font-size: 0.88em;
-  }
   .bm-cmt {
     display: block; border: 1px solid #333; background: #1d1d1d; border-radius: 6px;
     padding: 3px 8px; margin: 3px 0; color: #777; font-style: italic; font-size: 0.82em; line-height: 1.5;
@@ -330,6 +335,16 @@
 
   /* comment modal: contents capped to the board width for a tidy column */
   #commentModal .target-row, #commentModal .bc-post { width: min(74vmin, 380px); }
+
+  /* sync toast: launch/re-sync status pill (top, pointer-transparent) */
+  .sync-toast {
+    position: fixed; top: 10px; left: 50%; transform: translateX(-50%);
+    background: #2a2a2a; color: #ccc; border: 1px solid #444; border-radius: 999px;
+    padding: 7px 16px; font-size: 0.85rem; z-index: 50; pointer-events: none;
+    white-space: nowrap; max-width: 92vw; overflow: hidden; text-overflow: ellipsis;
+    transition: opacity 0.25s;
+  }
+  .sync-toast[hidden] { display: none; }
 
   .side-title { color: #bbb; font-size: 0.95rem; text-align: center; max-width: 88vw; line-height: 1.4; }
   .side-actions { display: flex; flex-direction: column; gap: 12px; width: min(300px, 84vw); }
@@ -3880,6 +3895,7 @@ class Chess {
 
 </script>
 <div class="app">
+  <div class="sync-toast" id="syncToast" hidden></div>
 
   <!-- VIEW 1: COLLECTIONS -->
   <section class="view" id="view-collections">
@@ -3941,8 +3957,8 @@ class Chess {
           <button class="tgt" id="tgtOpponent" onclick="setTarget(true)"></button>
         </div>
         <div class="ann-rows">
-          <div class="ann-row" id="evalRow"><span class="lbl">Eval</span></div>
-          <div class="ann-row" id="glyphRow"><span class="lbl">Glyph</span></div>
+          <div class="ann-row" id="evalRow"></div>
+          <div class="ann-row" id="glyphRow"></div>
         </div>
         <div class="ann-src" id="annSrc"></div>
       </div>
@@ -3964,7 +3980,7 @@ class Chess {
     <div class="moves-strip" id="movesStrip">
       <div class="moves-head" onclick="toggleMoves()">
         <span class="h">Moves</span>
-        <span class="caret" id="movesCaret">&#9650; show</span>
+        <span class="caret" id="movesCaret">&#9660; show</span>
       </div>
       <div class="moves-scroll">
         <table class="mv-table">
@@ -4000,26 +4016,28 @@ class Chess {
     <div class="bnav">
       <button class="nbtn" id="navFirst" onclick="bNav('first')" aria-label="first move" title="First move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M19 5.5 19 18.5 9 12Z"/><rect x="5" y="5" width="2.5" height="14" rx="1.25"/></svg></button>
       <button class="nbtn" id="navPrev" onclick="bNav('prev')" aria-label="previous move" title="Previous move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M17 5.5 17 18.5 7 12Z"/></svg></button>
-      <button class="nbtn" id="navEngine" onclick="toggleEngine()" aria-label="toggle engine" title="Stockfish">
+      <button class="nbtn" id="navEngine" onclick="engineTap()" onpointerdown="navEngineDown()" onpointerup="navEngineUp()" onpointerleave="navEngineUp()" onpointercancel="navEngineUp()" oncontextmenu="return false" aria-label="toggle engine, hold for options" title="Stockfish (hold for options)">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M1 9h3M1 15h3M20 9h3M20 15h3"/></svg>
       </button>
       <button class="nbtn" id="navNext" onclick="bNav('next')" aria-label="next move" title="Next move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 5.5 7 18.5 17 12Z"/></svg></button>
       <button class="nbtn" id="navLast" onclick="bNav('last')" aria-label="last move" title="Last move"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M5 5.5 5 18.5 15 12Z"/><rect x="16.5" y="5" width="2.5" height="14" rx="1.25"/></svg></button>
     </div>
 
+    <div class="vchips" id="vChips" hidden></div>
+
     <div class="dock">
-      <div class="dock-head">Move <span class="bc-move" id="bcMoveLabel"></span></div>
+      <div class="dock-head"><span class="bc-move" id="bcMoveLabel"></span></div>
       <div class="bc-pre" id="bcPre" hidden></div>
       <div class="ann-rows">
-        <div class="ann-row" id="bEvalRow"><span class="lbl">Eval</span></div>
-        <div class="ann-row" id="bQualRow"><span class="lbl">Glyph</span></div>
+        <div class="ann-row" id="bEvalRow"></div>
+        <div class="ann-row" id="bQualRow"></div>
       </div>
     </div>
 
     <div class="moves-strip" id="browseMovesStrip">
       <div class="moves-head" onclick="toggleBrowseMoves()">
         <span class="h">Moves</span>
-        <span class="caret" id="bmCaret">&#9650; show</span>
+        <span class="caret" id="bmCaret">&#9660; show</span>
       </div>
       <div class="moves-scroll" id="bmScroll">
         <div class="bm-pairs" id="bmList"></div>
@@ -4103,6 +4121,21 @@ class Chess {
   </div>
 </div>
 
+<!-- ENGINE CONFIG (long-press the CPU nav button): depth + MultiPV lines -->
+<div class="pos-overlay" id="engineModal" hidden onclick="if(event.target===this) closeEngineModal()">
+  <div class="pos-caption">Engine</div>
+  <form class="side-actions pw-actions" onsubmit="return saveEngineConfig(event)">
+    <label class="mini" for="sfDepth">Search depth (1&ndash;30)</label>
+    <input class="search" id="sfDepth" type="number" min="1" max="30" step="1">
+    <label class="mini" for="sfLines">Engine lines (1&ndash;5)</label>
+    <input class="search" id="sfLines" type="number" min="1" max="5" step="1">
+    <div class="pw-btns">
+      <button type="submit" class="side-btn white">Save</button>
+      <button type="button" class="side-btn black" onclick="closeEngineModal()">Cancel</button>
+    </div>
+  </form>
+</div>
+
 <script>
 'use strict';
 // ─────────────────────────────────────────────────────────────────────────────
@@ -4121,9 +4154,11 @@ class Chess {
 // v2.1 = usability pass (moves box closed by default, player-name side
 // buttons, wider app, bottom nav bar),
 // v2.2 = browse redesign (no top bar, lichess-style pair move list, CPU
-// engine toggle in the nav row, bottom tool bar, comment modal). Rendered into
-// #verLine by boot() so a deploy can be verified on the page itself.
-const SOLCHESS_VERSION = 'v2.2';
+// engine toggle in the nav row, bottom tool bar, comment modal),
+// v2.3 = polish (label cleanup, caret arrows, sticky bottom bar, progressive
+// move reveal, variation chips, engine config long-press, sync toast).
+// Rendered into #verLine by boot() so a deploy can be verified on the page.
+const SOLCHESS_VERSION = 'v2.3';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -4407,9 +4442,30 @@ function listFromListing(html) {
 }
 
 // ── Collection loader (listing first; collections.json fallback) ──
+// ── Sync toast: launch/re-sync status pill (top, pointer-transparent) ──
+// "Syncing…" holds until the manifest resolves, then the outcome shows
+// briefly: fresh network sync, SW offline-cache fallback, or total failure.
+let syncToastTimer = null;
+function syncToast(msg, stickyMs) {
+  const t = el('syncToast');
+  if (!t) return;
+  clearTimeout(syncToastTimer);
+  t.textContent = msg;
+  t.hidden = false;
+  t.style.opacity = '1';
+  if (stickyMs > 0) {
+    syncToastTimer = setTimeout(() => {
+      t.style.opacity = '0';
+      syncToastTimer = setTimeout(() => { t.hidden = true; }, 260);
+    }, stickyMs);
+  }
+}
+
 async function loadCollections() {
   el('collError');
+  syncToast('Syncing\u2026', 0);
   let names = null;
+  let via = 'fresh';
   try {
     const res = await fetch(state.collectionsBase);
     if (res.ok) {
@@ -4421,6 +4477,7 @@ async function loadCollections() {
     try {
       const res = await fetch(state.collectionsBase + 'collections.json');
       if (res.ok) {
+        if (res.headers.get('x-solchess-cache')) via = 'cached';   // SW offline fallback
         const data = JSON.parse(await res.text());
         const arr = Array.isArray(data) ? data : data.collections;
         const plain = Array.isArray(arr) ? arr : [];
@@ -4433,6 +4490,10 @@ async function loadCollections() {
     } catch { /* no fallback either */ }
   }
   state.collections = names || [];
+  const n = state.collections.length;
+  if (!names) syncToast('\u2717 Sync failed \u2014 no collections', 4000);
+  else if (via === 'cached') syncToast('\u26A0 Offline \u00b7 ' + n + ' cached collection' + (n === 1 ? '' : 's'), 4000);
+  else syncToast('\u2713 Synced \u00b7 ' + n + ' collection' + (n === 1 ? '' : 's'), 2500);
   renderCollections();
 }
 
@@ -4927,7 +4988,7 @@ function startGame(g, side, keepAnns = false) {
   state.annotatingOpponent = false;
   el('sideLabel').textContent = 'Side: ' + (side === 'white' ? 'White' : 'Black');
   el('movesStrip').classList.remove('open');
-  el('movesCaret').textContent = '\u25B2 show';
+  el('movesCaret').textContent = '\u25BC show';
   el('mainPanel').classList.remove('finished', 'error');
   const parts = [];
   const w = parsed.headers.White || '', b = parsed.headers.Black || '';
@@ -5021,7 +5082,7 @@ function syncDock() {
 function toggleMoves() {
   state.stripOpen = !state.stripOpen;
   el('movesStrip').classList.toggle('open', state.stripOpen);
-  el('movesCaret').textContent = state.stripOpen ? '\u25BC hide' : '\u25B2 show';
+  el('movesCaret').textContent = state.stripOpen ? '\u25B2 hide' : '\u25BC show';
   if (state.stripOpen) renderMoves(); else el('movesBody').replaceChildren();
 }
 function renderMoves() {
@@ -5347,7 +5408,7 @@ function startBrowse(g, side) {
   if (tree.result !== '*') parts.push(tree.result);
   el('browsePlayers').textContent = parts.join('  \u00b7  ');
   el('browseMovesStrip').classList.remove('open');
-  el('bmCaret').textContent = '\u25B2 show';
+  el('bmCaret').textContent = '\u25BC show';
   buildBrowseControls();
   show('view-browse');
   renderBrowse();
@@ -5562,18 +5623,18 @@ function syncBrowseDock() {
   }
 }
 
-// ── Move list: lichess-style pair rows for the mainline + inline variation blocks ──
-// Mainline = rows of `N. | white | black`; a ply's alternatives render as
-// indented book-style blocks right after the row carrying that ply. Comments
-// are full-width rows that break the numbering flow (book convention).
+// ── Move list: progressive reveal — ONLY the current path is listed ──
+// The strip is an exploration trail: it starts empty and grows one ply per
+// forward step (opening a past move truncates it). Alternatives at the
+// current position live in the chip row under the nav, not here.
 const QUAL_CLASS = { '!': 'good', '!!': 'brill', '?': 'mist', '??': 'blund', '!?': 'inacc', '?!': 'interest' };
 function renderBrowseMoves() {
   const wrap = el('bmList');
   wrap.replaceChildren();
   const escH = (s) => String(s).replace(/[<>&]/g, (ch) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[ch]));
-  const pathSet = new Set(state.browse.path);
+  const path = state.browse.path;           // [root, ...revealed plies]
   const cur = bNode();
-  let curEl = null;         // current-move cell (for auto-scroll)
+  let curEl = null;                         // current-move cell (for auto-scroll)
 
   if (state.browse.error) {
     const warn = document.createElement('div');
@@ -5584,7 +5645,7 @@ function renderBrowseMoves() {
 
   const makeCell = (node) => {
     const c = document.createElement('span');
-    c.className = 'bm-cell' + (pathSet.has(node) ? ' onpath' : '') + (node === cur ? ' cur' : '');
+    c.className = 'bm-cell' + (node === cur ? ' cur' : '');
     let html = escH(node.san);
     if (node.srcQual) html += `<span class="bm-g q-${QUAL_CLASS[node.srcQual] || 'eval'}">${escH(node.srcQual)}</span>`;
     if (node.srcEval) html += `<span class="bm-g q-eval">${escH(node.srcEval)}</span>`;
@@ -5595,12 +5656,6 @@ function renderBrowseMoves() {
     if (node === cur) curEl = c;
     return c;
   };
-  const numSpan = (text) => {
-    const s = document.createElement('span');
-    s.className = 'bm-no';
-    s.textContent = text + ' ';
-    return s;
-  };
   const addComment = (text, container) => {
     const c = document.createElement('div');
     c.className = 'bm-cmt';
@@ -5608,73 +5663,44 @@ function renderBrowseMoves() {
     container.appendChild(c);
   };
 
-  // One ALTERNATIVE line as an indented inline block; deeper branches nest
-  // as blocks inside it.
-  const renderAlt = (alt, container) => {
-    const blk = document.createElement('div');
-    blk.className = 'bm-var';
-    container.appendChild(blk);
-    let prevCell = null;
-    let node = alt;
-    while (node) {
-      const showNum = node.turn === 'w' || !prevCell
-        || prevCell.n !== node.n || prevCell.turn === 'b';
-      if (showNum) blk.appendChild(numSpan(node.n + (node.turn === 'w' ? '.' : '...')));
-      blk.appendChild(makeCell(node));
-      for (const sub of node.children.slice(1)) renderAlt(sub, blk);
-      prevCell = { n: node.n, turn: node.turn };
-      if (node.comment) { addComment(node.comment, blk); prevCell = null; }
-      node = node.children[0] ?? null;
-    }
-  };
-
-  // The MAINLINE as pair rows: N. | white | black.
-  const renderLine = (first, container) => {
-    let node = first;
-    while (node) {
-      const prow = document.createElement('div');
-      prow.className = 'bm-prow';
-      if (node.turn === 'w') {
-        const num = document.createElement('span');
-        num.className = 'bm-num';
-        num.textContent = node.n + '.';
-        prow.appendChild(num);
-        prow.appendChild(makeCell(node));
-        let partner = null;
-        const c0 = node.children[0];
-        if (c0 && c0.turn === 'b' && c0.n === node.n) {
-          partner = c0;
-          prow.appendChild(makeCell(partner));
-        } else {
-          prow.appendChild(document.createElement('span')).className = 'bm-slot';
-        }
+  // pair rows over the revealed trail (a black ply always trails its white
+  // partner on a root-to-node path; the lone-black branch is defensive)
+  let i = 1;
+  while (i < path.length) {
+    const node = path[i];
+    const prow = document.createElement('div');
+    prow.className = 'bm-prow';
+    if (node.turn === 'w') {
+      const num = document.createElement('span');
+      num.className = 'bm-num';
+      num.textContent = node.n + '.';
+      prow.appendChild(num);
+      prow.appendChild(makeCell(node));
+      const next = path[i + 1];
+      if (next && next.turn === 'b' && next.n === node.n) {
+        prow.appendChild(makeCell(next));
         container.appendChild(prow);
-        for (const alt of node.children.slice(1)) renderAlt(alt, container);
-        if (node.comment) addComment(node.comment, container);
-        if (partner) {
-          for (const alt of partner.children.slice(1)) renderAlt(alt, container);
-          if (partner.comment) addComment(partner.comment, container);
-          node = partner.children[0] ?? null;
-        } else {
-          node = null;   // game ended on white's move
-        }
+        if (node.comment) addComment(node.comment, wrap);
+        if (next.comment) addComment(next.comment, wrap);
+        i += 2;
       } else {
-        // defensive: a mainline opening on a black ply (never for standard PGN)
-        const num = document.createElement('span');
-        num.className = 'bm-num';
-        num.textContent = node.n + '...';
-        prow.appendChild(num);
         prow.appendChild(document.createElement('span')).className = 'bm-slot';
-        prow.appendChild(makeCell(node));
         container.appendChild(prow);
-        for (const alt of node.children.slice(1)) renderAlt(alt, container);
-        if (node.comment) addComment(node.comment, container);
-        node = node.children[0] ?? null;
+        if (node.comment) addComment(node.comment, wrap);
+        i += 1;
       }
+    } else {
+      const num = document.createElement('span');
+      num.className = 'bm-num';
+      num.textContent = node.n + '...';
+      prow.appendChild(num);
+      prow.appendChild(document.createElement('span')).className = 'bm-slot';
+      prow.appendChild(makeCell(node));
+      container.appendChild(prow);
+      if (node.comment) addComment(node.comment, wrap);
+      i += 1;
     }
-  };
-
-  renderLine(state.browse.root.children[0] ?? null, wrap);
+  }
   if (curEl && el('browseMovesStrip').classList.contains('open')) {
     curEl.scrollIntoView({ block: 'nearest' });
   }
@@ -5683,7 +5709,7 @@ function toggleBrowseMoves() {
   const strip = el('browseMovesStrip');
   const open = !strip.classList.contains('open');
   strip.classList.toggle('open', open);
-  el('bmCaret').textContent = open ? '\u25BC hide' : '\u25B2 show';
+  el('bmCaret').textContent = open ? '\u25B2 hide' : '\u25BC show';
   if (open) renderBrowseMoves(); else el('bmList').replaceChildren();
 }
 
@@ -5698,10 +5724,30 @@ function syncNavButtons() {
     if (b) b.disabled = dis;
   }
 }
+
+// ── Variation chips: quick jump into sub-lines without the move list ──
+// Shown under the nav whenever the current position has 2+ known
+// continuations; the mainline one (children[0]) is tinted.
+function syncVariationChips() {
+  const wrap = el('vChips');
+  const kids = (state.browse && bNode().children) || [];
+  if (kids.length < 2) { wrap.hidden = true; wrap.replaceChildren(); return; }
+  wrap.hidden = false;
+  wrap.replaceChildren();
+  kids.forEach((child, i) => {
+    const b = document.createElement('button');
+    b.className = 'vchip' + (i === 0 ? ' main' : '');
+    b.textContent = child.san;
+    b.title = nodeLabel(child);
+    b.onclick = () => bSetPath([...state.browse.path, child]);
+    wrap.appendChild(b);
+  });
+}
 function renderBrowse() {
   if (!state.browse) return;
   renderBrowseBoard();
   syncNavButtons();
+  syncVariationChips();
   renderBrowseMoves();
   renderBrowseInfo();
   syncBrowseDock();
@@ -5717,9 +5763,15 @@ function toastBrowse(msg) {
 
 // ── Stockfish (web asm.js build via CDN, blob-worker; toggle-on demand) ──
 const SF_URL = 'https://cdn.jsdelivr.net/npm/stockfish.js@10.0.2/stockfish.js';
+// Engine config (long-press the CPU button): search depth + MultiPV lines,
+// persisted; applied after 'uciok' and live via applyConfig().
+const SF_CFG = {
+  depth: (function () { try { const v = parseInt(localStorage.getItem('solchess-sf-depth'), 10); return v >= 1 && v <= 30 ? v : 12; } catch { return 12; } })(),
+  lines: (function () { try { const v = parseInt(localStorage.getItem('solchess-sf-lines'), 10); return v >= 1 && v <= 5 ? v : 1; } catch { return 1; } })(),
+};
 const SF = {
   worker: null, ready: false, starting: false, on: false,
-  searching: false, pending: false, fen: null,
+  searching: false, pending: false, fen: null, lineScores: {},
   ensure() {
     if (this.worker || this.starting) return;
     this.starting = true;
@@ -5742,7 +5794,11 @@ const SF = {
     setEvalText('engine unavailable (offline?)');
   },
   onMsg(line) {
-    if (line.startsWith('uciok')) { this.worker.postMessage('isready'); return; }
+    if (line.startsWith('uciok')) {
+      this.worker.postMessage('setoption name MultiPV value ' + SF_CFG.lines);
+      this.worker.postMessage('isready');
+      return;
+    }
     if (line.startsWith('readyok')) {
       this.ready = true; this.starting = false;
       this.evalCurrent();
@@ -5751,8 +5807,9 @@ const SF = {
     if (this.on && line.startsWith('info') && line.includes(' pv ')) {
       const sm = /score (cp|mate) (-?\d+)/.exec(line);
       const pm = / pv (.+)$/.exec(line);
+      const lm = / multipv (\d+)/.exec(line);
       if (sm && pm && state.browse && bNode().fen === this.fen) {
-        this.showScore(sm[1], Number(sm[2]), pm[1].trim().split(/\s+/)[0]);
+        this.collectScore(lm ? Number(lm[1]) : 1, sm[1], Number(sm[2]), pm[1].trim().split(/\s+/)[0]);
       }
       return;
     }
@@ -5761,29 +5818,45 @@ const SF = {
       if (this.pending) { this.pending = false; this.evalCurrent(); }
     }
   },
-  showScore(kind, v, bestUci) {
-    let text, pct;
-    if (kind === 'mate') {
-      text = (v > 0 ? '+' : '-') + 'M' + Math.abs(v);
-      pct = v > 0 ? 100 : 0;
-    } else {
-      text = (v >= 0 ? '+' : '\u2212') + (Math.abs(v) / 100).toFixed(2);
-      pct = Math.round(100 / (1 + Math.pow(10, -v / 400)));   // win-probability style
+  scoreStr(s) {
+    return s.kind === 'mate' ? (s.v > 0 ? '+' : '-') + 'M' + Math.abs(s.v)
+      : (s.v >= 0 ? '+' : '\u2212') + (Math.abs(s.v) / 100).toFixed(2);
+  },
+  barPct(s) {
+    return s.kind === 'mate' ? (s.v > 0 ? 100 : 0)
+      : Math.round(100 / (1 + Math.pow(10, -s.v / 400)));   // win-probability style
+  },
+  bestSan(s) {
+    if (!s.bestUci || s.bestUci.length < 4) return '';
+    try {
+      const b = new Chess();
+      b.load(this.fen);
+      const mv = b.move({
+        from: s.bestUci.slice(0, 2), to: s.bestUci.slice(2, 4),
+        promotion: s.bestUci.length > 4 ? s.bestUci[4] : undefined,
+      });
+      return mv ? ' \u00b7 ' + mv.san : '';
+    } catch { return ''; }   // raw uci shown without conversion
+  },
+  collectScore(idx, kind, v, bestUci) {
+    if (idx < 1 || idx > SF_CFG.lines) return;
+    this.lineScores[idx] = { kind, v, bestUci };
+    const parts = [];
+    let top = null;
+    for (let i = 1; i <= SF_CFG.lines; i++) {
+      const s = this.lineScores[i];
+      if (!s) continue;
+      if (!top) top = s;
+      parts.push('#' + i + ' ' + this.scoreStr(s) + this.bestSan(s));
     }
-    el('evalFill').style.width = pct + '%';
-    let best = '';
-    if (bestUci && bestUci.length >= 4) {
-      try {
-        const b = new Chess();
-        b.load(this.fen);
-        const mv = b.move({
-          from: bestUci.slice(0, 2), to: bestUci.slice(2, 4),
-          promotion: bestUci.length > 4 ? bestUci[4] : undefined,
-        });
-        if (mv) best = ' \u00b7 best ' + mv.san;
-      } catch { /* raw uci shown without conversion */ }
-    }
-    setEvalText(text + best);
+    if (parts.length) setEvalText(parts.join('   '));
+    if (top) el('evalFill').style.width = this.barPct(top) + '%';
+  },
+  applyConfig() {
+    if (!this.worker || !this.ready) return;
+    this.worker.postMessage('setoption name MultiPV value ' + SF_CFG.lines);
+    if (this.searching) { this.searching = false; this.pending = false; this.worker.postMessage('stop'); }
+    this.evalCurrent();
   },
   evalCurrent() {
     if (!this.on || !this.ready || !this.worker) return;
@@ -5792,8 +5865,9 @@ const SF = {
     if (this.searching) { this.pending = true; this.worker.postMessage('stop'); return; }
     this.searching = true;
     this.fen = fen;
+    this.lineScores = {};
     this.worker.postMessage('position fen ' + fen);
-    this.worker.postMessage('go depth 12');
+    this.worker.postMessage('go depth ' + SF_CFG.depth);
   },
   pause() {
     if (this.worker && this.searching) { this.pending = false; this.worker.postMessage('stop'); }
@@ -5815,6 +5889,42 @@ function toggleEngine() {
   el('evalWrap').hidden = false;
   setEvalText('loading engine\u2026');
   SF.ensure();
+}
+
+// ── Engine config modal (long-press the CPU button) ──
+// Long-press opens the modal and arms a flag so the following click (the
+// pointerup that completes the gesture) does NOT toggle the engine.
+let sfLpTimer = null;
+let sfLpFired = false;
+function navEngineDown() {
+  sfLpFired = false;
+  clearTimeout(sfLpTimer);
+  sfLpTimer = setTimeout(() => { sfLpFired = true; openEngineModal(); }, 500);
+}
+function navEngineUp() { clearTimeout(sfLpTimer); }
+function engineTap() {
+  if (sfLpFired) { sfLpFired = false; return; }
+  toggleEngine();
+}
+function openEngineModal() {
+  el('sfDepth').value = SF_CFG.depth;
+  el('sfLines').value = SF_CFG.lines;
+  el('engineModal').hidden = false;
+}
+function closeEngineModal() { el('engineModal').hidden = true; }
+function saveEngineConfig(ev) {
+  ev.preventDefault();
+  const d = parseInt(el('sfDepth').value, 10);
+  const l = parseInt(el('sfLines').value, 10);
+  if (d >= 1 && d <= 30) SF_CFG.depth = d;
+  if (l >= 1 && l <= 5) SF_CFG.lines = l;
+  try {
+    localStorage.setItem('solchess-sf-depth', String(SF_CFG.depth));
+    localStorage.setItem('solchess-sf-lines', String(SF_CFG.lines));
+  } catch { /* private mode */ }
+  el('engineModal').hidden = true;
+  SF.applyConfig();
+  return false;
 }
 
 // ── Export: serialize the (authored) tree back out as standard PGN ──
