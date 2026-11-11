@@ -31,5 +31,16 @@ install:
 encrypt:
 	SOLCHESS_PASSWORD="$(PASSWORD)" node scripts/encrypt-pgn.mjs "$(IN)" "$(OUT)"
 
+# ── lichess study upload ──
+# Upload plaintext PGN collections as private Lichess studies (one study per
+# collection, games → chapters; big sets split every 64 chapters). Token comes
+# from $LICHESS_TOKEN or the gitignored local-pgn/.lichess-token:
+#   make lichess-upload ARGS='"files/collections/Spassky.pgn"'
+#   make lichess-upload ARGS='--self-test'
+#   make lichess-upload ARGS='--dry-run files/collections/*.pgn'
+# Encrypted (.pgn.enc) collections are skipped — plaintext only.
+lichess-upload:
+	python3 scripts/lichess_upload.py $(ARGS)
+
 help:
 	less Makefile
