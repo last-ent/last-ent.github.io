@@ -4156,9 +4156,10 @@ class Chess {
 // v2.2 = browse redesign (no top bar, lichess-style pair move list, CPU
 // engine toggle in the nav row, bottom tool bar, comment modal),
 // v2.3 = polish (label cleanup, caret arrows, sticky bottom bar, progressive
-// move reveal, variation chips, engine config long-press, sync toast).
-// Rendered into #verLine by boot() so a deploy can be verified on the page.
-const SOLCHESS_VERSION = 'v2.3';
+// move reveal, variation chips, engine config long-press, sync toast),
+// v2.4 = terminal "game ended" label + keyboard navigation (←/→ Home End f
+// Esc). Rendered into #verLine by boot() so a deploy can be verified.
+const SOLCHESS_VERSION = 'v2.4';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -5517,10 +5518,39 @@ function bPlayMove(mv) {
   bSetPath([...state.browse.path, node]);
 }
 
+// Terminal node of the mainline (children[0] chain) — the position the game
+// actually ended on (⏭ from the root lands here too).
+function mainlineEnd() {
+  let x = state.browse.root;
+  while (x.children.length) x = x.children[0];
+  return x;
+}
+// Game-over label for the terminal position: winner/score, plus a reason when
+// one is available (final '#' = checkmate; a non-standard Termination tag
+// otherwise — plain PGN rarely marks resignation, so it shows as a bare win).
+// Ongoing games ('*') keep their normal move label.
+function gameEndLabel(node, result) {
+  const who = result === '1-0' ? 'White wins'
+    : result === '0-1' ? 'Black wins' : 'Draw';
+  let why = '';
+  if (node.san && node.san.endsWith('#')) why = 'checkmate \u00b7 ';
+  else {
+    const t = cleanTag(state.browse.game.headers.Termination);
+    if (t && !/^(normal|unterminated)$/i.test(t)) why = t.toLowerCase() + ' \u00b7 ';
+  }
+  return why + who + ' \u00b7 ' + result;
+}
 function renderBrowseInfo() {
   const node = bNode();
-  el('bcMoveLabel').textContent = node.san
-    ? `${node.n}${node.turn === 'w' ? '.' : '...'} ${node.san}` : 'start position';
+  let label;
+  if (!node.san) label = 'start position';
+  else {
+    const r = state.browse.game.result;
+    const ended = node === mainlineEnd() && r && r !== '*';
+    label = ended ? gameEndLabel(node, r)
+      : `${node.n}${node.turn === 'w' ? '.' : '...'} ${node.san}`;
+  }
+  el('bcMoveLabel').textContent = label;
   const pre = node.preComment || '';
   const preEl = el('bcPre');
   preEl.textContent = pre;
@@ -6018,6 +6048,33 @@ function buildControls() {
     qlRow.appendChild(b);
   }
 }
+
+// ── Keyboard navigation (browse study view) ──
+// ←/→ step moves, Home/End jump to start/end, f flips the board, Escape
+// closes whatever overlay is open. Nav keys are ignored while a text field
+// has focus or a modal is up; Escape works everywhere.
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (e.key === 'Escape') {
+    for (const [id, fn] of [
+      ['commentModal', closeCommentModal], ['engineModal', closeEngineModal],
+      ['posModal', closePos], ['sidePrompt', hideSidePrompt], ['pwPrompt', hidePwPrompt],
+    ]) {
+      if (!el(id).hidden) { fn(); return; }
+    }
+    return;
+  }
+  if (!state.browse || el('view-browse').hidden) return;
+  const ae = document.activeElement;
+  if (ae && (ae.tagName === 'INPUT' || ae.tagName === 'TEXTAREA' || ae.tagName === 'SELECT')) return;
+  if (!el('sidePrompt').hidden || !el('pwPrompt').hidden ||
+      !el('commentModal').hidden || !el('engineModal').hidden) return;
+  if (e.key === 'ArrowLeft') { e.preventDefault(); bNav('prev'); }
+  else if (e.key === 'ArrowRight') { e.preventDefault(); bNav('next'); }
+  else if (e.key === 'Home') { e.preventDefault(); bNav('first'); }
+  else if (e.key === 'End') { e.preventDefault(); bNav('last'); }
+  else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); bFlip(); }
+});
 
 function boot() {
   'use strict';
