@@ -3996,6 +3996,12 @@ class Chess {
 
     <div class="credit">Pieces: Wikimedia Commons (Cburnett &amp; Rfc1394) &mdash; CC BY-SA 3.0 via cm-chessboard. Replay: chess.js (MIT).</div>
   </section>
+
+  <!-- Version stamp: visible on EVERY view so a deploy can be verified at a glance.
+       Fill happens in boot(): the fixed version constant is bumped per shipped
+       change, and the build time is the server-provided document.lastModified
+       (accurate for the copy actually loaded, cache included). -->
+  <div class="credit" id="verLine"></div>
 </div>
 
 <!-- POSITION MODAL -->
@@ -4050,6 +4056,10 @@ class Chess {
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── Constants ──
+// App version, bumped per shipped change: v1.x = guess-the-move only,
+// v2.0 = browse mode (tree, authoring, engine, themes). Rendered into
+// #verLine by boot() so a deploy can be verified on the page itself.
+const SOLCHESS_VERSION = 'v2.0';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -5814,6 +5824,16 @@ function boot() {
   if (dirOverride) state.collectionsBase = dirOverride.endsWith('/') ? dirOverride : dirOverride + '/';
   buildControls();
   show('view-collections');   // loads collections (show re-checks on every visit)
+  // Version stamp (every view): fixed constant + the server-provided build
+  // time of the copy actually loaded (document.lastModified — HTTP
+  // Last-Modified, also correct for a service-worker-cached shell).
+  const verEl = el('verLine');
+  if (verEl) {
+    const built = new Date(document.lastModified);
+    const builtStr = isNaN(built.getTime()) ? document.lastModified : built.toLocaleString();
+    verEl.textContent = `solchess ${SOLCHESS_VERSION} \u00b7 built ${builtStr}`;
+    console.log(`[solchess] ${SOLCHESS_VERSION} \u00b7 built ${builtStr}`);
+  }
   // Offline (PWA): the service worker precaches the shell + collections.json
   // + every .pgn listed there, and serves them cache-first. HTTPS (or
   // localhost) only — file:// pages cannot register a worker.

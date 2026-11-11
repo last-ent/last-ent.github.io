@@ -156,6 +156,10 @@ ok(run('__r.result') === '1-0', 'result token captured');
 run(`globalThis.__f3 = parseGameTree("[Event \\"x\\"]\\n\\n1. d3 *");`);
 ok(run('__f3.result') === '*', 'bare result * preserved');
 
+console.log('version stamp');
+ok(typeof run('SOLCHESS_VERSION') === 'string' && /^v\d/.test(run('SOLCHESS_VERSION')), 'SOLCHESS_VERSION defined: ' + run('SOLCHESS_VERSION'));
+ok(html.includes('id="verLine"'), 'version line present on page');
+
 console.log('DOM consistency (ids + inline handlers)');
 {
   const ids = new Set();
