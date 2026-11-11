@@ -202,6 +202,86 @@
   .mv-table .mv-cell .cm { color: #5f5f5f; font-size: 0.72rem; margin-left: 4px; }
   .mv-table tr.current td { color: #c8825f; }
 
+  /* ── mode prompt (guess vs browse) ── */
+  .mode-row { display: flex; gap: 10px; width: min(300px, 84vw); }
+  .mode-btn {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px;
+    padding: 14px 8px 12px; background: #2a2a2a; color: #bbb; border: 1px solid #444;
+    border-radius: 12px; cursor: pointer; min-height: 88px; transition: background 0.12s;
+  }
+  .mode-btn:active { transform: scale(0.98); }
+  .mode-btn .m-ico { font-size: 1.7rem; line-height: 1; }
+  .mode-btn .m-lbl { font-size: 0.76rem; color: #888; text-align: center; }
+  .mode-btn.active { background: #c05530; border-color: #c05530; }
+  .mode-btn.active .m-ico { color: #fff; }
+  .mode-btn.active .m-lbl { color: #f5e5dc; }
+
+  /* ── browse ── */
+  .bboard {
+    background: #242424; border-radius: 14px; padding: 8px; margin-bottom: 8px;
+    flex: 0 0 auto;
+  }
+  .bfield-int {
+    width: 100%; display: block; border-radius: 6px;
+    touch-action: manipulation; -webkit-user-select: none; user-select: none;
+  }
+  .bnav { display: flex; gap: 6px; margin-bottom: 6px; flex: 0 0 auto; }
+  .nbtn {
+    flex: 1; min-height: 44px; background: #2a2a2a; color: #ccc; border: 1px solid #444;
+    border-radius: 8px; font-size: 1.05rem; cursor: pointer; font-family: inherit;
+    -webkit-user-select: none; user-select: none;
+  }
+  .nbtn:active { background: #383838; }
+  .evalwrap { margin-bottom: 6px; flex: 0 0 auto; }
+  .evalbar { height: 10px; background: #161616; border: 1px solid #333; border-radius: 5px; overflow: hidden; }
+  .evalfill { height: 100%; background: #e6d8c8; width: 50%; transition: width 0.25s; }
+  .evaltext {
+    font-size: 0.78rem; color: #999; text-align: center; margin-top: 3px;
+    font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; min-height: 1em;
+  }
+  .bc-move { color: #c8825f; text-transform: none; letter-spacing: 0; }
+  .bc-pre { font-style: italic; color: #8a8a8a; font-size: 0.8rem; line-height: 1.4; }
+  .bc-post {
+    width: 100%; margin-top: 4px; background: #242424; color: #ddd; border: 1px solid #3a3a3a;
+    border-radius: 8px; padding: 8px 10px; font-size: 1rem; font-family: inherit; resize: vertical; min-height: 44px;
+  }
+  .b-actions { display: flex; gap: 6px; margin-top: 8px; }
+  .b-actions .chip { font-size: 0.78rem; min-height: 36px; padding: 6px 8px; }
+  .b-actions .chip.on { background: #3a4d3a; color: #c9e6c9; border-color: #507150; }
+  #delBtn.armed { background: #6b3a3a; color: #f0c0b0; border-color: #8a5040; }
+
+  /* browse move list: book-style paired flow + variation blocks */
+  .bm-stream {
+    padding: 8px 10px; font-family: "SF Mono", "Cascadia Code", "Consolas", monospace;
+    font-size: 0.92rem; line-height: 1.9; color: #999;
+  }
+  .bm-no { color: #5f5f5f; }
+  .bm-cell {
+    display: inline; cursor: pointer; border-radius: 4px; padding: 2px 3px; color: #bbb;
+    -webkit-user-select: none; user-select: none;
+  }
+  .bm-cell:hover { color: #e0ccc4; }
+  .bm-cell.onpath { color: #c8825f; }
+  .bm-cell.cur { background: #c05530; color: #f5e8e0; }
+  .bm-g { font-weight: 600; }
+  .bm-cmk { color: #5f5f5f; font-size: 0.8em; }
+  .q-good { color: #7aa66a; }
+  .q-brill { color: #4db8a8; }
+  .q-mist { color: #d0a050; }
+  .q-blund { color: #d06060; }
+  .q-inacc { color: #b0a040; }
+  .q-interest { color: #a080c0; }
+  .q-eval { color: #c8825f; }
+  .bm-var {
+    display: block; border-left: 2px solid #4a4a4a; margin: 3px 0 3px 12px; padding-left: 8px;
+    color: #888; font-size: 0.88em;
+  }
+  .bm-row { display: block; }
+  .bm-cmt {
+    display: block; border: 1px solid #333; background: #1d1d1d; border-radius: 6px;
+    padding: 3px 8px; margin: 3px 0; color: #777; font-style: italic; font-size: 0.82em; line-height: 1.5;
+  }
+
   /* ── overlays ── */
   .pos-overlay {
     position: fixed; inset: 0; background: rgba(8, 8, 8, 0.9); z-index: 40;
@@ -3862,6 +3942,66 @@ class Chess {
 
     <div class="credit">Pieces: Wikimedia Commons (Cburnett &amp; Rfc1394) &mdash; CC BY-SA 3.0 via cm-chessboard. PGN replay: chess.js (MIT).</div>
   </section>
+
+  <!-- VIEW 4: BROWSE (full-variation tree reader + authoring + engine) -->
+  <section class="view" id="view-browse" hidden>
+    <div class="backbar">
+      <button class="back-btn" onclick="backToGames()">&#8592; Games</button>
+      <span class="title" id="browseTitle"></span>
+      <span class="spacer"></span>
+      <span class="mini" id="browseSide"></span>
+    </div>
+    <div class="meta"><span class="score" id="browsePlayers"></span></div>
+
+    <div class="bboard" id="browseBoard"></div>
+
+    <div class="bnav">
+      <button class="nbtn" onclick="bNav('first')" aria-label="first move">&#9198;</button>
+      <button class="nbtn" onclick="bNav('prev')" aria-label="previous move">&#9664;</button>
+      <button class="nbtn" onclick="bNav('next')" aria-label="next move">&#9654;</button>
+      <button class="nbtn" onclick="bNav('last')" aria-label="last move">&#9197;</button>
+      <button class="nbtn" onclick="bFlip()" aria-label="flip board">&#8646;</button>
+      <button class="nbtn" id="themeBtn" onclick="cycleTheme()" aria-label="board colour theme"></button>
+    </div>
+
+    <div class="evalwrap" id="evalWrap" hidden>
+      <div class="evalbar"><div class="evalfill" id="evalFill"></div></div>
+      <div class="evaltext" id="evalText"></div>
+    </div>
+
+    <div class="dock">
+      <div class="dock-head">Move <span class="bc-move" id="bcMoveLabel"></span></div>
+      <div class="bc-pre" id="bcPre" hidden></div>
+      <textarea class="bc-post" id="bcPost" rows="2" placeholder="comment on this move &hellip;" onchange="commitComment()"></textarea>
+      <div class="ann-rows">
+        <div class="ann-row" id="bEvalRow"><span class="lbl">Eval</span></div>
+        <div class="ann-row" id="bQualRow"><span class="lbl">Glyph</span></div>
+      </div>
+      <div class="b-actions">
+        <button class="chip" id="evalToggle" onclick="toggleEngine()">&#128202; Stockfish: off</button>
+        <button class="chip" id="delBtn" onclick="browseDeleteTap()">&#9003; Delete move</button>
+        <button class="chip" onclick="shareBrowse()">&#8599; PGN</button>
+      </div>
+    </div>
+
+    <div class="moves-strip open" id="browseMovesStrip">
+      <div class="moves-head" onclick="toggleBrowseMoves()">
+        <span class="h">Moves</span>
+        <span class="caret" id="bmCaret">&#9660; hide</span>
+      </div>
+      <div class="moves-scroll" id="bmScroll">
+        <div class="bm-stream" id="bmList"></div>
+      </div>
+    </div>
+
+    <div class="credit">Pieces: Wikimedia Commons (Cburnett &amp; Rfc1394) &mdash; CC BY-SA 3.0 via cm-chessboard. Replay: chess.js (MIT).</div>
+  </section>
+
+  <!-- Version stamp: visible on EVERY view so a deploy can be verified at a glance.
+       Fill happens in boot(): the fixed version constant is bumped per shipped
+       change, and the build time is the server-provided document.lastModified
+       (accurate for the copy actually loaded, cache included). -->
+  <div class="credit" id="verLine"></div>
 </div>
 
 <!-- POSITION MODAL -->
@@ -3872,15 +4012,19 @@ class Chess {
   <div class="pos-hint">tap the board to close</div>
 </div>
 
-<!-- SIDE PROMPT -->
+<!-- MODE PROMPT (guess-the-move vs browse, then side) -->
 <div class="pos-overlay" id="sidePrompt" hidden onclick="if(event.target===this) hideSidePrompt()">
-  <div class="pos-caption">Play as</div>
+  <div class="pos-caption">Open game</div>
   <div class="side-title" id="sideGameTitle"></div>
-  <div class="side-actions">
-    <button class="side-btn white" onclick="chooseSide('white')">White</button>
-    <button class="side-btn black" onclick="chooseSide('black')">Black</button>
+  <div class="mode-row">
+    <button class="mode-btn" id="modeGtm" onclick="pickMode('gtm')"><span class="m-ico">&#10067;</span><span class="m-lbl">Guess the Move</span></button>
+    <button class="mode-btn" id="modeBrowse" onclick="pickMode('browse')"><span class="m-ico">&#128214;</span><span class="m-lbl">Browse &amp; Study</span></button>
   </div>
-  <div class="pos-hint">tap outside to cancel</div>
+  <div class="side-actions">
+    <button class="side-btn white" onclick="chooseSide('white')">&#9812; White</button>
+    <button class="side-btn black" onclick="chooseSide('black')">&#9818; Black</button>
+  </div>
+  <div class="pos-hint">pick a mode &middot; then a side &middot; tap outside to cancel</div>
 </div>
 
 <!-- PASSWORD PROMPT -->
@@ -3912,6 +4056,10 @@ class Chess {
 // ─────────────────────────────────────────────────────────────────────────────
 
 // ── Constants ──
+// App version, bumped per shipped change: v1.x = guess-the-move only,
+// v2.0 = browse mode (tree, authoring, engine, themes). Rendered into
+// #verLine by boot() so a deploy can be verified on the page itself.
+const SOLCHESS_VERSION = 'v2.0';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -3956,6 +4104,11 @@ const state = {
   finished: false,
   stripOpen: false,
   userAnns: {},               // ply index → {eval: symbol|null, qual: glyph|null}
+  pickMode: 'gtm',            // open-game prompt: 'gtm' | 'browse'
+  browse: null,               // browse session: {game, root, path, side, flip, sel, chess, delArm, error}
+  boardTheme: (function () {  // persisted display preference; safe in any sandbox
+    try { return localStorage.getItem('solchess-theme') || 'wood'; } catch { return 'wood'; }
+  })(),
 };
 // Pure fns: `annTextFor` emits PGN NAG tokens (for export splicing);
 // `annDisplayFor` emits the display symbols/glyphs (for button + move list).
@@ -3987,13 +4140,15 @@ function show(id) {
 }
 
 // ── Board rendering (64 squares + inline Wikimedia piece sprite) ──
+// Colours come from the selected board theme (persisted; see BOARD_THEMES).
 function boardSVG(fen) {
+  const th = boardThemeColors();
   const rows = String(fen).split(' ')[0].split('/');
   let cells = '';
   for (let r = 0; r < 8; r++) {
     for (let f = 0; f < 8; f++) {
       const dark = (r + f) % 2 === 1;
-      cells += `<rect x="${f * 40}" y="${r * 40}" width="40" height="40" fill="${dark ? '#c5a076' : '#ecdab9'}"/>`;
+      cells += `<rect x="${f * 40}" y="${r * 40}" width="40" height="40" fill="${dark ? th.dark : th.light}"/>`;
     }
   }
   for (let r = 0; r < 8; r++) {
@@ -4424,18 +4579,26 @@ function toggleOrder() {
   applyQuery();
 }
 
-function backToGames() { show('view-games'); }
+function backToGames() { SF.pause(); show('view-games'); }
 
-// ── Side prompt → game entry ──
+// ── Mode prompt → game entry (GTM or browse) ──
 function promptSide(g) {
   state.pendingGame = g;
+  state.pickMode = 'gtm';
   el('sideGameTitle').textContent = g.title;
+  syncModeButtons();
   el('sidePrompt').hidden = false;
 }
 function hideSidePrompt() { el('sidePrompt').hidden = true; }
+function pickMode(m) { state.pickMode = m; syncModeButtons(); }
+function syncModeButtons() {
+  el('modeGtm').classList.toggle('active', state.pickMode === 'gtm');
+  el('modeBrowse').classList.toggle('active', state.pickMode === 'browse');
+}
 function chooseSide(side) {
   el('sidePrompt').hidden = true;
-  startGame(state.pendingGame, side);
+  if (state.pickMode === 'browse') startBrowse(state.pendingGame, side);
+  else startGame(state.pendingGame, side);
 }
 
 // ── PGN parse: headers + char-scanner tokenizer + chess.js mainline replay ──
@@ -4887,6 +5050,755 @@ function safePgnFilename() {
   return title.replace(/[^\w\-]+/g, '_').slice(0, 60) + '.pgn';
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// Browse mode — full-variation tree reader over the same PGN collections.
+// Tree node shape: {n, turn, san, fen, from, to, comment, preComment,
+//   srcQual, srcEval, srcUnknown, parent, children} — children[0] is the
+// CONTINUATION, children[1..] the ALTERNATIVES in source order (the same
+// invariant as the reference app's browse.js). state.browse.path is
+// [root, …current]; every navigation is a well-defined path (random browsing).
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Board colour themes (persisted display preference) ──
+const BOARD_THEMES = {
+  wood:   { light: '#ecdab9', dark: '#c5a076' },
+  sand:   { light: '#f0d9b5', dark: '#b58863' },
+  green:  { light: '#eeeed2', dark: '#769656' },
+  blue:   { light: '#dee3e6', dark: '#8ca2ad' },
+  purple: { light: '#e8e0ef', dark: '#8f7ab5' },
+};
+const THEME_ORDER = ['wood', 'sand', 'green', 'blue', 'purple'];
+function boardThemeColors() { return BOARD_THEMES[state.boardTheme] || BOARD_THEMES.wood; }
+function saveTheme() { try { localStorage.setItem('solchess-theme', state.boardTheme); } catch { /* private mode */ } }
+function cycleTheme() {
+  const i = THEME_ORDER.indexOf(state.boardTheme);
+  state.boardTheme = THEME_ORDER[(i + 1) % THEME_ORDER.length] || 'wood';
+  saveTheme();
+  renderThemeBtn();
+  if (state.browse) renderBrowseBoard();   // the position modal picks the theme on next open
+}
+function themeSwatchSVG() {
+  const th = boardThemeColors();
+  return `<svg width="18" height="18" viewBox="0 0 20 20" style="vertical-align:-3px">`
+    + `<rect width="10" height="10" fill="${th.light}"/><rect x="10" y="10" width="10" height="10" fill="${th.light}"/>`
+    + `<rect x="10" width="10" height="10" fill="${th.dark}"/><rect y="10" width="10" height="10" fill="${th.dark}"/></svg>`;
+}
+function renderThemeBtn() { const b = el('themeBtn'); if (b) b.innerHTML = themeSwatchSVG(); }
+
+// ── Full-variation PGN parse (tree with per-node FENs) ──
+// Best-effort like the mainline parser: an illegal SAN stops that line
+// mid-game (tree.error), everything before it stays browsable and exportable.
+function parseGameTree(raw) {
+  const block = String(raw ?? '');
+  const headers = readTags(block);
+  if (headers.FEN) throw new Error('custom start position (FEN/SetUp) not supported');
+  if (headers.SetUp != null && ['1', 'true', 'TRUE', 'True'].includes(String(headers.SetUp))) {
+    throw new Error('custom start position (FEN/SetUp) not supported');
+  }
+  const lines = block.split('\n');
+  let i0 = 0;
+  while (i0 < lines.length && TAG_LINE_RE.test(lines[i0])) i0++;
+  const st = { text: lines.slice(i0).join('\n'), i: 0, result: null, error: null };
+  const root = {
+    n: 0, turn: 'w', san: null, fen: DEFAULT_POSITION, from: null, to: null,
+    comment: null, preComment: null, srcQual: null, srcEval: null, srcUnknown: null,
+    parent: null, children: [],
+  };
+  parseTreeLine(st, root);
+  return { headers, result: cleanResult(headers.Result) || cleanResult(st.result) || '*', root, error: st.error };
+}
+
+// One line = the plies branching from parentNode's position (parentNode.fen);
+// MUTATES st.i / st.result / st.error. A `(...)` group is an alternative to
+// the line's last ply: its nodes attach to the branch point = the parent of
+// that ply (or parentNode itself before the line's first ply). The recursion
+// parses on its OWN Chess instance seeded from the branch FEN, so the
+// enclosing line's replay state is untouched when the group closes. A failure
+// INSIDE a variation only truncates that line (depth > 0) — the game's error
+// flag is reserved for a broken mainline, matching python-chess leniency.
+function parseTreeLine(st, parentNode, depth = 0) {
+  const text = st.text;
+  const n = text.length;
+  const board = new Chess();
+  try { board.load(parentNode.fen); } catch { board.reset(); }
+  let last = null;        // last node appended within THIS line
+  let pending = null;     // comment ahead of the line's first ply → its preComment
+  while (st.i < n) {
+    const c = text[st.i];
+    if (c === '%') { const e = text.indexOf('\n', st.i); st.i = e < 0 ? n : e + 1; continue; }
+    if (c === ';') { const e = text.indexOf('\n', st.i); st.i = e < 0 ? n : e + 1; continue; }
+    if (c === '(') {
+      st.i++;
+      parseTreeLine(st, last ? last.parent : parentNode, depth + 1);
+      // A variation line can bail early (illegal SAN / result token) leaving
+      // the rest of its group unconsumed — guarantee the caller resumes past
+      // the group's own ')'.
+      if (!(st.i > 0 && text[st.i - 1] === ')')) st.i = skipToGroupClose(text, st.i);
+      continue;
+    }
+    if (c === ')') { st.i++; return; }
+    if (c === '[') { const e = text.indexOf(']', st.i + 1); st.i = e < 0 ? n : e + 1; continue; }
+    if (c === '{') {
+      const close = text.indexOf('}', st.i + 1);
+      const clean = (close < 0 ? text.slice(st.i + 1) : text.slice(st.i + 1, close)).replace(/\s+/g, ' ').trim();
+      if (clean) {
+        if (last) last.comment = last.comment ? last.comment + ' ' + clean : clean;
+        else pending = pending ? pending + ' ' + clean : clean;
+      }
+      st.i = close < 0 ? n : close + 1;
+      continue;
+    }
+    if (WS_RE.test(c)) { st.i++; continue; }
+    if (c === '$') {
+      const m = /^\$(\d+)/.exec(text.slice(st.i, Math.min(n, st.i + 8)));
+      if (m) { attachTreeNag(last, m[1]); st.i += m[0].length; continue; }
+      st.i++; continue;
+    }
+    const rm = RESULT_RE.exec(text.slice(st.i, Math.min(n, st.i + 12)));
+    if (rm) { st.result = rm[1]; return; }
+    let j = st.i;
+    while (j < n && !TREE_STOP_RE.test(text[j])) j++;
+    const tok = text.slice(st.i, j);
+    if (!tok) { st.i++; continue; }
+    st.i = j;
+    if (/^\d+\.{0,3}$/.test(tok)) continue;             // bare move number
+    let sanToken = tok;
+    const gm = /^\d+\.{0,3}(.+)$/.exec(tok);
+    if (gm) sanToken = gm[1];                           // glued: 12.Nf3
+    let suffix = null;
+    if (/^[!?]+$/.test(sanToken)) { attachTreeQual(last, sanToken); continue; }
+    const sm = /^(.+?)([!?]+)$/.exec(sanToken);
+    if (sm) { sanToken = sm[1]; suffix = sm[2]; }
+    const fenBefore = board.fen();
+    const num = Number(fenBefore.split(' ')[5]) || 1;   // fullmove BEFORE the ply
+    const turn = board.turn() === 'b' ? 'b' : 'w';
+    let mv = null;
+    try { mv = board.move(sanToken); } catch { mv = null; }
+    if (!mv) {
+      if (depth === 0) st.error = `illegal move "${sanToken}"`;
+      return;
+    }
+    const node = {
+      n: num, turn, san: mv.san, fen: board.fen(), from: mv.from, to: mv.to,
+      comment: null, preComment: pending,
+      srcQual: suffix || null, srcEval: null, srcUnknown: null,
+      parent: (last || parentNode), children: [],
+    };
+    pending = null;
+    (last || parentNode).children.push(node);
+    last = node;
+  }
+}
+// Like STOP_RE plus ')': inside a variation line a bare ')' must terminate
+// the token scan so the CLOSE handler sees it (the shared mainline regex
+// never meets a ')' because GTM's parsePgn skips groups wholesale).
+const TREE_STOP_RE = /[\s{($;\[\)]/;
+// Skip forward to the ')' closing the variation group that starts before i
+// (brace-aware, nesting-aware); n when the group never closes.
+function skipToGroupClose(text, i) {
+  let depth = 0;
+  const n = text.length;
+  while (i < n) {
+    const c = text[i];
+    if (c === '{') { const e = text.indexOf('}', i + 1); i = e < 0 ? n : e + 1; continue; }
+    if (c === '(') depth++;
+    else if (c === ')') { if (depth === 0) return i + 1; depth--; }
+    i++;
+  }
+  return n;
+}
+function attachTreeNag(node, numStr) {
+  if (!node) return;
+  const q = NAG_QUALITY[parseInt(numStr, 10)];
+  const e = NAG_EVAL_SYM[numStr];
+  if (q && !node.srcQual) node.srcQual = q;
+  if (e && !node.srcEval) node.srcEval = e;
+  if (!q && !e && !node.srcUnknown) node.srcUnknown = '$' + numStr;
+}
+function attachTreeQual(node, glyph) {
+  if (node && !node.srcQual) node.srcQual = glyph;
+}
+
+// ── flatten (render order for the move list) ──
+// Mainline spine at depth 0; each ply followed by the alternative lines that
+// replace it (one level deeper, each a full sub-line), then the continuation
+// — book order. A line's co-alternatives are passed in by the parent loop and
+// never re-emitted by the line itself.
+function flattenTree(root) {
+  const out = [];
+  const emitLine = (first, altsToFirst, depth) => {
+    let node = first;
+    let alts = altsToFirst;
+    while (node) {
+      out.push({ node, depth });
+      for (const alt of alts) emitLine(alt, [], depth + 1);
+      alts = node.children.slice(1);
+      node = node.children[0] ?? null;
+    }
+  };
+  emitLine(root.children[0] ?? null, root.children.slice(1), 0);
+  return out;
+}
+
+// ── Navigation ──
+function bNode() { return state.browse.path[state.browse.path.length - 1]; }
+function pathOfNode(node) {
+  const p = [];
+  for (let x = node; x; x = x.parent) p.unshift(x);
+  return p;
+}
+function bSetPath(path) {
+  commitComment();                       // flush any uncommitted comment edit
+  state.browse.path = path;
+  state.browse.sel = null;
+  renderBrowse();
+}
+function bNav(what) {
+  if (!state.browse) return;
+  const path = state.browse.path;
+  const cur = bNode();
+  if (what === 'prev') { if (path.length > 1) bSetPath(path.slice(0, -1)); return; }
+  if (what === 'next') { if (cur.children.length) bSetPath([...path, cur.children[0]]); return; }
+  if (what === 'first') { bSetPath([state.browse.root]); return; }
+  if (what === 'last') {
+    let x = cur;
+    while (x.children.length) x = x.children[0];
+    bSetPath(pathOfNode(x));
+  }
+}
+function bFlip() { if (state.browse) { state.browse.flip = !state.browse.flip; renderBrowseBoard(); } }
+
+// ── Session entry ──
+function startBrowse(g, side) {
+  let tree;
+  try { tree = parseGameTree(g.raw); }
+  catch (e) {
+    show('view-games');
+    el('gamesError').textContent = `Cannot open "${g.title}": ${e.message}`;
+    el('gamesError').hidden = false;
+    return;
+  }
+  state.browse = {
+    game: { title: g.title, headers: tree.headers, result: tree.result },
+    root: tree.root, path: [tree.root], side,
+    flip: side === 'black', sel: null, chess: new Chess(),
+    delArm: false, error: tree.error,
+  };
+  el('browseTitle').textContent = g.title;
+  const h = tree.headers;
+  const parts = [];
+  if (h.White || h.Black) parts.push(`${h.White || '?'} vs ${h.Black || '?'}`);
+  if (tree.result !== '*') parts.push(tree.result);
+  el('browsePlayers').textContent = parts.join('  \u00b7  ');
+  el('browseSide').textContent = 'Side: ' + (side === 'white' ? 'White' : 'Black');
+  el('browseMovesStrip').classList.add('open');
+  el('bmCaret').textContent = '\u25BC hide';
+  buildBrowseControls();
+  show('view-browse');
+  renderBrowse();
+  if (tree.error) toastBrowse('stopped: ' + tree.error);
+}
+
+// ── Interactive board (tap a piece, tap a target; drag never required) ──
+function renderBrowseBoard() {
+  const node = bNode();
+  const wrap = el('browseBoard');
+  const th = boardThemeColors();
+  const flip = !!state.browse.flip;
+  const board = state.browse.chess;
+  try { board.load(node.fen); } catch { board.reset(); }
+  const rows = String(node.fen).split(' ')[0].split('/');
+  const pieceAt = {};
+  for (let r = 0; r < 8; r++) {
+    let f = 0;
+    for (const ch of rows[r]) {
+      if (ch >= '1' && ch <= '8') { f += Number(ch); continue; }
+      pieceAt['abcdefgh'[f] + (8 - r)] = ch;
+      f++;
+    }
+  }
+  const sel = state.browse.sel;
+  let targets = [];
+  if (sel) { try { targets = board.moves({ square: sel, verbose: true }); } catch { targets = []; } }
+  let cells = '', overlay = '', pieces = '', dots = '';
+  const files = 'abcdefgh';
+  for (let vr = 0; vr < 8; vr++) {
+    for (let vf = 0; vf < 8; vf++) {
+      const fileIdx = flip ? 7 - vf : vf;
+      const rankIdx = flip ? vr : 7 - vr;          // 0 = rank 1
+      const sq = files[fileIdx] + (rankIdx + 1);
+      const x = vf * 40, y = vr * 40;
+      const dark = (fileIdx + rankIdx) % 2 === 0;
+      cells += `<rect x="${x}" y="${y}" width="40" height="40" data-sq="${sq}" fill="${dark ? th.dark : th.light}"/>`;
+      if (node.from === sq || node.to === sq) {
+        overlay += `<rect x="${x}" y="${y}" width="40" height="40" fill="#c8a24a" opacity="0.45" pointer-events="none"/>`;
+      }
+      if (sel === sq) {
+        overlay += `<rect x="${x}" y="${y}" width="40" height="40" fill="#7ac04a" opacity="0.5" pointer-events="none"/>`;
+      }
+      const pc = pieceAt[sq];
+      if (pc) {
+        const id = (pc === pc.toUpperCase() ? 'w' : 'b') + pc.toLowerCase();
+        pieces += `<g transform="translate(${x},${y})" pointer-events="none"><use href="#${id}"/></g>`;
+      }
+      if (targets.some((t) => t.to === sq)) {
+        dots += `<circle cx="${x + 20}" cy="${y + 20}" r="7" fill="#7ac04a" opacity="0.8" pointer-events="none"/>`;
+      }
+    }
+  }
+  wrap.innerHTML = `<svg class="bfield-int" viewBox="0 0 320 320" onclick="browseTap(event)">`
+    + cells + overlay + pieces + dots + `</svg>`;
+}
+
+function browseTap(ev) {
+  if (!state.browse) return;
+  const sq = ev.target && ev.target.dataset ? ev.target.dataset.sq : null;
+  if (!sq) return;
+  const board = state.browse.chess;
+  const sel = state.browse.sel;
+  if (sel && sel !== sq) {
+    let opts = [];
+    try { opts = board.moves({ square: sel, verbose: true }).filter((m) => m.to === sq); } catch {}
+    if (opts.length) {
+      bPlayMove(opts.find((m) => !m.promotion || m.promotion === 'q') || opts[0]);   // promotions auto-queen
+      return;
+    }
+  }
+  // select an own piece (only side-to-move pieces generate legal moves); tap again to clear
+  let own = [];
+  try { own = board.moves({ square: sq, verbose: true }); } catch {}
+  state.browse.sel = (sel === sq || !own.length) ? null : sq;
+  renderBrowseBoard();
+}
+
+// Pure authoring: append a played ply as a child of `cur`, deduped by SAN —
+// an existing child with the same SAN is returned as-is (navigate into the
+// line); otherwise the ply is appended (continuation when `cur` is a leaf,
+// alternative otherwise — push order preserves source order). Returns the
+// node landed on, or null.
+function bAddPly(cur, mv) {
+  if (!cur || !mv) return null;
+  const dupe = cur.children.find((c) => c.san === mv.san);
+  if (dupe) return dupe;
+  const board = new Chess();
+  try { board.load(cur.fen); } catch { return null; }
+  let made = null;
+  try { made = board.move({ from: mv.from, to: mv.to, promotion: mv.promotion }); } catch { made = null; }
+  if (!made) return null;
+  const node = {
+    n: Number(made.before.split(' ')[5]) || 1,
+    turn: made.color === 'b' ? 'b' : 'w',
+    san: made.san, fen: board.fen(), from: made.from, to: made.to,
+    comment: null, preComment: null, srcQual: null, srcEval: null, srcUnknown: null,
+    parent: cur, children: [],
+  };
+  cur.children.push(node);
+  return node;
+}
+// Pure: splice node + its whole subtree out of parent.children (root untouched).
+function bRemovePly(node) {
+  const parent = node && node.parent;
+  if (!parent) return null;
+  const i = parent.children.indexOf(node);
+  if (i >= 0) parent.children.splice(i, 1);
+  return parent;
+}
+function bPlayMove(mv) {
+  const node = bAddPly(bNode(), mv);
+  if (!node) return;
+  bSetPath([...state.browse.path, node]);
+}
+
+// ── Delete (two-press confirm; navigation disarms) ──
+let delTimer = null;
+function browseDeleteTap() {
+  if (!state.browse) return;
+  const cur = bNode();
+  if (!cur.parent) { toastBrowse('Nothing to delete'); return; }
+  const btn = el('delBtn');
+  if (!state.browse.delArm) {
+    state.browse.delArm = true;
+    btn.classList.add('armed');
+    btn.textContent = '\u232B Sure? Tap again';
+    clearTimeout(delTimer);
+    delTimer = setTimeout(disarmDel, 3000);
+    return;
+  }
+  disarmDel();
+  const parent = bRemovePly(cur);
+  bSetPath(pathOfNode(parent));
+  toastBrowse('Move deleted');
+}
+function disarmDel() {
+  clearTimeout(delTimer);
+  if (!state.browse) return;
+  state.browse.delArm = false;
+  const btn = el('delBtn');
+  if (btn) { btn.classList.remove('armed'); btn.textContent = '\u232B Delete move'; }
+}
+
+// ── Comment box (post-comment editable; pre-comment display-only) ──
+// Commits target the node the textarea was LAST RENDERED for (taNode) — not
+// the current navigation node — so a late blur/change event can never bleed
+// one move's comment into another.
+function commitComment() {
+  if (!state.browse) return;
+  const node = state.browse.taNode;
+  const ta = el('bcPost');
+  if (!ta || !node || !node.san) return;
+  const v = ta.value.trim() || null;
+  if (v !== (node.comment || null)) node.comment = v;
+}
+function renderBrowseInfo() {
+  const node = bNode();
+  state.browse.taNode = node;
+  el('bcMoveLabel').textContent = node.san
+    ? `${node.n}${node.turn === 'w' ? '.' : '...'} ${node.san}` : 'start position';
+  const pre = node.preComment || '';
+  const preEl = el('bcPre');
+  preEl.textContent = pre;
+  preEl.hidden = !pre;
+  el('bcPost').value = node.comment || '';
+}
+
+// ── Glyph dock for the current node (edits write onto the node directly) ──
+function buildBrowseControls() {
+  renderThemeBtn();
+  if (el('bEvalRow').childElementCount) return;
+  const evRow = el('bEvalRow'), qlRow = el('bQualRow');
+  for (const e of EVALS) {
+    const b = document.createElement('button');
+    b.className = 'tbtn ev'; b.dataset.eval = e.sym; b.textContent = e.sym;
+    b.onclick = () => pickBrowseEval(e.sym);
+    evRow.appendChild(b);
+  }
+  for (const q of QUALS) {
+    const b = document.createElement('button');
+    b.className = 'tbtn ql'; b.dataset.qual = q; b.textContent = q;
+    b.onclick = () => pickBrowseQual(q);
+    qlRow.appendChild(b);
+  }
+}
+function pickBrowseEval(sym) {
+  const n = bNode();
+  if (!n || !n.san) return;
+  n.srcEval = n.srcEval === sym ? null : sym;
+  syncBrowseDock(); renderBrowseMoves();
+}
+function pickBrowseQual(glyph) {
+  const n = bNode();
+  if (!n || !n.san) return;
+  n.srcQual = n.srcQual === glyph ? null : glyph;
+  syncBrowseDock(); renderBrowseMoves();
+}
+function syncBrowseDock() {
+  const n = bNode();
+  const a = n && n.san ? n : null;
+  for (const b of document.querySelectorAll('#bEvalRow .tbtn')) {
+    b.classList.toggle('active', !!a && a.srcEval === b.dataset.eval);
+  }
+  for (const b of document.querySelectorAll('#bQualRow .tbtn')) {
+    b.classList.toggle('active', !!a && a.srcQual === b.dataset.qual);
+  }
+}
+
+// ── Move list: book-style paired flow with nested variation blocks ──
+const QUAL_CLASS = { '!': 'good', '!!': 'brill', '?': 'mist', '??': 'blund', '!?': 'inacc', '?!': 'interest' };
+function renderBrowseMoves() {
+  const wrap = el('bmList');
+  wrap.replaceChildren();
+  const escH = (s) => String(s).replace(/[<>&]/g, (ch) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[ch]));
+  const flat = flattenTree(state.browse.root);
+  const pathSet = new Set(state.browse.path);
+  const cur = bNode();
+  const main = document.createElement('div');
+  main.className = 'bm-stream';
+  wrap.appendChild(main);
+  if (state.browse.error) {
+    const warn = document.createElement('div');
+    warn.className = 'bm-cmt';
+    warn.textContent = 'stopped: ' + state.browse.error;
+    main.appendChild(warn);
+  }
+  let varStack = [];        // [d-1] = block element rendering depth d
+  let curVarRow = null, curVarCont = null;
+  let prevEntry = null;     // {depth} of the previous flatten entry
+  let prevCell = null;      // {n, turn} of the last emitted cell (numbering)
+  let curEl = null;         // current-move cell (for auto-scroll)
+  for (const { node, depth } of flat) {
+    const isAlt = node.parent && node.parent.children[0] !== node;
+    let cont;
+    if (depth === 0) {
+      if (varStack.length) { varStack = []; prevCell = null; }   // back to mainline → renumber
+      cont = main;
+    } else {
+      while (depth > varStack.length) {
+        const parentCont = varStack.length ? varStack[varStack.length - 1] : main;
+        const blk = document.createElement('div');
+        blk.className = 'bm-var';
+        parentCont.appendChild(blk);
+        varStack.push(blk);
+      }
+      if (depth < varStack.length) varStack = varStack.slice(0, depth);
+      cont = varStack[depth - 1];
+    }
+    // row breaks: every alternative line is its own row; a depth change
+    // (block entry or resume past a deeper block) breaks too. The mainline
+    // spine is ONE wrapping inline stream.
+    let row;
+    if (depth === 0) {
+      row = cont;
+    } else {
+      const breakRow = !prevEntry || isAlt || depth !== prevEntry.depth;
+      if (cont !== curVarCont || breakRow || !curVarRow) {
+        row = document.createElement('div');
+        row.className = 'bm-row';
+        cont.appendChild(row);
+        curVarRow = row; curVarCont = cont;
+      } else {
+        row = curVarRow;
+      }
+    }
+    // numbering: white plies always carry N.; black plies carry N... unless
+    // they directly follow their white partner in the same flow
+    const showNum = node.turn === 'w' || !prevCell
+      || prevCell.n !== node.n || prevCell.turn === 'b';
+    const cell = document.createElement('span');
+    cell.className = 'bm-cell' + (pathSet.has(node) ? ' onpath' : '') + (node === cur ? ' cur' : '');
+    let html = '';
+    if (showNum) html += `<span class="bm-no">${node.n}${node.turn === 'w' ? '.' : '...'}&nbsp;</span>`;
+    html += escH(node.san);
+    if (node.srcQual) {
+      html += `<span class="bm-g q-${QUAL_CLASS[node.srcQual] || 'eval'}">${escH(node.srcQual)}</span>`;
+    }
+    if (node.srcEval) html += `<span class="bm-g q-eval">${escH(node.srcEval)}</span>`;
+    if (node.srcUnknown) html += `<span class="bm-g q-eval">${escH(node.srcUnknown)}</span>`;
+    if (node.comment) html += `<span class="bm-cmk">&nbsp;\u2026</span>`;
+    cell.innerHTML = html;
+    cell.onclick = () => bSetPath(pathOfNode(node));
+    row.appendChild(cell);
+    if (node === cur) curEl = cell;
+    prevCell = { n: node.n, turn: node.turn };
+    // comments render as full-width bordered rows; they break the flow, so
+    // the following ply renumbers (book convention)
+    if (node.comment) {
+      const c = document.createElement('div');
+      c.className = 'bm-cmt';
+      c.textContent = node.comment;
+      cont.appendChild(c);
+      prevCell = null;
+    }
+    prevEntry = { depth };
+  }
+  if (curEl && el('browseMovesStrip').classList.contains('open')) {
+    curEl.scrollIntoView({ block: 'nearest' });
+  }
+}
+function toggleBrowseMoves() {
+  const strip = el('browseMovesStrip');
+  const open = !strip.classList.contains('open');
+  strip.classList.toggle('open', open);
+  el('bmCaret').textContent = open ? '\u25BC hide' : '\u25B2 show';
+  if (open) renderBrowseMoves(); else el('bmList').replaceChildren();
+}
+
+// ── Master render ──
+function renderBrowse() {
+  if (!state.browse) return;
+  renderBrowseBoard();
+  renderBrowseMoves();
+  renderBrowseInfo();
+  syncBrowseDock();
+  disarmDel();
+  SF.evalCurrent();
+}
+function toastBrowse(msg) {
+  const t = el('bcMoveLabel');
+  if (!t) return;
+  const prev = t.textContent;
+  t.textContent = msg;
+  setTimeout(() => { if (t.textContent === msg) t.textContent = prev; }, 1800);
+}
+
+// ── Stockfish (web asm.js build via CDN, blob-worker; toggle-on demand) ──
+const SF_URL = 'https://cdn.jsdelivr.net/npm/stockfish.js@10.0.2/stockfish.js';
+const SF = {
+  worker: null, ready: false, starting: false, on: false,
+  searching: false, pending: false, fen: null,
+  ensure() {
+    if (this.worker || this.starting) return;
+    this.starting = true;
+    let w;
+    try {
+      const blob = new Blob(["importScripts('" + SF_URL + "');"], { type: 'application/javascript' });
+      w = new Worker(URL.createObjectURL(blob));
+    } catch { this.fail(); return; }
+    w.onmessage = (e) => this.onMsg(String(e.data ?? ''));
+    w.onerror = () => this.fail();
+    this.worker = w;
+    w.postMessage('uci');
+  },
+  fail() {
+    this.starting = false;
+    if (this.worker) { try { this.worker.terminate(); } catch { /* done */ } this.worker = null; }
+    this.on = false;
+    const btn = el('evalToggle');
+    if (btn) { btn.classList.remove('on'); btn.textContent = '\uD83D\uDCCA Stockfish: off'; }
+    setEvalText('engine unavailable (offline?)');
+  },
+  onMsg(line) {
+    if (line.startsWith('uciok')) { this.worker.postMessage('isready'); return; }
+    if (line.startsWith('readyok')) {
+      this.ready = true; this.starting = false;
+      this.evalCurrent();
+      return;
+    }
+    if (this.on && line.startsWith('info') && line.includes(' pv ')) {
+      const sm = /score (cp|mate) (-?\d+)/.exec(line);
+      const pm = / pv (.+)$/.exec(line);
+      if (sm && pm && state.browse && bNode().fen === this.fen) {
+        this.showScore(sm[1], Number(sm[2]), pm[1].trim().split(/\s+/)[0]);
+      }
+      return;
+    }
+    if (line.startsWith('bestmove')) {
+      this.searching = false;
+      if (this.pending) { this.pending = false; this.evalCurrent(); }
+    }
+  },
+  showScore(kind, v, bestUci) {
+    let text, pct;
+    if (kind === 'mate') {
+      text = (v > 0 ? '+' : '-') + 'M' + Math.abs(v);
+      pct = v > 0 ? 100 : 0;
+    } else {
+      text = (v >= 0 ? '+' : '\u2212') + (Math.abs(v) / 100).toFixed(2);
+      pct = Math.round(100 / (1 + Math.pow(10, -v / 400)));   // win-probability style
+    }
+    el('evalFill').style.width = pct + '%';
+    let best = '';
+    if (bestUci && bestUci.length >= 4) {
+      try {
+        const b = new Chess();
+        b.load(this.fen);
+        const mv = b.move({
+          from: bestUci.slice(0, 2), to: bestUci.slice(2, 4),
+          promotion: bestUci.length > 4 ? bestUci[4] : undefined,
+        });
+        if (mv) best = ' \u00b7 best ' + mv.san;
+      } catch { /* raw uci shown without conversion */ }
+    }
+    setEvalText(text + best);
+  },
+  evalCurrent() {
+    if (!this.on || !this.ready || !this.worker) return;
+    if (el('view-browse').hidden || !state.browse) return;
+    const fen = bNode().fen;
+    if (this.searching) { this.pending = true; this.worker.postMessage('stop'); return; }
+    this.searching = true;
+    this.fen = fen;
+    this.worker.postMessage('position fen ' + fen);
+    this.worker.postMessage('go depth 12');
+  },
+  pause() {
+    if (this.worker && this.searching) { this.pending = false; this.worker.postMessage('stop'); }
+  },
+};
+function setEvalText(t) { const e = el('evalText'); if (e) e.textContent = t; }
+function toggleEngine() {
+  const btn = el('evalToggle');
+  if (SF.on) {
+    SF.on = false; SF.pause();
+    if (SF.worker) { try { SF.worker.terminate(); } catch { /* done */ } SF.worker = null; }
+    SF.ready = false; SF.starting = false;
+    el('evalWrap').hidden = true;
+    btn.classList.remove('on');
+    btn.textContent = '\uD83D\uDCCA Stockfish: off';
+    return;
+  }
+  SF.on = true;
+  btn.classList.add('on');
+  btn.textContent = '\uD83D\uDCCA Stockfish: on';
+  el('evalWrap').hidden = false;
+  setEvalText('loading engine\u2026');
+  SF.ensure();
+}
+
+// ── Export: serialize the (authored) tree back out as standard PGN ──
+// Alternatives replacing node X hang after X's text — only when X is its
+// parent's CONTINUATION (an alternative's co-alternatives were emitted by the
+// loop that reached the branch, never re-emitted).
+function altsReplacingBrowse(node) {
+  const p = node.parent;
+  if (!p || p.children[0] !== node) return [];
+  return p.children.slice(1);
+}
+function bPrefix(node, force) {
+  if (force || node.turn === 'w') return `${node.n}${node.turn === 'b' ? '...' : '.'} `;
+  return '';
+}
+function serBrowseLine(head) {
+  let out = '';
+  let node = head;
+  let forceNumber = true;          // a line's first ply is always numbered
+  while (node) {
+    const pre = node.preComment ? '{' + node.preComment.replace(/[{}]/g, '') + '} ' : '';
+    if (out) out += pre ? '\n' : ' ';
+    // quality glyphs glue to the SAN (suffix-annotation form); the eval
+    // symbol converts back to its NAG token ($14-style), unknown NAGs pass
+    // through — both space-separated
+    const evalTok = node.srcEval ? (NAG_FROM_SYM[node.srcEval] || '') : '';
+    const tail = (evalTok || node.srcUnknown)
+      ? ' ' + [evalTok, node.srcUnknown].filter(Boolean).join(' ')
+      : '';
+    out += pre + bPrefix(node, forceNumber || !!node.preComment)
+      + node.san + (node.srcQual || '') + tail;
+    let interrupted = !!node.comment;
+    if (node.comment) out += ' {' + node.comment.replace(/[{}]/g, '') + '}';
+    for (const alt of altsReplacingBrowse(node)) {
+      out += ' (' + serBrowseLine(alt) + ')';
+      interrupted = true;
+    }
+    forceNumber = interrupted;
+    node = node.children[0] ?? null;
+  }
+  return out;
+}
+// Pure (testable): full PGN text for a parsed/authored tree.
+function browsePgnText(headers, result, root) {
+  const out = [];
+  for (const [k, v] of Object.entries(headers || {})) {
+    out.push(`[${k} "${String(v).replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"]`);
+  }
+  const head = root.children[0];
+  const line = head ? [serBrowseLine(head)] : [];
+  if (result && result !== '*') line.push(result);
+  return out.join('\n') + (out.length ? '\n' : '') + (line.length ? '\n' + line.join(' ') + '\n' : '');
+}
+function browsePgn() { return browsePgnText(state.browse.game.headers, state.browse.game.result, state.browse.root); }
+function safeBrowseFilename() {
+  const title = (state.browse && state.browse.game && state.browse.game.title) || 'browse';
+  return title.replace(/[^\w\-]+/g, '_').slice(0, 60) + '.pgn';
+}
+async function shareBrowse() {
+  const text = browsePgn();
+  try {
+    if (navigator.share) {
+      const file = new File([text], safeBrowseFilename(), { type: 'application/x-chess-pgn' });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ title: state.browse.game.title, files: [file] });
+        return;
+      }
+      await navigator.share({ title: state.browse.game.title, text });
+      return;
+    }
+    await navigator.clipboard.writeText(text);
+    toast('Copied (no share sheet here)');
+  } catch (e) {
+    toast('Share failed: ' + (e.message || e.name));
+  }
+}
+
 // ── Wiring ──
 function buildControls() {
   const evRow = el('evalRow'), qlRow = el('glyphRow');
@@ -4912,6 +5824,16 @@ function boot() {
   if (dirOverride) state.collectionsBase = dirOverride.endsWith('/') ? dirOverride : dirOverride + '/';
   buildControls();
   show('view-collections');   // loads collections (show re-checks on every visit)
+  // Version stamp (every view): fixed constant + the server-provided build
+  // time of the copy actually loaded (document.lastModified — HTTP
+  // Last-Modified, also correct for a service-worker-cached shell).
+  const verEl = el('verLine');
+  if (verEl) {
+    const built = new Date(document.lastModified);
+    const builtStr = isNaN(built.getTime()) ? document.lastModified : built.toLocaleString();
+    verEl.textContent = `solchess ${SOLCHESS_VERSION} \u00b7 built ${builtStr}`;
+    console.log(`[solchess] ${SOLCHESS_VERSION} \u00b7 built ${builtStr}`);
+  }
   // Offline (PWA): the service worker precaches the shell + collections.json
   // + every .pgn listed there, and serves them cache-first. HTTPS (or
   // localhost) only — file:// pages cannot register a worker.

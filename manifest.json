@@ -2,6 +2,7 @@
   "name": "Solitaire Chess",
   "short_name": "SolChess",
   "description": "Guess-the-move chess trainer for your PGN collections.",
+  "version": "2.0.0",
   "start_url": "/solchess.html",
   "scope": "/",
   "display": "standalone",
