@@ -5709,13 +5709,13 @@ function renderBrowseMoves() {
       const next = path[i + 1];
       if (next && next.turn === 'b' && next.n === node.n) {
         prow.appendChild(makeCell(next));
-        container.appendChild(prow);
+        wrap.appendChild(prow);
         if (node.comment) addComment(node.comment, wrap);
         if (next.comment) addComment(next.comment, wrap);
         i += 2;
       } else {
         prow.appendChild(document.createElement('span')).className = 'bm-slot';
-        container.appendChild(prow);
+        wrap.appendChild(prow);
         if (node.comment) addComment(node.comment, wrap);
         i += 1;
       }
@@ -5726,7 +5726,7 @@ function renderBrowseMoves() {
       prow.appendChild(num);
       prow.appendChild(document.createElement('span')).className = 'bm-slot';
       prow.appendChild(makeCell(node));
-      container.appendChild(prow);
+      wrap.appendChild(prow);
       if (node.comment) addComment(node.comment, wrap);
       i += 1;
     }
