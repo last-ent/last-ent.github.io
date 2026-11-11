@@ -3,7 +3,7 @@
 // adding a game = adding one entry to that file (plus a deploy). Encrypted
 // collections (.pgn.enc, listed under "encrypted") are precached too — the
 // ciphertext is safe to cache; decryption stays in the browser.
-const VERSION = 'v2';
+const VERSION = 'v3';
 const CACHE = 'solchess-' + VERSION;
 const SHELL = ['solchess.html'];
 const JSON_URL = 'collections/collections.json';
