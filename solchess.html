@@ -254,7 +254,7 @@
   .bbtn:hover { background: #383838; }
   .bbtn:active { background: #444; }
   .bbtn svg { pointer-events: none; }
-  .vchips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; flex: 0 0 auto; }
+  .vchips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; flex: 0 0 auto; justify-content: center; }
   .vchips .vchip {
     background: #2a2a2a; color: #bbb; border: 1px solid #444; border-radius: 8px;
     font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 0.9rem;
@@ -316,6 +316,11 @@
   }
   .bm-cell:hover { color: #e0ccc4; }
   .bm-cell.cur { background: #c05530; color: #f5e8e0; }
+  .bm-no { color: #5f5f5f; }
+  .bm-var {
+    display: block; border-left: 2px solid #4a4a4a; margin: 3px 0 3px 12px; padding-left: 8px;
+    color: #888; font-size: 0.88em;
+  }
   .bm-g { font-weight: 600; }
   .bm-cmk { color: #5f5f5f; font-size: 0.8em; }
   .q-good { color: #7aa66a; }
@@ -4170,9 +4175,12 @@ class Chess {
 // v2.4 = terminal "game ended" label + keyboard navigation (←/→ Home End f
 // Esc),
 // v2.5 = annotate modal (glyphs/eval live), clickable engine lines, compact
-// nav/bottom bar, Stockfish switched to the WASM build + boot watchdog.
+// nav/bottom bar, Stockfish switched to the WASM build + boot watchdog,
+// v2.6 = engine boot fixed for real (wasmBinary prefetch — the glue's own
+// locateFile is identity and never resolved in a blob worker), variations
+// shown in the move list, variation chips centered.
 // Rendered into #verLine by boot() so a deploy can be verified.
-const SOLCHESS_VERSION = 'v2.5';
+const SOLCHESS_VERSION = 'v2.6';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -5508,13 +5516,16 @@ function browseTap(ev) {
 // node landed on, or null.
 function bAddPly(cur, mv) {
   if (!cur || !mv) return null;
-  const dupe = cur.children.find((c) => c.san === mv.san);
-  if (dupe) return dupe;
   const board = new Chess();
   try { board.load(cur.fen); } catch { return null; }
   let made = null;
   try { made = board.move({ from: mv.from, to: mv.to, promotion: mv.promotion }); } catch { made = null; }
   if (!made) return null;
+  // Dedupe on the RESOLVED san — callers pass {from,to} objects (engine
+  // lines) whose own .san is undefined, so checking mv.san missed dupes and
+  // created branching garbage.
+  const dupe = cur.children.find((c) => c.san === made.san);
+  if (dupe) return dupe;
   const node = {
     n: Number(made.before.split(' ')[5]) || 1,
     turn: made.color === 'b' ? 'b' : 'w',
@@ -5713,6 +5724,30 @@ function renderBrowseMoves() {
     c.textContent = text;
     container.appendChild(c);
   };
+  const numSpan = (text) => {
+    const s = document.createElement('span');
+    s.className = 'bm-no';
+    s.textContent = text + ' ';
+    return s;
+  };
+  // An ALTERNATIVE line as an indented inline block; deeper branches nest.
+  const renderAlt = (alt, container) => {
+    const blk = document.createElement('div');
+    blk.className = 'bm-var';
+    container.appendChild(blk);
+    let prevCell = null;
+    let node = alt;
+    while (node) {
+      const showNum = node.turn === 'w' || !prevCell
+        || prevCell.n !== node.n || prevCell.turn === 'b';
+      if (showNum) blk.appendChild(numSpan(node.n + (node.turn === 'w' ? '.' : '...')));
+      blk.appendChild(makeCell(node));
+      for (const sub of node.children.slice(1)) renderAlt(sub, blk);
+      prevCell = { n: node.n, turn: node.turn };
+      if (node.comment) { addComment(node.comment, blk); prevCell = null; }
+      node = node.children[0] ?? null;
+    }
+  };
 
   // pair rows over the revealed trail (a black ply always trails its white
   // partner on a root-to-node path; the lone-black branch is defensive)
@@ -5731,12 +5766,15 @@ function renderBrowseMoves() {
       if (next && next.turn === 'b' && next.n === node.n) {
         prow.appendChild(makeCell(next));
         wrap.appendChild(prow);
+        for (const alt of node.children.slice(1)) renderAlt(alt, wrap);
         if (node.comment) addComment(node.comment, wrap);
+        for (const alt of next.children.slice(1)) renderAlt(alt, wrap);
         if (next.comment) addComment(next.comment, wrap);
         i += 2;
       } else {
         prow.appendChild(document.createElement('span')).className = 'bm-slot';
         wrap.appendChild(prow);
+        for (const alt of node.children.slice(1)) renderAlt(alt, wrap);
         if (node.comment) addComment(node.comment, wrap);
         i += 1;
       }
@@ -5748,6 +5786,7 @@ function renderBrowseMoves() {
       prow.appendChild(document.createElement('span')).className = 'bm-slot';
       prow.appendChild(makeCell(node));
       wrap.appendChild(prow);
+      for (const alt of node.children.slice(1)) renderAlt(alt, wrap);
       if (node.comment) addComment(node.comment, wrap);
       i += 1;
     }
@@ -5817,7 +5856,6 @@ function toastBrowse(msg) {
 // dead/slow engine surfaces as "engine unavailable" instead of an eternal
 // "loading engine…" (the 1.6MB asm.js build hung phones exactly like that).
 const SF_BASE = 'https://cdn.jsdelivr.net/npm/stockfish.js@10.0.2/';
-const SF_URL = SF_BASE + 'stockfish.wasm.js';
 // Engine config (long-press the CPU button): search depth + MultiPV lines,
 // persisted; applied after 'uciok' and live via applyConfig().
 const SF_CFG = {
@@ -5832,14 +5870,22 @@ const SF = {
     this.starting = true;
     let w;
     try {
+      // The glue fetches 'stockfish.wasm' RELATIVE (its own Module.locateFile
+      // is the identity fn — presets are clobbered), which can never resolve
+      // inside a blob: worker. So pre-fetch the binary and hand it over via
+      // the glue's `wasmBinary` global (checked before any fetch).
       const blob = new Blob([
-        "var Module = { locateFile: function (f) { return '" + SF_BASE + "' + f; } };\n" +
-        "importScripts('" + SF_URL + "');",
+        "var BASE = '" + SF_BASE + "';\n" +
+        "var wasmBinary = null;\n" +
+        "fetch(BASE + 'stockfish.wasm')" +
+        ".then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.arrayBuffer(); })" +
+        ".then(function (b) { wasmBinary = new Uint8Array(b); importScripts(BASE + 'stockfish.wasm.js'); })" +
+        ".catch(function (e) { postMessage('sfbootfail ' + ((e && e.message) || e)); });",
       ], { type: 'application/javascript' });
       w = new Worker(URL.createObjectURL(blob));
     } catch { this.fail(); return; }
     w.onmessage = (e) => this.onMsg(String(e.data ?? ''));
-    w.onerror = () => this.fail();
+    w.onerror = (e) => this.fail('engine error: ' + ((e && e.message) || 'load failed'));
     this.worker = w;
     w.postMessage('uci');
     clearTimeout(this.bootTimer);
@@ -5857,6 +5903,7 @@ const SF = {
     setEvalText(msg || 'engine unavailable (offline?)');
   },
   onMsg(line) {
+    if (line.startsWith('sfbootfail')) { this.fail('engine load failed: ' + line.slice(11)); return; }
     if (line.startsWith('uciok')) {
       clearTimeout(this.bootTimer);
       this.worker.postMessage('setoption name MultiPV value ' + SF_CFG.lines);
