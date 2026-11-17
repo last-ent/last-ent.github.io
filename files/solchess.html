@@ -373,6 +373,51 @@
   .pw-btns { display: flex; gap: 8px; }
   .pw-btns .side-btn { padding: 10px 16px; font-size: 1rem; flex: 1; }
 
+  /* ── lichess export ── */
+  #exportModal { justify-content: safe center; overflow-y: auto; }
+  .ex-meta { color: #777; font-size: 0.8rem; text-align: center; min-height: 1.1em; max-width: 88vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ex-step { display: flex; flex-direction: column; gap: 8px; width: min(88vw, 420px); }
+  .ex-step[hidden] { display: none !important; }
+  .ex-countrow { display: flex; align-items: center; gap: 8px; }
+  .ex-count { color: #999; font-size: 0.85rem; font-weight: 600; font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; }
+  .ex-count.full { color: #d0a050; }
+  .ex-list {
+    max-height: 42vh; max-height: 42dvh; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 6px;
+    border: 1px solid #333; border-radius: 10px; background: #1d1d1d; padding: 8px;
+  }
+  .ex-row {
+    display: flex; align-items: center; gap: 9px;
+    background: #242424; border: 1px solid #333; border-radius: 8px;
+    padding: 8px 10px; cursor: pointer; min-height: 42px;
+  }
+  .ex-row:hover { background: #2e2e2e; }
+  .ex-row input[type="checkbox"] { width: 18px; height: 18px; accent-color: #c05530; flex: 0 0 auto; margin: 0; }
+  .ex-row .t { flex: 1; min-width: 0; }
+  .ex-row .a { display: block; color: #ccc; font-size: 0.9rem; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ex-row .b { display: block; color: #666; font-size: 0.74rem; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ex-row .done { color: #6f9a6f; font-size: 0.76rem; flex: 0 0 auto; }
+  .ex-row.uploaded { background: #1e1e1e; border-color: #2a2a2a; }
+  .ex-row.uploaded .a { color: #8f8f8f; }
+  .ex-row.uploaded .b { color: #5a5a5a; }
+  .ex-group .yr { margin-right: auto; }
+  .ex-gsel {
+    flex: 0 0 auto;
+    background: #2d2d2d; color: #999; border: 1px solid #3d3d3d; border-radius: 6px;
+    font-size: 0.72rem; padding: 3px 9px; cursor: pointer; font-family: inherit;
+  }
+  .ex-gsel:hover { background: #383838; }
+  .ex-gsel:disabled { opacity: 0.4; cursor: default; }
+  .ex-err { color: #e88; font-size: 0.82rem; text-align: center; min-height: 1em; }
+  .ex-visrow { display: flex; gap: 6px; }
+  .ex-dup { color: #d0a050; font-size: 0.82rem; text-align: center; min-height: 1.2em; }
+  .ex-summary { color: #777; font-size: 0.8rem; text-align: center; min-height: 1.1em; }
+  .ex-progress { color: #bbb; font-size: 0.9rem; text-align: center; min-height: 1.4em; line-height: 1.5; }
+  .ex-progress.fail { color: #e88; }
+  .ex-progress .mini { display: block; }
+  .ex-done { color: #9fc79f; font-size: 0.9rem; text-align: center; line-height: 1.5; }
+  .ex-done a { color: #c8825f; }
+
   .credit { margin-top: 8px; color: #3c3c3c; font-size: 0.66rem; text-align: center; line-height: 1.5; }
 </style>
 </head>
@@ -3932,6 +3977,9 @@ class Chess {
       <button class="back-btn" onclick="show('view-collections')">&#8592; Collections</button>
       <span class="title" id="gamesTitle"></span>
       <span class="spacer"></span>
+      <button class="tool-btn" id="lichessBtn" onclick="openExport()" aria-label="Export to Lichess" title="Export to Lichess">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13"/><path d="m7 8 5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+      </button>
       <button class="mini-toggle" id="orderToggle" onclick="toggleOrder()"></button>
     </div>
     <div class="games-tools">
@@ -4151,6 +4199,55 @@ class Chess {
   </form>
 </div>
 
+<!-- LICHESS EXPORT (OAuth2 PKCE login; one study per upload, hard 64-game cap) -->
+<div class="pos-overlay" id="exportModal" hidden onclick="if(event.target===this) closeExport()">
+  <div class="pos-caption">Export to Lichess</div>
+  <div class="ex-meta" id="exMeta"></div>
+
+  <!-- step 1: pick the chunk (≤64 games) -->
+  <div class="ex-step" id="exStep1">
+    <input class="search" id="exSearch" type="search" autocomplete="off" autocapitalize="off"
+           placeholder="Search player &hellip;" oninput="applyExportQuery()" onsearch="applyExportQuery()">
+    <div class="ex-countrow">
+      <span class="ex-count" id="exCount">0 / 64</span>
+      <span class="spacer"></span>
+      <button type="button" class="mini-toggle" id="exSelAll" onclick="exportSelectAll()" hidden>Select all</button>
+      <button type="button" class="mini-toggle" onclick="exportClear()">Clear</button>
+    </div>
+    <div class="ex-list" id="exList"></div>
+    <div class="ex-err" id="exErr" hidden></div>
+    <div class="pw-btns">
+      <button type="button" class="side-btn black" onclick="closeExport()">Cancel</button>
+      <button type="button" class="side-btn white" id="exContinue" onclick="exportStep2()" disabled>Continue</button>
+    </div>
+  </div>
+
+  <!-- step 2: name + visibility + duplicate check -->
+  <div class="ex-step" id="exStep2" hidden>
+    <input class="search" id="exName" type="text" autocomplete="off" autocapitalize="off"
+           maxlength="100" placeholder="study name &hellip;" oninput="exportDupWarning()">
+    <div class="ex-visrow" id="exVisRow"></div>
+    <div class="ex-dup" id="exDup" hidden></div>
+    <div class="ex-summary" id="exSummary"></div>
+    <div class="pw-btns">
+      <button type="button" class="side-btn black" onclick="exportStep1()">Back</button>
+      <button type="button" class="side-btn white" onclick="exportUpload()">Upload</button>
+    </div>
+  </div>
+
+  <!-- step 3: progress / result -->
+  <div class="ex-step" id="exStep3" hidden>
+    <div class="ex-progress" id="exProgress"></div>
+    <div class="ex-done" id="exDone"></div>
+    <div class="pw-btns">
+      <button type="button" class="side-btn white" id="exMore" onclick="exportStep1()" hidden>Export more</button>
+      <button type="button" class="side-btn white" id="exRelogin" onclick="retryLichessLogin()" hidden>Log in again</button>
+      <button type="button" class="side-btn black" id="exBack2" onclick="exportEditAgain()" hidden>Back</button>
+      <button type="button" class="side-btn black" onclick="closeExport()">Close</button>
+    </div>
+  </div>
+</div>
+
 <script>
 'use strict';
 // ─────────────────────────────────────────────────────────────────────────────
@@ -4179,8 +4276,13 @@ class Chess {
 // v2.6 = engine boot fixed for real (wasmBinary prefetch — the glue's own
 // locateFile is identity and never resolved in a blob worker), variations
 // shown in the move list, variation chips centered.
+// v2.7 = "Export to Lichess" (OAuth2 PKCE login — study:read/write, no server;
+// manual chunking: one study per upload with a hard 64-game cap, select-all
+// only when the whole collection fits, per-tournament quick-select,
+// already-uploaded ✓ marks that stay selectable, per-study name + visibility +
+// advisory duplicate check against the user's existing studies).
 // Rendered into #verLine by boot() so a deploy can be verified.
-const SOLCHESS_VERSION = 'v2.6';
+const SOLCHESS_VERSION = 'v2.7';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -4201,6 +4303,25 @@ const RESULT_TOKENS = ['1-0', '0-1', '1/2-1/2', '*'];
 const TAG_LINE_RE = /^\s*\[\s*(\w+)\s+"((?:[^"\\]|\\.)*)"\s*\]\s*$/;
 
 let COLLECTIONS_DIR = 'collections/';   // dir override: ?dir=name/
+
+// ── Lichess export: OAuth2 Authorization-Code + PKCE, fully client-side ──
+// Public client (lichess needs no app registration for PKCE — any unique
+// client_id works); scopes are the minimum to list own studies (duplicate
+// check) and create/import them. redirect_uri is this page, query stripped.
+const LS_LICHESS_TOKEN = 'solchess-lichess-token';
+const LS_LICHESS_USER = 'solchess-lichess-user';
+const LS_EXPORT_PENDING = 'solchess-export-pending';
+const LS_OAUTH_VERIFIER = 'solchess-oauth-verifier';
+const LS_OAUTH_STATE = 'solchess-oauth-state';
+const LICHESS = {
+  origin: 'https://lichess.org',
+  clientId: 'last-ent.com',
+  scopes: 'study:read study:write',
+  maxChapters: 64,   // hard cap: one study per upload, ≤64 games each
+  // Member-capability defaults for created studies ("owner" keeps full
+  // control); the API rejects POST /api/study without these fields.
+  settings: { computer: 'nobody', explorer: 'nobody', cloneable: 'nobody', shareable: 'nobody', chat: 'nobody' },
+};
 
 // ── App state ──
 const state = {
@@ -4230,6 +4351,21 @@ const state = {
   boardTheme: (function () {  // persisted display preference; safe in any sandbox
     try { return localStorage.getItem('solchess-theme') || 'wood'; } catch { return 'wood'; }
   })(),
+  // ── lichess export ──
+  lichess: {
+    token: (function () { try { return localStorage.getItem(LS_LICHESS_TOKEN) || null; } catch { return null; } })(),
+    user: (function () { try { return localStorage.getItem(LS_LICHESS_USER) || null; } catch { return null; } })(),
+  },
+  currentCollectionEncrypted: false,
+  pendingExportIntent: null,  // saved before the OAuth redirect; resumed after
+  exportSel: new Set(),       // selected game idx for the next study (≤64)
+  exRows: [],                 // export list row cache [{row, chk, game}]
+  exHeaders: [],              // export group headers [{el, btn, key, count}]
+  exVis: 'private',
+  exAutoName: '',
+  exStudyNames: null,         // cached existing-study names for the dup check
+  uploadedIdx: new Set(),     // game idx already uploaded from this device
+  exportAfterUnlock: false,   // open the export overlay after password unlock
 };
 // Pure fns: `annTextFor` emits PGN NAG tokens (for export splicing);
 // `annDisplayFor` emits the display symbols/glyphs (for button + move list).
@@ -4541,6 +4677,7 @@ function renderCollections() {
 }
 
 async function openCollection(id, encrypted) {
+  state.currentCollectionEncrypted = !!encrypted;
   if (encrypted) {
     const cached = state.collCache.get(id);
     if (cached !== undefined) return openFromRaw(id, cached);   // unlocked once → in-memory only
@@ -4588,6 +4725,7 @@ async function openCollection(id, encrypted) {
 // cached, or freshly decrypted): switches to the games view and lists games.
 function openFromRaw(id, raw) {
   state.currentCollectionName = id;
+  state.exportSel = new Set();   // selection belongs to one collection
   show('view-games');
   el('gamesTitle').textContent = id;
   const games = splitGames(raw).map((g, i) => {
@@ -4632,11 +4770,18 @@ async function submitPw(ev) {
   el('pwError').hidden = true;
   el('pwInput').value = '';
   openFromRaw(id, text);
+  if (state.exportAfterUnlock) {        // resume an interrupted Lichess export
+    state.exportAfterUnlock = false;
+    restorePendingSelection();
+    openExport();
+  }
   return false;
 }
 
 function hidePwPrompt() {
   state.pendingEnc = null;
+  state.exportAfterUnlock = false;
+  state.pendingExportIntent = null;
   el('pwPrompt').hidden = true;
   el('pwError').hidden = true;
   el('pwInput').value = '';
@@ -6131,6 +6276,533 @@ async function shareBrowse() {
   }
 }
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Lichess export — OAuth2 Authorization Code + PKCE, fully client-side.
+// "Login with Lichess" once per device (token in localStorage); each export
+// upload creates ONE study from a manually-chosen ≤64-game chunk (hard cap —
+// no auto-splitting; the user chunks games themselves). Duplicate detection
+// is advisory: the proposed study name is checked against the user's existing
+// studies. Already-uploaded games get a subtle ✓ mark (still selectable).
+// ─────────────────────────────────────────────────────────────────────────────
+function b64url(u8) {
+  let s = '';
+  for (const b of u8) s += String.fromCharCode(b);
+  return btoa(s).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+function lichessRandom(n) {
+  const bytes = new Uint8Array(n);
+  crypto.getRandomValues(bytes);
+  return b64url(bytes);
+}
+async function lichessChallenge(verifier) {
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier));
+  return b64url(new Uint8Array(digest));
+}
+function lichessRedirectUri() {
+  const u = new URL(location.href);
+  u.search = '';
+  u.hash = '';
+  return u.href;
+}
+async function lichessLogin() {
+  const verifier = lichessRandom(32);
+  const st = lichessRandom(16);
+  try {
+    sessionStorage.setItem(LS_OAUTH_VERIFIER, verifier);
+    sessionStorage.setItem(LS_OAUTH_STATE, st);
+  } catch { /* private mode */ }
+  const q = new URLSearchParams({
+    response_type: 'code',
+    client_id: LICHESS.clientId,
+    redirect_uri: lichessRedirectUri(),
+    code_challenge_method: 'S256',
+    code_challenge: await lichessChallenge(verifier),
+    scope: LICHESS.scopes,
+    state: st,
+  });
+  location.href = LICHESS.origin + '/oauth?' + q;
+}
+
+// OAuth return: exchange ?code= for an access token. Returns true when the
+// URL carried an OAuth result (params are cleaned from the address bar).
+async function handleOAuthReturn() {
+  const u = new URL(location.href);
+  const errParam = u.searchParams.get('error');
+  const code = u.searchParams.get('code');
+  const retState = u.searchParams.get('state');
+  if (!errParam && !code) return false;
+  u.search = '';
+  history.replaceState(null, '', u.href);
+  const expState = sessionStorage.getItem(LS_OAUTH_STATE);
+  const verifier = sessionStorage.getItem(LS_OAUTH_VERIFIER);
+  sessionStorage.removeItem(LS_OAUTH_STATE);
+  sessionStorage.removeItem(LS_OAUTH_VERIFIER);
+  if (errParam || !code || !expState || retState !== expState || !verifier) {
+    syncToast('\u2717 Lichess login failed', 4000);
+    return true;
+  }
+  try {
+    const res = await fetch(LICHESS.origin + '/api/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'authorization_code',
+        code,
+        code_verifier: verifier,
+        redirect_uri: lichessRedirectUri(),
+        client_id: LICHESS.clientId,
+      }).toString(),
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (!data.access_token) throw new Error('no access token');
+    state.lichess.token = data.access_token;
+    try { localStorage.setItem(LS_LICHESS_TOKEN, data.access_token); } catch { /* private mode */ }
+    const me = await lichessApi('/api/account', data.access_token);
+    if (me.ok && me.data && me.data.username) {
+      state.lichess.user = me.data.username;
+      try { localStorage.setItem(LS_LICHESS_USER, me.data.username); } catch { /* private mode */ }
+      syncToast('\u2713 Lichess \u00b7 ' + me.data.username, 2500);
+    } else {
+      syncToast('\u2713 Lichess connected', 2500);
+    }
+  } catch (e) {
+    await lichessLogout(false);
+    syncToast('\u2717 Lichess login failed', 4000);
+  }
+  return true;
+}
+
+async function lichessLogout(revoke = true) {
+  const token = state.lichess.token;
+  state.lichess.token = null;
+  state.lichess.user = null;
+  try {
+    localStorage.removeItem(LS_LICHESS_TOKEN);
+    localStorage.removeItem(LS_LICHESS_USER);
+  } catch { /* private mode */ }
+  if (revoke && token) {
+    try {
+      await fetch(LICHESS.origin + '/api/token', { method: 'DELETE', headers: { Authorization: 'Bearer ' + token } });
+    } catch { /* best effort */ }
+  }
+}
+
+// One authenticated Lichess API call → {ok, status, data, text}.
+async function lichessApi(path, token, opts = {}) {
+  const res = await fetch(LICHESS.origin + path, {
+    ...opts,
+    headers: { ...(opts.headers || {}), Authorization: 'Bearer ' + token },
+  });
+  const text = await res.text();
+  let data = null;
+  try { data = JSON.parse(text); } catch { /* non-JSON */ }
+  return { ok: res.ok, status: res.status, data, text };
+}
+function lichessForm(fields) { return new URLSearchParams(fields).toString(); }
+
+async function lichessCreateStudy(token, name, visibility) {
+  return lichessApi('/api/study', token, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: lichessForm({ name, visibility, ...LICHESS.settings }),
+  });
+}
+async function lichessImportPgn(token, studyId, pgn) {
+  return lichessApi(`/api/study/${studyId}/import-pgn`, token, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: lichessForm({ pgn }),
+  });
+}
+// ND-JSON metadata stream of the user's studies (names for the dup check).
+async function lichessStudyNames(token, user) {
+  try {
+    const res = await fetch(`${LICHESS.origin}/api/study/by/${encodeURIComponent(user)}`, {
+      headers: { Authorization: 'Bearer ' + token },
+    });
+    if (!res.ok) return null;
+    const names = [];
+    for (const line of (await res.text()).split('\n')) {
+      const s = line.trim();
+      if (!s) continue;
+      try {
+        const o = JSON.parse(s);
+        if (o && typeof o.name === 'string') names.push(o.name);
+      } catch { /* skip malformed line */ }
+    }
+    return names;
+  } catch { return null; }
+}
+
+// ── already-uploaded marks (persisted per collection, informational only) ──
+function uploadedKey() { return 'solchess-uploaded:' + (state.currentCollectionName || ''); }
+function loadUploaded() {
+  state.uploadedIdx = new Set();
+  try {
+    const arr = JSON.parse(localStorage.getItem(uploadedKey()) || '[]');
+    if (Array.isArray(arr)) for (const n of arr) if (Number.isInteger(n) && n > 0) state.uploadedIdx.add(n);
+  } catch { /* private mode */ }
+}
+function saveUploaded() {
+  try { localStorage.setItem(uploadedKey(), JSON.stringify([...state.uploadedIdx])); } catch { /* private mode */ }
+}
+
+// ── pending intent: survives the OAuth redirect (collection + selection) ──
+function savePendingExportIntent() {
+  try {
+    sessionStorage.setItem(LS_EXPORT_PENDING, JSON.stringify({
+      collection: state.currentCollectionName,
+      encrypted: !!state.currentCollectionEncrypted,
+      sel: [...state.exportSel],
+    }));
+  } catch { /* private mode */ }
+}
+function restorePendingSelection() {
+  const intent = state.pendingExportIntent;
+  if (intent && Array.isArray(intent.sel)) {
+    state.exportSel = new Set(intent.sel.filter((n) => Number.isInteger(n) && n > 0));
+  }
+  state.pendingExportIntent = null;
+}
+async function resumePendingExport() {
+  let intent = null;
+  try { intent = JSON.parse(sessionStorage.getItem(LS_EXPORT_PENDING) || 'null'); } catch { /* ignore */ }
+  sessionStorage.removeItem(LS_EXPORT_PENDING);
+  if (!intent || !intent.collection || !state.lichess.token) return;
+  state.pendingExportIntent = intent;
+  if (intent.encrypted) {
+    state.exportAfterUnlock = true;     // password prompt → openExport on unlock
+    openCollection(intent.collection, true);
+  } else {
+    await openCollection(intent.collection, false);
+    if (state.games && state.games.length) {
+      restorePendingSelection();
+      openExport();
+    }
+  }
+}
+
+// ── export overlay: step 1 = pick the chunk, 2 = name/vis/dup, 3 = upload ──
+function exShowStep(n) {
+  for (const id of ['exStep1', 'exStep2', 'exStep3']) el(id).hidden = true;
+  el('exStep' + n).hidden = false;
+}
+function exportWarn(msg) {
+  const e = el('exErr');
+  e.textContent = msg;
+  e.hidden = false;
+  clearTimeout(exportWarn.t);
+  exportWarn.t = setTimeout(() => { e.hidden = true; }, 2800);
+}
+
+async function openExport() {
+  if (!state.games || !state.games.length) return;
+  // token present but username unknown (e.g. restored storage): verify it.
+  if (state.lichess.token && !state.lichess.user) {
+    const me = await lichessApi('/api/account', state.lichess.token);
+    if (me.ok && me.data && me.data.username) {
+      state.lichess.user = me.data.username;
+      try { localStorage.setItem(LS_LICHESS_USER, me.data.username); } catch { /* private mode */ }
+    } else if (me.status === 401) {
+      await lichessLogout(false);
+    }
+  }
+  if (!state.lichess.token) { savePendingExportIntent(); lichessLogin(); return; }
+  loadUploaded();
+  buildExportVis();
+  exShowStep(1);
+  el('exMeta').textContent = `${state.currentCollectionName} \u00b7 ${state.games.length} game${state.games.length === 1 ? '' : 's'} \u00b7 @${state.lichess.user || 'lichess'}`;
+  el('exSelAll').hidden = state.games.length > LICHESS.maxChapters;
+  buildExportList();
+  applyExportQuery();
+  el('exportModal').hidden = false;
+}
+function closeExport() { el('exportModal').hidden = true; }
+
+function buildExportList() {
+  const list = el('exList');
+  list.replaceChildren();
+  state.exRows = [];
+  state.exHeaders = [];
+  const ordered = orderGames(state.games);
+  const multi = new Set(state.games.map((g) => g.tournamentKey)).size > 1;
+  let lastKey = null;
+  for (const g of ordered) {
+    if (multi && g.tournamentKey !== lastKey) {
+      lastKey = g.tournamentKey;
+      const h = makeExportHeader(g);
+      list.appendChild(h.el);
+      state.exHeaders.push(h);
+    }
+    const r = makeExportRow(g);
+    list.appendChild(r.row);
+    state.exRows.push(r);
+  }
+  syncExportChecks();
+  syncExportCount();
+}
+
+function makeExportHeader(g) {
+  const games = state.games.filter((x) => x.tournamentKey === g.tournamentKey);
+  const hdr = document.createElement('div');
+  hdr.className = 'g-group ex-group';
+  const ev = document.createElement('span'); ev.className = 'ev'; ev.textContent = g.event || 'Tournament';
+  const yr = document.createElement('span'); yr.className = 'yr'; yr.textContent = g.year || '';
+  hdr.appendChild(ev); hdr.appendChild(yr);
+  let btn = null;
+  if (games.length <= LICHESS.maxChapters) {
+    btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'ex-gsel';
+    btn.textContent = 'Select';
+    btn.title = `Select all ${games.length} game${games.length === 1 ? '' : 's'} of this tournament`;
+    btn.onclick = () => {
+      if (state.exportSel.size + games.length > LICHESS.maxChapters) {
+        exportWarn(`Limit is ${LICHESS.maxChapters} \u2014 deselect ${state.exportSel.size + games.length - LICHESS.maxChapters} first.`);
+        return;
+      }
+      for (const x of games) state.exportSel.add(x.idx);
+      syncExportChecks();
+      syncExportCount();
+    };
+    hdr.appendChild(btn);
+  }
+  return { el: hdr, btn, key: g.tournamentKey, count: games.length };
+}
+
+function makeExportRow(g) {
+  const uploaded = state.uploadedIdx.has(g.idx);
+  const row = document.createElement('label');
+  row.className = 'ex-row' + (uploaded ? ' uploaded' : '');
+  const chk = document.createElement('input');
+  chk.type = 'checkbox';
+  chk.checked = state.exportSel.has(g.idx);
+  const t = document.createElement('span');
+  t.className = 't';
+  const a = document.createElement('span'); a.className = 'a'; a.textContent = g.rowTitle;
+  const b = document.createElement('span'); b.className = 'b'; b.textContent = rowMeta(g, 'round');
+  t.appendChild(a); t.appendChild(b);
+  row.appendChild(chk); row.appendChild(t);
+  if (uploaded) {
+    const d = document.createElement('span');
+    d.className = 'done';
+    d.textContent = '\u2713 uploaded';
+    row.appendChild(d);
+  }
+  chk.onchange = () => {
+    if (chk.checked) {
+      if (state.exportSel.size >= LICHESS.maxChapters) {   // hard blocker
+        chk.checked = false;
+        exportWarn(`Hard limit: ${LICHESS.maxChapters} games per study \u2014 deselect some first.`);
+        return;
+      }
+      state.exportSel.add(g.idx);
+    } else {
+      state.exportSel.delete(g.idx);
+    }
+    syncExportCount();
+  };
+  return { row, chk, game: g };
+}
+
+function syncExportChecks() {
+  for (const r of state.exRows) r.chk.checked = state.exportSel.has(r.game.idx);
+}
+function syncExportCount() {
+  const n = state.exportSel.size;
+  const c = el('exCount');
+  c.textContent = `${n} / ${LICHESS.maxChapters}`;
+  c.classList.toggle('full', n >= LICHESS.maxChapters);
+  el('exContinue').disabled = n < 1;
+  for (const h of state.exHeaders) {
+    if (h.btn) h.btn.disabled = n + h.count > LICHESS.maxChapters;
+  }
+}
+
+function exportSelectAll() {
+  for (const g of state.games) {
+    if (state.exportSel.size >= LICHESS.maxChapters) {
+      exportWarn(`Selected the first ${LICHESS.maxChapters} \u2014 the rest need separate studies.`);
+      break;
+    }
+    state.exportSel.add(g.idx);
+  }
+  syncExportChecks();
+  syncExportCount();
+}
+function exportClear() {
+  state.exportSel.clear();
+  syncExportChecks();
+  syncExportCount();
+}
+// Live filter over the cached export rows (same query semantics as the games view).
+function applyExportQuery() {
+  const inp = el('exSearch');
+  const q = inp ? inp.value : '';
+  const visByKey = new Map();
+  for (const { row, game } of state.exRows) {
+    const ok = matchesQuery(game, q);
+    row.hidden = !ok;
+    if (ok) visByKey.set(game.tournamentKey, (visByKey.get(game.tournamentKey) || 0) + 1);
+  }
+  for (const h of state.exHeaders) h.el.hidden = !(visByKey.get(h.key) > 0);
+}
+
+function exportSelectedGames() {
+  return orderGames(state.games).filter((g) => state.exportSel.has(g.idx));
+}
+function exportDefaultName(games) {
+  const keys = new Set(games.map((g) => g.tournamentKey));
+  if (keys.size === 1) return groupLabel(games[0]);
+  return state.currentCollectionName || 'Collection';
+}
+
+function buildExportVis() {
+  const row = el('exVisRow');
+  if (!row.children.length) {
+    for (const [val, label] of [['private', 'Private'], ['unlisted', 'Unlisted'], ['public', 'Public']]) {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'tgt';
+      b.dataset.vis = val;
+      b.textContent = label;
+      b.onclick = () => { state.exVis = val; syncVisChips(); };
+      row.appendChild(b);
+    }
+  }
+  syncVisChips();
+}
+function syncVisChips() {
+  for (const b of el('exVisRow').children) b.classList.toggle('active', b.dataset.vis === state.exVis);
+}
+
+function exportStep1() { exShowStep(1); }
+
+function exportStep2() {
+  const games = exportSelectedGames();
+  if (!games.length) return;
+  const def = exportDefaultName(games);
+  const cur = el('exName').value.trim();
+  if (!cur || cur === state.exAutoName) el('exName').value = def;   // keep user edits
+  state.exAutoName = def;
+  buildExportVis();
+  syncVisChips();
+  el('exSummary').textContent = `${games.length} game${games.length === 1 ? '' : 's'} \u2192 1 study`;
+  exShowStep(2);
+  exportRefreshDup();
+}
+
+// ── duplicate check (advisory): proposed name vs the user's studies ──
+let exDupSeq = 0;
+async function exportRefreshDup() {
+  const seq = ++exDupSeq;
+  const box = el('exDup');
+  state.exStudyNames = null;
+  box.hidden = false;
+  box.textContent = 'Checking your existing studies\u2026';
+  const names = await lichessStudyNames(state.lichess.token, state.lichess.user);
+  if (seq !== exDupSeq) return;         // a newer check superseded this one
+  state.exStudyNames = names;
+  exportDupWarning();
+}
+function exportDupWarning() {
+  const box = el('exDup');
+  const name = el('exName').value.trim();
+  if (!state.exStudyNames) { box.hidden = true; box.textContent = ''; return; }
+  const hit = state.exStudyNames.find((n) => normKey(n) === normKey(name));
+  if (hit) {
+    box.hidden = false;
+    box.innerHTML = `\u26a0 \u201c${escHtml(hit)}\u201d already exists on your Lichess account \u2014 uploading creates a second study with this name.`;
+  } else {
+    box.hidden = true;
+    box.textContent = '';
+  }
+}
+
+function exportEditAgain() {   // from a failed upload → back to name/visibility
+  exShowStep(2);
+  exportDupWarning();
+}
+
+async function exportUpload() {
+  const token = state.lichess.token;
+  if (!token) { closeExport(); return; }
+  const games = exportSelectedGames();
+  const name = el('exName').value.trim();
+  if (name.length < 2 || name.length > 100) {
+    exShowStep(2);
+    const box = el('exDup');
+    box.hidden = false;
+    box.textContent = 'Study name must be 2\u2013100 characters.';
+    return;
+  }
+  exShowStep(3);
+  const prog = el('exProgress');
+  prog.classList.remove('fail');
+  prog.textContent = `Creating study \u201c${name}\u201d\u2026`;
+  el('exDone').textContent = '';
+  el('exMore').hidden = true;
+  el('exRelogin').hidden = true;
+  el('exBack2').hidden = true;
+  const cre = await lichessCreateStudy(token, name, state.exVis);
+  if (!cre.ok || !cre.data || !cre.data.id) {
+    exportUploadFail(cre, `Could not create the study (HTTP ${cre.status}).`);
+    return;
+  }
+  const sid = cre.data.id;
+  const url = `https://lichess.org/study/${sid}`;
+  prog.textContent = `Importing ${games.length} game${games.length === 1 ? '' : 's'}\u2026`;
+  const pgn = games.map((g) => g.raw).join('\n\n') + '\n';
+  const imp = await lichessImportPgn(token, sid, pgn);
+  if (!imp.ok) { exportUploadFail(imp, `Import failed (HTTP ${imp.status}).`, url); return; }
+  if (imp.data && imp.data.error) { exportUploadFail(imp, `Lichess said: ${imp.data.error}`, url); return; }
+  const chapters = (imp.data && imp.data.chapters) || [];
+  if (chapters.length !== games.length) {
+    exportUploadFail(imp, `Sent ${games.length} games but Lichess created ${chapters.length} chapters.`, url);
+    return;
+  }
+  // success → mark as uploaded, clear the selection, show the link
+  for (const g of games) state.uploadedIdx.add(g.idx);
+  saveUploaded();
+  state.exportSel.clear();
+  syncExportChecks();
+  syncExportCount();
+  state.exStudyNames = null;            // a new study exists now
+  prog.textContent = '';
+  el('exDone').innerHTML = `\u2713 Uploaded ${games.length} game${games.length === 1 ? '' : 's'} as <a href="${url}" target="_blank" rel="noopener">\u201c${escHtml(name)}\u201d</a>`;
+  el('exMore').hidden = false;
+}
+
+function exportUploadFail(res, msg, url) {
+  const prog = el('exProgress');
+  prog.classList.add('fail');
+  if (res && res.status === 401) {
+    lichessLogout(false);
+    prog.textContent = '\u2717 ' + msg + ' Lichess session expired.';
+    el('exRelogin').hidden = false;     // re-login restores the selection too
+    return;
+  }
+  if (res && res.status === 429) {
+    prog.textContent = '\u2717 ' + msg + ' Rate limited \u2014 wait a minute and retry.';
+  } else {
+    prog.textContent = '\u2717 ' + msg;
+  }
+  if (url) {
+    const note = document.createElement('div');
+    note.className = 'mini';
+    note.textContent = 'Check the study at ' + url;
+    prog.appendChild(note);
+  }
+  el('exBack2').hidden = false;
+}
+
+function retryLichessLogin() {
+  if (!state.games || !state.games.length) { closeExport(); return; }
+  savePendingExportIntent();
+  lichessLogin();
+}
+
 // ── Wiring ──
 function buildControls() {
   const evRow = el('evalRow'), qlRow = el('glyphRow');
@@ -6158,6 +6830,7 @@ document.addEventListener('keydown', (e) => {
     for (const [id, fn] of [
       ['commentModal', closeCommentModal], ['engineModal', closeEngineModal],
       ['posModal', closePos], ['sidePrompt', hideSidePrompt], ['pwPrompt', hidePwPrompt],
+      ['exportModal', closeExport],
     ]) {
       if (!el(id).hidden) { fn(); return; }
     }
@@ -6175,7 +6848,7 @@ document.addEventListener('keydown', (e) => {
   else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); bFlip(); }
 });
 
-function boot() {
+async function boot() {
   'use strict';
   // ?dir= overrides the collections folder (relative to this file).
   const params = new URLSearchParams(location.search);
@@ -6201,6 +6874,10 @@ function boot() {
        location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
     navigator.serviceWorker.register('/sw.js').catch(() => { /* offline later */ });
   }
+  // OAuth return (?code=… from "Login with Lichess"): finish the PKCE
+  // exchange, then resume an interrupted export (restores collection +
+  // selection). handleOAuthReturn strips the params from the address bar.
+  if (await handleOAuthReturn() && state.lichess.token) await resumePendingExport();
 }
 
 if (typeof window !== 'undefined') boot();
