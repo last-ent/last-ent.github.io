@@ -284,9 +284,10 @@
     font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; min-height: 1em;
   }
   .evline {
-    display: inline-block; margin: 3px 4px 0 0; padding: 5px 10px; min-height: 34px;
+    display: block; width: 100%; margin: 3px 0 0; padding: 5px 10px; min-height: 34px;
     background: #2d2d2d; color: #bbb; border: 1px solid #3d3d3d; border-radius: 6px;
     font-family: "SF Mono", "Cascadia Code", "Consolas", monospace; font-size: 0.9rem;
+    line-height: 1.5; text-align: left;
     cursor: pointer; touch-action: manipulation;
   }
   .evline:hover { background: #383838; }
@@ -352,6 +353,8 @@
 
   /* annotate modal: contents capped to the board width for a tidy column */
   #commentModal .target-row, #commentModal .ann-rows, #commentModal .bc-post { width: min(74vmin, 380px); }
+  /* position modal: Copy FEN button matches the board width */
+  #posModal .pw-btns { width: min(74vmin, 380px); }
 
   /* sync toast: launch/re-sync status pill (top, pointer-transparent) */
   .sync-toast {
@@ -3998,8 +4001,8 @@ class Chess {
       <span class="title">Play</span>
       <span class="spacer"></span>
       <span class="mini" id="sideLabel"></span>
-      <button class="tool-btn" id="posBtn" onclick="posBtnTap()" onpointerdown="posBtnDown()" onpointerup="posBtnUp()" onpointerleave="posBtnUp()" onpointercancel="posBtnUp()" oncontextmenu="return false" aria-label="copy position, hold for Lichess" title="Copy FEN (hold for Lichess)">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+      <button class="tool-btn" id="posBtn" onclick="openCurrentPos()" aria-label="view current position" title="View current position">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 12h18M12 3v18"/></svg>
       </button>
     </div>
 
@@ -4073,7 +4076,7 @@ class Chess {
         <div class="mini" id="browsePlayers"></div>
       </div>
       <span class="spacer"></span>
-      <button class="tool-btn" id="bposBtn" onclick="posBtnTap()" onpointerdown="posBtnDown()" onpointerup="posBtnUp()" onpointerleave="posBtnUp()" onpointercancel="posBtnUp()" oncontextmenu="return false" aria-label="copy position, hold for Lichess" title="Copy FEN (hold for Lichess)">
+      <button class="tool-btn" id="bposBtn" onclick="copyCurrentFen()" aria-label="copy FEN" title="Copy FEN">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
       </button>
     </div>
@@ -4133,12 +4136,15 @@ class Chess {
   <div class="credit" id="verLine"></div>
 </div>
 
-<!-- POSITION MODAL -->
+<!-- POSITION MODAL (board diagram + Copy FEN) -->
 <div class="pos-overlay" id="posModal" hidden onclick="if(event.target===this) closePos()">
   <div class="pos-caption" id="posCaption"></div>
   <div id="posBoard" onclick="closePos()"></div>
   <div class="pos-comment" id="posComment" hidden></div>
-  <div class="pos-hint">tap the board to close</div>
+  <div class="pw-btns">
+    <button type="button" class="side-btn white" onclick="posCopy()">Copy FEN</button>
+  </div>
+  <div class="pos-hint" id="posMsg">tap the board to close</div>
 </div>
 
 <!-- MODE PROMPT (guess-the-move vs browse, then side) -->
@@ -4292,8 +4298,14 @@ class Chess {
 // position on lichess.org analysis) in both GTM and browse title bars; engine
 // boot handshake fixed (blob worker posts 'sfboot' after importScripts — the
 // earlier 'uci' raced the glue's onmessage install and was dropped).
+// v2.9 = position modal gains a Copy FEN button; GTM title bar gets a
+// view-board button (opens the modal at the latest revealed position); browse
+// title bar simplifies to tap-to-copy (Lichess deep-link/open dropped — the
+// app excludes /analysis from its app links); engine lines show the FULL
+// principal variation (one stacked line per MultiPV result, tap plays the
+// first move) instead of single-move chips.
 // Rendered into #verLine by boot() so a deploy can be verified.
-const SOLCHESS_VERSION = 'v2.8';
+const SOLCHESS_VERSION = 'v2.9';
 const EVALS = [
   { sym: '=',   nag: '$10' },
   { sym: '+=',  nag: '$14' },
@@ -5295,17 +5307,42 @@ function cellHtml(p) {
   return `<span class="mv-cell" data-pi="${p.pi}">${esc(p.san)}${src}${q}${cm}</span>`;
 }
 
-// ── Position modal ──
+// ── Position modal (board diagram + Copy FEN) ──
+let posFen = null;                     // fen the open modal is showing
+function showPosModal(fen, caption) {
+  posFen = fen;
+  el('posCaption').textContent = caption;
+  el('posBoard').innerHTML = boardSVG(fen);
+  el('posComment').hidden = true;
+  el('posMsg').textContent = 'tap the board to close';
+  el('posModal').hidden = false;
+}
 function openPos(pi) {
   const p = state.game.plies[pi];
   if (!p) return;
   // Standard PGN look: the move line with its annotation suffixes at the end.
-  el('posCaption').textContent = `after ${plyDisp(p)}`;
-  el('posBoard').innerHTML = boardSVG(p.fen);
+  showPosModal(p.fen, `after ${plyDisp(p)}`);
   const cmt = plyComment(p);
   if (cmt) { el('posComment').textContent = cmt; el('posComment').hidden = false; }
-  else el('posComment').hidden = true;
-  el('posModal').hidden = false;
+}
+function openCurrentPos() {   // GTM title-bar button: latest revealed position
+  if (!state.game) return;
+  showPosModal(gtmFen(), 'Current position');
+}
+async function posCopy() {
+  if (!posFen) return;
+  try {
+    await navigator.clipboard.writeText(posFen);
+    posFlash('FEN copied');
+  } catch (e) {
+    posFlash('Copy failed');
+  }
+}
+function posFlash(msg) {
+  const m = el('posMsg');
+  m.textContent = msg;
+  clearTimeout(posFlash.t);
+  posFlash.t = setTimeout(() => { m.textContent = 'tap the board to close'; }, 1600);
 }
 function closePos() { el('posModal').hidden = true; }
 
@@ -5367,7 +5404,7 @@ function safePgnFilename() {
   return title.replace(/[^\w\-]+/g, '_').slice(0, 60) + '.pgn';
 }
 
-// ── Copy / Lichess position (GTM + browse) ──
+// ── Copy position (browse title bar) + GTM current-position lookup ──
 // GTM has no board; the "current" position is the one the reveal logic is
 // showing (same rule as renderMoves): opening context + answered plies.
 function gtmFen() {
@@ -5385,32 +5422,11 @@ function gtmFen() {
   }
   return lastPi >= 0 ? g.plies[lastPi].fen : DEFAULT_POSITION;
 }
-function currentFen() { return state.browse ? bNode().fen : gtmFen(); }
-function lichessAnalysisUrl(fen) {
-  return 'https://lichess.org/analysis/' + String(fen).replace(/\s+/g, '_');
+async function copyFen(fen) {
+  try { await navigator.clipboard.writeText(fen); toastBrowse('FEN copied'); }
+  catch (e) { toastBrowse('Copy failed'); }
 }
-function posToast(msg) { (state.browse ? toastBrowse : toast)(msg); }
-async function copyCurrentFen() {
-  try { await navigator.clipboard.writeText(currentFen()); posToast('FEN copied'); }
-  catch (e) { posToast('Copy failed'); }
-}
-function openCurrentLichess() {
-  const w = window.open(lichessAnalysisUrl(currentFen()), '_blank', 'noopener');
-  if (!w) posToast('Pop-up blocked \u2014 allow popups for Lichess');
-}
-// Hold = Lichess, tap = copy (same tap/long-press pattern as the engine button).
-let posLpTimer = null;
-let posLpFired = false;
-function posBtnDown() {
-  posLpFired = false;
-  clearTimeout(posLpTimer);
-  posLpTimer = setTimeout(() => { posLpFired = true; openCurrentLichess(); }, 500);
-}
-function posBtnUp() { clearTimeout(posLpTimer); }
-function posBtnTap() {
-  if (posLpFired) { posLpFired = false; return; }
-  copyCurrentFen();
-}
+async function copyCurrentFen() { await copyFen(bNode().fen); }
 
 // ═══════════════════════════════════════════════════════════════════════════
 // Browse mode — full-variation tree reader over the same PGN collections.
@@ -6124,7 +6140,7 @@ const SF = {
       const pm = / pv (.+)$/.exec(line);
       const lm = / multipv (\d+)/.exec(line);
       if (sm && pm && state.browse && bNode().fen === this.fen) {
-        this.collectScore(lm ? Number(lm[1]) : 1, sm[1], Number(sm[2]), pm[1].trim().split(/\s+/)[0]);
+        this.collectScore(lm ? Number(lm[1]) : 1, sm[1], Number(sm[2]), pm[1].trim().split(/\s+/));
       }
       return;
     }
@@ -6141,25 +6157,35 @@ const SF = {
     return s.kind === 'mate' ? (s.v > 0 ? 100 : 0)
       : Math.round(100 / (1 + Math.pow(10, -s.v / 400)));   // win-probability style
   },
-  bestSan(s) {
-    if (!s.bestUci || s.bestUci.length < 4) return '';
-    try {
-      const b = new Chess();
-      b.load(this.fen);
-      const mv = b.move({
-        from: s.bestUci.slice(0, 2), to: s.bestUci.slice(2, 4),
-        promotion: s.bestUci.length > 4 ? s.bestUci[4] : undefined,
-      });
-      return mv ? ' \u00b7 ' + mv.san : '';
-    } catch { return ''; }   // raw uci shown without conversion
+  // Full principal variation → SAN (replay from the analysed position). A
+  // non-legal UCI move just truncates the line; nothing throws.
+  pvSan(pv) {
+    if (!pv || !pv.length) return '';
+    const b = new Chess();
+    try { b.load(this.fen); } catch { return pv.join(' '); }
+    const sans = [];
+    for (const u of pv) {
+      if (u.length < 4) break;
+      let mv = null;
+      try {
+        mv = b.move({
+          from: u.slice(0, 2), to: u.slice(2, 4),
+          promotion: u.length > 4 ? u[4] : undefined,
+        });
+      } catch { mv = null; }
+      if (!mv) break;
+      sans.push(mv.san);
+    }
+    return sans.join(' ');
   },
-  collectScore(idx, kind, v, bestUci) {
+  collectScore(idx, kind, v, pv) {
     if (idx < 1 || idx > SF_CFG.lines) return;
-    this.lineScores[idx] = { kind, v, bestUci };
+    this.lineScores[idx] = { kind, v, pv };
     this.renderLines();
   },
-  // MultiPV lines as clickable chips — tap to play that move on the board and
-  // re-analyse (guided click-through of the engine's suggested line).
+  // MultiPV results as stacked full lines — the whole principal variation per
+  // result, no click-through needed to read it. Tap plays the FIRST move and
+  // re-analyses from there (guided step-through when you want it).
   renderLines() {
     const e = el('evalText');
     e.replaceChildren();
@@ -6168,8 +6194,8 @@ const SF = {
       if (!s) continue;
       const b = document.createElement('button');
       b.className = 'evline';
-      b.textContent = '#' + i + ' ' + this.scoreStr(s) + this.bestSan(s);
-      b.title = 'play this move';
+      b.textContent = '#' + i + ' ' + this.scoreStr(s) + '  ' + this.pvSan(s.pv);
+      b.title = 'play this line';
       b.onclick = () => this.playLine(i);
       e.appendChild(b);
     }
@@ -6178,10 +6204,11 @@ const SF = {
   },
   playLine(i) {
     const s = this.lineScores[i];
-    if (!s || !s.bestUci || s.bestUci.length < 4) return;
+    if (!s || !s.pv || !s.pv.length || s.pv[0].length < 4) return;
+    const u = s.pv[0];
     bPlayMove({
-      from: s.bestUci.slice(0, 2), to: s.bestUci.slice(2, 4),
-      promotion: s.bestUci.length > 4 ? s.bestUci[4] : undefined,
+      from: u.slice(0, 2), to: u.slice(2, 4),
+      promotion: u.length > 4 ? u[4] : undefined,
     });
   },
   applyConfig() {
